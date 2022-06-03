@@ -1,5 +1,5 @@
 import { Box, ChevronIcon, Flex, Separator, Text } from "@artsy/palette"
-import * as React from "react";
+import * as React from "react"
 import { useTracking } from "v2/System/Analytics"
 import { AnalyticsSchema } from "v2/System"
 import { isMenuLinkData, LinkData, MenuData } from "../menuData"
@@ -37,6 +37,7 @@ export const NavBarMobileSubMenu: React.FC<NavBarMobileSubMenuProps> = ({
           })
         }}
         aria-expanded={false}
+        justifyContent="space-between"
       >
         {children}
 
