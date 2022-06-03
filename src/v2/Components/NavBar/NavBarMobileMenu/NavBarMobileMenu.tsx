@@ -1,4 +1,11 @@
-import { CloseIcon, MenuIcon, ModalBase, Separator, Text } from "@artsy/palette"
+import {
+  CloseIcon,
+  Flex,
+  MenuIcon,
+  ModalBase,
+  Separator,
+  Text,
+} from "@artsy/palette"
 import { AnalyticsSchema } from "v2/System"
 import { useTracking } from "v2/System/Analytics"
 import {
@@ -158,7 +165,9 @@ export const NavBarMobileMenu: React.FC<NavBarMobileMenuProps> = ({
 export const NavBarMobileMenuIcon: React.FC<{ open: boolean }> = ({ open }) => {
   // TODO: Should be able to scale these using width & height props
   return open ? (
-    <CloseIcon style={{ transform: "scale(1.5)" }} />
+    <Flex bg="white100">
+      <CloseIcon style={{ transform: "scale(1.5)" }} />
+    </Flex>
   ) : (
     <MenuIcon style={{ transform: "scale(1.5)" }} />
   )
