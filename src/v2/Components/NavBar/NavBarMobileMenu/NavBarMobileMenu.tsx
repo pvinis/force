@@ -1,4 +1,5 @@
 import {
+  Box,
   CloseIcon,
   Flex,
   MenuIcon,
@@ -22,6 +23,7 @@ import { NavBarMobileMenuNavigationProvider } from "./NavBarMobileMenuNavigation
 import { useDeviceDetection } from "v2/Utils/Hooks/useDeviceDetection"
 import { NavBarMobileMenuTransition } from "./NavBarMobileMenuTransition"
 import { NavBarMobileSubMenu } from "./NavBarMobileSubMenu"
+import { NavBarMobileMenuDialog } from "./NavBarMobileMenuDialog"
 
 interface NavBarMobileMenuProps {
   isOpen: boolean
@@ -77,84 +79,97 @@ export const NavBarMobileMenu: React.FC<NavBarMobileMenuProps> = ({
             <NavBarMobileMenuIcon open />
           </NavBarMobileMenuItemButton>
 
-          <NavBarMobileMenuTransition isOpen={isOpen} py={2}>
-            <NavBarMobileMenuItemLink
-              to="/collect"
-              color="black100"
-              onClick={handleClick}
-            >
-              Buy
-            </NavBarMobileMenuItemLink>
+          <NavBarMobileMenuTransition isOpen={isOpen}>
+            <Box height={60} />
 
-            <NavBarMobileSubMenu menu={ARTISTS_SUBMENU_DATA.menu}>
-              {ARTISTS_SUBMENU_DATA.menu.title}
-            </NavBarMobileSubMenu>
+            <NavBarMobileMenuDialog>
+              <NavBarMobileMenuItemLink
+                to="/collect"
+                color="black100"
+                onClick={handleClick}
+              >
+                Buy
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileSubMenu menu={ARTWORKS_SUBMENU_DATA.menu}>
-              {ARTWORKS_SUBMENU_DATA.menu.title}
-            </NavBarMobileSubMenu>
+              <NavBarMobileSubMenu menu={ARTISTS_SUBMENU_DATA.menu}>
+                {ARTISTS_SUBMENU_DATA.menu.title}
+              </NavBarMobileSubMenu>
 
-            <NavBarMobileMenuItemLink to="/auctions" onClick={handleClick}>
-              Auctions
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileSubMenu menu={ARTWORKS_SUBMENU_DATA.menu}>
+                {ARTWORKS_SUBMENU_DATA.menu.title}
+              </NavBarMobileSubMenu>
 
-            <NavBarMobileMenuItemLink to="/viewing-rooms" onClick={handleClick}>
-              Viewing Rooms
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink to="/auctions" onClick={handleClick}>
+                Auctions
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink to="/galleries" onClick={handleClick}>
-              Galleries
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink
+                to="/viewing-rooms"
+                onClick={handleClick}
+              >
+                Viewing Rooms
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink to="/art-fairs" onClick={handleClick}>
-              Fairs
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink to="/galleries" onClick={handleClick}>
+                Galleries
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink to="/shows" onClick={handleClick}>
-              Shows
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink to="/art-fairs" onClick={handleClick}>
+                Fairs
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink to="/institutions" onClick={handleClick}>
-              Museums
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink to="/shows" onClick={handleClick}>
+                Shows
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink to="/nft" onClick={handleClick}>
-              NFTs
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink
+                to="/institutions"
+                onClick={handleClick}
+              >
+                Museums
+              </NavBarMobileMenuItemLink>
 
-            <Separator my={1} />
+              <NavBarMobileMenuItemLink to="/nft" onClick={handleClick}>
+                NFTs
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink
-              to="/sell"
-              color="black100"
-              onClick={handleClick}
-            >
-              Sell
-            </NavBarMobileMenuItemLink>
+              <Separator my={1} />
 
-            <NavBarMobileMenuItemLink
-              to="/price-database"
-              color="black100"
-              onClick={handleClick}
-            >
-              Price Database
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink
+                to="/sell"
+                color="black100"
+                onClick={handleClick}
+              >
+                Sell
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuItemLink
-              to="/articles"
-              color="black100"
-              onClick={handleClick}
-            >
-              Editorial
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuItemLink
+                to="/price-database"
+                color="black100"
+                onClick={handleClick}
+              >
+                Price Database
+              </NavBarMobileMenuItemLink>
 
-            <Separator my={1} />
+              <NavBarMobileMenuItemLink
+                to="/articles"
+                color="black100"
+                onClick={handleClick}
+              >
+                Editorial
+              </NavBarMobileMenuItemLink>
 
-            <NavBarMobileMenuAuthentication />
+              <Separator my={1} />
 
-            <NavBarMobileMenuItemLink to={downloadAppUrl} onClick={handleClick}>
-              Get the app
-            </NavBarMobileMenuItemLink>
+              <NavBarMobileMenuAuthentication />
+
+              <NavBarMobileMenuItemLink
+                to={downloadAppUrl}
+                onClick={handleClick}
+              >
+                Get the app
+              </NavBarMobileMenuItemLink>
+            </NavBarMobileMenuDialog>
           </NavBarMobileMenuTransition>
         </Text>
       </ModalBase>

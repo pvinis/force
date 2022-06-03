@@ -1,4 +1,4 @@
-import { Box, ChevronIcon, Flex, Separator, Text } from "@artsy/palette"
+import { Box, ChevronIcon, Flex, Separator, Spacer, Text } from "@artsy/palette"
 import * as React from "react"
 import { useTracking } from "v2/System/Analytics"
 import { AnalyticsSchema } from "v2/System"
@@ -10,6 +10,7 @@ import {
 import { NavBarMobileMenuTransition } from "./NavBarMobileMenuTransition"
 import { useNavBarMobileMenuNavigation } from "./NavBarMobileMenuNavigation"
 import { useTrackingContextModule } from "./useTrackingContextModule"
+import { NavBarMobileMenuDialog } from "./NavBarMobileMenuDialog"
 
 interface NavBarMobileSubMenuProps {
   menu: MenuData
@@ -91,41 +92,45 @@ const NavBarMobileSubMenuPanel: React.FC<NavBarMobileSubMenuPanelProps> = ({
         {showBacknav && <Box size={60} />}
       </Flex>
 
-      {links.map((link, i) => {
-        const isLast = lastLinkIndex === i
+      <NavBarMobileMenuDialog>
+        {links.map((link, i) => {
+          const isLast = lastLinkIndex === i
 
-        return (
-          <NavBarMobileSubMenuItem
-            key={i}
-            link={link}
-            isLast={isLast}
-            isArtistsMenu={isArtistsMenu}
-          />
-        )
-      })}
+          return (
+            <NavBarMobileSubMenuItem
+              key={i}
+              link={link}
+              isLast={isLast}
+              isArtistsMenu={isArtistsMenu}
+            />
+          )
+        })}
 
-      {isArtistsMenu && (
-        <>
-          <Separator my={1} />
+        {isArtistsMenu && (
+          <>
+            <Separator my={1} />
 
-          <Flex flexWrap="wrap" justifyContent="center">
-            {LETTERS.map(letter => {
-              return (
-                <NavBarMobileMenuItemLink
-                  key={letter}
-                  width={60}
-                  px={0}
-                  justifyContent="center"
-                  to={`/artists/artists-starting-with-${letter.toLowerCase()}`}
-                  title={`View artists starting with “${letter}”`}
-                >
-                  {letter}
-                </NavBarMobileMenuItemLink>
-              )
-            })}
-          </Flex>
-        </>
-      )}
+            <Flex flexWrap="wrap" justifyContent="center">
+              {LETTERS.map(letter => {
+                return (
+                  <NavBarMobileMenuItemLink
+                    key={letter}
+                    width={60}
+                    px={0}
+                    justifyContent="center"
+                    to={`/artists/artists-starting-with-${letter.toLowerCase()}`}
+                    title={`View artists starting with “${letter}”`}
+                  >
+                    {letter}
+                  </NavBarMobileMenuItemLink>
+                )
+              })}
+            </Flex>
+
+            <Spacer mt={1} />
+          </>
+        )}
+      </NavBarMobileMenuDialog>
     </NavBarMobileMenuTransition>
   )
 }
