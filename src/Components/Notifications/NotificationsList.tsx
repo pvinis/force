@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Join, Separator, Text } from "@artsy/palette"
+import { Button, Flex, Separator, Spinner, Text } from "@artsy/palette"
 import {
   createPaginationContainer,
   graphql,
@@ -12,7 +12,7 @@ import {
 } from "__generated__/NotificationsListQuery.graphql"
 import { NotificationItemFragmentContainer } from "Components/Notifications/NotificationItem"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { useContext, useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import { SystemContext } from "System"
 import { NotificationsListScrollSentinel } from "./NotificationsListScrollSentinel"
 import { NotificationPaginationType, NotificationType } from "./types"
@@ -35,6 +35,7 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
   paginationType = "showMoreButton",
 }) => {
   const [loading, setLoading] = useState(false)
+  const [showMoreWasPressed, setShowMoreWasPressed] = useState(false)
   const nodes = extractNodes(viewer.notifications)
 
   const handleLoadNext = () => {
@@ -43,6 +44,7 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
     }
 
     setLoading(true)
+    setShowMoreWasPressed(true)
 
     relay.loadMore(10, err => {
       if (err) console.error(err)
@@ -51,20 +53,18 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
   }
 
   const renderFooter = () => {
-    if (!relay.hasMore()) {
-      return
+    if (relay.isLoading() || loading) {
+      return <Spinner />
     }
 
-    if (paginationType === "infinite") {
+    if (paginationType === "infinite" || showMoreWasPressed) {
       return <NotificationsListScrollSentinel onNext={handleLoadNext} />
     }
 
     return (
-      <Box textAlign="center" mt={4}>
-        <Button onClick={handleLoadNext} loading={loading}>
-          Show More
-        </Button>
-      </Box>
+      <Button onClick={handleLoadNext} size="small" variant="secondaryBlack">
+        Show More
+      </Button>
     )
   }
 
@@ -74,16 +74,24 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
 
   return (
     <>
-      <Join separator={<Separator />}>
-        {nodes.map(node => (
-          <NotificationItemFragmentContainer
-            key={node.internalID}
-            item={node}
-          />
-        ))}
-      </Join>
+      {nodes.map(node => (
+        <Fragment key={node.internalID}>
+          <NotificationItemFragmentContainer item={node} />
+          <Separator />
+        </Fragment>
+      ))}
 
-      {renderFooter()}
+      {relay.hasMore() && (
+        <Flex
+          my={2}
+          height={40}
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+        >
+          {renderFooter()}
+        </Flex>
+      )}
     </>
   )
 }
