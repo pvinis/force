@@ -35,6 +35,7 @@ const CellArticle: FC<CellArticleProps> = ({
       display="block"
       textDecoration="none"
       width={width}
+      target="_blank"
       {...rest}
     >
       <ResponsiveBox
