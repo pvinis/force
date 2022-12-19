@@ -9,6 +9,10 @@ import { useFeatureFlag } from "System/useFeatureFlag"
 export const Header: React.FC = () => {
   const { trackEvent } = useTracking()
   const showGetInTouchCTA = useFeatureFlag("get-in-touch-flow-web")
+  const enableSWAInquiryFlow = useFeatureFlag("swa-inquiry-flow")
+  const getInTouchRoute = enableSWAInquiryFlow
+    ? "/sell/inquiry"
+    : "mailto:sell@artsy.net?subject=Inquiry about selling with Artsy"
   const { user } = useSystemContext()
   const { contextPageOwnerType } = useAnalyticsContext()
 
@@ -19,7 +23,7 @@ export const Header: React.FC = () => {
       context_page_owner_type: contextPageOwnerType,
       label: "Submit an Artwork",
       user_id: user?.id,
-      destination_path: "/sell/submission/artwork-details",
+      destination_path: "/sell/submission",
     })
   }
 
@@ -87,7 +91,7 @@ export const Header: React.FC = () => {
                     mb={[4, 0]}
                     width={"100%"}
                     data-testid="get-in-touch-button"
-                    to="mailto:sell@artsy.net?subject=Inquiry about selling with Artsy"
+                    to={getInTouchRoute}
                   >
                     Get in Touch
                   </Button>
@@ -98,7 +102,7 @@ export const Header: React.FC = () => {
                 // @ts-ignore
                 as={RouterLink}
                 variant="primaryWhite"
-                to="/sell/submission/artwork-details"
+                to="/sell/submission"
                 onClick={trackSubmitClick}
                 mb={[4, 0]}
                 data-testid="submit-artwork-button"
