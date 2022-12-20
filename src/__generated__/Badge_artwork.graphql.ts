@@ -1,25 +1,28 @@
+/**
+ * @generated SignedSource<<e460d04c0230b65adc72e1dd635a7d84>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Badge_artwork = {
-    readonly is_biddable: boolean | null;
-    readonly href: string | null;
-    readonly sale: {
-        readonly is_preview: boolean | null;
-        readonly display_timely_at: string | null;
-    } | null;
-    readonly " $refType": "Badge_artwork";
+export type Badge_artwork$data = {
+  readonly href: string | null;
+  readonly is_biddable: boolean | null;
+  readonly sale: {
+    readonly display_timely_at: string | null;
+    readonly is_preview: boolean | null;
+  } | null;
+  readonly " $fragmentType": "Badge_artwork";
 };
-export type Badge_artwork$data = Badge_artwork;
 export type Badge_artwork$key = {
-    readonly " $data"?: Badge_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Badge_artwork">;
+  readonly " $data"?: Badge_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Badge_artwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -70,5 +73,7 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = 'c56c0d898e4433bfc5acdba932369f3f';
+
+(node as any).hash = "c56c0d898e4433bfc5acdba932369f3f";
+
 export default node;

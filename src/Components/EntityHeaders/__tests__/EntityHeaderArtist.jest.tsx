@@ -2,7 +2,7 @@ import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { EntityHeaderArtistFragmentContainer_Test_Query } from "__generated__/EntityHeaderArtistFragmentContainer_Test_Query.graphql"
 import { screen } from "@testing-library/react"
-import { EntityHeaderArtistFragmentContainer } from "../EntityHeaderArtist"
+import { EntityHeaderArtistFragmentContainer } from "Components/EntityHeaders/EntityHeaderArtist"
 
 jest.unmock("react-relay")
 

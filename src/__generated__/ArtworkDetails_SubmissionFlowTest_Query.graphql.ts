@@ -1,59 +1,27 @@
+/**
+ * @generated SignedSource<<1503cd5c8f639b7e2b63cd1f4392346e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkDetails_SubmissionFlowTest_QueryVariables = {
-    externalId?: string | null | undefined;
+export type ArtworkDetails_SubmissionFlowTest_Query$variables = {
+  externalId?: string | null;
 };
-export type ArtworkDetails_SubmissionFlowTest_QueryResponse = {
-    readonly submission: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkDetails_submission">;
-    } | null;
+export type ArtworkDetails_SubmissionFlowTest_Query$data = {
+  readonly submission: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkDetails_submission">;
+  } | null;
 };
 export type ArtworkDetails_SubmissionFlowTest_Query = {
-    readonly response: ArtworkDetails_SubmissionFlowTest_QueryResponse;
-    readonly variables: ArtworkDetails_SubmissionFlowTest_QueryVariables;
+  response: ArtworkDetails_SubmissionFlowTest_Query$data;
+  variables: ArtworkDetails_SubmissionFlowTest_Query$variables;
 };
-
-
-
-/*
-query ArtworkDetails_SubmissionFlowTest_Query(
-  $externalId: ID
-) {
-  submission(id: $externalId) {
-    ...ArtworkDetails_submission
-    id
-  }
-}
-
-fragment ArtworkDetails_submission on ConsignmentSubmission {
-  externalId
-  artist {
-    internalID
-    name
-    id
-  }
-  locationCity
-  locationCountry
-  locationState
-  locationPostalCode
-  locationCountryCode
-  year
-  title
-  medium
-  attributionClass
-  editionNumber
-  editionSize
-  height
-  width
-  depth
-  dimensionsMetric
-  provenance
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -275,6 +243,20 @@ return {
             "name": "provenance",
             "storageKey": null
           },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "userId",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "userEmail",
+            "storageKey": null
+          },
           (v2/*: any*/)
         ],
         "storageKey": null
@@ -282,7 +264,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a00243a1470440e8a827ffb35b35e11e",
+    "cacheID": "726e5fe3413750511eb6eabe3c0827d8",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -327,15 +309,24 @@ return {
         "submission.medium": (v4/*: any*/),
         "submission.provenance": (v4/*: any*/),
         "submission.title": (v4/*: any*/),
+        "submission.userEmail": (v4/*: any*/),
+        "submission.userId": {
+          "enumValues": null,
+          "nullable": false,
+          "plural": false,
+          "type": "String"
+        },
         "submission.width": (v4/*: any*/),
         "submission.year": (v4/*: any*/)
       }
     },
     "name": "ArtworkDetails_SubmissionFlowTest_Query",
     "operationKind": "query",
-    "text": "query ArtworkDetails_SubmissionFlowTest_Query(\n  $externalId: ID\n) {\n  submission(id: $externalId) {\n    ...ArtworkDetails_submission\n    id\n  }\n}\n\nfragment ArtworkDetails_submission on ConsignmentSubmission {\n  externalId\n  artist {\n    internalID\n    name\n    id\n  }\n  locationCity\n  locationCountry\n  locationState\n  locationPostalCode\n  locationCountryCode\n  year\n  title\n  medium\n  attributionClass\n  editionNumber\n  editionSize\n  height\n  width\n  depth\n  dimensionsMetric\n  provenance\n}\n"
+    "text": "query ArtworkDetails_SubmissionFlowTest_Query(\n  $externalId: ID\n) {\n  submission(id: $externalId) {\n    ...ArtworkDetails_submission\n    id\n  }\n}\n\nfragment ArtworkDetails_submission on ConsignmentSubmission {\n  externalId\n  artist {\n    internalID\n    name\n    id\n  }\n  locationCity\n  locationCountry\n  locationState\n  locationPostalCode\n  locationCountryCode\n  year\n  title\n  medium\n  attributionClass\n  editionNumber\n  editionSize\n  height\n  width\n  depth\n  dimensionsMetric\n  provenance\n  userId\n  userEmail\n}\n"
   }
 };
 })();
-(node as any).hash = 'e8762e63c84ab40531fa8b9d4f97893a';
+
+(node as any).hash = "e8762e63c84ab40531fa8b9d4f97893a";
+
 export default node;

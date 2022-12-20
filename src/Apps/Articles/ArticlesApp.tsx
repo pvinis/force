@@ -5,30 +5,21 @@ import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
 import { ArticlesIndexArticlesPaginationContainer } from "./Components/ArticlesIndexArticles"
 import { getENV } from "Utils/getENV"
-import { ArticlesApp_viewer } from "__generated__/ArticlesApp_viewer.graphql"
+import { ArticlesApp_viewer$data } from "__generated__/ArticlesApp_viewer.graphql"
 import { useScrollToOpenAuthModal } from "Utils/Hooks/useScrollToOpenAuthModal"
 import { ContextModule, Intent } from "@artsy/cohesion"
-import { useRouter } from "System/Router/useRouter"
 
 interface ArticlesAppProps {
-  viewer: ArticlesApp_viewer
+  viewer: ArticlesApp_viewer$data
 }
 
 const ArticlesApp: FC<ArticlesAppProps> = ({ viewer }) => {
-  const {
-    match: { location },
-  } = useRouter()
-
   useScrollToOpenAuthModal({
     key: "editorial-signup-dismissed",
     modalOptions: {
       intent: Intent.viewEditorial,
       contextModule: ContextModule.popUpModal,
       copy: "Sign up for the latest in art market news",
-      destination: location.pathname,
-      afterSignUpAction: {
-        action: "editorialSignup",
-      },
     },
   })
 
@@ -47,11 +38,11 @@ const ArticlesApp: FC<ArticlesAppProps> = ({ viewer }) => {
         title="Artsy News"
       />
 
-      <Spacer mt={[2, 4]} />
+      <Spacer y={[2, 4]} />
 
       <Text variant="xl">Editorial</Text>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <ArticlesIndexArticlesPaginationContainer viewer={viewer} />
     </>

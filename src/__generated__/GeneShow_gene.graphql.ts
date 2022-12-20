@@ -1,66 +1,71 @@
+/**
+ * @generated SignedSource<<1f209c20ef01ef71796440620a7a06a7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type GeneShow_gene = {
-    readonly name: string | null;
-    readonly displayName: string | null;
-    readonly formattedDescription: string | null;
-    readonly similar: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-                readonly name: string | null;
-                readonly href: string | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly artistsConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-                readonly name: string | null;
-                readonly href: string | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"GeneMeta_gene" | "GeneArtworkFilter_gene" | "FollowGeneButton_gene">;
-    readonly " $refType": "GeneShow_gene";
+export type GeneShow_gene$data = {
+  readonly artistsConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly href: string | null;
+        readonly internalID: string;
+        readonly name: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly displayName: string | null;
+  readonly formattedDescription: string | null;
+  readonly internalID: string;
+  readonly name: string | null;
+  readonly similar: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly href: string | null;
+        readonly internalID: string;
+        readonly name: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"GeneArtworkFilter_gene" | "GeneMeta_gene">;
+  readonly " $fragmentType": "GeneShow_gene";
 };
-export type GeneShow_gene$data = GeneShow_gene;
 export type GeneShow_gene$key = {
-    readonly " $data"?: GeneShow_gene$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"GeneShow_gene">;
+  readonly " $data"?: GeneShow_gene$data;
+  readonly " $fragmentSpreads": FragmentRefs<"GeneShow_gene">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "internalID",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v1 = [
+v2 = [
   {
     "kind": "Literal",
     "name": "first",
     "value": 10
   }
 ],
-v2 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "internalID",
-    "storageKey": null
-  },
+v3 = [
   (v0/*: any*/),
+  (v1/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -91,91 +96,6 @@ return {
   "metadata": null,
   "name": "GeneShow_gene",
   "selections": [
-    (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "displayName",
-      "storageKey": null
-    },
-    {
-      "alias": "formattedDescription",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "format",
-          "value": "HTML"
-        }
-      ],
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": "description(format:\"HTML\")"
-    },
-    {
-      "alias": null,
-      "args": (v1/*: any*/),
-      "concreteType": "GeneConnection",
-      "kind": "LinkedField",
-      "name": "similar",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "GeneEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Gene",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": (v2/*: any*/),
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": "similar(first:10)"
-    },
-    {
-      "alias": null,
-      "args": (v1/*: any*/),
-      "concreteType": "ArtistConnection",
-      "kind": "LinkedField",
-      "name": "artistsConnection",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ArtistEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Artist",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": (v2/*: any*/),
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": "artistsConnection(first:10)"
-    },
     {
       "args": null,
       "kind": "FragmentSpread",
@@ -202,15 +122,98 @@ return {
       "kind": "FragmentSpread",
       "name": "GeneArtworkFilter_gene"
     },
+    (v0/*: any*/),
+    (v1/*: any*/),
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "FollowGeneButton_gene"
+      "kind": "ScalarField",
+      "name": "displayName",
+      "storageKey": null
+    },
+    {
+      "alias": "formattedDescription",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "format",
+          "value": "HTML"
+        }
+      ],
+      "kind": "ScalarField",
+      "name": "description",
+      "storageKey": "description(format:\"HTML\")"
+    },
+    {
+      "alias": null,
+      "args": (v2/*: any*/),
+      "concreteType": "GeneConnection",
+      "kind": "LinkedField",
+      "name": "similar",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "GeneEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Gene",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": (v3/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": "similar(first:10)"
+    },
+    {
+      "alias": null,
+      "args": (v2/*: any*/),
+      "concreteType": "ArtistConnection",
+      "kind": "LinkedField",
+      "name": "artistsConnection",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ArtistEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Artist",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": (v3/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": "artistsConnection(first:10)"
     }
   ],
   "type": "Gene",
   "abstractKey": null
 };
 })();
-(node as any).hash = '08451d4b8e9ae7f26fd88085b5648485';
+
+(node as any).hash = "e8f002f3b327a956207347d0a84533db";
+
 export default node;

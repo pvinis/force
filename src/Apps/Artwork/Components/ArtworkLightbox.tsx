@@ -3,13 +3,13 @@ import { Link } from "react-head"
 import { compact } from "lodash"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtworkLightbox_artwork } from "__generated__/ArtworkLightbox_artwork.graphql"
+import { ArtworkLightbox_artwork$data } from "__generated__/ArtworkLightbox_artwork.graphql"
 import { useSystemContext } from "System"
 import { userIsTeam } from "Utils/user"
 import { ArtworkLightboxPlaceholder } from "./ArtworkLightboxPlaceholder"
 
 interface ArtworkLightboxProps extends ClickableProps {
-  artwork: ArtworkLightbox_artwork
+  artwork: ArtworkLightbox_artwork$data
   activeIndex: number
   maxHeight: number
   lazyLoad?: boolean
@@ -62,12 +62,13 @@ const ArtworkLightbox: React.FC<ArtworkLightboxProps> = ({
         {...rest}
       >
         <ResponsiveBox
+          data-testid="artwork-lightbox-box"
           bg="black10"
           mx={[0, 2]}
           // @ts-ignore
-          maxWidth={image.width ?? "100%"}
-          aspectWidth={image.width ?? 1}
-          aspectHeight={image.height ?? 1}
+          maxWidth={image.width || "100%"}
+          aspectWidth={image.width || 1}
+          aspectHeight={image.height || 1}
         >
           <ArtworkLightboxPlaceholder
             key={placeholder!}
@@ -77,6 +78,7 @@ const ArtworkLightbox: React.FC<ArtworkLightboxProps> = ({
           />
 
           <Image
+            data-testid="artwork-lightbox-image"
             id={isDefault ? "transitionFrom--ViewInRoom" : undefined}
             key={image.src}
             width="100%"

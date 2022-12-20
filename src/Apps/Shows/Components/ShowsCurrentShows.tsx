@@ -10,14 +10,14 @@ import { useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { extractNodes } from "Utils/extractNodes"
 import { ShowsCurrentShowsQuery } from "__generated__/ShowsCurrentShowsQuery.graphql"
-import { ShowsCurrentShows_viewer } from "__generated__/ShowsCurrentShows_viewer.graphql"
+import { ShowsCurrentShows_viewer$data } from "__generated__/ShowsCurrentShows_viewer.graphql"
 import {
   ShowsCurrentShowFragmentContainer,
   ShowsCurrentShowPlaceholder,
 } from "./ShowsCurrentShow"
 
 interface ShowsCurrentShowsProps {
-  viewer: ShowsCurrentShows_viewer
+  viewer: ShowsCurrentShows_viewer$data
   relay: RelayPaginationProp
 }
 

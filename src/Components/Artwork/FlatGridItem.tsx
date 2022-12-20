@@ -7,14 +7,14 @@ import { useSystemContext } from "System"
 import { RouterLink } from "System/Router/RouterLink"
 import { useTimer } from "Utils/Hooks/useTimer"
 import { userIsTeam } from "Utils/user"
-import { FlatGridItem_artwork } from "__generated__/FlatGridItem_artwork.graphql"
-import { useArtworkGridContext } from "../ArtworkGrid/ArtworkGridContext"
+import { FlatGridItem_artwork$data } from "__generated__/FlatGridItem_artwork.graphql"
+import { useArtworkGridContext } from "Components/ArtworkGrid/ArtworkGridContext"
 import { useAuctionWebsocket } from "Components/useAuctionWebsocket"
 import Metadata from "./Metadata"
 import { SaveButtonFragmentContainer, useSaveButton } from "./SaveButton"
 
 interface FlatGridItemProps {
-  artwork: FlatGridItem_artwork
+  artwork: FlatGridItem_artwork$data
   onClick?: () => void
 }
 
@@ -136,7 +136,7 @@ export const FlatGridItemFragmentContainer = createFragmentContainer(
         title
         image_title: imageTitle
         image {
-          resized(width: 445, version: ["normalized", "larger", "large"]) {
+          resized(width: 445, version: ["larger", "large"]) {
             src
             srcSet
             width

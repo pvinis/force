@@ -3,10 +3,10 @@ import { Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { SectionContainer } from "./SectionContainer"
 import { Subheader } from "./Subheader"
-import { ArtistConsignPageViews_artist } from "__generated__/ArtistConsignPageViews_artist.graphql"
+import { ArtistConsignPageViews_artist$data } from "__generated__/ArtistConsignPageViews_artist.graphql"
 
 interface ArtistConsignPageViewsProps {
-  artist: ArtistConsignPageViews_artist
+  artist: ArtistConsignPageViews_artist$data
 }
 
 export const ArtistConsignPageViews: React.FC<ArtistConsignPageViewsProps> = props => {
@@ -25,7 +25,7 @@ export const ArtistConsignPageViews: React.FC<ArtistConsignPageViewsProps> = pro
         month
       </Subheader>
 
-      <Spacer my={1} />
+      <Spacer y={1} />
 
       <Text variant="lg-display">
         Over {roundedUniqueVisitors} Artsy collectors are looking for works by

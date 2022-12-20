@@ -2,10 +2,10 @@ import { Text } from "@artsy/palette"
 import React, { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import ArtworkGrid from "Components/ArtworkGrid"
-import { NewForYouArtworksGrid_viewer } from "__generated__/NewForYouArtworksGrid_viewer.graphql"
+import { NewForYouArtworksGrid_viewer$data } from "__generated__/NewForYouArtworksGrid_viewer.graphql"
 
 interface NewForYouArtworksGridProps {
-  viewer: NewForYouArtworksGrid_viewer
+  viewer: NewForYouArtworksGrid_viewer$data
 }
 
 export const NewForYouArtworksGrid: FC<NewForYouArtworksGridProps> = ({
@@ -13,7 +13,8 @@ export const NewForYouArtworksGrid: FC<NewForYouArtworksGridProps> = ({
 }) => {
   return (
     <>
-      {viewer.artworksForUser?.totalCount! > 0 ? (
+      {viewer.artworksForUser &&
+      (viewer.artworksForUser.totalCount ?? 0) > 0 ? (
         <ArtworkGrid artworks={viewer.artworksForUser} />
       ) : (
         <Text variant="lg" mt={4} color="black60">
@@ -33,11 +34,13 @@ export const NewForYouArtworksGridFragmentContainer = createFragmentContainer(
           first: { type: "Int" }
           includeBackfill: { type: "Boolean!" }
           version: { type: "String" }
+          maxWorksPerArtist: { type: "Int" }
         ) {
         artworksForUser(
           first: $first
           includeBackfill: $includeBackfill
           version: $version
+          maxWorksPerArtist: $maxWorksPerArtist
         ) {
           totalCount
           ...ArtworkGrid_artworks

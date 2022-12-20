@@ -1,29 +1,32 @@
+/**
+ * @generated SignedSource<<88734680512f999d42fa3e7248021bd6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ViewInRoomArtwork_artwork = {
-    readonly widthCm: number | null;
-    readonly heightCm: number | null;
-    readonly image: {
-        readonly resized: {
-            readonly src: string;
-            readonly srcSet: string;
-            readonly width: number | null;
-            readonly height: number | null;
-        } | null;
+export type ViewInRoomArtwork_artwork$data = {
+  readonly heightCm: number | null;
+  readonly image: {
+    readonly resized: {
+      readonly height: number | null;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number | null;
     } | null;
-    readonly " $refType": "ViewInRoomArtwork_artwork";
+  } | null;
+  readonly widthCm: number | null;
+  readonly " $fragmentType": "ViewInRoomArtwork_artwork";
 };
-export type ViewInRoomArtwork_artwork$data = ViewInRoomArtwork_artwork;
 export type ViewInRoomArtwork_artwork$key = {
-    readonly " $data"?: ViewInRoomArtwork_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ViewInRoomArtwork_artwork">;
+  readonly " $data"?: ViewInRoomArtwork_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ViewInRoomArtwork_artwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -119,5 +122,7 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = 'bc5464f76e87fec45a2755a5c070c322';
+
+(node as any).hash = "bc5464f76e87fec45a2755a5c070c322";
+
 export default node;

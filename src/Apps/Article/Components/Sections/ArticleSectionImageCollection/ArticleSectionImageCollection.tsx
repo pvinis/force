@@ -9,18 +9,18 @@ import {
   GridColumns,
   Column,
 } from "@artsy/palette"
-import { ArticleSectionImageCollection_section } from "__generated__/ArticleSectionImageCollection_section.graphql"
+import { ArticleSectionImageCollection_section$data } from "__generated__/ArticleSectionImageCollection_section.graphql"
 import { ArticleSectionImageCollectionImageFragmentContainer } from "./ArticleSectionImageCollectionImage"
 import { ArticleSectionImageCollectionCaptionFragmentContainer } from "./ArticleSectionImageCollectionCaption"
 import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
-import { CENTERED_LAYOUT_COLUMNS } from "../../ArticleBody"
+import { CENTERED_LAYOUT_COLUMNS } from "Apps/Article/Components/ArticleBody"
 
 const FULLBLEED_IMAGE_WIDTH = 2000
 const MAX_IMAGE_WIDTH = 910
 const FIGURE_GUTTER_WIDTH = 10
 
 interface ArticleSectionImageCollectionProps {
-  section: ArticleSectionImageCollection_section
+  section: ArticleSectionImageCollection_section$data
 }
 
 const ArticleSectionImageCollection: FC<ArticleSectionImageCollectionProps> = ({
@@ -52,7 +52,7 @@ const ArticleSectionImageCollection: FC<ArticleSectionImageCollectionProps> = ({
   return (
     <Container>
       <Flex alignItems="flex-end">
-        <Join separator={<Spacer ml={FIGURE_GUTTER_WIDTH} />}>
+        <Join separator={<Spacer x={FIGURE_GUTTER_WIDTH} />}>
           {section.figures.map((figure, i) => {
             return (
               <ArticleSectionImageCollectionImageFragmentContainer
@@ -65,10 +65,10 @@ const ArticleSectionImageCollection: FC<ArticleSectionImageCollectionProps> = ({
         </Join>
       </Flex>
 
-      <Spacer mt={1} />
+      <Spacer y={1} />
 
       <Flex alignItems="flex-start">
-        <Join separator={<Spacer ml={FIGURE_GUTTER_WIDTH} />}>
+        <Join separator={<Spacer x={FIGURE_GUTTER_WIDTH} />}>
           {section.figures.map((figure, i) => {
             return (
               <Box key={i} flex={1} overflow="hidden">

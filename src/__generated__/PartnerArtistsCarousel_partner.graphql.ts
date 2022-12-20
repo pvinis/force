@@ -1,32 +1,32 @@
+/**
+ * @generated SignedSource<<f7c646b8571c7b83b5c3b077dd6005d7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerArtistsCarousel_partner = {
-    readonly slug: string;
-    readonly artistsConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly counts: {
-                readonly artworks: number | null;
-            } | null;
-            readonly node: {
-                readonly id: string;
-                readonly slug: string;
-            } | null;
-            readonly " $fragmentRefs": FragmentRefs<"PartnerArtistsCarouselItem_artist">;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "PartnerArtistsCarousel_partner";
+export type PartnerArtistsCarousel_partner$data = {
+  readonly artistsConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly slug: string;
+      } | null;
+      readonly " $fragmentSpreads": FragmentRefs<"CellPartnerArtist_partnerArtist">;
+    } | null> | null;
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "PartnerArtistsCarousel_partner";
 };
-export type PartnerArtistsCarousel_partner$data = PartnerArtistsCarousel_partner;
 export type PartnerArtistsCarousel_partner$key = {
-    readonly " $data"?: PartnerArtistsCarousel_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnerArtistsCarousel_partner">;
+  readonly " $data"?: PartnerArtistsCarousel_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnerArtistsCarousel_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -78,24 +78,6 @@ return {
             {
               "alias": null,
               "args": null,
-              "concreteType": "PartnerArtistCounts",
-              "kind": "LinkedField",
-              "name": "counts",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "artworks",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
               "concreteType": "Artist",
               "kind": "LinkedField",
               "name": "node",
@@ -105,7 +87,7 @@ return {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "id",
+                  "name": "internalID",
                   "storageKey": null
                 },
                 (v0/*: any*/)
@@ -115,7 +97,7 @@ return {
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "PartnerArtistsCarouselItem_artist"
+              "name": "CellPartnerArtist_partnerArtist"
             }
           ],
           "storageKey": null
@@ -128,5 +110,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b4252ea48c05f4c22efdc890b6891d28';
+
+(node as any).hash = "5a2a04dc5419e09f9180b7b52bae6077";
+
 export default node;

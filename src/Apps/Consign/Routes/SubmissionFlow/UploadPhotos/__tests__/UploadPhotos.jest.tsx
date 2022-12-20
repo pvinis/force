@@ -1,26 +1,26 @@
-import { graphql } from "relay-runtime"
-import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { UploadPhotosFragmentContainer } from "../UploadPhotos"
-import { SystemContextProvider } from "System"
-import { MBSize, uploadPhoto } from "../../Utils/fileUtils"
-import { fetchQuery } from "react-relay"
 import { fireEvent, screen, waitFor } from "@testing-library/react"
+import { UploadPhotosFragmentContainer } from "Apps/Consign/Routes/SubmissionFlow/UploadPhotos/UploadPhotos"
+import { MBSize, uploadPhoto } from "Components/PhotoUpload/Utils/fileUtils"
+import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
+import { fetchQuery, graphql } from "react-relay"
+import { SystemContextProvider } from "System"
 
 jest.unmock("react-relay")
 
 const mockRouterPush = jest.fn()
+const mockRouterReplace = jest.fn()
 jest.mock("System/Router/useRouter", () => {
   return {
     useRouter: jest.fn(() => {
       return {
-        router: { push: mockRouterPush },
+        router: { push: mockRouterPush, replace: mockRouterReplace },
       }
     }),
   }
 })
 
-jest.mock("../../Utils/fileUtils", () => ({
-  ...jest.requireActual("../../Utils/fileUtils"),
+jest.mock("Components/PhotoUpload/Utils/fileUtils", () => ({
+  ...jest.requireActual("Components/PhotoUpload/Utils/fileUtils"),
   uploadPhoto: jest.fn(),
 }))
 
@@ -76,6 +76,33 @@ const { renderWithRelay } = setupTestWrapperTL({
   `,
   variables: {
     externalId: "b2449fe2-e828-4a32-ace7-ff0753cd01ef",
+  },
+})
+
+const { renderWithRelay: renderWithRelayMyCollection } = setupTestWrapperTL({
+  Component: props => {
+    return (
+      <SystemContextProvider>
+        <UploadPhotosFragmentContainer {...props} />
+      </SystemContextProvider>
+    )
+  },
+  query: graphql`
+    query UploadPhotos_SubmissionMyCollectionFlowTest_Query(
+      $externalId: ID
+      $artworkId: String!
+    ) @relay_test_operation {
+      submission(externalId: $externalId) {
+        ...UploadPhotos_submission
+      }
+      myCollectionArtwork: artwork(id: $artworkId) {
+        ...UploadPhotos_myCollectionArtwork
+      }
+    }
+  `,
+  variables: {
+    externalId: "b2449fe2-e828-4a32-ace7-ff0753cd01ef",
+    artworkId: "b2449fe2-e828-4a32-ace7-ff0753cd01ef",
   },
 })
 
@@ -216,6 +243,27 @@ describe("UploadPhotos", () => {
     })
   })
 
+  it("populates images from My Collection artwork", async () => {
+    const artwork = {
+      internalID: "b2449fe2-e828-4a32-ace7-ff0753cd01ef",
+      images: [
+        {
+          url: "an-url",
+        },
+        {
+          url: "another-url",
+        },
+      ],
+    }
+
+    renderWithRelayMyCollection({
+      ConsignmentSubmission: () => submission,
+      Artwork: () => artwork,
+    })
+
+    expect(screen.getAllByTestId("photo-thumbnail").length).toEqual(2)
+  })
+
   it("prepopulates images from server", async () => {
     renderWithRelay({
       ConsignmentSubmission: () => ({
@@ -262,9 +310,9 @@ describe("UploadPhotos", () => {
     await waitFor(() => {
       expect(mockAddAsset).toHaveBeenCalled()
       expect(mockRouterPush).toHaveBeenCalled()
-      expect(mockRouterPush).toHaveBeenCalledWith({
-        pathname: `/sell/submission/${submission.externalId}/contact-information`,
-      })
+      expect(mockRouterPush).toHaveBeenCalledWith(
+        `/sell/submission/${submission.externalId}/contact-information`
+      )
     })
   })
 

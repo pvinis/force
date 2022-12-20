@@ -1,144 +1,28 @@
+/**
+ * @generated SignedSource<<86c931ed0b17ff27755c00d7071201f1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistsIndexFragmentContainer_Test_QueryVariables = {};
-export type ArtistsIndexFragmentContainer_Test_QueryResponse = {
-    readonly featuredArtists: ReadonlyArray<{
-        readonly " $fragmentRefs": FragmentRefs<"ArtistsIndex_featuredArtists">;
-    } | null> | null;
-    readonly featuredGenes: ReadonlyArray<{
-        readonly " $fragmentRefs": FragmentRefs<"ArtistsIndex_featuredGenes">;
-    } | null> | null;
+export type ArtistsIndexFragmentContainer_Test_Query$variables = {};
+export type ArtistsIndexFragmentContainer_Test_Query$data = {
+  readonly featuredArtists: ReadonlyArray<{
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistsIndex_featuredArtists">;
+  } | null> | null;
+  readonly featuredGenes: ReadonlyArray<{
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistsIndex_featuredGenes">;
+  } | null> | null;
 };
 export type ArtistsIndexFragmentContainer_Test_Query = {
-    readonly response: ArtistsIndexFragmentContainer_Test_QueryResponse;
-    readonly variables: ArtistsIndexFragmentContainer_Test_QueryVariables;
+  response: ArtistsIndexFragmentContainer_Test_Query$data;
+  variables: ArtistsIndexFragmentContainer_Test_Query$variables;
 };
-
-
-
-/*
-query ArtistsIndexFragmentContainer_Test_Query {
-  featuredArtists: orderedSets(key: "homepage:featured-artists") {
-    ...ArtistsIndex_featuredArtists
-    id
-  }
-  featuredGenes: orderedSets(key: "artists:featured-genes") {
-    ...ArtistsIndex_featuredGenes
-    id
-  }
-}
-
-fragment ArtistsCarouselCell_featuredLink on FeaturedLink {
-  internalID
-  title
-  subtitle
-  href
-  entity {
-    __typename
-    ... on Artist {
-      internalID
-      name
-      formattedNationalityAndBirthday
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-  image {
-    thumb: cropped(width: 600, height: 450, version: "wide") {
-      width
-      height
-      src
-      srcSet
-    }
-  }
-}
-
-fragment ArtistsIndex_featuredArtists on OrderedSet {
-  name
-  artists: items {
-    __typename
-    ... on FeaturedLink {
-      internalID
-      id
-    }
-    ...ArtistsCarouselCell_featuredLink
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on Profile {
-      id
-    }
-  }
-}
-
-fragment ArtistsIndex_featuredGenes on OrderedSet {
-  name
-  genes: items {
-    __typename
-    ... on Gene {
-      internalID
-      name
-      href
-      trendingArtists(sample: 4) {
-        ...CellArtist_artist
-        internalID
-        id
-      }
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on FeaturedLink {
-      id
-    }
-    ... on Profile {
-      id
-    }
-  }
-}
-
-fragment CellArtist_artist on Artist {
-  ...EntityHeaderArtist_artist
-  internalID
-  slug
-  name
-  href
-  initials
-  image {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment EntityHeaderArtist_artist on Artist {
-  internalID
-  href
-  slug
-  name
-  initials
-  formattedNationalityAndBirthday
-  counts {
-    artworks
-    forSaleArtworks
-  }
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -594,7 +478,6 @@ return {
                                 "kind": "Literal",
                                 "name": "version",
                                 "value": [
-                                  "normalized",
                                   "larger",
                                   "large"
                                 ]
@@ -610,7 +493,7 @@ return {
                             "name": "cropped",
                             "plural": false,
                             "selections": (v13/*: any*/),
-                            "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                            "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                           }
                         ],
                         "storageKey": null
@@ -641,7 +524,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5e2784cfd8069a69868744c4c9303c1c",
+    "cacheID": "f44ec3b0852bd5607ab7196aca25ce67",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -717,9 +600,11 @@ return {
     },
     "name": "ArtistsIndexFragmentContainer_Test_Query",
     "operationKind": "query",
-    "text": "query ArtistsIndexFragmentContainer_Test_Query {\n  featuredArtists: orderedSets(key: \"homepage:featured-artists\") {\n    ...ArtistsIndex_featuredArtists\n    id\n  }\n  featuredGenes: orderedSets(key: \"artists:featured-genes\") {\n    ...ArtistsIndex_featuredGenes\n    id\n  }\n}\n\nfragment ArtistsCarouselCell_featuredLink on FeaturedLink {\n  internalID\n  title\n  subtitle\n  href\n  entity {\n    __typename\n    ... on Artist {\n      internalID\n      name\n      formattedNationalityAndBirthday\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  image {\n    thumb: cropped(width: 600, height: 450, version: \"wide\") {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n\nfragment ArtistsIndex_featuredArtists on OrderedSet {\n  name\n  artists: items {\n    __typename\n    ... on FeaturedLink {\n      internalID\n      id\n    }\n    ...ArtistsCarouselCell_featuredLink\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n\nfragment ArtistsIndex_featuredGenes on OrderedSet {\n  name\n  genes: items {\n    __typename\n    ... on Gene {\n      internalID\n      name\n      href\n      trendingArtists(sample: 4) {\n        ...CellArtist_artist\n        internalID\n        id\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query ArtistsIndexFragmentContainer_Test_Query {\n  featuredArtists: orderedSets(key: \"homepage:featured-artists\") {\n    ...ArtistsIndex_featuredArtists\n    id\n  }\n  featuredGenes: orderedSets(key: \"artists:featured-genes\") {\n    ...ArtistsIndex_featuredGenes\n    id\n  }\n}\n\nfragment ArtistsCarouselCell_featuredLink on FeaturedLink {\n  internalID\n  title\n  subtitle\n  href\n  entity {\n    __typename\n    ... on Artist {\n      internalID\n      name\n      formattedNationalityAndBirthday\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  image {\n    thumb: cropped(width: 600, height: 450, version: \"wide\") {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n\nfragment ArtistsIndex_featuredArtists on OrderedSet {\n  name\n  artists: items {\n    __typename\n    ... on FeaturedLink {\n      internalID\n      id\n    }\n    ...ArtistsCarouselCell_featuredLink\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n\nfragment ArtistsIndex_featuredGenes on OrderedSet {\n  name\n  genes: items {\n    __typename\n    ... on Gene {\n      internalID\n      name\n      href\n      trendingArtists(sample: 4) {\n        ...CellArtist_artist\n        internalID\n        id\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'fd6a2873ad604b1fc666c9950c458a4d';
+
+(node as any).hash = "fd6a2873ad604b1fc666c9950c458a4d";
+
 export default node;

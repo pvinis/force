@@ -1,4 +1,4 @@
-import { Box, Flex, Theme } from "@artsy/palette"
+import { Box, Flex } from "@artsy/palette"
 import { useNetworkOfflineMonitor } from "Utils/Hooks/useNetworkOfflineMonitor"
 import { findCurrentRoute } from "System/Router/Utils/findCurrentRoute"
 import { NavBar } from "Components/NavBar"
@@ -11,15 +11,14 @@ import createLogger from "Utils/logger"
 import { useSystemContext } from "System"
 import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
 import { AppContainer } from "./AppContainer"
-import { useAuthIntent } from "Utils/Hooks/useAuthIntent"
+import { useRunAuthIntent } from "Utils/Hooks/useAuthIntent"
 import { AppToasts } from "./AppToasts"
 import { useNavBarHeight } from "Components/NavBar/useNavBarHeight"
 import { useProductionEnvironmentWarning } from "Utils/Hooks/useProductionEnvironmentWarning"
 import { useAuthValidation } from "Utils/Hooks/useAuthValidation"
 import { Z } from "./constants"
-import { MNTNConversionPixel, MNTNTrackingPixel } from "Components/MNTNPixels"
-import { createGlobalStyle } from "styled-components"
-import { useDidMount } from "Utils/Hooks/useDidMount"
+import { useOnboardingModal } from "Utils/Hooks/useOnboardingModal"
+import { useImagePerformanceObserver } from "Utils/Hooks/useImagePerformanceObserver"
 
 const logger = createLogger("Apps/Components/AppShell")
 interface AppShellProps {
@@ -28,9 +27,11 @@ interface AppShellProps {
 }
 
 export const AppShell: React.FC<AppShellProps> = props => {
-  const isMounted = useDidMount()
+  useImagePerformanceObserver()
 
-  useAuthIntent()
+  const { onboardingComponent } = useOnboardingModal()
+
+  useRunAuthIntent()
   useAuthValidation()
 
   const { children, match } = props
@@ -82,45 +83,32 @@ export const AppShell: React.FC<AppShellProps> = props => {
         </Box>
       )}
 
-      <Theme theme="v3">
-        <AppToasts accomodateNav={showNav} />
+      <AppToasts accomodateNav={showNav} />
 
-        <Flex
-          as="main"
-          id="main"
-          // Occupies available vertical space
-          flex={1}
-        >
-          <AppContainer maxWidth={appContainerMaxWidth}>
-            <HorizontalPadding>{children}</HorizontalPadding>
+      <Flex
+        as="main"
+        id="main"
+        // Occupies available vertical space
+        flex={1}
+      >
+        <AppContainer maxWidth={appContainerMaxWidth}>
+          <HorizontalPadding height="100%" overflow="hidden">
+            {children}
+          </HorizontalPadding>
+        </AppContainer>
+      </Flex>
+
+      {showFooter && (
+        <Flex bg="white100" zIndex={Z.footer}>
+          <AppContainer>
+            <HorizontalPadding>
+              <Footer />
+            </HorizontalPadding>
           </AppContainer>
         </Flex>
+      )}
 
-        {showFooter && (
-          <Flex bg="white100" zIndex={Z.footer}>
-            <AppContainer>
-              <HorizontalPadding>
-                <Footer />
-              </HorizontalPadding>
-            </AppContainer>
-          </Flex>
-        )}
-      </Theme>
-
-      <MNTNConversionPixel />
-      <MNTNTrackingPixel />
-
-      {isMounted && <OneTrustModalOverlayHotfixStyles />}
+      {onboardingComponent}
     </Flex>
   )
 }
-
-/**
- * This is a workaround for the cookie consent banner overlay appearing on top
- * of our modals. This positions it below so that modal buttons are clickable.
- */
-export const OneTrustModalOverlayHotfixStyles = createGlobalStyle`
-  #onetrust-banner-sdk {
-    z-index: 1 !important;
-  }
-`

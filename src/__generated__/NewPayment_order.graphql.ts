@@ -1,41 +1,44 @@
+/**
+ * @generated SignedSource<<d3b4884f4776c003950c578a7122d10c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type CommerceOrderModeEnum = "BUY" | "OFFER" | "%future added value";
-export type NewPayment_order = {
+import { FragmentRefs } from "relay-runtime";
+export type NewPayment_order$data = {
+  readonly internalID: string;
+  readonly lastOffer?: {
+    readonly createdAt: string;
     readonly internalID: string;
-    readonly mode: CommerceOrderModeEnum | null;
-    readonly stateExpiresAt: string | null;
-    readonly lineItems: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly artwork: {
-                    readonly slug: string;
-                    readonly artists: ReadonlyArray<{
-                        readonly slug: string;
-                    } | null> | null;
-                } | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly lastOffer?: {
-        readonly createdAt: string;
-        readonly internalID: string;
-        readonly note: string | null;
-    } | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CreditCardPicker_order" | "ArtworkSummaryItem_order" | "TransactionDetailsSummaryItem_order">;
-    readonly " $refType": "NewPayment_order";
+    readonly note: string | null;
+  } | null;
+  readonly lineItems: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly artwork: {
+          readonly artists: ReadonlyArray<{
+            readonly slug: string;
+          } | null> | null;
+          readonly slug: string;
+        } | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly mode: CommerceOrderModeEnum | null;
+  readonly stateExpiresAt: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkSummaryItem_order" | "CreditCardPicker_order" | "TransactionDetailsSummaryItem_order">;
+  readonly " $fragmentType": "NewPayment_order";
 };
-export type NewPayment_order$data = NewPayment_order;
 export type NewPayment_order$key = {
-    readonly " $data"?: NewPayment_order$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"NewPayment_order">;
+  readonly " $data"?: NewPayment_order$data;
+  readonly " $fragmentSpreads": FragmentRefs<"NewPayment_order">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -183,5 +186,7 @@ return {
   "abstractKey": "__isCommerceOrder"
 };
 })();
-(node as any).hash = 'c5fc85efa7df4310ef663017e1ec2ec7';
+
+(node as any).hash = "c5fc85efa7df4310ef663017e1ec2ec7";
+
 export default node;

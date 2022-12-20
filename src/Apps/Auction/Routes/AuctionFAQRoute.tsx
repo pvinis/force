@@ -9,12 +9,12 @@ import { themeGet } from "@styled-system/theme-get"
 import { FC } from "react"
 import styled from "styled-components"
 import { createFragmentContainer, graphql } from "react-relay"
-import { AuctionFAQRoute_viewer } from "__generated__/AuctionFAQRoute_viewer.graphql"
+import { AuctionFAQRoute_viewer$data } from "__generated__/AuctionFAQRoute_viewer.graphql"
 import { MetaTags } from "Components/MetaTags"
 import { toStyle } from "Utils/toStyle"
 
 interface AuctionFAQRouteProps {
-  viewer: AuctionFAQRoute_viewer
+  viewer: AuctionFAQRoute_viewer$data
 }
 
 const AuctionFAQRoute: React.FC<AuctionFAQRouteProps> = ({ viewer }) => {
@@ -34,7 +34,7 @@ const AuctionFAQRoute: React.FC<AuctionFAQRouteProps> = ({ viewer }) => {
         Auction FAQs
       </Text>
 
-      <Spacer my={2} />
+      <Spacer y={2} />
 
       <Text variant="sm-display" color="black100">
         How can we help you? Below are answers to some of the most common
@@ -44,7 +44,7 @@ const AuctionFAQRoute: React.FC<AuctionFAQRouteProps> = ({ viewer }) => {
         <a href="mailto:support@artsy.net">contact us</a>.
       </Text>
 
-      <Spacer my={2} />
+      <Spacer y={2} />
 
       <Section title="Bidding" content={biddingContent} />
       <Section

@@ -2,7 +2,6 @@ import { Spacer, Text, Join, Box, Pill } from "@artsy/palette"
 import { FC } from "react"
 import { OnboardingFigure } from "../Components/OnboardingFigure"
 import { OnboardingQuestionPanel } from "../Components/OnboardingQuestionPanel"
-import { OnboardingSplitLayout } from "../Components/OnboardingSplitLayout"
 import {
   OPTION_COLLECTING_ART_THAT_MOVES_ME,
   OPTION_DEVELOPING_MY_ART_TASTES,
@@ -11,6 +10,8 @@ import {
 } from "../config"
 import { useOnboardingFadeTransition } from "../Hooks/useOnboardingFadeTransition"
 import { useOnboardingContext } from "../Hooks/useOnboardingContext"
+import { useOnboardingTracking } from "../Hooks/useOnboardingTracking"
+import { SplitLayout } from "Components/SplitLayout"
 
 export const OnboardingQuestionTwo: FC = () => {
   const { state, dispatch, next } = useOnboardingContext()
@@ -18,8 +19,10 @@ export const OnboardingQuestionTwo: FC = () => {
     next,
   })
 
+  const tracking = useOnboardingTracking()
+
   return (
-    <OnboardingSplitLayout
+    <SplitLayout
       left={
         <OnboardingFigure
           ref={register(0)}
@@ -33,20 +36,23 @@ export const OnboardingQuestionTwo: FC = () => {
         <OnboardingQuestionPanel
           disabled={state.questionTwo.length === 0 || loading}
           loading={loading}
-          onNext={handleNext}
+          onNext={() => {
+            tracking.trackQuestionTwo(state.questionTwo)
+            handleNext()
+          }}
         >
           <Text variant="lg-display" ref={register(1)}>
             What do you love most about art?
           </Text>
 
-          <Spacer mt={1} />
+          <Spacer y={1} />
 
           <Text variant="sm-display" ref={register(2)}>
             Choose as many as you like.
           </Text>
 
           <Box ref={register(3)} mt={4}>
-            <Join separator={<Spacer mt={2} />}>
+            <Join separator={<Spacer y={2} />}>
               {QUESTION_2.map(option => {
                 return (
                   <Pill

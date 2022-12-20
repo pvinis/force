@@ -11,10 +11,10 @@ import { FC } from "react"
 import { RouterLink } from "System/Router/RouterLink"
 import styled from "styled-components"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArticleSeriesItem_article } from "__generated__/ArticleSeriesItem_article.graphql"
+import { ArticleSeriesItem_article$data } from "__generated__/ArticleSeriesItem_article.graphql"
 
 interface ArticleSeriesItemProps {
-  article: ArticleSeriesItem_article
+  article: ArticleSeriesItem_article$data
 }
 
 const ArticleSeriesItem: FC<ArticleSeriesItemProps> = ({ article }) => {
@@ -37,13 +37,13 @@ const ArticleSeriesItem: FC<ArticleSeriesItemProps> = ({ article }) => {
 
           <Text variant="lg-display">{article.description}</Text>
 
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           <Text variant="md" color="black60">
             {article.byline}
           </Text>
 
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           <Text variant="xs" fontWeight="bold">
             {article.publishedAt}

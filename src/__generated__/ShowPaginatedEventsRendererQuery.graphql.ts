@@ -1,117 +1,31 @@
+/**
+ * @generated SignedSource<<25bedd3613dedcb4e1b1be3664ffa52b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EventStatus = "ALL" | "CLOSED" | "CLOSING_SOON" | "CURRENT" | "RUNNING" | "RUNNING_AND_UPCOMING" | "UPCOMING" | "%future added value";
-export type ShowPaginatedEventsRendererQueryVariables = {
-    partnerId: string;
-    first?: number | null | undefined;
-    page?: number | null | undefined;
-    status?: EventStatus | null | undefined;
+export type ShowPaginatedEventsRendererQuery$variables = {
+  first?: number | null;
+  page?: number | null;
+  partnerId: string;
+  status?: EventStatus | null;
 };
-export type ShowPaginatedEventsRendererQueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"ShowPaginatedEvents_partner">;
-    } | null;
+export type ShowPaginatedEventsRendererQuery$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"ShowPaginatedEvents_partner">;
+  } | null;
 };
 export type ShowPaginatedEventsRendererQuery = {
-    readonly response: ShowPaginatedEventsRendererQueryResponse;
-    readonly variables: ShowPaginatedEventsRendererQueryVariables;
+  response: ShowPaginatedEventsRendererQuery$data;
+  variables: ShowPaginatedEventsRendererQuery$variables;
 };
-
-
-
-/*
-query ShowPaginatedEventsRendererQuery(
-  $partnerId: String!
-  $first: Int
-  $page: Int
-  $status: EventStatus
-) {
-  partner(id: $partnerId) @principalField {
-    ...ShowPaginatedEvents_partner_JfDnP
-    id
-  }
-}
-
-fragment CellShow_show on Show {
-  internalID
-  slug
-  name
-  href
-  startAt
-  endAt
-  isFairBooth
-  exhibitionPeriod
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment Pagination_pageCursors on PageCursors {
-  around {
-    cursor
-    page
-    isCurrent
-  }
-  first {
-    cursor
-    page
-    isCurrent
-  }
-  last {
-    cursor
-    page
-    isCurrent
-  }
-  previous {
-    cursor
-    page
-  }
-}
-
-fragment ShowEvents_edges on ShowEdge {
-  node {
-    ...CellShow_show
-    internalID
-    id
-  }
-}
-
-fragment ShowPaginatedEvents_partner_JfDnP on Partner {
-  slug
-  showsList: showsConnection(first: $first, status: $status, page: $page, isDisplayable: true) {
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    pageCursors {
-      ...Pagination_pageCursors
-    }
-    edges {
-      ...ShowEvents_edges
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -262,7 +176,7 @@ return {
         "selections": [
           (v8/*: any*/),
           {
-            "alias": "showsList",
+            "alias": null,
             "args": [
               (v5/*: any*/),
               {
@@ -475,7 +389,6 @@ return {
                                 "kind": "Literal",
                                 "name": "version",
                                 "value": [
-                                  "normalized",
                                   "larger",
                                   "large"
                                 ]
@@ -506,7 +419,7 @@ return {
                                 "storageKey": null
                               }
                             ],
-                            "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                            "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                           }
                         ],
                         "storageKey": null
@@ -528,14 +441,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "04a58e92c43c6daaaad4365056b5c3a5",
+    "cacheID": "973f526a8fd421e74b8194d32162016b",
     "id": null,
     "metadata": {},
     "name": "ShowPaginatedEventsRendererQuery",
     "operationKind": "query",
-    "text": "query ShowPaginatedEventsRendererQuery(\n  $partnerId: String!\n  $first: Int\n  $page: Int\n  $status: EventStatus\n) {\n  partner(id: $partnerId) @principalField {\n    ...ShowPaginatedEvents_partner_JfDnP\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment Pagination_pageCursors on PageCursors {\n  around {\n    cursor\n    page\n    isCurrent\n  }\n  first {\n    cursor\n    page\n    isCurrent\n  }\n  last {\n    cursor\n    page\n    isCurrent\n  }\n  previous {\n    cursor\n    page\n  }\n}\n\nfragment ShowEvents_edges on ShowEdge {\n  node {\n    ...CellShow_show\n    internalID\n    id\n  }\n}\n\nfragment ShowPaginatedEvents_partner_JfDnP on Partner {\n  slug\n  showsList: showsConnection(first: $first, status: $status, page: $page, isDisplayable: true) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    pageCursors {\n      ...Pagination_pageCursors\n    }\n    edges {\n      ...ShowEvents_edges\n    }\n  }\n}\n"
+    "text": "query ShowPaginatedEventsRendererQuery(\n  $partnerId: String!\n  $first: Int\n  $page: Int\n  $status: EventStatus\n) {\n  partner(id: $partnerId) @principalField {\n    ...ShowPaginatedEvents_partner_JfDnP\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment Pagination_pageCursors on PageCursors {\n  around {\n    cursor\n    page\n    isCurrent\n  }\n  first {\n    cursor\n    page\n    isCurrent\n  }\n  last {\n    cursor\n    page\n    isCurrent\n  }\n  previous {\n    cursor\n    page\n  }\n}\n\nfragment ShowPaginatedEvents_partner_JfDnP on Partner {\n  slug\n  showsConnection(first: $first, status: $status, page: $page, isDisplayable: true) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    pageCursors {\n      ...Pagination_pageCursors\n    }\n    edges {\n      node {\n        ...CellShow_show\n        internalID\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8787f2e69fc3c8c39b1065daefcd3a5a';
+
+(node as any).hash = "8787f2e69fc3c8c39b1065daefcd3a5a";
+
 export default node;

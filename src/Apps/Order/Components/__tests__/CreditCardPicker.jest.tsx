@@ -1,6 +1,6 @@
 import { BorderedRadio, Checkbox, Collapse, Link, Input } from "@artsy/palette"
-import { CreditCardPicker_me } from "__generated__/CreditCardPicker_me.graphql"
-import { CreditCardPickerTestQueryRawResponse } from "__generated__/CreditCardPickerTestQuery.graphql"
+import { CreditCardPicker_me$data } from "__generated__/CreditCardPicker_me.graphql"
+import { CreditCardPickerTestQuery$rawResponse } from "__generated__/CreditCardPickerTestQuery.graphql"
 import {
   BuyOrderPickup,
   BuyOrderWithShippingDetails,
@@ -19,7 +19,7 @@ import { graphql } from "react-relay"
 import {
   CreditCardPicker,
   CreditCardPickerFragmentContainer,
-} from "../CreditCardPicker"
+} from "Apps/Order/Components/CreditCardPicker"
 import type { Token, StripeError } from "@stripe/stripe-js"
 import { mockStripe } from "DevTools/mockStripe"
 import { MockBoot } from "DevTools"
@@ -137,7 +137,7 @@ class CreditCardPickerTestPage extends RootTestPage {
   }
 }
 
-const defaultData: CreditCardPickerTestQueryRawResponse = {
+const defaultData: CreditCardPickerTestQuery$rawResponse = {
   me: {
     id: "my-id",
     creditCards: {
@@ -276,13 +276,13 @@ describe("CreditCardPickerFragmentContainer", () => {
     await page.getCreditCardId()
 
     expect(_mockStripe().createToken).toHaveBeenLastCalledWith(null, {
-      name: "Artsy UK Ltd",
-      address_line1: "14 Gower's Walk",
-      address_line2: "Suite 2.5, The Loom",
-      address_city: "Whitechapel",
-      address_state: "London",
-      address_zip: "E1 8PY",
-      address_country: "UK",
+      name: "Erik David",
+      address_line1: "401 Broadway",
+      address_line2: "",
+      address_city: "New York",
+      address_state: "NY",
+      address_zip: "15601",
+      address_country: "US",
     })
   })
 
@@ -317,13 +317,13 @@ describe("CreditCardPickerFragmentContainer", () => {
     await page.getCreditCardId()
 
     expect(_mockStripe().createToken).toHaveBeenLastCalledWith(null, {
-      name: "Artsy UK Ltd",
-      address_line1: "14 Gower's Walk",
-      address_line2: "Suite 2.5, The Loom",
-      address_city: "Whitechapel",
-      address_state: "London",
-      address_zip: "E1 8PY",
-      address_country: "UK",
+      name: "Erik David",
+      address_line1: "401 Broadway",
+      address_line2: "",
+      address_city: "New York",
+      address_state: "NY",
+      address_zip: "15601",
+      address_country: "US",
     })
   })
 
@@ -378,7 +378,7 @@ describe("CreditCardPickerFragmentContainer", () => {
   describe("when the user has existing credit cards", () => {
     const cards: Array<
       // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-      CreditCardPicker_me["creditCards"]["edges"][0]["node"]
+      CreditCardPicker_me$data["creditCards"]["edges"][0]["node"]
     > = [
       {
         internalID: "card-id-1",

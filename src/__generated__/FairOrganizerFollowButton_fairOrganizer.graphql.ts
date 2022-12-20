@@ -1,26 +1,29 @@
+/**
+ * @generated SignedSource<<3c5ced7f416e84738ea2387de5dac077>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairOrganizerFollowButton_fairOrganizer = {
-    readonly slug: string;
-    readonly name: string | null;
-    readonly profile: {
-        readonly id: string;
-        readonly internalID: string;
-        readonly isFollowed: boolean | null;
-    } | null;
-    readonly " $refType": "FairOrganizerFollowButton_fairOrganizer";
+export type FairOrganizerFollowButton_fairOrganizer$data = {
+  readonly name: string | null;
+  readonly profile: {
+    readonly id: string;
+    readonly internalID: string;
+    readonly isFollowed: boolean | null;
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "FairOrganizerFollowButton_fairOrganizer";
 };
-export type FairOrganizerFollowButton_fairOrganizer$data = FairOrganizerFollowButton_fairOrganizer;
 export type FairOrganizerFollowButton_fairOrganizer$key = {
-    readonly " $data"?: FairOrganizerFollowButton_fairOrganizer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairOrganizerFollowButton_fairOrganizer">;
+  readonly " $data"?: FairOrganizerFollowButton_fairOrganizer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairOrganizerFollowButton_fairOrganizer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -78,5 +81,7 @@ const node: ReaderFragment = {
   "type": "FairOrganizer",
   "abstractKey": null
 };
-(node as any).hash = 'cf361b8603eabea0549c7d227e2b2d00';
+
+(node as any).hash = "cf361b8603eabea0549c7d227e2b2d00";
+
 export default node;

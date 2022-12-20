@@ -1,28 +1,31 @@
+/**
+ * @generated SignedSource<<ac1a24a0816ac606b87956f3ec48fb3a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistConsignPageViews_artist = {
-    readonly name: string | null;
-    readonly targetSupply: {
-        readonly microfunnel: {
-            readonly metadata: {
-                readonly roundedViews: string | null;
-                readonly roundedUniqueVisitors: string | null;
-            } | null;
-        } | null;
+export type ArtistConsignPageViews_artist$data = {
+  readonly name: string | null;
+  readonly targetSupply: {
+    readonly microfunnel: {
+      readonly metadata: {
+        readonly roundedUniqueVisitors: string | null;
+        readonly roundedViews: string | null;
+      } | null;
     } | null;
-    readonly " $refType": "ArtistConsignPageViews_artist";
+  } | null;
+  readonly " $fragmentType": "ArtistConsignPageViews_artist";
 };
-export type ArtistConsignPageViews_artist$data = ArtistConsignPageViews_artist;
 export type ArtistConsignPageViews_artist$key = {
-    readonly " $data"?: ArtistConsignPageViews_artist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistConsignPageViews_artist">;
+  readonly " $data"?: ArtistConsignPageViews_artist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistConsignPageViews_artist">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -88,5 +91,7 @@ const node: ReaderFragment = {
   "type": "Artist",
   "abstractKey": null
 };
-(node as any).hash = 'cb356e907f92e5bad02e30c7e4377123';
+
+(node as any).hash = "cb356e907f92e5bad02e30c7e4377123";
+
 export default node;

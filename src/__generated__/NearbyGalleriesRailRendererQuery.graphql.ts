@@ -1,123 +1,29 @@
+/**
+ * @generated SignedSource<<354c1da16f574a88f52235b7389d7344>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type NearbyGalleriesRailRendererQueryVariables = {
-    near: string;
+export type NearbyGalleriesRailRendererQuery$variables = {
+  near: string;
 };
-export type NearbyGalleriesRailRendererQueryResponse = {
-    readonly partnersConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly " $fragmentRefs": FragmentRefs<"NearbyGalleriesRail_partners">;
-        } | null> | null;
-    } | null;
+export type NearbyGalleriesRailRendererQuery$data = {
+  readonly partnersConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly " $fragmentSpreads": FragmentRefs<"NearbyGalleriesRail_partners">;
+    } | null> | null;
+  } | null;
 };
 export type NearbyGalleriesRailRendererQuery = {
-    readonly response: NearbyGalleriesRailRendererQueryResponse;
-    readonly variables: NearbyGalleriesRailRendererQueryVariables;
+  response: NearbyGalleriesRailRendererQuery$data;
+  variables: NearbyGalleriesRailRendererQuery$variables;
 };
-
-
-
-/*
-query NearbyGalleriesRailRendererQuery(
-  $near: String!
-) {
-  partnersConnection(first: 12, near: $near, eligibleForListing: true, defaultProfilePublic: true, sort: RANDOM_SCORE_DESC) {
-    edges {
-      ...NearbyGalleriesRail_partners
-    }
-  }
-}
-
-fragment CellPartner_partner on Partner {
-  ...EntityHeaderPartner_partner
-  internalID
-  slug
-  name
-  href
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    image {
-      cropped(width: 445, height: 334, version: ["wide", "large", "featured", "larger"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment NearbyGalleriesRail_partners on PartnerEdge {
-  node {
-    ...CellPartner_partner
-    internalID
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -369,17 +275,7 @@ return {
                     "name": "profile",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v3/*: any*/),
-                      (v4/*: any*/),
                       (v2/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "isFollowed",
-                        "storageKey": null
-                      },
                       {
                         "alias": "avatar",
                         "args": null,
@@ -437,6 +333,7 @@ return {
                         ],
                         "storageKey": null
                       },
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -495,14 +392,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2134752a5f668cbc3d8f8791aebef67d",
+    "cacheID": "0e54cb79e50403501a0e522861291276",
     "id": null,
     "metadata": {},
     "name": "NearbyGalleriesRailRendererQuery",
     "operationKind": "query",
-    "text": "query NearbyGalleriesRailRendererQuery(\n  $near: String!\n) {\n  partnersConnection(first: 12, near: $near, eligibleForListing: true, defaultProfilePublic: true, sort: RANDOM_SCORE_DESC) {\n    edges {\n      ...NearbyGalleriesRail_partners\n    }\n  }\n}\n\nfragment CellPartner_partner on Partner {\n  ...EntityHeaderPartner_partner\n  internalID\n  slug\n  name\n  href\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    image {\n      cropped(width: 445, height: 334, version: [\"wide\", \"large\", \"featured\", \"larger\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment NearbyGalleriesRail_partners on PartnerEdge {\n  node {\n    ...CellPartner_partner\n    internalID\n    id\n  }\n}\n"
+    "text": "query NearbyGalleriesRailRendererQuery(\n  $near: String!\n) {\n  partnersConnection(first: 12, near: $near, eligibleForListing: true, defaultProfilePublic: true, sort: RANDOM_SCORE_DESC) {\n    edges {\n      ...NearbyGalleriesRail_partners\n    }\n  }\n}\n\nfragment CellPartner_partner on Partner {\n  ...EntityHeaderPartner_partner\n  internalID\n  slug\n  name\n  href\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    image {\n      cropped(width: 445, height: 334, version: [\"wide\", \"large\", \"featured\", \"larger\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment NearbyGalleriesRail_partners on PartnerEdge {\n  node {\n    ...CellPartner_partner\n    internalID\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e1a8202ed2c0aaba45d3bf3481b9ddc3';
+
+(node as any).hash = "e1a8202ed2c0aaba45d3bf3481b9ddc3";
+
 export default node;

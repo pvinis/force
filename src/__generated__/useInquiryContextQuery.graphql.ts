@@ -1,41 +1,25 @@
+/**
+ * @generated SignedSource<<39d588da108410944641340fe2c8f12c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type useInquiryContextQueryVariables = {};
-export type useInquiryContextQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"useInquiryContext_me">;
-    } | null;
+export type useInquiryContextQuery$variables = {};
+export type useInquiryContextQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"useInquiryContext_me">;
+  } | null;
 };
 export type useInquiryContextQuery = {
-    readonly response: useInquiryContextQueryResponse;
-    readonly variables: useInquiryContextQueryVariables;
+  response: useInquiryContextQuery$data;
+  variables: useInquiryContextQuery$variables;
 };
-
-
-
-/*
-query useInquiryContextQuery {
-  me {
-    ...useInquiryContext_me
-    id
-  }
-}
-
-fragment useInquiryContext_me on Me {
-  collectorLevel
-  location {
-    city
-    id
-  }
-  phone
-  profession
-  shareFollows
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -116,7 +100,7 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "phone",
+            "name": "otherRelevantPositions",
             "storageKey": null
           },
           {
@@ -140,14 +124,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2879f4614eb61ed0475a21159c962f1c",
+    "cacheID": "2524a8c8fad5a6418555dc39fd08ff59",
     "id": null,
     "metadata": {},
     "name": "useInquiryContextQuery",
     "operationKind": "query",
-    "text": "query useInquiryContextQuery {\n  me {\n    ...useInquiryContext_me\n    id\n  }\n}\n\nfragment useInquiryContext_me on Me {\n  collectorLevel\n  location {\n    city\n    id\n  }\n  phone\n  profession\n  shareFollows\n}\n"
+    "text": "query useInquiryContextQuery {\n  me {\n    ...useInquiryContext_me\n    id\n  }\n}\n\nfragment useInquiryContext_me on Me {\n  collectorLevel\n  location {\n    city\n    id\n  }\n  otherRelevantPositions\n  profession\n  shareFollows\n}\n"
   }
 };
 })();
-(node as any).hash = 'abdeb51f6987f798b5afaae059bfdd57';
+
+(node as any).hash = "abdeb51f6987f798b5afaae059bfdd57";
+
 export default node;

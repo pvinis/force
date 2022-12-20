@@ -9,13 +9,13 @@ import {
   OwnerType,
   PageOwnerType,
 } from "@artsy/cohesion"
-import { FairExhibitorCard_exhibitor } from "__generated__/FairExhibitorCard_exhibitor.graphql"
-import { FairExhibitorCard_fair } from "__generated__/FairExhibitorCard_fair.graphql"
+import { FairExhibitorCard_exhibitor$data } from "__generated__/FairExhibitorCard_exhibitor.graphql"
+import { FairExhibitorCard_fair$data } from "__generated__/FairExhibitorCard_fair.graphql"
 import { EntityHeaderPartnerFragmentContainer } from "Components/EntityHeaders/EntityHeaderPartner"
 
 interface FairExhibitorCardProps {
-  exhibitor: FairExhibitorCard_exhibitor
-  fair: FairExhibitorCard_fair
+  exhibitor: FairExhibitorCard_exhibitor$data
+  fair: FairExhibitorCard_fair$data
 }
 
 export const FairExhibitorCard: React.FC<FairExhibitorCardProps> = ({

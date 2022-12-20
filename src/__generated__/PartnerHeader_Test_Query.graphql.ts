@@ -1,94 +1,53 @@
+/**
+ * @generated SignedSource<<55000f2161f4ff2f575e7389a49c0f34>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerHeader_Test_QueryVariables = {};
-export type PartnerHeader_Test_QueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"PartnerHeader_partner">;
-    } | null;
+export type PartnerHeader_Test_Query$variables = {};
+export type PartnerHeader_Test_Query$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"PartnerHeader_partner">;
+  } | null;
 };
-export type PartnerHeader_Test_QueryRawResponse = {
-    readonly partner: ({
-        readonly name: string | null;
-        readonly type: string | null;
-        readonly slug: string;
-        readonly profile: ({
-            readonly icon: ({
-                readonly resized: ({
-                    readonly src: string;
-                    readonly srcSet: string;
-                }) | null;
-            }) | null;
-            readonly id: string;
-            readonly slug: string;
-            readonly name: string | null;
-            readonly internalID: string;
-            readonly isFollowed: boolean | null;
-        }) | null;
-        readonly locations: ({
-            readonly totalCount: number | null;
-            readonly edges: ReadonlyArray<({
-                readonly node: ({
-                    readonly city: string | null;
-                    readonly id: string;
-                }) | null;
-            }) | null> | null;
-        }) | null;
-        readonly id: string;
-    }) | null;
+export type PartnerHeader_Test_Query$rawResponse = {
+  readonly partner: {
+    readonly id: string;
+    readonly locations: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly city: string | null;
+          readonly id: string;
+        } | null;
+      } | null> | null;
+      readonly totalCount: number | null;
+    } | null;
+    readonly name: string | null;
+    readonly profile: {
+      readonly icon: {
+        readonly resized: {
+          readonly src: string;
+          readonly srcSet: string;
+        } | null;
+      } | null;
+      readonly id: string;
+      readonly internalID: string;
+    } | null;
+    readonly slug: string;
+    readonly type: string | null;
+  } | null;
 };
 export type PartnerHeader_Test_Query = {
-    readonly response: PartnerHeader_Test_QueryResponse;
-    readonly variables: PartnerHeader_Test_QueryVariables;
-    readonly rawResponse: PartnerHeader_Test_QueryRawResponse;
+  rawResponse: PartnerHeader_Test_Query$rawResponse;
+  response: PartnerHeader_Test_Query$data;
+  variables: PartnerHeader_Test_Query$variables;
 };
-
-
-
-/*
-query PartnerHeader_Test_Query {
-  partner(id: "white-cube") {
-    ...PartnerHeader_partner
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment PartnerHeader_partner on Partner {
-  name
-  type
-  slug
-  profile {
-    icon {
-      resized(width: 80, height: 80, version: "square140") {
-        src
-        srcSet
-      }
-    }
-    ...FollowProfileButton_profile
-    id
-  }
-  locations: locationsConnection(first: 20) {
-    totalCount
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -102,36 +61,22 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v2 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "ID"
 },
-v5 = {
+v3 = {
   "enumValues": null,
   "nullable": true,
   "plural": false,
   "type": "String"
 },
-v6 = {
+v4 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
@@ -178,7 +123,13 @@ return {
         "name": "partner",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -186,7 +137,13 @@ return {
             "name": "type",
             "storageKey": null
           },
-          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slug",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -195,6 +152,13 @@ return {
             "name": "profile",
             "plural": false,
             "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "internalID",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -247,23 +211,7 @@ return {
                 ],
                 "storageKey": null
               },
-              (v3/*: any*/),
-              (v2/*: any*/),
-              (v1/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "internalID",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "isFollowed",
-                "storageKey": null
-              }
+              (v1/*: any*/)
             ],
             "storageKey": null
           },
@@ -311,7 +259,7 @@ return {
                         "name": "city",
                         "storageKey": null
                       },
-                      (v3/*: any*/)
+                      (v1/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -321,14 +269,14 @@ return {
             ],
             "storageKey": "locationsConnection(first:20)"
           },
-          (v3/*: any*/)
+          (v1/*: any*/)
         ],
         "storageKey": "partner(id:\"white-cube\")"
       }
     ]
   },
   "params": {
-    "cacheID": "3a44ba6e8ebb3ad8bbd00dadda34cc8a",
+    "cacheID": "795f99676da85f6dcccaacde39350304",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -338,7 +286,7 @@ return {
           "plural": false,
           "type": "Partner"
         },
-        "partner.id": (v4/*: any*/),
+        "partner.id": (v2/*: any*/),
         "partner.locations": {
           "enumValues": null,
           "nullable": true,
@@ -357,15 +305,15 @@ return {
           "plural": false,
           "type": "Location"
         },
-        "partner.locations.edges.node.city": (v5/*: any*/),
-        "partner.locations.edges.node.id": (v4/*: any*/),
+        "partner.locations.edges.node.city": (v3/*: any*/),
+        "partner.locations.edges.node.id": (v2/*: any*/),
         "partner.locations.totalCount": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "Int"
         },
-        "partner.name": (v5/*: any*/),
+        "partner.name": (v3/*: any*/),
         "partner.profile": {
           "enumValues": null,
           "nullable": true,
@@ -384,27 +332,21 @@ return {
           "plural": false,
           "type": "ResizedImageUrl"
         },
-        "partner.profile.icon.resized.src": (v6/*: any*/),
-        "partner.profile.icon.resized.srcSet": (v6/*: any*/),
-        "partner.profile.id": (v4/*: any*/),
-        "partner.profile.internalID": (v4/*: any*/),
-        "partner.profile.isFollowed": {
-          "enumValues": null,
-          "nullable": true,
-          "plural": false,
-          "type": "Boolean"
-        },
-        "partner.profile.name": (v5/*: any*/),
-        "partner.profile.slug": (v4/*: any*/),
-        "partner.slug": (v4/*: any*/),
-        "partner.type": (v5/*: any*/)
+        "partner.profile.icon.resized.src": (v4/*: any*/),
+        "partner.profile.icon.resized.srcSet": (v4/*: any*/),
+        "partner.profile.id": (v2/*: any*/),
+        "partner.profile.internalID": (v2/*: any*/),
+        "partner.slug": (v2/*: any*/),
+        "partner.type": (v3/*: any*/)
       }
     },
     "name": "PartnerHeader_Test_Query",
     "operationKind": "query",
-    "text": "query PartnerHeader_Test_Query {\n  partner(id: \"white-cube\") {\n    ...PartnerHeader_partner\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment PartnerHeader_partner on Partner {\n  name\n  type\n  slug\n  profile {\n    icon {\n      resized(width: 80, height: 80, version: \"square140\") {\n        src\n        srcSet\n      }\n    }\n    ...FollowProfileButton_profile\n    id\n  }\n  locations: locationsConnection(first: 20) {\n    totalCount\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query PartnerHeader_Test_Query {\n  partner(id: \"white-cube\") {\n    ...PartnerHeader_partner\n    id\n  }\n}\n\nfragment PartnerHeader_partner on Partner {\n  name\n  type\n  slug\n  profile {\n    internalID\n    icon {\n      resized(width: 80, height: 80, version: \"square140\") {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n  locations: locationsConnection(first: 20) {\n    totalCount\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '943e764421e6e26489f307efbdbdc041';
+
+(node as any).hash = "943e764421e6e26489f307efbdbdc041";
+
 export default node;

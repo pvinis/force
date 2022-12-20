@@ -1,6 +1,6 @@
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { SoldRecentlyOnArtsyFragmentContainer } from "../SoldRecentlyOnArtsy"
+import { SoldRecentlyOnArtsyFragmentContainer } from "Apps/Consign/Routes/MarketingLanding/Components/SoldRecentlyOnArtsy"
 import { fireEvent, screen } from "@testing-library/react"
 import { useTracking } from "react-tracking"
 
@@ -51,8 +51,8 @@ describe("SoldRecentlyOnArtsy", () => {
       action: "clickedArtworkGroup",
       context_module: "artworkRecentlySoldGrid",
       context_page_owner_type: "consign",
-      destination_page_owner_id: "<Artwork-mock-id-6>",
-      destination_page_owner_slug: "<Artwork-mock-id-7>",
+      destination_page_owner_id: "<Artwork-mock-id-7>",
+      destination_page_owner_slug: "<Artwork-mock-id-8>",
       destination_page_owner_type: "artwork",
       horizontal_slide_position: 0,
       type: "thumbnail",

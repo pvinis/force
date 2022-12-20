@@ -1,60 +1,28 @@
+/**
+ * @generated SignedSource<<38e1bf1d99b36f6e2c709f2e66ff4895>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AuctionConfirmRegistrationRouteTestQueryVariables = {};
-export type AuctionConfirmRegistrationRouteTestQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionConfirmRegistrationRoute_me">;
-    } | null;
-    readonly sale: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionConfirmRegistrationRoute_sale">;
-    } | null;
+export type AuctionConfirmRegistrationRouteTestQuery$variables = {};
+export type AuctionConfirmRegistrationRouteTestQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionConfirmRegistrationRoute_me">;
+  } | null;
+  readonly sale: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionConfirmRegistrationRoute_sale">;
+  } | null;
 };
 export type AuctionConfirmRegistrationRouteTestQuery = {
-    readonly response: AuctionConfirmRegistrationRouteTestQueryResponse;
-    readonly variables: AuctionConfirmRegistrationRouteTestQueryVariables;
+  response: AuctionConfirmRegistrationRouteTestQuery$data;
+  variables: AuctionConfirmRegistrationRouteTestQuery$variables;
 };
-
-
-
-/*
-query AuctionConfirmRegistrationRouteTestQuery {
-  me {
-    ...AuctionConfirmRegistrationRoute_me
-    id
-  }
-  sale(id: "foo") {
-    ...AuctionConfirmRegistrationRoute_sale
-    id
-  }
-}
-
-fragment AuctionConfirmRegistrationRoute_me on Me {
-  internalID
-  identityVerified
-  hasQualifiedCreditCards
-  phoneNumber {
-    originalNumber
-  }
-}
-
-fragment AuctionConfirmRegistrationRoute_sale on Sale {
-  slug
-  name
-  internalID
-  status
-  isClosed
-  isLiveOpen
-  requireIdentityVerification
-  bidder {
-    qualifiedForBidding
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -318,5 +286,7 @@ return {
   }
 };
 })();
-(node as any).hash = '9a1bf3fc2b48d6d2df247441babc544f';
+
+(node as any).hash = "9a1bf3fc2b48d6d2df247441babc544f";
+
 export default node;

@@ -1,13 +1,14 @@
 import React from "react"
 import { Column, GridColumns } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { FairExhibitorsGroup_exhibitorsGroup } from "__generated__/FairExhibitorsGroup_exhibitorsGroup.graphql"
-import { FairExhibitorsGroup_fair } from "__generated__/FairExhibitorsGroup_fair.graphql"
+import { FairExhibitorsGroup_exhibitorsGroup$data } from "__generated__/FairExhibitorsGroup_exhibitorsGroup.graphql"
+import { FairExhibitorsGroup_fair$data } from "__generated__/FairExhibitorsGroup_fair.graphql"
 import { FairExhibitorCardFragmentContainer as FairExhibitorCard } from "./FairExhibitorCard"
+import { Jump } from "Utils/Hooks/useJump"
 
 interface FairExhibitorsGroupProps {
-  exhibitorsGroup: FairExhibitorsGroup_exhibitorsGroup
-  fair: FairExhibitorsGroup_fair
+  exhibitorsGroup: FairExhibitorsGroup_exhibitorsGroup$data
+  fair: FairExhibitorsGroup_fair$data
 }
 
 export const FairExhibitorsGroup: React.FC<FairExhibitorsGroupProps> = ({
@@ -21,7 +22,9 @@ export const FairExhibitorsGroup: React.FC<FairExhibitorsGroupProps> = ({
 
         return (
           <Column key={exhibitor.partner.internalID} span={[12, 6, 3]}>
-            <FairExhibitorCard exhibitor={exhibitor} fair={fair} />
+            <Jump id={exhibitor.partner.internalID}>
+              <FairExhibitorCard exhibitor={exhibitor} fair={fair} />
+            </Jump>
           </Column>
         )
       })}

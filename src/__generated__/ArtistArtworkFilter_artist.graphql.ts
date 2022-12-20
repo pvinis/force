@@ -1,39 +1,40 @@
+/**
+ * @generated SignedSource<<bd9354ce5a783e5d65594d8e42355b65>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistArtworkFilter_artist = {
-    readonly name: string | null;
+export type ArtistArtworkFilter_artist$data = {
+  readonly counts: {
+    readonly artworks: any | null;
+    readonly auction_artworks: any | null;
+    readonly ecommerce_artworks: any | null;
+    readonly for_sale_artworks: any | null;
+    readonly has_make_offer_artworks: boolean | null;
+    readonly partner_shows: any | null;
+  } | null;
+  readonly filtered_artworks: {
     readonly counts: {
-        readonly partner_shows: number | null;
-        readonly for_sale_artworks: number | null;
-        readonly ecommerce_artworks: number | null;
-        readonly auction_artworks: number | null;
-        readonly artworks: number | null;
-        readonly has_make_offer_artworks: boolean | null;
+      readonly total: any | null;
     } | null;
-    readonly filtered_artworks: {
-        readonly id: string;
-        readonly counts: {
-            readonly total: number | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkFilterArtworkGrid_filtered_artworks">;
-    } | null;
-    readonly internalID: string;
-    readonly isFollowed: boolean | null;
-    readonly slug: string;
-    readonly " $fragmentRefs": FragmentRefs<"FollowArtistButton_artist">;
-    readonly " $refType": "ArtistArtworkFilter_artist";
+    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkFilterArtworkGrid_filtered_artworks">;
+  } | null;
+  readonly internalID: string;
+  readonly name: string | null;
+  readonly slug: string;
+  readonly " $fragmentType": "ArtistArtworkFilter_artist";
 };
-export type ArtistArtworkFilter_artist$data = ArtistArtworkFilter_artist;
 export type ArtistArtworkFilter_artist$key = {
-    readonly " $data"?: ArtistArtworkFilter_artist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistArtworkFilter_artist">;
+  readonly " $data"?: ArtistArtworkFilter_artist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistArtworkFilter_artist">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -176,24 +177,14 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "isFollowed",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
       "name": "slug",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "FollowArtistButton_artist"
     }
   ],
   "type": "Artist",
   "abstractKey": null
 };
-(node as any).hash = '2deb3c44274322bd01c9b579d39c0a4f';
+
+(node as any).hash = "44474a8e0f69fe658c8e8df3e2bc4ceb";
+
 export default node;

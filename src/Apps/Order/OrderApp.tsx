@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from "react"
 import { Box } from "@artsy/palette"
-import { OrderApp_order } from "__generated__/OrderApp_order.graphql"
+import { OrderApp_order$data } from "__generated__/OrderApp_order.graphql"
 import { StickyFooterWithInquiry } from "Apps/Order/Components/StickyFooter"
 import { findCurrentRoute } from "System/Router/Utils/findCurrentRoute"
 import { ErrorPage } from "Components/ErrorPage"
@@ -19,12 +19,13 @@ import { isExceededZendeskThreshold } from "Utils/isExceededZendeskThreshold"
 import { getENV } from "Utils/getENV"
 import { extractNodes } from "Utils/extractNodes"
 import { useSystemContext } from "System"
+import { OrderPaymentContextProvider } from "./Routes/Payment/PaymentContext/OrderPaymentContext"
 
 export interface OrderAppProps extends RouterState {
   params: {
     orderID: string
   }
-  order: OrderApp_order
+  order: OrderApp_order$data
 }
 
 export const preventHardReload = event => {
@@ -112,11 +113,13 @@ const OrderApp: FC<OrderAppProps> = props => {
         />
         {!isEigen && !isModal && renderZendeskScript()}
         <SafeAreaContainer>
-          <Elements stripe={stripePromise}>
-            <AppContainer>
-              <HorizontalPadding>{children}</HorizontalPadding>
-            </AppContainer>
-          </Elements>
+          <OrderPaymentContextProvider>
+            <Elements stripe={stripePromise}>
+              <AppContainer>
+                <HorizontalPadding>{children}</HorizontalPadding>
+              </AppContainer>
+            </Elements>
+          </OrderPaymentContextProvider>
         </SafeAreaContainer>
         {!isModal && (
           <StickyFooterWithInquiry

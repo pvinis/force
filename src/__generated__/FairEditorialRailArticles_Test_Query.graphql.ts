@@ -1,60 +1,25 @@
+/**
+ * @generated SignedSource<<aae3627fb78ea7a6574af88029e37a68>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairEditorialRailArticles_Test_QueryVariables = {};
-export type FairEditorialRailArticles_Test_QueryResponse = {
-    readonly fair: {
-        readonly " $fragmentRefs": FragmentRefs<"FairEditorialRailArticles_fair">;
-    } | null;
+export type FairEditorialRailArticles_Test_Query$variables = {};
+export type FairEditorialRailArticles_Test_Query$data = {
+  readonly fair: {
+    readonly " $fragmentSpreads": FragmentRefs<"FairEditorialRailArticles_fair">;
+  } | null;
 };
 export type FairEditorialRailArticles_Test_Query = {
-    readonly response: FairEditorialRailArticles_Test_QueryResponse;
-    readonly variables: FairEditorialRailArticles_Test_QueryVariables;
+  response: FairEditorialRailArticles_Test_Query$data;
+  variables: FairEditorialRailArticles_Test_Query$variables;
 };
-
-
-
-/*
-query FairEditorialRailArticles_Test_Query {
-  fair(id: "test") {
-    ...FairEditorialRailArticles_fair
-    id
-  }
-}
-
-fragment CellArticle_article on Article {
-  vertical
-  title
-  thumbnailTitle
-  byline
-  href
-  publishedAt(format: "MMM D, YYYY")
-  thumbnailImage {
-    cropped(width: 445, height: 334) {
-      width
-      height
-      src
-      srcSet
-    }
-  }
-}
-
-fragment FairEditorialRailArticles_fair on Fair {
-  articlesConnection(first: 6, sort: PUBLISHED_AT_DESC) {
-    edges {
-      node {
-        ...CellArticle_article
-        internalID
-        slug
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -68,28 +33,35 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "href",
   "storageKey": null
 },
 v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
   "enumValues": null,
   "nullable": true,
   "plural": false,
   "type": "String"
 },
-v3 = {
+v4 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "ID"
 },
-v4 = {
+v5 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "Int"
 },
-v5 = {
+v6 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
@@ -136,6 +108,7 @@ return {
         "name": "fair",
         "plural": false,
         "selections": [
+          (v1/*: any*/),
           {
             "alias": null,
             "args": [
@@ -155,6 +128,13 @@ return {
             "name": "articlesConnection",
             "plural": false,
             "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "totalCount",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -199,13 +179,7 @@ return {
                         "name": "byline",
                         "storageKey": null
                       },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "href",
-                        "storageKey": null
-                      },
+                      (v1/*: any*/),
                       {
                         "alias": null,
                         "args": [
@@ -294,7 +268,7 @@ return {
                         "name": "slug",
                         "storageKey": null
                       },
-                      (v1/*: any*/)
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -304,14 +278,14 @@ return {
             ],
             "storageKey": "articlesConnection(first:6,sort:\"PUBLISHED_AT_DESC\")"
           },
-          (v1/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": "fair(id:\"test\")"
       }
     ]
   },
   "params": {
-    "cacheID": "b48ad4d262ea56fd7db34b720ae2e6bf",
+    "cacheID": "d9a9159a53ca2fe6287956f136081197",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -339,12 +313,12 @@ return {
           "plural": false,
           "type": "Article"
         },
-        "fair.articlesConnection.edges.node.byline": (v2/*: any*/),
-        "fair.articlesConnection.edges.node.href": (v2/*: any*/),
-        "fair.articlesConnection.edges.node.id": (v3/*: any*/),
-        "fair.articlesConnection.edges.node.internalID": (v3/*: any*/),
-        "fair.articlesConnection.edges.node.publishedAt": (v2/*: any*/),
-        "fair.articlesConnection.edges.node.slug": (v2/*: any*/),
+        "fair.articlesConnection.edges.node.byline": (v3/*: any*/),
+        "fair.articlesConnection.edges.node.href": (v3/*: any*/),
+        "fair.articlesConnection.edges.node.id": (v4/*: any*/),
+        "fair.articlesConnection.edges.node.internalID": (v4/*: any*/),
+        "fair.articlesConnection.edges.node.publishedAt": (v3/*: any*/),
+        "fair.articlesConnection.edges.node.slug": (v3/*: any*/),
         "fair.articlesConnection.edges.node.thumbnailImage": {
           "enumValues": null,
           "nullable": true,
@@ -357,21 +331,30 @@ return {
           "plural": false,
           "type": "CroppedImageUrl"
         },
-        "fair.articlesConnection.edges.node.thumbnailImage.cropped.height": (v4/*: any*/),
-        "fair.articlesConnection.edges.node.thumbnailImage.cropped.src": (v5/*: any*/),
-        "fair.articlesConnection.edges.node.thumbnailImage.cropped.srcSet": (v5/*: any*/),
-        "fair.articlesConnection.edges.node.thumbnailImage.cropped.width": (v4/*: any*/),
-        "fair.articlesConnection.edges.node.thumbnailTitle": (v2/*: any*/),
-        "fair.articlesConnection.edges.node.title": (v2/*: any*/),
-        "fair.articlesConnection.edges.node.vertical": (v2/*: any*/),
-        "fair.id": (v3/*: any*/)
+        "fair.articlesConnection.edges.node.thumbnailImage.cropped.height": (v5/*: any*/),
+        "fair.articlesConnection.edges.node.thumbnailImage.cropped.src": (v6/*: any*/),
+        "fair.articlesConnection.edges.node.thumbnailImage.cropped.srcSet": (v6/*: any*/),
+        "fair.articlesConnection.edges.node.thumbnailImage.cropped.width": (v5/*: any*/),
+        "fair.articlesConnection.edges.node.thumbnailTitle": (v3/*: any*/),
+        "fair.articlesConnection.edges.node.title": (v3/*: any*/),
+        "fair.articlesConnection.edges.node.vertical": (v3/*: any*/),
+        "fair.articlesConnection.totalCount": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "Int"
+        },
+        "fair.href": (v3/*: any*/),
+        "fair.id": (v4/*: any*/)
       }
     },
     "name": "FairEditorialRailArticles_Test_Query",
     "operationKind": "query",
-    "text": "query FairEditorialRailArticles_Test_Query {\n  fair(id: \"test\") {\n    ...FairEditorialRailArticles_fair\n    id\n  }\n}\n\nfragment CellArticle_article on Article {\n  vertical\n  title\n  thumbnailTitle\n  byline\n  href\n  publishedAt(format: \"MMM D, YYYY\")\n  thumbnailImage {\n    cropped(width: 445, height: 334) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n\nfragment FairEditorialRailArticles_fair on Fair {\n  articlesConnection(first: 6, sort: PUBLISHED_AT_DESC) {\n    edges {\n      node {\n        ...CellArticle_article\n        internalID\n        slug\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query FairEditorialRailArticles_Test_Query {\n  fair(id: \"test\") {\n    ...FairEditorialRailArticles_fair\n    id\n  }\n}\n\nfragment CellArticle_article on Article {\n  vertical\n  title\n  thumbnailTitle\n  byline\n  href\n  publishedAt(format: \"MMM D, YYYY\")\n  thumbnailImage {\n    cropped(width: 445, height: 334) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n\nfragment FairEditorialRailArticles_fair on Fair {\n  href\n  articlesConnection(first: 6, sort: PUBLISHED_AT_DESC) {\n    totalCount\n    edges {\n      node {\n        ...CellArticle_article\n        internalID\n        slug\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3e900f3085b2c69ccb21d11590d9c230';
+
+(node as any).hash = "3e900f3085b2c69ccb21d11590d9c230";
+
 export default node;

@@ -6,18 +6,18 @@ import {
   Image,
   ResponsiveBox,
 } from "@artsy/palette"
-import { ArtistConsignHeader_artist } from "__generated__/ArtistConsignHeader_artist.graphql"
+import { ArtistConsignHeader_artist$data } from "__generated__/ArtistConsignHeader_artist.graphql"
 import { SectionContainer } from "Apps/Artist/Routes/Consign/Components/SectionContainer"
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { useTracking } from "react-tracking"
 import { RouterLink } from "System/Router/RouterLink"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { getConsignSubmissionUrl } from "../Utils/getConsignSubmissionUrl"
+import { getConsignSubmissionUrl } from "Apps/Artist/Routes/Consign/Components/Utils/getConsignSubmissionUrl"
 import { extractNodes } from "Utils/extractNodes"
 
 interface ArtistConsignHeaderProps {
-  artist: ArtistConsignHeader_artist
+  artist: ArtistConsignHeader_artist$data
 }
 
 export const ArtistConsignHeader: React.FC<ArtistConsignHeaderProps> = ({

@@ -1,7 +1,7 @@
 import { Join, Spacer, Tab, Tabs } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { CuritorialRailsTabBar_viewer } from "__generated__/CuritorialRailsTabBar_viewer.graphql"
+import { CuritorialRailsTabBar_viewer$data } from "__generated__/CuritorialRailsTabBar_viewer.graphql"
 import { AuctionsZeroState } from "./AuctionsZeroState"
 import { MyBidsFragmentContainer } from "./MyBids/MyBids"
 import { StandoutLotsRailFragmentContainer } from "./StandoutLotsRail"
@@ -9,21 +9,21 @@ import { TrendingLotsRailFragmentContainer } from "./TrendingLotsRail"
 import { WorksByArtistsYouFollowRailFragmentContainer } from "./WorksByArtistsYouFollowRail"
 
 interface CuritorialRailsTabBarProps {
-  viewer: CuritorialRailsTabBar_viewer
+  viewer: CuritorialRailsTabBar_viewer$data
 }
 
 export const CuritorialRailsTabBar: React.FC<CuritorialRailsTabBarProps> = ({
   viewer,
 }) => {
-  const isFollowingArtists = !!viewer.me?.followsAndSaves?.artistsConnection
-    ?.totalCount!
+  const showWorksForYouTab = !!viewer.followedArtistsInAuction?.counts?.total
 
   return (
     <Tabs mb={4}>
-      {isFollowingArtists && (
+      {showWorksForYouTab && (
         <Tab name="Works For You">
-          <Join separator={<Spacer mt={2} />}>
+          <Join separator={<Spacer y={2} />}>
             <MyBidsFragmentContainer me={viewer.me!} />
+
             <WorksByArtistsYouFollowRailFragmentContainer viewer={viewer} />
           </Join>
         </Tab>
@@ -47,13 +47,19 @@ export const CuritorialRailsTabBarFragmentContainer = createFragmentContainer(
         ...TrendingLotsRail_viewer
         ...StandoutLotsRail_viewer
 
+        followedArtistsInAuction: saleArtworksConnection(
+          includeArtworksByFollowedArtists: true
+          isAuction: true
+          liveSale: true
+          first: 1
+        ) {
+          counts {
+            total
+          }
+        }
+
         me {
           ...MyBids_me
-          followsAndSaves {
-            artistsConnection {
-              totalCount
-            }
-          }
         }
       }
     `,

@@ -1,13 +1,13 @@
 import { Spacer } from "@artsy/palette"
-import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { AuctionTimerFragmentContainer } from "Components/AuctionTimer"
+
+import { ArtworkSidebarAuctionTimer_artwork$data } from "__generated__/ArtworkSidebarAuctionTimer_artwork.graphql"
 import { LotTimerFragmentContainer } from "./LotTimer"
-import { lotIsClosed } from "../../Utils/lotIsClosed"
-import { ArtworkSidebarAuctionTimer_artwork } from "__generated__/ArtworkSidebarAuctionTimer_artwork.graphql"
+import { lotIsClosed } from "Apps/Artwork/Utils/lotIsClosed"
 
 interface ArtworkSidebarAuctionTimerProps {
-  artwork: ArtworkSidebarAuctionTimer_artwork
+  artwork: ArtworkSidebarAuctionTimer_artwork$data
 }
 
 export const ArtworkSidebarAuctionTimer: React.FC<ArtworkSidebarAuctionTimerProps> = ({
@@ -22,12 +22,12 @@ export const ArtworkSidebarAuctionTimer: React.FC<ArtworkSidebarAuctionTimerProp
         !lotIsClosed(sale, saleArtwork) &&
         (sale?.cascadingEndTimeIntervalMinutes ? (
           <>
-            <Spacer mt={2} />
+            <Spacer y={2} />
             <LotTimerFragmentContainer saleArtwork={saleArtwork} />
           </>
         ) : (
           <>
-            <Spacer mt={2} />
+            <Spacer y={2} />
             <AuctionTimerFragmentContainer sale={sale} />
           </>
         ))}

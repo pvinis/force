@@ -1,42 +1,25 @@
+/**
+ * @generated SignedSource<<3e8395715233db8d53e0ac4db39e7ac9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellSaleFragmentContainer_Test_QueryVariables = {};
-export type CellSaleFragmentContainer_Test_QueryResponse = {
-    readonly sale: {
-        readonly " $fragmentRefs": FragmentRefs<"CellSale_sale">;
-    } | null;
+export type CellSaleFragmentContainer_Test_Query$variables = {};
+export type CellSaleFragmentContainer_Test_Query$data = {
+  readonly sale: {
+    readonly " $fragmentSpreads": FragmentRefs<"CellSale_sale">;
+  } | null;
 };
 export type CellSaleFragmentContainer_Test_Query = {
-    readonly response: CellSaleFragmentContainer_Test_QueryResponse;
-    readonly variables: CellSaleFragmentContainer_Test_QueryVariables;
+  response: CellSaleFragmentContainer_Test_Query$data;
+  variables: CellSaleFragmentContainer_Test_Query$variables;
 };
-
-
-
-/*
-query CellSaleFragmentContainer_Test_Query {
-  sale(id: "example") {
-    ...CellSale_sale
-    id
-  }
-}
-
-fragment CellSale_sale on Sale {
-  name
-  formattedStartDateTime
-  href
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -140,7 +123,6 @@ return {
                     "kind": "Literal",
                     "name": "version",
                     "value": [
-                      "normalized",
                       "larger",
                       "large"
                     ]
@@ -171,7 +153,7 @@ return {
                     "storageKey": null
                   }
                 ],
-                "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
               }
             ],
             "storageKey": null
@@ -189,7 +171,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d889670cb3dd84f297a21d9adcace50a",
+    "cacheID": "1261ae6f506df66d7fb3c34448d24fd1",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -226,9 +208,11 @@ return {
     },
     "name": "CellSaleFragmentContainer_Test_Query",
     "operationKind": "query",
-    "text": "query CellSaleFragmentContainer_Test_Query {\n  sale(id: \"example\") {\n    ...CellSale_sale\n    id\n  }\n}\n\nfragment CellSale_sale on Sale {\n  name\n  formattedStartDateTime\n  href\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query CellSaleFragmentContainer_Test_Query {\n  sale(id: \"example\") {\n    ...CellSale_sale\n    id\n  }\n}\n\nfragment CellSale_sale on Sale {\n  name\n  formattedStartDateTime\n  href\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '874dfbad29bea56a2ce81889270a1e94';
+
+(node as any).hash = "874dfbad29bea56a2ce81889270a1e94";
+
 export default node;

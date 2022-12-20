@@ -1,55 +1,25 @@
+/**
+ * @generated SignedSource<<728d59c0e0692509b18d0daf614c00c8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairsFairRow_Test_QueryVariables = {};
-export type FairsFairRow_Test_QueryResponse = {
-    readonly fair: {
-        readonly " $fragmentRefs": FragmentRefs<"FairsFairRow_fair">;
-    } | null;
+export type FairsFairRow_Test_Query$variables = {};
+export type FairsFairRow_Test_Query$data = {
+  readonly fair: {
+    readonly " $fragmentSpreads": FragmentRefs<"FairsFairRow_fair">;
+  } | null;
 };
 export type FairsFairRow_Test_Query = {
-    readonly response: FairsFairRow_Test_QueryResponse;
-    readonly variables: FairsFairRow_Test_QueryVariables;
+  response: FairsFairRow_Test_Query$data;
+  variables: FairsFairRow_Test_Query$variables;
 };
-
-
-
-/*
-query FairsFairRow_Test_Query {
-  fair(id: "example") {
-    ...FairsFairRow_fair
-    id
-  }
-}
-
-fragment FairsFairRow_fair on Fair {
-  href
-  name
-  isoStartAt: startAt
-  exhibitionPeriod
-  profile {
-    icon {
-      resized(width: 80, height: 80, version: "square140") {
-        width
-        height
-        src
-        srcSet
-      }
-    }
-    id
-  }
-  organizer {
-    profile {
-      href
-      id
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -327,5 +297,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'aeac823bc4ecfdfaaefb428618e8e491';
+
+(node as any).hash = "aeac823bc4ecfdfaaefb428618e8e491";
+
 export default node;

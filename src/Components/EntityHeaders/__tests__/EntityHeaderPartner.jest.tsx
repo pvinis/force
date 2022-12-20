@@ -2,7 +2,7 @@ import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { EntityHeaderPartnerFragmentContainer_Test_Query } from "__generated__/EntityHeaderPartnerFragmentContainer_Test_Query.graphql"
 import { screen } from "@testing-library/react"
-import { EntityHeaderPartnerFragmentContainer } from "../EntityHeaderPartner"
+import { EntityHeaderPartnerFragmentContainer } from "Components/EntityHeaders/EntityHeaderPartner"
 
 jest.unmock("react-relay")
 
@@ -36,7 +36,7 @@ describe("EntityHeaderPartner", () => {
 
     expect(screen.getByText("Example Partner")).toBeInTheDocument()
     expect(screen.getByText("New York")).toBeInTheDocument()
-    expect(screen.getByText("Black Owned")).toBeInTheDocument()
+    expect(screen.getByText("Black-Owned")).toBeInTheDocument()
     expect(screen.queryByText("Example Category")).not.toBeInTheDocument()
   })
 

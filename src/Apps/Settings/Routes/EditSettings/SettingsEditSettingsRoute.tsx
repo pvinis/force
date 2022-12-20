@@ -1,19 +1,35 @@
 import React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { Column, GridColumns, Join, Separator } from "@artsy/palette"
-import { SettingsEditSettingsInformationFragmentContainer } from "./Components/SettingsEditSettingsInformation"
 import { SettingsEditSettingsTwoFactorFragmentContainer } from "./Components/SettingsEditSettingsTwoFactor"
 import { SettingsEditSettingsPasswordFragmentContainer } from "./Components/SettingsEditSettingsPassword"
-import { SettingsEditSettingsRoute_me } from "__generated__/SettingsEditSettingsRoute_me.graphql"
+import { SettingsEditSettingsRoute_me$data } from "__generated__/SettingsEditSettingsRoute_me.graphql"
 import { SettingsEditSettingsDeleteAccount } from "./Components/SettingsEditSettingsDeleteAccount/SettingsEditSettingsDeleteAccount"
 import { SettingsEditSettingsLinkedAccountsFragmentContainer } from "./Components/SettingsEditSettingsLinkedAccounts"
 import { SettingsEditSettingsEmailPreferences } from "./Components/SettingsEditSettingsEmailPreferences/SettingsEditSettingsEmailPreferences"
+import { SettingsEditSettingsInformationFragmentContainer } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsInformation"
+import { SettingsEditProfileFieldsFragmentContainer } from "Apps/Settings/Routes/EditProfile/Components/SettingsEditProfileFields"
+import { useFeatureFlag } from "System/useFeatureFlag"
 
 interface SettingsEditRouteProps {
-  me: SettingsEditSettingsRoute_me
+  me: SettingsEditSettingsRoute_me$data
 }
 
 const SettingsEditRoute: React.FC<SettingsEditRouteProps> = ({ me }) => {
+  const isCollectorProfileEnabled = useFeatureFlag("cx-collector-profile")
+
+  if (isCollectorProfileEnabled) {
+    return (
+      <GridColumns>
+        <Column span={8}>
+          <Join separator={<Separator my={6} />}>
+            <SettingsEditProfileFieldsFragmentContainer me={me} />
+          </Join>
+        </Column>
+      </GridColumns>
+    )
+  }
+
   return (
     <GridColumns>
       <Column span={8}>
@@ -40,6 +56,7 @@ export const SettingsEditRouteFragmentContainer = createFragmentContainer(
   {
     me: graphql`
       fragment SettingsEditSettingsRoute_me on Me {
+        ...SettingsEditProfileFields_me
         ...SettingsEditSettingsInformation_me
         ...SettingsEditSettingsPassword_me
         ...SettingsEditSettingsTwoFactor_me

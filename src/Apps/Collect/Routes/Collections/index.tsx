@@ -1,5 +1,5 @@
 import { Box, Column, GridColumns, Join, Spacer, Text } from "@artsy/palette"
-import { Collections_marketingCategories } from "__generated__/Collections_marketingCategories.graphql"
+import { Collections_marketingCategories$data } from "__generated__/Collections_marketingCategories.graphql"
 import { FrameWithRecentlyViewed } from "Components/FrameWithRecentlyViewed"
 import { BreadCrumbList } from "Components/Seo"
 import { Meta, Title } from "react-head"
@@ -9,7 +9,7 @@ import { RouterLink } from "System/Router/RouterLink"
 import { getENV } from "Utils/getENV"
 
 interface CollectionsAppProps {
-  marketingCategories: Collections_marketingCategories
+  marketingCategories: Collections_marketingCategories$data
 }
 
 export const CollectionsApp: React.FC<CollectionsAppProps> = ({
@@ -44,7 +44,7 @@ export const CollectionsApp: React.FC<CollectionsAppProps> = ({
         </GridColumns>
 
         <Box data-test="collections-list">
-          <Join separator={<Spacer mt={6} />}>
+          <Join separator={<Spacer y={6} />}>
             {sorted.map((category, i) => {
               return (
                 <CollectionsCategoryFragmentContainer

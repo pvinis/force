@@ -1,4 +1,4 @@
-import { ShowsIndexFragmentContainer } from "../ShowsIndex"
+import { ShowsIndexFragmentContainer } from "Apps/Shows/Routes/ShowsIndex"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
 import { graphql } from "react-relay"
 import { ShowsIndex_Test_Query } from "__generated__/ShowsIndex_Test_Query.graphql"

@@ -1,26 +1,29 @@
+/**
+ * @generated SignedSource<<0cb74da902a0784e11c6afe29b440564>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type MarketingCollectionGroupTypeEnum = "ArtistSeries" | "FeaturedCollections" | "OtherCollections" | "%future added value";
-export type ArtistSeriesRail_collectionGroup = {
-    readonly groupType: MarketingCollectionGroupTypeEnum;
-    readonly name: string;
-    readonly members: ReadonlyArray<{
-        readonly slug: string;
-        readonly " $fragmentRefs": FragmentRefs<"ArtistSeriesEntity_member">;
-    }>;
-    readonly " $refType": "ArtistSeriesRail_collectionGroup";
+import { FragmentRefs } from "relay-runtime";
+export type ArtistSeriesRail_collectionGroup$data = {
+  readonly groupType: MarketingCollectionGroupTypeEnum;
+  readonly members: ReadonlyArray<{
+    readonly slug: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistSeriesEntity_member">;
+  }>;
+  readonly name: string;
+  readonly " $fragmentType": "ArtistSeriesRail_collectionGroup";
 };
-export type ArtistSeriesRail_collectionGroup$data = ArtistSeriesRail_collectionGroup;
 export type ArtistSeriesRail_collectionGroup$key = {
-    readonly " $data"?: ArtistSeriesRail_collectionGroup$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistSeriesRail_collectionGroup">;
+  readonly " $data"?: ArtistSeriesRail_collectionGroup$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistSeriesRail_collectionGroup">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -69,5 +72,7 @@ const node: ReaderFragment = {
   "type": "MarketingCollectionGroup",
   "abstractKey": null
 };
-(node as any).hash = '0a934729123f8c15545a74cfcd58bb55';
+
+(node as any).hash = "0a934729123f8c15545a74cfcd58bb55";
+
 export default node;

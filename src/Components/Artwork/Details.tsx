@@ -1,26 +1,38 @@
-import { Link, Text, LinkProps, Flex, Spacer, Box } from "@artsy/palette"
-import { Details_artwork } from "__generated__/Details_artwork.graphql"
-import * as React from "react"
-import { createFragmentContainer, graphql } from "react-relay"
-import { useArtworkGridContext } from "../ArtworkGrid/ArtworkGridContext"
-import { useTimer } from "Utils/Hooks/useTimer"
-import { HoverDetailsFragmentContainer } from "./HoverDetails"
-
 import { AuthContextModule } from "@artsy/cohesion"
-import { NewSaveButtonFragmentContainer } from "./SaveButton"
-import { getSaleOrLotTimerInfo } from "Utils/getSaleOrLotTimerInfo"
-import { useState } from "react"
+import {
+  Box,
+  Flex,
+  Join,
+  Link,
+  LinkProps,
+  SkeletonText,
+  Spacer,
+  Text,
+} from "@artsy/palette"
+import { HighDemandIcon } from "Apps/MyCollection/Routes/MyCollectionArtwork/Components/MyCollectionArtworkDemandIndex/HighDemandIcon"
+import { useArtworkGridContext } from "Components/ArtworkGrid/ArtworkGridContext"
 import { useAuctionWebsocket } from "Components/useAuctionWebsocket"
+import * as React from "react"
+import { useState } from "react"
+import { createFragmentContainer, graphql } from "react-relay"
+import { useFeatureFlag } from "System/useFeatureFlag"
+import { getSaleOrLotTimerInfo } from "Utils/getSaleOrLotTimerInfo"
+import { useTimer } from "Utils/Hooks/useTimer"
+import { Details_artwork$data } from "__generated__/Details_artwork.graphql"
+import { HoverDetailsFragmentContainer } from "./HoverDetails"
+import { NewSaveButtonFragmentContainer } from "./SaveButton"
 
 interface DetailsProps {
-  artwork: Details_artwork
+  artwork: Details_artwork$data
+  contextModule?: AuthContextModule
   includeLinks: boolean
   hideSaleInfo?: boolean
   hideArtistName?: boolean
   hidePartnerName?: boolean
   isHovered?: boolean
+  showHighDemandIcon?: boolean
+  showHoverDetails?: boolean
   showSaveButton?: boolean
-  contextModule?: AuthContextModule
 }
 
 const ConditionalLink: React.FC<
@@ -123,6 +135,19 @@ const SaleInfoLine: React.FC<DetailsProps> = props => {
   )
 }
 
+const HighDemandInfo = () => {
+  return (
+    <Flex flexDirection="row" alignItems="center">
+      <HighDemandIcon width={16} height={16} />
+      <Text variant="xs" color="blue100" ml={0.3}>
+        High Demand
+      </Text>
+    </Flex>
+  )
+}
+
+const NBSP = " "
+
 const SaleMessage: React.FC<DetailsProps> = ({
   artwork: { sale, sale_message, sale_artwork },
 }) => {
@@ -137,11 +162,12 @@ const SaleMessage: React.FC<DetailsProps> = ({
     return <>{highestBid_display || openingBid_display || ""}</>
   }
 
-  if (sale_message === "Contact For Price") {
+  if (sale_message?.toLowerCase() === "contact for price") {
     return <>Price on request</>
   }
 
-  return <>{sale_message}</>
+  // NBSP is used to prevent un-aligned carousels
+  return <>{sale_message ?? NBSP}</>
 }
 
 const BidInfo: React.FC<DetailsProps> = ({
@@ -167,31 +193,50 @@ const BidInfo: React.FC<DetailsProps> = ({
 }
 
 export const Details: React.FC<DetailsProps> = ({
+  contextModule,
   hideArtistName,
   hidePartnerName,
   hideSaleInfo,
   isHovered,
+  showHighDemandIcon = false,
+  showHoverDetails = true,
   showSaveButton,
-  contextModule,
   ...rest
 }) => {
-  const { isAuctionArtwork } = useArtworkGridContext()
+  const { isAuctionArtwork, hideLotLabel } = useArtworkGridContext()
+
+  const isP1Artist = rest?.artwork.artist?.targetSupply?.isP1
+  const isHighDemand =
+    Number((rest?.artwork.marketPriceInsights?.demandRank || 0) * 10) >= 9
+
+  const showDemandIndexHints = useFeatureFlag(
+    "show-my-collection-demand-index-hints"
+  )
+
+  const showHighDemandInfo =
+    !!isP1Artist && isHighDemand && !!showDemandIndexHints && showHighDemandIcon
 
   return (
     <Box>
       {isAuctionArtwork && (
         <Flex flexDirection="row">
-          <Text variant="xs">Lot {rest.artwork?.sale_artwork?.lotLabel}</Text>
-          {rest?.artwork?.sale?.cascadingEndTimeIntervalMinutes &&
-            rest?.artwork?.sale_artwork && (
-              <>
-                <Spacer mx={0.5} />
-                <LotCloseInfo
-                  saleArtwork={rest.artwork.sale_artwork}
-                  sale={rest.artwork.sale}
-                />
-              </>
+          <Join separator={<Spacer x={1} />}>
+            {!hideLotLabel && (
+              <Text variant="xs" flexShrink={0}>
+                Lot {rest.artwork?.sale_artwork?.lotLabel}
+              </Text>
             )}
+
+            {rest?.artwork?.sale?.cascadingEndTimeIntervalMinutes &&
+              rest?.artwork?.sale_artwork && (
+                <>
+                  <LotCloseInfo
+                    saleArtwork={rest.artwork.sale_artwork}
+                    sale={rest.artwork.sale}
+                  />
+                </>
+              )}
+          </Join>
         </Flex>
       )}
       <Flex flexDirection="row" justifyContent="space-between">
@@ -207,8 +252,11 @@ export const Details: React.FC<DetailsProps> = ({
       </Flex>
       <Box position="relative">
         <TitleLine {...rest} />
+        {showHighDemandInfo && <HighDemandInfo />}
         {!hidePartnerName && <PartnerLine {...rest} />}
-        {isHovered && <HoverDetailsFragmentContainer artwork={rest.artwork} />}
+        {isHovered && showHoverDetails && (
+          <HoverDetailsFragmentContainer artwork={rest.artwork} />
+        )}
       </Box>
       {!hideSaleInfo && <SaleInfoLine {...rest} />}
     </Box>
@@ -216,8 +264,8 @@ export const Details: React.FC<DetailsProps> = ({
 }
 
 interface LotCloseInfoProps {
-  saleArtwork: NonNullable<Details_artwork["sale_artwork"]>
-  sale: NonNullable<Details_artwork["sale"]>
+  saleArtwork: NonNullable<Details_artwork$data["sale_artwork"]>
+  sale: NonNullable<Details_artwork$data["sale"]>
 }
 
 export const LotCloseInfo: React.FC<LotCloseInfoProps> = ({
@@ -286,7 +334,7 @@ export const LotCloseInfo: React.FC<LotCloseInfoProps> = ({
   }
 
   return (
-    <Text variant="xs" color={labelColor}>
+    <Text variant="xs" color={labelColor} overflowEllipsis>
       {lotCloseCopy}
     </Text>
   )
@@ -300,6 +348,14 @@ export const DetailsFragmentContainer = createFragmentContainer(Details, {
       date
       sale_message: saleMessage
       cultural_maker: culturalMaker
+      artist {
+        targetSupply {
+          isP1
+        }
+      }
+      marketPriceInsights {
+        demandRank
+      }
       artists(shallow: true) {
         id
         href
@@ -339,3 +395,28 @@ export const DetailsFragmentContainer = createFragmentContainer(Details, {
     }
   `,
 })
+
+type DetailsPlaceholderProps = Pick<
+  DetailsProps,
+  "hidePartnerName" | "hideArtistName" | "hideSaleInfo"
+>
+
+export const DetailsPlaceholder: React.FC<DetailsPlaceholderProps> = ({
+  hideArtistName,
+  hidePartnerName,
+  hideSaleInfo,
+}) => {
+  return (
+    <>
+      {!hideArtistName && (
+        <SkeletonText variant="sm-display">Artist Name</SkeletonText>
+      )}
+
+      <SkeletonText variant="sm-display">Artwork Title</SkeletonText>
+
+      {!hidePartnerName && <SkeletonText variant="xs">Partner</SkeletonText>}
+
+      {!hideSaleInfo && <SkeletonText variant="xs">Price</SkeletonText>}
+    </>
+  )
+}

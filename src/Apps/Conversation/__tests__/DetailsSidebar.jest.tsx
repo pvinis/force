@@ -1,7 +1,7 @@
 import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { screen } from "@testing-library/react"
-import { DetailsSidebarFragmentContainer } from "../Components/DetailsSidebar"
+import { DetailsSidebarFragmentContainer } from "Apps/Conversation/Components/DetailsSidebar"
 import { DetailsSidebar_Test_Query } from "__generated__/DetailsSidebar_Test_Query.graphql"
 
 jest.unmock("react-relay")

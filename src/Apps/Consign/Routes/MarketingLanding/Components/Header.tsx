@@ -1,25 +1,40 @@
-import { RouterLink } from "System/Router/RouterLink"
-import { FullBleedHeader } from "Components/FullBleedHeader"
-import { Box, Button, Flex, Text } from "@artsy/palette"
+import { Box, Button, Flex, Spacer, Text } from "@artsy/palette"
 import { AppContainer } from "Apps/Components/AppContainer"
-import { useAnalyticsContext, useSystemContext } from "System"
+import { FullBleedHeader } from "Components/FullBleedHeader"
 import { useTracking } from "react-tracking"
+import { useAnalyticsContext, useSystemContext } from "System"
+import { RouterLink } from "System/Router/RouterLink"
+import { useFeatureFlag } from "System/useFeatureFlag"
 
 export const Header: React.FC = () => {
   const { trackEvent } = useTracking()
+  const showGetInTouchCTA = useFeatureFlag("get-in-touch-flow-web")
+  const enableSWAInquiryFlow = useFeatureFlag("swa-inquiry-flow")
+  const getInTouchRoute = enableSWAInquiryFlow
+    ? "/sell/inquiry"
+    : "mailto:sell@artsy.net?subject=Inquiry about selling with Artsy"
   const { user } = useSystemContext()
   const { contextPageOwnerType } = useAnalyticsContext()
 
   const trackSubmitClick = () => {
     trackEvent({
-      // @ts-ignore
       action: "clickedSubmitAnArtwork",
-      // @ts-ignore
       context_module: "Header",
       context_page_owner_type: contextPageOwnerType,
       label: "Submit an Artwork",
       user_id: user?.id,
-      destination_path: "/sell/submission/artwork-details",
+      destination_path: "/sell/submission",
+    })
+  }
+
+  const trackGetInTouchClick = () => {
+    trackEvent({
+      action: "clickedGetInTouch",
+      context_module: "Header",
+      context_page_owner_type: contextPageOwnerType,
+      label: "Get in Touch",
+      user_id: user?.id,
+      user_email: user?.email,
     })
   }
 
@@ -48,16 +63,53 @@ export const Header: React.FC = () => {
               auction, private sale, or direct listing on Artsy.
             </Text>
 
-            <Button
-              // @ts-ignore
-              as={RouterLink}
-              variant="primaryWhite"
-              to="/sell/submission/artwork-details"
-              onClick={trackSubmitClick}
-              mb={[4, 0]}
-            >
-              Submit an Artwork
-            </Button>
+            {showGetInTouchCTA ? (
+              <Flex flexDirection={["column", "row"]} maxWidth="450px">
+                <Flex flex={1}>
+                  <Button
+                    // @ts-ignore
+                    as={RouterLink}
+                    variant="primaryWhite"
+                    to="/sell/submission"
+                    onClick={trackSubmitClick}
+                    mb={[2, 0]}
+                    width={"100%"}
+                    data-testid="submit-artwork-button"
+                  >
+                    Submit an Artwork
+                  </Button>
+                </Flex>
+
+                <Spacer x={[0, 2]} />
+
+                <Flex flex={1}>
+                  <Button
+                    // @ts-ignore
+                    as={RouterLink}
+                    variant="secondaryWhite"
+                    onClick={trackGetInTouchClick}
+                    mb={[4, 0]}
+                    width={"100%"}
+                    data-testid="get-in-touch-button"
+                    to={getInTouchRoute}
+                  >
+                    Get in Touch
+                  </Button>
+                </Flex>
+              </Flex>
+            ) : (
+              <Button
+                // @ts-ignore
+                as={RouterLink}
+                variant="primaryWhite"
+                to="/sell/submission"
+                onClick={trackSubmitClick}
+                mb={[4, 0]}
+                data-testid="submit-artwork-button"
+              >
+                Submit an Artwork
+              </Button>
+            )}
           </Box>
         </AppContainer>
       </Flex>

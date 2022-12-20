@@ -10,20 +10,22 @@ import {
   Text,
 } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ShowInfo_show } from "__generated__/ShowInfo_show.graphql"
-import { ShowInfoLocationFragmentContainer as ShowInfoLocation } from "../Components/ShowInfoLocation"
+import { ShowInfo_show$data } from "__generated__/ShowInfo_show.graphql"
+import { ShowInfoLocationFragmentContainer as ShowInfoLocation } from "Apps/Show/Components/ShowInfoLocation"
 import { Media } from "Utils/Responsive"
-import { ShowHoursFragmentContainer } from "../Components/ShowHours"
+import { ShowHoursFragmentContainer } from "Apps/Show/Components/ShowHours"
 import { EntityHeaderPartnerFragmentContainer } from "Components/EntityHeaders/EntityHeaderPartner"
 
 interface ShowInfoProps {
-  show: ShowInfo_show
+  show: ShowInfo_show$data
 }
 
 export const ShowInfo: React.FC<ShowInfoProps> = ({
   show,
   show: { about, pressRelease, partner, hasLocation },
 }) => {
+  const events = show.events || []
+
   return (
     <>
       <Text as="h1" variant="xl" my={4}>
@@ -32,7 +34,7 @@ export const ShowInfo: React.FC<ShowInfoProps> = ({
 
       <GridColumns>
         <Column span={8}>
-          <Join separator={<Spacer mt={4} />}>
+          <Join separator={<Spacer y={4} />}>
             {about && (
               <Box>
                 <Text as="h3" variant="lg-display" mb={2}>
@@ -62,12 +64,14 @@ export const ShowInfo: React.FC<ShowInfoProps> = ({
                 </HTML>
               </Box>
             )}
+
+            {events.length > 0 && <EventList events={events} />}
           </Join>
         </Column>
 
         {hasLocation && (
           <Column span={4}>
-            <Join separator={<Spacer mt={4} />}>
+            <Join separator={<Spacer y={4} />}>
               {partner && partner.__typename === "Partner" && (
                 <Box>
                   <Text as="h2" variant="lg-display" mb={2}>
@@ -95,6 +99,40 @@ export const ShowInfo: React.FC<ShowInfoProps> = ({
   )
 }
 
+const EventList: React.FC<{ events: ShowInfoProps["show"]["events"] }> = ({
+  events,
+}) => {
+  if (!events?.length) return null
+
+  return (
+    <Box>
+      <Text as="h2" variant="xl" mb="2">
+        Events
+      </Text>
+
+      <Join separator={<Spacer y="2" />}>
+        {events.map((event, index) => {
+          if (!event) return null
+
+          const eventHeading = event.title || event.eventType
+
+          return (
+            <Box key={index}>
+              <Text as="h3" variant="lg">
+                {eventHeading}
+              </Text>
+              <Text color="black60" mb="1">
+                {event.dateTimeRange}
+              </Text>
+              <Text>{event.description}</Text>
+            </Box>
+          )
+        })}
+      </Join>
+    </Box>
+  )
+}
+
 export const ShowInfoFragmentContainer = createFragmentContainer(ShowInfo, {
   show: graphql`
     fragment ShowInfo_show on Show {
@@ -104,6 +142,12 @@ export const ShowInfoFragmentContainer = createFragmentContainer(ShowInfo, {
       about: description
       pressRelease(format: HTML)
       hasLocation
+      events {
+        dateTimeRange
+        description
+        eventType
+        title
+      }
       partner {
         __typename
         ... on Partner {

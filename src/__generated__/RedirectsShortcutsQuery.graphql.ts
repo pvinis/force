@@ -1,33 +1,26 @@
+/**
+ * @generated SignedSource<<ce242e1ebd38d997983974ff5f1c8344>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type RedirectsShortcutsQueryVariables = {
-    id: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type RedirectsShortcutsQuery$variables = {
+  id: string;
 };
-export type RedirectsShortcutsQueryResponse = {
-    readonly shortcut: {
-        readonly long: string;
-    };
+export type RedirectsShortcutsQuery$data = {
+  readonly shortcut: {
+    readonly long: string;
+  } | null;
 };
 export type RedirectsShortcutsQuery = {
-    readonly response: RedirectsShortcutsQueryResponse;
-    readonly variables: RedirectsShortcutsQueryVariables;
+  response: RedirectsShortcutsQuery$data;
+  variables: RedirectsShortcutsQuery$variables;
 };
-
-
-
-/*
-query RedirectsShortcutsQuery(
-  $id: ID!
-) {
-  shortcut(id: $id) {
-    long
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -111,5 +104,7 @@ return {
   }
 };
 })();
-(node as any).hash = '0b36c3e62f952385b056ec9f6eb3db09';
+
+(node as any).hash = "0b36c3e62f952385b056ec9f6eb3db09";
+
 export default node;

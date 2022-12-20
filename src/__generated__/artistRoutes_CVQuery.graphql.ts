@@ -1,157 +1,27 @@
+/**
+ * @generated SignedSource<<2cbe81f5073d88060705c38f9674c08d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type artistRoutes_CVQueryVariables = {
-    artistID: string;
+export type artistRoutes_CVQuery$variables = {
+  artistID: string;
 };
-export type artistRoutes_CVQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtistCVRoute_viewer">;
-    } | null;
+export type artistRoutes_CVQuery$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistCVRoute_viewer">;
+  } | null;
 };
 export type artistRoutes_CVQuery = {
-    readonly response: artistRoutes_CVQueryResponse;
-    readonly variables: artistRoutes_CVQueryVariables;
+  response: artistRoutes_CVQuery$data;
+  variables: artistRoutes_CVQuery$variables;
 };
-
-
-
-/*
-query artistRoutes_CVQuery(
-  $artistID: String!
-) {
-  viewer {
-    ...ArtistCVRoute_viewer
-  }
-}
-
-fragment ArtistCVGroup_artist_47e96d on Artist {
-  slug
-  showsConnection(first: 10, sort: START_AT_DESC, atAFair: true, soloShow: false, isReference: true, visibleToPublic: false) {
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    edges {
-      node {
-        id
-        partner {
-          __typename
-          ... on ExternalPartner {
-            name
-            id
-          }
-          ... on Partner {
-            name
-            href
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-        name
-        startAt(format: "YYYY")
-        city
-        href
-        __typename
-      }
-      cursor
-    }
-  }
-}
-
-fragment ArtistCVGroup_artist_4DszuY on Artist {
-  slug
-  showsConnection(first: 10, sort: START_AT_DESC, atAFair: false, soloShow: false, isReference: true, visibleToPublic: false) {
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    edges {
-      node {
-        id
-        partner {
-          __typename
-          ... on ExternalPartner {
-            name
-            id
-          }
-          ... on Partner {
-            name
-            href
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-        name
-        startAt(format: "YYYY")
-        city
-        href
-        __typename
-      }
-      cursor
-    }
-  }
-}
-
-fragment ArtistCVGroup_artist_ieWPx on Artist {
-  slug
-  showsConnection(first: 10, sort: START_AT_DESC, atAFair: false, soloShow: true, isReference: true, visibleToPublic: false) {
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    edges {
-      node {
-        id
-        partner {
-          __typename
-          ... on ExternalPartner {
-            name
-            id
-          }
-          ... on Partner {
-            name
-            href
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-        name
-        startAt(format: "YYYY")
-        city
-        href
-        __typename
-      }
-      cursor
-    }
-  }
-}
-
-fragment ArtistCVRoute_viewer on Viewer {
-  soloShows: artist(id: $artistID) {
-    ...ArtistCVGroup_artist_ieWPx
-    name
-    id
-  }
-  groupShows: artist(id: $artistID) {
-    ...ArtistCVGroup_artist_4DszuY
-    id
-  }
-  fairBooths: artist(id: $artistID) {
-    ...ArtistCVGroup_artist_47e96d
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -543,5 +413,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4f3a0aedd2dd82534771cf6b8a277208';
+
+(node as any).hash = "4f3a0aedd2dd82534771cf6b8a277208";
+
 export default node;

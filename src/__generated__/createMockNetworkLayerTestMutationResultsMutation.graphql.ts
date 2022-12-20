@@ -1,64 +1,41 @@
+/**
+ * @generated SignedSource<<2596e796910ce51a860ce2e6f2afcb49>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type CommerceOrderStateEnum = "ABANDONED" | "APPROVED" | "CANCELED" | "FULFILLED" | "PENDING" | "PROCESSING_APPROVAL" | "REFUNDED" | "SUBMITTED" | "%future added value";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type CommerceOrderStateEnum = "ABANDONED" | "APPROVED" | "CANCELED" | "FULFILLED" | "IN_REVIEW" | "PENDING" | "PROCESSING_APPROVAL" | "REFUNDED" | "SUBMITTED" | "%future added value";
 export type CommerceBuyerAcceptOfferInput = {
-    clientMutationId?: string | null | undefined;
-    offerId: string;
+  clientMutationId?: string | null;
+  offerId: string;
 };
-export type createMockNetworkLayerTestMutationResultsMutationVariables = {
-    input: CommerceBuyerAcceptOfferInput;
+export type createMockNetworkLayerTestMutationResultsMutation$variables = {
+  input: CommerceBuyerAcceptOfferInput;
 };
-export type createMockNetworkLayerTestMutationResultsMutationResponse = {
-    readonly commerceBuyerAcceptOffer: {
-        readonly orderOrError: {
-            readonly error?: {
-                readonly type: string;
-                readonly code: string;
-                readonly data: string | null;
-            } | undefined;
-            readonly order?: {
-                readonly internalID: string;
-                readonly state: CommerceOrderStateEnum;
-            } | undefined;
-        };
-    } | null;
+export type createMockNetworkLayerTestMutationResultsMutation$data = {
+  readonly commerceBuyerAcceptOffer: {
+    readonly orderOrError: {
+      readonly error?: {
+        readonly code: string;
+        readonly data: string | null;
+        readonly type: string;
+      };
+      readonly order?: {
+        readonly internalID: string;
+        readonly state: CommerceOrderStateEnum;
+      };
+    };
+  } | null;
 };
 export type createMockNetworkLayerTestMutationResultsMutation = {
-    readonly response: createMockNetworkLayerTestMutationResultsMutationResponse;
-    readonly variables: createMockNetworkLayerTestMutationResultsMutationVariables;
+  response: createMockNetworkLayerTestMutationResultsMutation$data;
+  variables: createMockNetworkLayerTestMutationResultsMutation$variables;
 };
-
-
-
-/*
-mutation createMockNetworkLayerTestMutationResultsMutation(
-  $input: CommerceBuyerAcceptOfferInput!
-) {
-  commerceBuyerAcceptOffer(input: $input) {
-    orderOrError {
-      __typename
-      ... on CommerceOrderWithMutationFailure {
-        error {
-          type
-          code
-          data
-        }
-      }
-      ... on CommerceOrderWithMutationSuccess {
-        order {
-          __typename
-          internalID
-          state
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -259,5 +236,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'dcfa0d5642e51295d881dcd55a1c3515';
+
+(node as any).hash = "dcfa0d5642e51295d881dcd55a1c3515";
+
 export default node;

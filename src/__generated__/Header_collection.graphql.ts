@@ -1,32 +1,35 @@
+/**
+ * @generated SignedSource<<d78437c2c69fc7ddff55df616194bcd6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Header_collection = {
-    readonly category: string;
-    readonly credit: string | null;
-    readonly description: string | null;
-    readonly featuredArtistExclusionIds: ReadonlyArray<string>;
-    readonly headerImage: string | null;
-    readonly id: string;
-    readonly query: {
-        readonly artistIDs: ReadonlyArray<string> | null;
-    };
-    readonly slug: string;
-    readonly title: string;
-    readonly showHeaderArtworksRail: boolean;
-    readonly showFeaturedArtists: boolean;
-    readonly " $refType": "Header_collection";
+export type Header_collection$data = {
+  readonly category: string;
+  readonly credit: string | null;
+  readonly description: string | null;
+  readonly featuredArtistExclusionIds: ReadonlyArray<string>;
+  readonly headerImage: string | null;
+  readonly id: string;
+  readonly query: {
+    readonly artistIDs: ReadonlyArray<string> | null;
+  };
+  readonly showFeaturedArtists: boolean;
+  readonly showHeaderArtworksRail: boolean;
+  readonly slug: string;
+  readonly title: string;
+  readonly " $fragmentType": "Header_collection";
 };
-export type Header_collection$data = Header_collection;
 export type Header_collection$key = {
-    readonly " $data"?: Header_collection$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Header_collection">;
+  readonly " $data"?: Header_collection$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Header_collection">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -126,5 +129,7 @@ const node: ReaderFragment = {
   "type": "MarketingCollection",
   "abstractKey": null
 };
-(node as any).hash = '6aaa6eaf8c8d7070bf81c8b6e113fa1f';
+
+(node as any).hash = "6aaa6eaf8c8d7070bf81c8b6e113fa1f";
+
 export default node;

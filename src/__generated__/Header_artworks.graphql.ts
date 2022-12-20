@@ -1,25 +1,28 @@
+/**
+ * @generated SignedSource<<7a35b7cb11b013ad6d473d76305e7c77>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Header_artworks = {
-    readonly merchandisableArtists: ReadonlyArray<{
-        readonly internalID: string;
-        readonly name: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"FollowArtistButton_artist" | "EntityHeaderArtist_artist">;
-    } | null> | null;
-    readonly " $fragmentRefs": FragmentRefs<"DefaultHeader_headerArtworks">;
-    readonly " $refType": "Header_artworks";
+export type Header_artworks$data = {
+  readonly merchandisableArtists: ReadonlyArray<{
+    readonly internalID: string;
+    readonly name: string | null;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderArtist_artist">;
+  } | null> | null;
+  readonly " $fragmentSpreads": FragmentRefs<"DefaultHeader_headerArtworks">;
+  readonly " $fragmentType": "Header_artworks";
 };
-export type Header_artworks$data = Header_artworks;
 export type Header_artworks$key = {
-    readonly " $data"?: Header_artworks$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Header_artworks">;
+  readonly " $data"?: Header_artworks$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Header_artworks">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -28,6 +31,11 @@ const node: ReaderFragment = {
   "name": "Header_artworks",
   "selections": [
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DefaultHeader_headerArtworks"
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "Artist",
@@ -35,6 +43,11 @@ const node: ReaderFragment = {
       "name": "merchandisableArtists",
       "plural": true,
       "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityHeaderArtist_artist"
+        },
         {
           "alias": null,
           "args": null,
@@ -48,28 +61,15 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "name",
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowArtistButton_artist"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityHeaderArtist_artist"
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "DefaultHeader_headerArtworks"
     }
   ],
   "type": "FilterArtworksConnection",
   "abstractKey": null
 };
-(node as any).hash = '03eb4bc477f0bae742f6707547b2b471';
+
+(node as any).hash = "69f824c3f2a20c931c30b8ec11d065e6";
+
 export default node;

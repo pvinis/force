@@ -33,15 +33,15 @@ export const ARTISTS_SUBMENU_DATA: MenuLinkData = {
     links: [
       {
         text: "Trending This Week",
-        href: "/gene/trending-this-week",
+        href: "/collection/trending-this-week",
       },
       {
         text: "Black Painters On Our Radar",
-        href: "/gene/black-painters-on-our-radar",
+        href: "/collection/black-painters-on-our-radar",
       },
       {
-        text: "Top Auction Lots",
-        href: "/gene/top-auction-lots",
+        text: "Street Art Highlights",
+        href: "/collection/street-art-highlights",
         dividerBelow: true,
       },
       {
@@ -51,15 +51,15 @@ export const ARTISTS_SUBMENU_DATA: MenuLinkData = {
           links: [
             {
               text: "Artists On The Rise",
-              href: "/gene/artists-on-the-rise",
+              href: "/collection/artists-on-the-rise",
             },
             {
-              text: "Emerging Photographers to Watch",
-              href: "/gene/emerging-photographers-to-watch",
+              text: "Contemporary Now",
+              href: "/collection/contemporary-now",
             },
             {
-              text: "Street Art Now",
-              href: "/gene/street-art-now-1",
+              text: "Women Artists to Watch",
+              href: "/collection/women-artists-to-watch",
             },
           ],
         },
@@ -151,24 +151,20 @@ export const ARTWORKS_SUBMENU_DATA: MenuLinkData = {
     title: "Artworks",
     links: [
       {
-        text: "Trove: Editor's Picks",
-        href: "/gene/trove",
+        text: "Trove: Editors' Picks",
+        href: "/collection/trove-editors-picks",
+      },
+      {
+        text: "Top Auction Lots",
+        href: "/collection/top-auction-lots",
       },
       {
         text: "Iconic Prints",
-        href: "/gene/iconic-prints",
-      },
-      {
-        text: "Finds Under $2,500",
-        href: "/gene/finds-under-2500",
-      },
-      {
-        text: "Finds Under $1,000",
-        href: "/gene/finds-under-1000",
+        href: "/collection/iconic-prints",
       },
       {
         text: "The Collectibles Shop",
-        href: "/gene/the-collectibles-shop",
+        href: "/collection/the-collectibles-shop",
       },
       {
         text: "Price",
@@ -176,24 +172,24 @@ export const ARTWORKS_SUBMENU_DATA: MenuLinkData = {
           title: "Price",
           links: [
             {
-              text: "$50,000 and Above",
-              href: "/collect?price_range=50000-%2A",
+              text: "Finds Under $50,000",
+              href: "/collection/finds-under-50000-dollars",
             },
             {
-              text: "$25,000–$50,000",
-              href: "/collect?price_range=25000-50000",
+              text: "Finds Under $10,000",
+              href: "/collection/finds-under-10000-dollars",
             },
             {
-              text: "$10,000–$25,000",
-              href: "/collect?price_range=10000-25000",
+              text: "Finds Under $5,000",
+              href: "/collection/finds-under-5000-dollars",
             },
             {
-              text: "$5,000–$10,000",
-              href: "/collect?price_range=5000-10000",
+              text: "Finds Under $2,500",
+              href: "/collection/finds-under-2500-dollars",
             },
             {
-              text: "Under $5,000",
-              href: "/collect?price_range=0-5000",
+              text: "Finds Under $1,000",
+              href: "/collection/finds-under-1000-dollars",
             },
           ],
         },
@@ -266,6 +262,10 @@ export const ARTWORKS_SUBMENU_DATA: MenuLinkData = {
             {
               text: "Design",
               href: "/collection/design",
+            },
+            {
+              text: "NFTs",
+              href: "/collect?additional_gene_ids[0]=nft",
             },
           ],
         },

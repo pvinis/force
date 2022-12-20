@@ -1,4 +1,4 @@
-import { ReviewTestQueryRawResponse } from "__generated__/ReviewTestQuery.graphql"
+import { ReviewTestQuery$rawResponse } from "__generated__/ReviewTestQuery.graphql"
 import {
   BuyOrderWithArtaShippingDetails,
   BuyOrderWithBankDebitDetails,
@@ -45,19 +45,19 @@ jest.mock("react-tracking")
 jest.mock("@stripe/stripe-js", () => {
   let mock = null
   return {
-    loadStripe: () => {
+    loadStripe: jest.fn(() => {
       if (mock === null) {
         // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
         mock = mockStripe()
       }
       return mock
-    },
+    }),
     _mockStripe: () => mock,
     // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
     _mockReset: () => (mock = mockStripe()),
   }
 })
-const { _mockStripe } = require("@stripe/stripe-js")
+const { loadStripe, _mockStripe } = require("@stripe/stripe-js")
 
 const mockShowErrorDialog = jest.fn()
 jest.mock("Apps/Order/Dialogs", () => ({
@@ -75,7 +75,7 @@ jest.mock("Apps/Order/Utils/commitMutation", () => ({
   ),
 }))
 
-const testOrder: ReviewTestQueryRawResponse["order"] = {
+const testOrder: ReviewTestQuery$rawResponse["order"] = {
   ...BuyOrderWithShippingDetails,
   internalID: "1234",
   impulseConversationId: null,
@@ -139,6 +139,15 @@ describe("Review", () => {
 
       expect(mockCommitMutation).toHaveBeenCalledTimes(1)
       expect(pushMock).toBeCalledWith("/orders/1234/status")
+    })
+
+    it("disables the submit button when props.stripe is not present", () => {
+      loadStripe.mockReturnValueOnce(null)
+      const wrapper = getWrapper({
+        CommerceOrder: () => testOrder,
+      })
+      const page = new ReviewTestPage(wrapper)
+      expect(page.submitButton.props().disabled).toBeTruthy()
     })
 
     it("takes the user back to the /shipping view", () => {

@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtistSeriesApp_artistSeries } from "__generated__/ArtistSeriesApp_artistSeries.graphql"
+import { ArtistSeriesApp_artistSeries$data } from "__generated__/ArtistSeriesApp_artistSeries.graphql"
 import { ArtistSeriesHeaderFragmentContainer as ArtistSeriesHeader } from "./Components/ArtistSeriesHeader"
 import { ArtistSeriesArtworksFilterRefetchContainer as ArtistSeriesArtworksFilter } from "./Components/ArtistSeriesArtworksFilter"
 import { ArtistSeriesRailFragmentContainer as OtherArtistSeriesRail } from "Components/ArtistSeriesRail/ArtistSeriesRail"
@@ -14,7 +14,7 @@ import { SharedArtworkFilterContextProps } from "Components/ArtworkFilter/Artwor
 import { Spacer } from "@artsy/palette"
 
 interface ArtistSeriesAppProps {
-  artistSeries: ArtistSeriesApp_artistSeries
+  artistSeries: ArtistSeriesApp_artistSeries$data
 }
 
 const ArtistSeriesApp: React.FC<ArtistSeriesAppProps> = ({ artistSeries }) => {
@@ -35,7 +35,7 @@ const ArtistSeriesApp: React.FC<ArtistSeriesAppProps> = ({ artistSeries }) => {
 
         <ArtistSeriesHeader artistSeries={artistSeries} />
 
-        <Spacer mt={6} />
+        <Spacer y={6} />
 
         <ArtistSeriesArtworksFilter
           artistSeries={artistSeries}
@@ -46,7 +46,7 @@ const ArtistSeriesApp: React.FC<ArtistSeriesAppProps> = ({ artistSeries }) => {
 
         {(railArtist?.length ?? 0) > 0 && (
           <>
-            <Spacer mt={6} />
+            <Spacer y={6} />
 
             <OtherArtistSeriesRail
               artist={(railArtist ?? [])[0]!}

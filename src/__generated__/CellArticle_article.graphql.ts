@@ -1,33 +1,36 @@
+/**
+ * @generated SignedSource<<a7f3787013a9415ba31726b056bce4d2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellArticle_article = {
-    readonly vertical: string | null;
-    readonly title: string | null;
-    readonly thumbnailTitle: string | null;
-    readonly byline: string | null;
-    readonly href: string | null;
-    readonly publishedAt: string | null;
-    readonly thumbnailImage: {
-        readonly cropped: {
-            readonly width: number;
-            readonly height: number;
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type CellArticle_article$data = {
+  readonly byline: string | null;
+  readonly href: string | null;
+  readonly publishedAt: string | null;
+  readonly thumbnailImage: {
+    readonly cropped: {
+      readonly height: number;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number;
     } | null;
-    readonly " $refType": "CellArticle_article";
+  } | null;
+  readonly thumbnailTitle: string | null;
+  readonly title: string | null;
+  readonly vertical: string | null;
+  readonly " $fragmentType": "CellArticle_article";
 };
-export type CellArticle_article$data = CellArticle_article;
 export type CellArticle_article$key = {
-    readonly " $data"?: CellArticle_article$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CellArticle_article">;
+  readonly " $data"?: CellArticle_article$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CellArticle_article">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -148,5 +151,7 @@ const node: ReaderFragment = {
   "type": "Article",
   "abstractKey": null
 };
-(node as any).hash = '5c126e0802585c7d7ca03d92d5ccca08';
+
+(node as any).hash = "5c126e0802585c7d7ca03d92d5ccca08";
+
 export default node;

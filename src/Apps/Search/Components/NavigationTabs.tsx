@@ -1,14 +1,6 @@
 import * as React from "react"
-import {
-  BoxProps,
-  Pill,
-  Swiper,
-  SwiperCell,
-  SwiperCellProps,
-  SwiperRail,
-  SwiperRailProps,
-} from "@artsy/palette"
-import { NavigationTabs_searchableConnection } from "__generated__/NavigationTabs_searchableConnection.graphql"
+import { BoxProps, HorizontalOverflow, Pill } from "@artsy/palette"
+import { NavigationTabs_searchableConnection$data } from "__generated__/NavigationTabs_searchableConnection.graphql"
 import { useAnalyticsContext } from "System/Analytics"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink, RouterLinkProps } from "System/Router/RouterLink"
@@ -21,11 +13,10 @@ import {
 } from "@artsy/cohesion"
 import { useRouter } from "System/Router/useRouter"
 import { AppContainer } from "Apps/Components/AppContainer"
-import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
 import { useTracking } from "react-tracking"
 
 export interface NavigationTabsProps {
-  searchableConnection: NavigationTabs_searchableConnection
+  searchableConnection: NavigationTabs_searchableConnection$data
   term: string
   artworkCount: number
 }
@@ -97,9 +88,16 @@ export const NavigationTabs: React.FC<NavigationTabsProps> = ({
     tracking.trackEvent(trackingData)
   }
 
-  const route = (tab: string) =>
-    `/search${tab.replace(/\s/g, "_")}?term=${term}`
+  const route = (tab: string) => {
+    const encodedTerm = encodeURIComponent(term)
+    const formattedTab = tab.replace(/\s/g, "_")
 
+    return `/search${formattedTab}?term=${encodedTerm}`
+  }
+
+  // FIXME: Not rendering keys correctly.
+  // Move to it's own component & render normally.
+  // Avoid declaring "render functions" within other render bodies.
   const renderTab = (
     text: string,
     to: string,
@@ -161,32 +159,8 @@ export const NavigationTabs: React.FC<NavigationTabsProps> = ({
     )
 
   return (
-    <Swiper Cell={Cell} Rail={Rail}>
-      {tabs}
-    </Swiper>
-  )
-}
-
-const Cell: React.ForwardRefExoticComponent<SwiperCellProps> = React.forwardRef(
-  (props, ref) => {
-    return (
-      <SwiperCell
-        {...props}
-        ref={ref as any}
-        display="inline-flex"
-        verticalAlign="top"
-        pr={0}
-      />
-    )
-  }
-)
-
-const Rail: React.FC<SwiperRailProps> = props => {
-  return (
     <AppContainer>
-      <HorizontalPadding>
-        <SwiperRail {...props} />
-      </HorizontalPadding>
+      <HorizontalOverflow pl={[2, 4]}>{tabs}</HorizontalOverflow>
     </AppContainer>
   )
 }
@@ -222,7 +196,7 @@ export interface TabCounts {
 }
 
 export const tabCountMap: (
-  searchableConnection: NavigationTabs_searchableConnection
+  searchableConnection: NavigationTabs_searchableConnection$data
 ) => TabCounts = props => {
   return Object.entries(TAB_NAME_MAP).reduce((acc, [key, val]) => {
     let count = aggregationFor(props, key)?.count ?? 0
@@ -240,7 +214,7 @@ export const tabCountMap: (
 }
 
 const aggregationFor = (
-  searchableConnection: NavigationTabs_searchableConnection,
+  searchableConnection: NavigationTabs_searchableConnection$data,
   type: string
 ) => {
   const { aggregations } = searchableConnection

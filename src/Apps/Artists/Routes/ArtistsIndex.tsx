@@ -10,19 +10,19 @@ import {
   Join,
   Spacer,
 } from "@artsy/palette"
-import { ArtistsIndex_featuredArtists } from "__generated__/ArtistsIndex_featuredArtists.graphql"
-import { ArtistsIndex_featuredGenes } from "__generated__/ArtistsIndex_featuredGenes.graphql"
+import { ArtistsIndex_featuredArtists$data } from "__generated__/ArtistsIndex_featuredArtists.graphql"
+import { ArtistsIndex_featuredGenes$data } from "__generated__/ArtistsIndex_featuredGenes.graphql"
 import { RouterLink } from "System/Router/RouterLink"
-import { ArtistsIndexMeta } from "../Components/ArtistsIndexMeta"
-import { ArtistsCarouselCellFragmentContainer } from "../Components/ArtistsCarouselCell"
-import { ArtistsLetterNav } from "../Components/ArtistsLetterNav"
+import { ArtistsIndexMeta } from "Apps/Artists/Components/ArtistsIndexMeta"
+import { ArtistsCarouselCellFragmentContainer } from "Apps/Artists/Components/ArtistsCarouselCell"
+import { ArtistsLetterNav } from "Apps/Artists/Components/ArtistsLetterNav"
 import { Media } from "Utils/Responsive"
 import { compact } from "lodash"
 import { CellArtistFragmentContainer } from "Components/Cells/CellArtist"
 
 interface ArtistsIndexProps {
-  featuredArtists: ArtistsIndex_featuredArtists
-  featuredGenes: ArtistsIndex_featuredGenes
+  featuredArtists: ArtistsIndex_featuredArtists$data
+  featuredGenes: ArtistsIndex_featuredGenes$data
 }
 
 export const ArtistsIndex: React.FC<ArtistsIndexProps> = ({
@@ -53,7 +53,7 @@ export const ArtistsIndex: React.FC<ArtistsIndexProps> = ({
       </GridColumns>
 
       <Media greaterThan="xs">
-        <Spacer mt={6} />
+        <Spacer y={6} />
 
         {artists && (
           <Shelf my={2}>
@@ -74,10 +74,10 @@ export const ArtistsIndex: React.FC<ArtistsIndexProps> = ({
         )}
       </Media>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       {genes && (
-        <Join separator={<Spacer mt={6} />}>
+        <Join separator={<Spacer y={6} />}>
           {genes?.map((gene, i) => {
             if (
               !gene ||

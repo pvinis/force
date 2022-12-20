@@ -1,8 +1,9 @@
-import { MockBoot, renderRelayTree } from "DevTools"
-import { FairArtworksRefetchContainer } from "../FairArtworks"
+import { MockBoot } from "DevTools"
+import { FairArtworksRefetchContainer } from "Apps/Fair/Routes/FairArtworks"
 import { graphql } from "react-relay"
-import { FairArtworks_QueryRawResponse } from "__generated__/FairArtworks_Query.graphql"
+import { FairArtworks_Query$rawResponse } from "__generated__/FairArtworks_Query.graphql"
 import { useTracking } from "react-tracking"
+import { setupTestWrapper } from "DevTools/setupTestWrapper"
 
 jest.unmock("react-relay")
 jest.mock("System/Router/useRouter", () => ({
@@ -28,49 +29,51 @@ describe("FairArtworks", () => {
     })
   })
 
-  const getWrapper = async (
-    response: FairArtworks_QueryRawResponse = FAIR_ARTWORKS_FIXTURE
-  ) => {
-    return renderRelayTree({
-      Component: ({ fair }) => {
-        return (
-          <MockBoot user={{ id: "percy-z" }}>
-            <FairArtworksRefetchContainer fair={fair} />
-          </MockBoot>
-        )
-      },
-      query: graphql`
-        query FairArtworks_Query($slug: String!)
-          @raw_response_type
-          @relay_test_operation {
-          fair(id: $slug) {
-            ...FairArtworks_fair
-          }
+  const { getWrapper } = setupTestWrapper({
+    Component: (props: any) => {
+      return (
+        <MockBoot user={{ id: "percy-z" }}>
+          <FairArtworksRefetchContainer {...props} />
+        </MockBoot>
+      )
+    },
+    query: graphql`
+      query FairArtworks_Query($slug: String!)
+        @raw_response_type
+        @relay_test_operation {
+        fair(id: $slug) {
+          ...FairArtworks_fair
         }
-      `,
-      variables: { slug: "miart-2020" },
-      mockData: response,
-    })
-  }
+      }
+    `,
+    variables: { slug: "miart-2020" },
+  })
 
   it("renders correctly", async () => {
-    const wrapper = await getWrapper()
+    const wrapper = await getWrapper({
+      Fair: () => FAIR_ARTWORKS_FIXTURE.fair,
+    })
+
     expect(wrapper.find("ArtworkFilterArtworkGrid").length).toBe(1)
     expect(wrapper.find("ArtworkGridItem").length).toBe(2)
   })
 
   it("includes the artist filter", async () => {
-    const wrapper = await getWrapper()
+    const wrapper = await getWrapper({
+      Fair: () => FAIR_ARTWORKS_FIXTURE.fair,
+    })
+
     const artistFilter = wrapper.find("ArtistsFilter")
     expect(artistFilter.length).toBe(1)
+
     artistFilter.find("ChevronIcon").simulate("click")
     expect(artistFilter.find("Checkbox").at(0).text()).toMatch(
-      "Artists I follow (10)"
+      "Artists You Follow (10)"
     )
   })
 })
 
-const FAIR_ARTWORKS_FIXTURE: FairArtworks_QueryRawResponse = {
+const FAIR_ARTWORKS_FIXTURE: FairArtworks_Query$rawResponse = {
   fair: {
     id: "xxx",
     slug: "cool-fair",
@@ -117,7 +120,7 @@ const FAIR_ARTWORKS_FIXTURE: FairArtworks_QueryRawResponse = {
                 width: 10,
                 height: 200,
               },
-              aspect_ratio: 1.27,
+              aspectRatio: 1.27,
               placeholder: "78.76427829698858%",
               url: "https://test.artsy.net/image",
             },
@@ -195,7 +198,7 @@ const FAIR_ARTWORKS_FIXTURE: FairArtworks_QueryRawResponse = {
                 width: 10,
                 height: 200,
               },
-              aspect_ratio: 1.43,
+              aspectRatio: 1.43,
               placeholder: "69.82024597918638%",
               url: "https://test.artsy.net/image2",
             },

@@ -8,18 +8,18 @@ import {
   Text,
   useToasts,
 } from "@artsy/palette"
-import { Formik } from "formik"
-import { FC, useState } from "react"
-import { createFragmentContainer, graphql } from "react-relay"
 import {
   LocationAutocompleteInput,
   normalizePlace,
 } from "Components/LocationAutocompleteInput"
+import { Formik } from "formik"
+import { FC, useState } from "react"
+import { createFragmentContainer, graphql } from "react-relay"
 import { useUpdateMyUserProfile } from "Utils/Hooks/Mutations/useUpdateMyUserProfile"
-import { SettingsEditProfileAboutYou_me } from "__generated__/SettingsEditProfileAboutYou_me.graphql"
+import { SettingsEditProfileAboutYou_me$data } from "__generated__/SettingsEditProfileAboutYou_me.graphql"
 
 interface SettingsEditProfileAboutYouProps {
-  me: SettingsEditProfileAboutYou_me
+  me: SettingsEditProfileAboutYou_me$data
 }
 
 const SettingsEditProfileAboutYou: FC<SettingsEditProfileAboutYouProps> = ({
@@ -32,7 +32,7 @@ const SettingsEditProfileAboutYou: FC<SettingsEditProfileAboutYouProps> = ({
 
   return (
     <>
-      <Text variant="lg-display" mb={4}>
+      <Text variant={["md", "lg"]} mb={4}>
         About You
       </Text>
 
@@ -87,7 +87,7 @@ const SettingsEditProfileAboutYou: FC<SettingsEditProfileAboutYouProps> = ({
       >
         {formik => (
           <form onSubmit={formik.handleSubmit}>
-            <Join separator={<Spacer mt={2} />}>
+            <Join separator={<Spacer y={2} />}>
               <LocationAutocompleteInput
                 name="location"
                 title="Primary Location"
@@ -165,7 +165,7 @@ export const SettingsEditProfileAboutYouFragmentContainer = createFragmentContai
   }
 )
 
-const PRICE_BUCKETS = [
+export const PRICE_BUCKETS = [
   { text: "Select a price range", value: "" },
   { text: "Under $500", value: "-1:500" },
   { text: "Under $2,500", value: "-1:2500" },

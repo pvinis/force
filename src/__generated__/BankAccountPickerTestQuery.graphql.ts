@@ -1,81 +1,63 @@
+/**
+ * @generated SignedSource<<568a4b0cd24b4f74d85963f10cab516a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CommerceOrderModeEnum = "BUY" | "OFFER" | "%future added value";
-export type BankAccountPickerTestQueryVariables = {};
-export type BankAccountPickerTestQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"BankAccountPicker_me">;
-    } | null;
-    readonly order: {
-        readonly " $fragmentRefs": FragmentRefs<"BankAccountPicker_order">;
-    } | null;
+export type BankAccountPickerTestQuery$variables = {};
+export type BankAccountPickerTestQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"BankAccountPicker_me">;
+  } | null;
+  readonly order: {
+    readonly " $fragmentSpreads": FragmentRefs<"BankAccountPicker_order">;
+  } | null;
 };
-export type BankAccountPickerTestQueryRawResponse = {
-    readonly me: ({
-        readonly bankAccounts: ({
-            readonly edges: ReadonlyArray<({
-                readonly node: ({
-                    readonly internalID: string;
-                    readonly last4: string;
-                    readonly id: string;
-                }) | null;
-            }) | null> | null;
-        }) | null;
-        readonly id: string;
-    }) | null;
-    readonly order: ({
-        readonly __typename: string;
-        readonly __isCommerceOrder: string;
-        readonly internalID: string;
-        readonly mode: CommerceOrderModeEnum | null;
-        readonly bankAccountId: string | null;
-        readonly id: string;
-    }) | null;
+export type BankAccountPickerTestQuery$rawResponse = {
+  readonly me: {
+    readonly bankAccounts: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+          readonly internalID: string;
+          readonly last4: string;
+        } | null;
+      } | null> | null;
+    } | null;
+    readonly id: string;
+  } | null;
+  readonly order: {
+    readonly __typename: string;
+    readonly __isCommerceOrder: string;
+    readonly bankAccountId: string | null;
+    readonly id: string;
+    readonly internalID: string;
+    readonly mode: CommerceOrderModeEnum | null;
+    readonly paymentMethodDetails: {
+      readonly __typename: "BankAccount";
+      readonly id: string;
+      readonly internalID: string;
+      readonly last4: string;
+    } | {
+      readonly __typename: "CreditCard";
+      readonly id: string;
+    } | {
+      readonly __typename: string;
+    } | null;
+  } | null;
 };
 export type BankAccountPickerTestQuery = {
-    readonly response: BankAccountPickerTestQueryResponse;
-    readonly variables: BankAccountPickerTestQueryVariables;
-    readonly rawResponse: BankAccountPickerTestQueryRawResponse;
+  rawResponse: BankAccountPickerTestQuery$rawResponse;
+  response: BankAccountPickerTestQuery$data;
+  variables: BankAccountPickerTestQuery$variables;
 };
-
-
-
-/*
-query BankAccountPickerTestQuery {
-  me {
-    ...BankAccountPicker_me
-    id
-  }
-  order: commerceOrder(id: "unused") {
-    __typename
-    ...BankAccountPicker_order
-    id
-  }
-}
-
-fragment BankAccountPicker_me on Me {
-  bankAccounts(first: 100) {
-    edges {
-      node {
-        internalID
-        last4
-        id
-      }
-    }
-  }
-}
-
-fragment BankAccountPicker_order on CommerceOrder {
-  __isCommerceOrder: __typename
-  internalID
-  mode
-  bankAccountId
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -99,13 +81,31 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = {
+v3 = [
+  (v1/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "last4",
+    "storageKey": null
+  },
+  (v2/*: any*/)
+],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v5 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "ID"
 },
-v4 = {
+v6 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
@@ -197,17 +197,7 @@ return {
                     "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
-                    "selections": [
-                      (v1/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "last4",
-                        "storageKey": null
-                      },
-                      (v2/*: any*/)
-                    ],
+                    "selections": (v3/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -228,13 +218,7 @@ return {
         "name": "commerceOrder",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "__typename",
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "kind": "TypeDiscriminator",
             "abstractKey": "__isCommerceOrder"
@@ -254,6 +238,32 @@ return {
             "name": "bankAccountId",
             "storageKey": null
           },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "paymentMethodDetails",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": (v3/*: any*/),
+                "type": "BankAccount",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v2/*: any*/)
+                ],
+                "type": "CreditCard",
+                "abstractKey": null
+              }
+            ],
+            "storageKey": null
+          },
           (v2/*: any*/)
         ],
         "storageKey": "commerceOrder(id:\"unused\")"
@@ -261,7 +271,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7430acaab389eeb0b3e622920770849b",
+    "cacheID": "73b4c158b3681732cd8e24e16a98f301",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -289,26 +299,26 @@ return {
           "plural": false,
           "type": "BankAccount"
         },
-        "me.bankAccounts.edges.node.id": (v3/*: any*/),
-        "me.bankAccounts.edges.node.internalID": (v3/*: any*/),
-        "me.bankAccounts.edges.node.last4": (v4/*: any*/),
-        "me.id": (v3/*: any*/),
+        "me.bankAccounts.edges.node.id": (v5/*: any*/),
+        "me.bankAccounts.edges.node.internalID": (v5/*: any*/),
+        "me.bankAccounts.edges.node.last4": (v6/*: any*/),
+        "me.id": (v5/*: any*/),
         "order": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "CommerceOrder"
         },
-        "order.__isCommerceOrder": (v4/*: any*/),
-        "order.__typename": (v4/*: any*/),
+        "order.__isCommerceOrder": (v6/*: any*/),
+        "order.__typename": (v6/*: any*/),
         "order.bankAccountId": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "String"
         },
-        "order.id": (v3/*: any*/),
-        "order.internalID": (v3/*: any*/),
+        "order.id": (v5/*: any*/),
+        "order.internalID": (v5/*: any*/),
         "order.mode": {
           "enumValues": [
             "BUY",
@@ -317,14 +327,26 @@ return {
           "nullable": true,
           "plural": false,
           "type": "CommerceOrderModeEnum"
-        }
+        },
+        "order.paymentMethodDetails": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "PaymentMethodUnion"
+        },
+        "order.paymentMethodDetails.__typename": (v6/*: any*/),
+        "order.paymentMethodDetails.id": (v5/*: any*/),
+        "order.paymentMethodDetails.internalID": (v5/*: any*/),
+        "order.paymentMethodDetails.last4": (v6/*: any*/)
       }
     },
     "name": "BankAccountPickerTestQuery",
     "operationKind": "query",
-    "text": "query BankAccountPickerTestQuery {\n  me {\n    ...BankAccountPicker_me\n    id\n  }\n  order: commerceOrder(id: \"unused\") {\n    __typename\n    ...BankAccountPicker_order\n    id\n  }\n}\n\nfragment BankAccountPicker_me on Me {\n  bankAccounts(first: 100) {\n    edges {\n      node {\n        internalID\n        last4\n        id\n      }\n    }\n  }\n}\n\nfragment BankAccountPicker_order on CommerceOrder {\n  __isCommerceOrder: __typename\n  internalID\n  mode\n  bankAccountId\n}\n"
+    "text": "query BankAccountPickerTestQuery {\n  me {\n    ...BankAccountPicker_me\n    id\n  }\n  order: commerceOrder(id: \"unused\") {\n    __typename\n    ...BankAccountPicker_order\n    id\n  }\n}\n\nfragment BankAccountPicker_me on Me {\n  bankAccounts(first: 100) {\n    edges {\n      node {\n        internalID\n        last4\n        id\n      }\n    }\n  }\n}\n\nfragment BankAccountPicker_order on CommerceOrder {\n  __isCommerceOrder: __typename\n  internalID\n  mode\n  bankAccountId\n  paymentMethodDetails {\n    __typename\n    ... on BankAccount {\n      internalID\n      last4\n      id\n    }\n    ... on CreditCard {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '984e3467ab35b04ff9fff3adc200b65e';
+
+(node as any).hash = "984e3467ab35b04ff9fff3adc200b65e";
+
 export default node;

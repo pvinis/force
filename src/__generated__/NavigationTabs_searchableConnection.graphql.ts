@@ -1,27 +1,30 @@
+/**
+ * @generated SignedSource<<1aead2465e0d58ad59d9c837272bd6f5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SearchAggregation = "TYPE" | "%future added value";
-export type NavigationTabs_searchableConnection = {
-    readonly aggregations: ReadonlyArray<{
-        readonly slice: SearchAggregation | null;
-        readonly counts: ReadonlyArray<{
-            readonly count: number;
-            readonly name: string;
-        } | null> | null;
+import { FragmentRefs } from "relay-runtime";
+export type NavigationTabs_searchableConnection$data = {
+  readonly aggregations: ReadonlyArray<{
+    readonly counts: ReadonlyArray<{
+      readonly count: number;
+      readonly name: string;
     } | null> | null;
-    readonly " $refType": "NavigationTabs_searchableConnection";
+    readonly slice: SearchAggregation | null;
+  } | null> | null;
+  readonly " $fragmentType": "NavigationTabs_searchableConnection";
 };
-export type NavigationTabs_searchableConnection$data = NavigationTabs_searchableConnection;
 export type NavigationTabs_searchableConnection$key = {
-    readonly " $data"?: NavigationTabs_searchableConnection$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"NavigationTabs_searchableConnection">;
+  readonly " $data"?: NavigationTabs_searchableConnection$data;
+  readonly " $fragmentSpreads": FragmentRefs<"NavigationTabs_searchableConnection">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -76,5 +79,7 @@ const node: ReaderFragment = {
   "type": "SearchableConnection",
   "abstractKey": null
 };
-(node as any).hash = '76f1af5fa568892ae22f4ba4840ff358';
+
+(node as any).hash = "76f1af5fa568892ae22f4ba4840ff358";
+
 export default node;

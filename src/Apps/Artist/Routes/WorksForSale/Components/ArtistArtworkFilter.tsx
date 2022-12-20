@@ -1,4 +1,4 @@
-import { ArtistArtworkFilter_artist } from "__generated__/ArtistArtworkFilter_artist.graphql"
+import { ArtistArtworkFilter_artist$data } from "__generated__/ArtistArtworkFilter_artist.graphql"
 import { BaseArtworkFilter } from "Components/ArtworkFilter"
 import {
   ArtworkFilterContextProvider,
@@ -6,7 +6,6 @@ import {
   SharedArtworkFilterContextProps,
 } from "Components/ArtworkFilter/ArtworkFilterContext"
 import { Match } from "found"
-import { useEffect } from "react"
 import { RelayRefetchProp, createRefetchContainer, graphql } from "react-relay"
 import { useRouter } from "System/Router/useRouter"
 import {
@@ -15,17 +14,13 @@ import {
 } from "Components/SavedSearchAlert/types"
 import { OwnerType } from "@artsy/cohesion"
 import { ZeroState } from "./ZeroState"
-import {
-  useFeatureVariant,
-  useTrackFeatureVariant,
-} from "System/useFeatureFlag"
 import { ArtistArtworkFilters } from "./ArtistArtworkFilters"
 import { ActiveFilterPillsAndCreateAlert } from "Components/SavedSearchAlert/Components/ActiveFilterPillsAndCreateAlert"
 import { useSystemContext } from "System"
 
 interface ArtistArtworkFilterProps {
   aggregations: SharedArtworkFilterContextProps["aggregations"]
-  artist: ArtistArtworkFilter_artist
+  artist: ArtistArtworkFilter_artist$data
   relay: RelayRefetchProp
   match?: Match
 }
@@ -36,17 +31,6 @@ const ArtistArtworkFilter: React.FC<ArtistArtworkFilterProps> = props => {
   const { relay, aggregations, artist } = props
   const { filtered_artworks } = artist
   const hasFilter = filtered_artworks && filtered_artworks.id
-  const trendingSortVariant = useFeatureVariant(
-    "trending-sort-for-artist-artwork-grids"
-  )
-  const { trackFeatureVariant } = useTrackFeatureVariant({
-    experimentName: "trending-sort-for-artist-artwork-grids",
-    variantName: trendingSortVariant?.name!,
-  })
-
-  useEffect(() => {
-    trackFeatureVariant()
-  })
 
   if (!hasFilter) {
     return null
@@ -78,19 +62,13 @@ const ArtistArtworkFilter: React.FC<ArtistArtworkFilterProps> = props => {
     },
   ]
 
-  let defaultSortValue = "-decayed_merch"
-
-  if (trendingSortVariant?.name === "experiment") {
-    defaultSortValue = "-default_trending_score"
-  }
-
   return (
     <ArtworkFilterContextProvider
       aggregations={aggregations}
       counts={artist.counts as Counts}
       filters={match.location.query}
       sortOptions={[
-        { value: defaultSortValue, text: "Default" },
+        { value: "-decayed_merch", text: "Default" },
         { value: "-has_price,-prices", text: "Price (desc.)" },
         { value: "-has_price,prices", text: "Price (asc.)" },
         { value: "-partner_updated_at", text: "Recently updated" },
@@ -98,7 +76,7 @@ const ArtistArtworkFilter: React.FC<ArtistArtworkFilterProps> = props => {
         { value: "-year", text: "Artwork year (desc.)" },
         { value: "year", text: "Artwork year (asc.)" },
       ]}
-      ZeroState={() => <ZeroState my={1} />}
+      ZeroState={ZeroState}
       userPreferredMetric={userPreferences?.metric}
     >
       <BaseArtworkFilter
@@ -125,7 +103,6 @@ export const ArtistArtworkFilterRefetchContainer = createRefetchContainer(
     artist: graphql`
       fragment ArtistArtworkFilter_artist on Artist
         @argumentDefinitions(input: { type: "FilterArtworksInput" }) {
-        ...FollowArtistButton_artist
         name
         counts {
           partner_shows: partnerShows
@@ -144,7 +121,6 @@ export const ArtistArtworkFilterRefetchContainer = createRefetchContainer(
         }
         internalID
         name
-        isFollowed
         slug
       }
     `,

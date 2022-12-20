@@ -2,11 +2,11 @@ import Cookies from "cookies-js"
 import { useEffect } from "react"
 import { fetchQuery, graphql } from "react-relay"
 import { useSystemContext } from "System"
-import { getENV } from "../getENV"
+import { getENV } from "Utils/getENV"
 import { useScrollToOpenArtistAuthModalQuery } from "__generated__/useScrollToOpenArtistAuthModalQuery.graphql"
-import { extractNodes } from "../extractNodes"
-import { openAuthModal } from "../openAuthModal"
-import { mediator } from "lib/mediator"
+import { extractNodes } from "Utils/extractNodes"
+import { openAuthModal } from "Utils/openAuthModal"
+import { mediator } from "Server/mediator"
 import { ModalType } from "Components/Authentication/Types"
 import { ContextModule, Intent } from "@artsy/cohesion"
 
@@ -62,7 +62,7 @@ export const useScrollToOpenArtistAuthModal = () => {
         relayEnvironment,
         USE_SCROLL_TO_OPEN_ARTIST_AUTH_MODAL_QUERY,
         { id: id }
-      )
+      ).toPromise()
 
       const artist = response?.artist
 
@@ -78,8 +78,10 @@ export const useScrollToOpenArtistAuthModal = () => {
         setTimeout(() => {
           openAuthModal(mediator, {
             contextModule: ContextModule.popUpModal,
-            copy: `Join Artsy to discover new works by ${artist.name} and more artists you love`,
-            destination: location.href,
+            copy: `Sign up to discover new works by ${artist.name} and more artists you love`,
+            // TODO: Onboarding is triggered based on contents of redirectTo
+            // prop. Move this to `afterSignupAction` prop
+            redirectTo: location.href,
             image,
             intent: Intent.viewArtist,
             mode: ModalType.signup,

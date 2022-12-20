@@ -14,12 +14,15 @@ import {
   Text,
   VerifiedIcon,
 } from "@artsy/palette"
-import { FullBleedHeader } from "Components/FullBleedHeader"
+import {
+  FullBleedHeader,
+  FullBleedHeaderOverlay,
+} from "Components/FullBleedHeader"
 import {
   ChatIcon,
   MoneyBackIcon,
   PoweredByStripeIcon,
-} from "../Components/BuyerGuaranteeIcons"
+} from "Apps/BuyerGuarantee/Components/BuyerGuaranteeIcons"
 import { __internal__useMatchMedia } from "Utils/Hooks/useMatchMedia"
 import { MetaTags } from "Components/MetaTags"
 import { cropped } from "Utils/resized"
@@ -28,15 +31,15 @@ import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
 import {
   BuyerGuaranteeTableDesktop,
   BuyerGuaranteeTableMobile,
-} from "../Components/BuyerGuaranteeTables"
+} from "Apps/BuyerGuarantee/Components/BuyerGuaranteeTables"
 import { Media } from "Utils/Responsive"
-import { useScrollTo } from "Utils/Hooks/useScrollTo"
+import { Jump, useJump } from "Utils/Hooks/useJump"
 
 const SUPPORT_ARTICLE_URL =
   "https://support.artsy.net/hc/en-us/articles/360048946973"
 
 export const BuyerGuaranteeIndex: FC = () => {
-  const { scrollTo } = useScrollTo({ behavior: "smooth", offset: 10 })
+  const { jumpTo } = useJump({ behavior: "smooth" })
 
   return (
     <>
@@ -51,30 +54,33 @@ export const BuyerGuaranteeIndex: FC = () => {
         src="https://files.artsy.net/images/normalizedheaderimage.jpeg"
         caption="Sophie Treppendahl, Swimming Hole, 2019. Courtesy of the artist and Kenise Barnes Fine Art."
       >
-        <Text
-          variant="xxl"
-          color="white100"
-          as="h1"
-          display="flex"
-          justifyContent="center"
+        <FullBleedHeaderOverlay
           alignItems="center"
-          position="absolute"
-          top={0}
-          left={0}
-          width="100%"
-          height="100%"
+          justifyContent={["center", "flex-start"]}
+          p={4}
         >
-          The Artsy Guarantee
-        </Text>
+          <Text
+            variant={["xl", "xxl"]}
+            as="h1"
+            color="white100"
+            textAlign={["center", "left"]}
+          >
+            The Artsy Guarantee
+          </Text>
+        </FullBleedHeaderOverlay>
       </FullBleedHeader>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <GridColumns gridRowGap={4}>
         <Column span={6} start={4} textAlign="center">
           <Text variant="lg-display">
             Artsy is the safest place to buy the art you love.
-            <br />
+          </Text>
+
+          <Spacer y={1} />
+
+          <Text variant="lg-display">
             Every purchase made exclusively with Artsy’s secure checkout
             benefits from our full suite of buyer protections.
           </Text>
@@ -122,7 +128,7 @@ export const BuyerGuaranteeIndex: FC = () => {
             mt={2}
             variant="tertiary"
             onClick={() => {
-              scrollTo("#jump--authenticityGuarantee")
+              jumpTo("authenticityGuarantee")
             }}
           >
             Learn More
@@ -146,7 +152,7 @@ export const BuyerGuaranteeIndex: FC = () => {
             mt={2}
             variant="tertiary"
             onClick={() => {
-              scrollTo("#jump--moneyBackGuarantee")
+              jumpTo("moneyBackGuarantee")
             }}
           >
             Learn More
@@ -170,7 +176,7 @@ export const BuyerGuaranteeIndex: FC = () => {
             mt={2}
             variant="tertiary"
             onClick={() => {
-              scrollTo("#jump--securePayment")
+              jumpTo("securePayment")
             }}
           >
             Learn More
@@ -179,10 +185,12 @@ export const BuyerGuaranteeIndex: FC = () => {
         </Column>
       </GridColumns>
 
-      <Spacer mt={12} />
+      <Spacer y={12} />
 
       <GridColumns gridRowGap={4}>
         <Column span={6} order={1}>
+          <Jump id="authenticityGuarantee" />
+
           <ResponsiveBox aspectWidth={4} aspectHeight={3} maxWidth="100%">
             <Image
               {...cropped(
@@ -197,13 +205,7 @@ export const BuyerGuaranteeIndex: FC = () => {
           </ResponsiveBox>
         </Column>
 
-        <Column
-          span={6}
-          pt={[0, 6]}
-          order={2}
-          // @ts-ignore
-          id="jump--authenticityGuarantee"
-        >
+        <Column span={6} pt={[0, 6]} order={2}>
           <Text variant="lg-display">Authenticity Guarantee</Text>
 
           <Text variant="sm" mt={2}>
@@ -227,13 +229,7 @@ export const BuyerGuaranteeIndex: FC = () => {
           </Button>
         </Column>
 
-        <Column
-          span={6}
-          pt={[0, 6]}
-          order={[4, 3]}
-          // @ts-ignore
-          id="jump--moneyBackGuarantee"
-        >
+        <Column span={6} pt={[0, 6]} order={[4, 3]}>
           <Text variant="lg-display">Money-Back Guarantee</Text>
 
           <Text variant="sm" mt={2}>
@@ -257,6 +253,8 @@ export const BuyerGuaranteeIndex: FC = () => {
         </Column>
 
         <Column span={6} order={[3, 4]}>
+          <Jump id="moneyBackGuarantee" />
+
           <ResponsiveBox aspectWidth={4} aspectHeight={3} maxWidth="100%">
             <Image
               {...cropped(
@@ -272,6 +270,8 @@ export const BuyerGuaranteeIndex: FC = () => {
         </Column>
 
         <Column span={6} order={5}>
+          <Jump id="securePayment" />
+
           <ResponsiveBox aspectWidth={4} aspectHeight={3} maxWidth="100%">
             <Image
               {...cropped("https://files.artsy.net/securepaymentartwork.jpg", {
@@ -286,13 +286,7 @@ export const BuyerGuaranteeIndex: FC = () => {
           </ResponsiveBox>
         </Column>
 
-        <Column
-          span={6}
-          pt={[0, 6]}
-          order={6}
-          // @ts-ignore
-          id="jump--securePayment"
-        >
+        <Column span={6} pt={[0, 6]} order={6}>
           <Text variant="lg-display">Secure Payment</Text>
 
           <Text variant="sm" mt={2}>
@@ -305,7 +299,7 @@ export const BuyerGuaranteeIndex: FC = () => {
         </Column>
       </GridColumns>
 
-      <Spacer mt={12} />
+      <Spacer y={12} />
 
       <FullBleed bg="black5">
         <AppContainer>
@@ -314,7 +308,7 @@ export const BuyerGuaranteeIndex: FC = () => {
               The Artsy Guarantee
             </Text>
 
-            <Spacer mt={4} />
+            <Spacer y={4} />
 
             <Media greaterThanOrEqual="sm">
               <BuyerGuaranteeTableDesktop />
@@ -324,7 +318,7 @@ export const BuyerGuaranteeIndex: FC = () => {
               <BuyerGuaranteeTableMobile />
             </Media>
 
-            <Spacer mt={4} />
+            <Spacer y={4} />
 
             <Flex justifyContent="center">
               <Button

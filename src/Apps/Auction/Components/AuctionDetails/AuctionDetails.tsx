@@ -10,17 +10,17 @@ import {
 import { createFragmentContainer, graphql } from "react-relay"
 import { AddToCalendar } from "./AddToCalendar"
 import { formatIsoDateNoZoneOffset } from "./helpers"
-import { AuctionDetails_sale } from "__generated__/AuctionDetails_sale.graphql"
-import { AuctionDetails_me } from "__generated__/AuctionDetails_me.graphql"
+import { AuctionDetails_sale$data } from "__generated__/AuctionDetails_sale.graphql"
+import { AuctionDetails_me$data } from "__generated__/AuctionDetails_me.graphql"
 import { AuctionInfoSidebarFragmentContainer } from "./AuctionInfoSidebar"
-import { RegisterButtonFragmentContainer } from "../RegisterButton"
+import { RegisterButtonFragmentContainer } from "Apps/Auction/Components/RegisterButton"
 import { SaleDetailTimerFragmentContainer } from "Apps/Auction/Components/AuctionDetails/SaleDetailTimer"
 import { getENV } from "Utils/getENV"
 import { AuctionDetailsStartTimeQueryRenderer } from "./AuctionDetailsStartTime"
 
 interface AuctionDetailsProps {
-  sale: AuctionDetails_sale
-  me: AuctionDetails_me
+  sale: AuctionDetails_sale$data
+  me: AuctionDetails_me$data
 }
 
 const AuctionDetails: React.FC<AuctionDetailsProps> = ({ sale, me }) => {
@@ -45,12 +45,12 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ sale, me }) => {
           <RegisterButtonFragmentContainer sale={sale} me={me} />
         </Column>
       </GridColumns>
-      <Spacer my={4} />
+      <Spacer y={4} />
       <Flex alignItems="center" justifyContent="space-between">
         {!!sale.cascadingEndTimeIntervalMinutes && (
           <>
             <SaleDetailTimerFragmentContainer sale={sale} />
-            <Spacer my={2} />
+            <Spacer y={2} />
           </>
         )}
       </Flex>
@@ -73,14 +73,14 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ sale, me }) => {
 
       {showCascadingEndTimeIntervalMessage && (
         <>
-          <Spacer my={2} />
+          <Spacer y={2} />
           <Text variant="sm-display" pr={2}>
             {`Lots close at ${sale.cascadingEndTimeIntervalMinutes!}-minute intervals`}
           </Text>
         </>
       )}
 
-      <Spacer my={2} />
+      <Spacer y={2} />
 
       <GridColumns>
         <Column span={9}>

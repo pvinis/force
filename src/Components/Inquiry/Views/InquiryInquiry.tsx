@@ -17,22 +17,22 @@ import { useSystemContext } from "System"
 import * as React from "react"
 import { useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { InquiryInquiry_artwork } from "__generated__/InquiryInquiry_artwork.graphql"
+import { InquiryInquiry_artwork$data } from "__generated__/InquiryInquiry_artwork.graphql"
 import { InquiryInquiryQuery } from "__generated__/InquiryInquiryQuery.graphql"
-import { useArtworkInquiryRequest } from "../Hooks/useArtworkInquiryRequest"
+import { useArtworkInquiryRequest } from "Components/Inquiry/Hooks/useArtworkInquiryRequest"
 import { wait } from "Utils/wait"
 import {
   useInquiryContext,
   DEFAULT_MESSAGE,
   InquiryState,
-} from "../Hooks/useInquiryContext"
+} from "Components/Inquiry/Hooks/useInquiryContext"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { logger } from "../util"
+import { logger } from "Components/Inquiry/util"
 
 type Mode = "Pending" | "Confirm" | "Sending" | "Error" | "Success"
 
 interface InquiryInquiryProps {
-  artwork: InquiryInquiry_artwork
+  artwork: InquiryInquiry_artwork$data
 }
 
 const InquiryInquiry: React.FC<InquiryInquiryProps> = ({ artwork }) => {
@@ -187,7 +187,7 @@ const InquiryInquiry: React.FC<InquiryInquiryProps> = ({ artwork }) => {
         </>
       )}
 
-      <Spacer mt={1} />
+      <Spacer y={1} />
 
       {mode === "Confirm" && (
         <Banner variant="defaultLight">
@@ -196,7 +196,7 @@ const InquiryInquiry: React.FC<InquiryInquiryProps> = ({ artwork }) => {
         </Banner>
       )}
 
-      <Spacer mt={2} />
+      <Spacer y={2} />
 
       <Button
         type="submit"
@@ -283,7 +283,7 @@ export const InquiryInquiryPlaceholder: React.FC = () => {
 
       <SkeletonBox height={120} />
 
-      <Spacer mt={2} />
+      <Spacer y={2} />
 
       <SkeletonBox height={50} />
     </Skeleton>

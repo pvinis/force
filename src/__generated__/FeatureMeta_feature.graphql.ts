@@ -1,25 +1,28 @@
+/**
+ * @generated SignedSource<<8bfa111cd04b120479d2bfbeced2ddc7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FeatureMeta_feature = {
-    readonly slug: string;
-    readonly meta: {
-        readonly name: string;
-        readonly description: string;
-        readonly image: string | null;
-    };
-    readonly " $refType": "FeatureMeta_feature";
+export type FeatureMeta_feature$data = {
+  readonly meta: {
+    readonly description: string;
+    readonly image: string | null;
+    readonly name: string;
+  };
+  readonly slug: string;
+  readonly " $fragmentType": "FeatureMeta_feature";
 };
-export type FeatureMeta_feature$data = FeatureMeta_feature;
 export type FeatureMeta_feature$key = {
-    readonly " $data"?: FeatureMeta_feature$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeatureMeta_feature">;
+  readonly " $data"?: FeatureMeta_feature$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FeatureMeta_feature">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -70,5 +73,7 @@ const node: ReaderFragment = {
   "type": "Feature",
   "abstractKey": null
 };
-(node as any).hash = 'bea3dc26975fdc2c539c9faefaa78e6f';
+
+(node as any).hash = "bea3dc26975fdc2c539c9faefaa78e6f";
+
 export default node;

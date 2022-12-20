@@ -1,4 +1,4 @@
-import { ArtworkMeta_artwork } from "__generated__/ArtworkMeta_artwork.graphql"
+import { ArtworkMeta_artwork$data } from "__generated__/ArtworkMeta_artwork.graphql"
 import { Component } from "react"
 import { Link, Meta, Title } from "react-head"
 import { createFragmentContainer, graphql } from "react-relay"
@@ -9,7 +9,7 @@ import { SeoDataForArtworkFragmentContainer as SeoDataForArtwork } from "./Seo/S
 import { ArtworkZendeskFragmentContainer } from "./ArtworkZendesk"
 
 interface ArtworkMetaProps {
-  artwork: ArtworkMeta_artwork
+  artwork: ArtworkMeta_artwork$data
 }
 
 export class ArtworkMeta extends Component<ArtworkMetaProps> {
@@ -38,6 +38,7 @@ export class ArtworkMeta extends Component<ArtworkMetaProps> {
   render() {
     const { artwork } = this.props
     const imageURL = get(artwork, a => a.metaImage?.resized?.url)
+    const addNoIndex = artwork?.visibilityLevel == "UNLISTED"
 
     return (
       <>
@@ -68,6 +69,7 @@ export class ArtworkMeta extends Component<ArtworkMetaProps> {
         <SeoDataForArtwork artwork={artwork} />
 
         {this.renderImageMetaTags()}
+        {addNoIndex && <Meta name="robots" content="noindex, follow" />}
 
         <ArtworkZendeskFragmentContainer artwork={artwork} />
       </>
@@ -84,6 +86,7 @@ export const ArtworkMetaFragmentContainer = createFragmentContainer(
         ...ArtworkZendesk_artwork
         href
         isShareable
+        visibilityLevel
         metaImage: image {
           resized(
             width: 640

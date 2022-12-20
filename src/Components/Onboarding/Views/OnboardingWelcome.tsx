@@ -1,10 +1,11 @@
 import { Flex, Text, Spacer, Button, Box } from "@artsy/palette"
 import { useSystemContext } from "System"
 import { RouterLink } from "System/Router/RouterLink"
-import { OnboardingSplitLayout } from "../Components/OnboardingSplitLayout"
-import { OnboardingWelcomeAnimatedPanel } from "../Components/OnboardingWelcomeAnimatedPanel"
-import { useOnboardingFadeTransition } from "../Hooks/useOnboardingFadeTransition"
-import { useOnboardingContext } from "../Hooks/useOnboardingContext"
+import { OnboardingWelcomeAnimatedPanel } from "Components/Onboarding/Components/OnboardingWelcomeAnimatedPanel"
+import { useOnboardingFadeTransition } from "Components/Onboarding/Hooks/useOnboardingFadeTransition"
+import { useOnboardingContext } from "Components/Onboarding/Hooks/useOnboardingContext"
+import { useOnboardingTracking } from "Components/Onboarding/Hooks/useOnboardingTracking"
+import { SplitLayout } from "Components/SplitLayout"
 
 export const OnboardingWelcome = () => {
   const { user } = useSystemContext()
@@ -13,12 +14,14 @@ export const OnboardingWelcome = () => {
     next,
   })
 
+  const tracking = useOnboardingTracking()
+
   return (
-    <OnboardingSplitLayout
+    <SplitLayout
       left={<OnboardingWelcomeAnimatedPanel ref={register(0)} />}
       leftProps={{ display: "block" }}
       right={
-        <Flex flexDirection="column" justifyContent="space-between" p={4}>
+        <Flex flexDirection="column" justifyContent="space-between" p={[2, 4]}>
           {/* Vertically centers next Box */}
           <Box />
 
@@ -27,19 +30,24 @@ export const OnboardingWelcome = () => {
               Welcome to Artsy{user ? `, ${user.name}` : ""}.
             </Text>
 
-            <Spacer mt={4} />
+            <Spacer y={[2, 4]} />
 
-            <Text variant="lg-display" ref={register(2)}>
+            <Text variant={["md", "lg-display"]} ref={register(2)}>
               Ready to find art you love? Start building your profile and tailor
               Artsy to your tastes.
             </Text>
           </Box>
 
+          <Spacer y={1} />
+
           <Box width="100%">
             <Button
               disabled={loading}
               loading={loading}
-              onClick={handleNext}
+              onClick={() => {
+                tracking.userStartedOnboarding()
+                handleNext()
+              }}
               width="100%"
             >
               Get Started
@@ -51,8 +59,8 @@ export const OnboardingWelcome = () => {
               width="100%"
               // @ts-ignore
               as={RouterLink}
-              to="/"
               onClick={onClose}
+              data-test="onboarding-skip-button"
             >
               Skip
             </Button>

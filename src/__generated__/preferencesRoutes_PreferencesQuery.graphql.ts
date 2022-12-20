@@ -1,40 +1,27 @@
+/**
+ * @generated SignedSource<<5b7f6e4548fc97ad0bd71b413cbc82f3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type preferencesRoutes_PreferencesQueryVariables = {
-    authenticationToken?: string | null | undefined;
+export type preferencesRoutes_PreferencesQuery$variables = {
+  authenticationToken?: string | null;
 };
-export type preferencesRoutes_PreferencesQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"PreferencesApp_viewer">;
-    } | null;
+export type preferencesRoutes_PreferencesQuery$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"PreferencesApp_viewer">;
+  } | null;
 };
 export type preferencesRoutes_PreferencesQuery = {
-    readonly response: preferencesRoutes_PreferencesQueryResponse;
-    readonly variables: preferencesRoutes_PreferencesQueryVariables;
+  response: preferencesRoutes_PreferencesQuery$data;
+  variables: preferencesRoutes_PreferencesQuery$variables;
 };
-
-
-
-/*
-query preferencesRoutes_PreferencesQuery(
-  $authenticationToken: String
-) {
-  viewer {
-    ...PreferencesApp_viewer_4kNil9
-  }
-}
-
-fragment PreferencesApp_viewer_4kNil9 on Viewer {
-  notificationPreferences(authenticationToken: $authenticationToken) {
-    name
-    status
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -132,5 +119,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a2896eeba9e9d14f09b2788b3b23e53c';
+
+(node as any).hash = "a2896eeba9e9d14f09b2788b3b23e53c";
+
 export default node;

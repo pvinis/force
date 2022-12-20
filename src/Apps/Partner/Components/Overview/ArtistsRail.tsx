@@ -1,15 +1,15 @@
 import * as React from "react"
 import { Box, BoxProps, Flex, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtistsRail_partner } from "__generated__/ArtistsRail_partner.graphql"
+import { ArtistsRail_partner$data } from "__generated__/ArtistsRail_partner.graphql"
 import {
   PartnerArtistsCarouselRenderer,
-  PartnerArtistsRenderer,
-} from "../PartnerArtists"
+  PartnerArtistsQueryRenderer,
+} from "Apps/Partner/Components/PartnerArtists"
 import { ViewAllButton } from "./ViewAllButton"
 
 interface ArtistsRailProps extends BoxProps {
-  partner: ArtistsRail_partner
+  partner: ArtistsRail_partner$data
 }
 
 const ArtistsRail: React.FC<ArtistsRailProps> = ({ partner, ...rest }) => {
@@ -62,7 +62,7 @@ const ArtistsRail: React.FC<ArtistsRailProps> = ({ partner, ...rest }) => {
       {isCarouselRender ? (
         <PartnerArtistsCarouselRenderer partnerId={slug} />
       ) : (
-        <PartnerArtistsRenderer partnerId={slug} />
+        <PartnerArtistsQueryRenderer partnerId={slug} />
       )}
     </Box>
   )

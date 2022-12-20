@@ -10,7 +10,7 @@ import {
   Text,
 } from "@artsy/palette"
 import { BarChart, BarDescriptor } from "@artsy/palette-charts"
-import { PricingContext_artwork } from "__generated__/PricingContext_artwork.graphql"
+import { PricingContext_artwork$data } from "__generated__/PricingContext_artwork.graphql"
 import * as DeprecatedSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { once } from "lodash"
 import * as React from "react"
@@ -26,7 +26,7 @@ import { useSystemContext } from "System"
 import track from "react-tracking"
 
 interface PricingContextProps {
-  artwork: PricingContext_artwork
+  artwork: PricingContext_artwork$data
 }
 
 @track(
@@ -123,7 +123,7 @@ export class PricingContext extends React.Component<PricingContextProps> {
           <Text variant="xs">Browse works in this category</Text>
         </Link>
 
-        <Spacer mt={2} />
+        <Spacer y={2} />
 
         <BarChart
           // TODO: use artwork's currency
@@ -226,7 +226,7 @@ const PLACEHOLDER = (
         Price ranges of small prints by Pablo Picasso
       </SkeletonText>
       <SkeletonText variant="xs">Browse works in this category</SkeletonText>
-      <Spacer mt={2} />
+      <Spacer y={2} />
       <SkeletonBox width="100%" height={100} />
     </StackableBorderBox>
   </Skeleton>

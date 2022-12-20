@@ -1,13 +1,13 @@
-import * as React from "react"
-import { mount } from "enzyme"
 import { render, RenderResult } from "@testing-library/react"
+import { mount } from "enzyme"
+import * as React from "react"
 import { QueryRenderer } from "react-relay"
-import {
-  MockPayloadGenerator,
-  createMockEnvironment,
-  RelayMockEnvironment,
-} from "relay-test-utils"
 import { GraphQLTaggedNode, OperationType } from "relay-runtime"
+import {
+  createMockEnvironment,
+  MockPayloadGenerator,
+  MockEnvironment,
+} from "relay-test-utils"
 import { MockResolvers } from "relay-test-utils/lib/RelayMockPayloadGenerator"
 
 type SetupTestWrapper<T extends OperationType> = {
@@ -77,7 +77,7 @@ type RTLRenderResult = RenderResult<
   typeof import("@testing-library/dom/types/queries"),
   HTMLElement
 >
-type RenderWithRelay = RTLRenderResult & { env: RelayMockEnvironment }
+type RenderWithRelay = RTLRenderResult & { env: MockEnvironment }
 export const setupTestWrapperTL = <T extends OperationType>({
   Component,
   query,
@@ -85,7 +85,8 @@ export const setupTestWrapperTL = <T extends OperationType>({
 }: SetupTestWrapper<T>) => {
   const renderWithRelay = (
     mockResolvers: MockResolvers = {},
-    manualEnvControl?: boolean
+    manualEnvControl?: boolean,
+    componentProps?: {}
   ): RenderWithRelay => {
     const env = createMockEnvironment()
     const TestRenderer = () => (
@@ -95,8 +96,7 @@ export const setupTestWrapperTL = <T extends OperationType>({
         query={query}
         render={({ props, error }) => {
           if (props) {
-            // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-            return <Component {...props} />
+            return <Component {...componentProps} {...(props as {})} />
           } else if (error) {
             console.error(error)
           }
@@ -126,8 +126,12 @@ export const setupTestWrapper = <T extends OperationType>({
   query,
   variables = {},
 }: SetupTestWrapper<T>) => {
-  const getWrapper = (mockResolvers: MockResolvers = {}) => {
-    const env = createMockEnvironment()
+  const getWrapper = (
+    mockResolvers: MockResolvers = {},
+    componentProps: {} = {},
+    mockedEnv?: ReturnType<typeof createMockEnvironment>
+  ) => {
+    const env = mockedEnv ?? createMockEnvironment()
 
     const TestRenderer = () => (
       <QueryRenderer<T>
@@ -136,8 +140,7 @@ export const setupTestWrapper = <T extends OperationType>({
         query={query}
         render={({ props, error }) => {
           if (props) {
-            // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-            return <Component {...props} />
+            return <Component {...(componentProps || {})} {...(props as {})} />
           } else if (error) {
             console.error(error)
           }
@@ -145,7 +148,11 @@ export const setupTestWrapper = <T extends OperationType>({
       />
     )
 
-    const wrapper = mount(<TestRenderer />)
+    const wrapper = mount(
+      <ErrorBoundary>
+        <TestRenderer />
+      </ErrorBoundary>
+    )
 
     env.mock.resolveMostRecentOperation(operation => {
       return MockPayloadGenerator.generate(operation, mockResolvers)
@@ -157,4 +164,16 @@ export const setupTestWrapper = <T extends OperationType>({
   }
 
   return { getWrapper }
+}
+
+class ErrorBoundary extends React.Component {
+  componentDidCatch(error) {
+    // Print an error to the console for a better debugging experience
+    console.log("Something went wrong while rendering a component")
+    console.log(error)
+  }
+
+  render() {
+    return this.props.children
+  }
 }

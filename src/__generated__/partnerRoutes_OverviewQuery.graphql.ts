@@ -1,164 +1,27 @@
+/**
+ * @generated SignedSource<<42d97c201066b32a2f468f2a0691882c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type partnerRoutes_OverviewQueryVariables = {
-    partnerId: string;
+export type partnerRoutes_OverviewQuery$variables = {
+  partnerId: string;
 };
-export type partnerRoutes_OverviewQueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"Overview_partner">;
-    } | null;
+export type partnerRoutes_OverviewQuery$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"Overview_partner">;
+  } | null;
 };
 export type partnerRoutes_OverviewQuery = {
-    readonly response: partnerRoutes_OverviewQueryResponse;
-    readonly variables: partnerRoutes_OverviewQueryVariables;
+  response: partnerRoutes_OverviewQuery$data;
+  variables: partnerRoutes_OverviewQuery$variables;
 };
-
-
-
-/*
-query partnerRoutes_OverviewQuery(
-  $partnerId: String!
-) {
-  partner(id: $partnerId) @principalField {
-    ...Overview_partner
-    id
-  }
-}
-
-fragment AboutPartner_partner on Partner {
-  profile {
-    fullBio
-    bio
-    id
-  }
-  website
-  vatNumber
-  displayFullPartnerPage
-  slug
-  internalID
-}
-
-fragment ArticlesRail_partner on Partner {
-  slug
-  articlesConnection(first: 8) {
-    totalCount
-    edges {
-      node {
-        internalID
-        ...CellArticle_article
-        id
-      }
-    }
-  }
-}
-
-fragment ArtistsRail_partner on Partner {
-  slug
-  profileArtistsLayout
-  displayFullPartnerPage
-  artistsWithPublishedArtworks: artistsConnection(hasPublishedArtworks: true, displayOnPartnerProfile: true) {
-    totalCount
-  }
-  representedArtistsWithoutPublishedArtworks: artistsConnection(representedBy: true, hasPublishedArtworks: false, displayOnPartnerProfile: true) {
-    totalCount
-  }
-}
-
-fragment CellArticle_article on Article {
-  vertical
-  title
-  thumbnailTitle
-  byline
-  href
-  publishedAt(format: "MMM D, YYYY")
-  thumbnailImage {
-    cropped(width: 445, height: 334) {
-      width
-      height
-      src
-      srcSet
-    }
-  }
-}
-
-fragment CellShow_show on Show {
-  internalID
-  slug
-  name
-  href
-  startAt
-  endAt
-  isFairBooth
-  exhibitionPeriod
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment Overview_partner on Partner {
-  slug
-  partnerType
-  displayFullPartnerPage
-  profileBannerDisplay
-  displayArtistsSection
-  ...AboutPartner_partner
-  ...ShowsRail_partner
-  ...ArtistsRail_partner
-  ...SubscriberBanner_partner
-  ...ArticlesRail_partner
-  locationsConnection(first: 1) {
-    edges {
-      node {
-        coordinates {
-          lat
-          lng
-        }
-        id
-      }
-    }
-  }
-}
-
-fragment ShowsRail_partner on Partner {
-  slug
-  displayFullPartnerPage
-  showsConnection(status: ALL, first: 20, isDisplayable: true) {
-    totalCount
-    edges {
-      node {
-        ...CellShow_show
-        internalID
-        id
-      }
-    }
-  }
-}
-
-fragment SubscriberBanner_partner on Partner {
-  hasFairPartnership
-  name
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -490,7 +353,6 @@ return {
                                 "kind": "Literal",
                                 "name": "version",
                                 "value": [
-                                  "normalized",
                                   "larger",
                                   "large"
                                 ]
@@ -505,7 +367,7 @@ return {
                               (v11/*: any*/),
                               (v12/*: any*/)
                             ],
-                            "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                            "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                           }
                         ],
                         "storageKey": null
@@ -771,14 +633,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a9241638abaec37942f546002a7f01fd",
+    "cacheID": "55eefefc42cf3f6b7de011a5143f290e",
     "id": null,
     "metadata": {},
     "name": "partnerRoutes_OverviewQuery",
     "operationKind": "query",
-    "text": "query partnerRoutes_OverviewQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...Overview_partner\n    id\n  }\n}\n\nfragment AboutPartner_partner on Partner {\n  profile {\n    fullBio\n    bio\n    id\n  }\n  website\n  vatNumber\n  displayFullPartnerPage\n  slug\n  internalID\n}\n\nfragment ArticlesRail_partner on Partner {\n  slug\n  articlesConnection(first: 8) {\n    totalCount\n    edges {\n      node {\n        internalID\n        ...CellArticle_article\n        id\n      }\n    }\n  }\n}\n\nfragment ArtistsRail_partner on Partner {\n  slug\n  profileArtistsLayout\n  displayFullPartnerPage\n  artistsWithPublishedArtworks: artistsConnection(hasPublishedArtworks: true, displayOnPartnerProfile: true) {\n    totalCount\n  }\n  representedArtistsWithoutPublishedArtworks: artistsConnection(representedBy: true, hasPublishedArtworks: false, displayOnPartnerProfile: true) {\n    totalCount\n  }\n}\n\nfragment CellArticle_article on Article {\n  vertical\n  title\n  thumbnailTitle\n  byline\n  href\n  publishedAt(format: \"MMM D, YYYY\")\n  thumbnailImage {\n    cropped(width: 445, height: 334) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment Overview_partner on Partner {\n  slug\n  partnerType\n  displayFullPartnerPage\n  profileBannerDisplay\n  displayArtistsSection\n  ...AboutPartner_partner\n  ...ShowsRail_partner\n  ...ArtistsRail_partner\n  ...SubscriberBanner_partner\n  ...ArticlesRail_partner\n  locationsConnection(first: 1) {\n    edges {\n      node {\n        coordinates {\n          lat\n          lng\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment ShowsRail_partner on Partner {\n  slug\n  displayFullPartnerPage\n  showsConnection(status: ALL, first: 20, isDisplayable: true) {\n    totalCount\n    edges {\n      node {\n        ...CellShow_show\n        internalID\n        id\n      }\n    }\n  }\n}\n\nfragment SubscriberBanner_partner on Partner {\n  hasFairPartnership\n  name\n}\n"
+    "text": "query partnerRoutes_OverviewQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...Overview_partner\n    id\n  }\n}\n\nfragment AboutPartner_partner on Partner {\n  profile {\n    fullBio\n    bio\n    id\n  }\n  website\n  vatNumber\n  displayFullPartnerPage\n  slug\n  internalID\n}\n\nfragment ArticlesRail_partner on Partner {\n  slug\n  articlesConnection(first: 8) {\n    totalCount\n    edges {\n      node {\n        internalID\n        ...CellArticle_article\n        id\n      }\n    }\n  }\n}\n\nfragment ArtistsRail_partner on Partner {\n  slug\n  profileArtistsLayout\n  displayFullPartnerPage\n  artistsWithPublishedArtworks: artistsConnection(hasPublishedArtworks: true, displayOnPartnerProfile: true) {\n    totalCount\n  }\n  representedArtistsWithoutPublishedArtworks: artistsConnection(representedBy: true, hasPublishedArtworks: false, displayOnPartnerProfile: true) {\n    totalCount\n  }\n}\n\nfragment CellArticle_article on Article {\n  vertical\n  title\n  thumbnailTitle\n  byline\n  href\n  publishedAt(format: \"MMM D, YYYY\")\n  thumbnailImage {\n    cropped(width: 445, height: 334) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment Overview_partner on Partner {\n  slug\n  partnerType\n  displayFullPartnerPage\n  profileBannerDisplay\n  displayArtistsSection\n  ...AboutPartner_partner\n  ...ShowsRail_partner\n  ...ArtistsRail_partner\n  ...SubscriberBanner_partner\n  ...ArticlesRail_partner\n  locationsConnection(first: 1) {\n    edges {\n      node {\n        coordinates {\n          lat\n          lng\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment ShowsRail_partner on Partner {\n  slug\n  displayFullPartnerPage\n  showsConnection(status: ALL, first: 20, isDisplayable: true) {\n    totalCount\n    edges {\n      node {\n        ...CellShow_show\n        internalID\n        id\n      }\n    }\n  }\n}\n\nfragment SubscriberBanner_partner on Partner {\n  hasFairPartnership\n  name\n}\n"
   }
 };
 })();
-(node as any).hash = '43c49ea345dc3fc5f0b2e85bba1d3daa';
+
+(node as any).hash = "43c49ea345dc3fc5f0b2e85bba1d3daa";
+
 export default node;

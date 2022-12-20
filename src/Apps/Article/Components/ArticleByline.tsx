@@ -1,11 +1,11 @@
 import { Box, EntityHeader, Join, Spacer, Text } from "@artsy/palette"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArticleByline_article } from "__generated__/ArticleByline_article.graphql"
+import { ArticleByline_article$data } from "__generated__/ArticleByline_article.graphql"
 import { OPTIMAL_READING_WIDTH } from "./Sections/ArticleSectionText"
 
 interface ArticleBylineProps {
-  article: ArticleByline_article
+  article: ArticleByline_article$data
 }
 
 const ArticleByline: FC<ArticleBylineProps> = ({ article }) => {
@@ -23,7 +23,7 @@ const ArticleByline: FC<ArticleBylineProps> = ({ article }) => {
 
   return (
     <Box maxWidth={OPTIMAL_READING_WIDTH}>
-      <Join separator={<Spacer mt={2} />}>
+      <Join separator={<Spacer y={2} />}>
         {article.authors.map(author => {
           const image = author.image?.cropped
 

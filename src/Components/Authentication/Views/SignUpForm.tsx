@@ -12,13 +12,12 @@ import { Component } from "react"
 import * as React from "react"
 import { recaptcha } from "Utils/recaptcha"
 import { data as sd } from "sharify" // eslint-disable-line no-restricted-imports
-import { SignUpForm_requestLocation } from "__generated__/SignUpForm_requestLocation.graphql"
+import { SignUpForm_requestLocation$data } from "__generated__/SignUpForm_requestLocation.graphql"
 import { Banner, Box, Button, Input, Join, Spacer, Text } from "@artsy/palette"
-import { AuthenticationPasswordInput } from "../Components/AuthenticationPasswordInput"
-import { AuthenticationCheckbox } from "../Components/AuthenticationCheckbox"
-import { AuthenticationFooter } from "../Components/AuthenticationFooter"
+import { AuthenticationPasswordInput } from "Components/Authentication/Components/AuthenticationPasswordInput"
+import { AuthenticationCheckbox } from "Components/Authentication/Components/AuthenticationCheckbox"
+import { AuthenticationFooter } from "Components/Authentication/Components/AuthenticationFooter"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { MNTNConversionPixel } from "Components/MNTNPixels"
 
 const gdprCountries = [
   "AT",
@@ -56,7 +55,7 @@ export interface SignUpFormState {
 }
 
 interface SignUpFormProps extends FormProps {
-  requestLocation?: SignUpForm_requestLocation
+  requestLocation?: SignUpForm_requestLocation$data
 }
 
 export class SignUpForm extends Component<SignUpFormProps, SignUpFormState> {
@@ -128,7 +127,7 @@ export class SignUpForm extends Component<SignUpFormProps, SignUpFormState> {
               // @ts-ignore
               onSubmit={handleSubmit}
             >
-              <Join separator={<Spacer mt={2} />}>
+              <Join separator={<Spacer y={2} />}>
                 <Input
                   autoFocus
                   error={nameErrorMessage}
@@ -168,7 +167,8 @@ export class SignUpForm extends Component<SignUpFormProps, SignUpFormState> {
 
                   {!passwordErrorMessage && (
                     <Text variant="xs" color="black60" mt={0.5}>
-                      Password must be at least 8 characters.
+                      Password must be at least 8 characters and include a
+                      lowercase letter, uppercase letter, and digit.
                     </Text>
                   )}
                 </Box>
@@ -288,8 +288,6 @@ export class SignUpForm extends Component<SignUpFormProps, SignUpFormState> {
                   showRecaptchaDisclaimer={this.props.showRecaptchaDisclaimer}
                 />
               </Join>
-
-              <MNTNConversionPixel forceEmbed />
             </Box>
           )
         }}

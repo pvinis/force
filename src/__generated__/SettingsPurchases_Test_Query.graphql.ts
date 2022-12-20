@@ -1,149 +1,25 @@
+/**
+ * @generated SignedSource<<0dcc9fbf78d794932607be42cb184032>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SettingsPurchases_Test_QueryVariables = {};
-export type SettingsPurchases_Test_QueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"SettingsPurchases_me">;
-    } | null;
+export type SettingsPurchases_Test_Query$variables = {};
+export type SettingsPurchases_Test_Query$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"SettingsPurchases_me">;
+  } | null;
 };
 export type SettingsPurchases_Test_Query = {
-    readonly response: SettingsPurchases_Test_QueryResponse;
-    readonly variables: SettingsPurchases_Test_QueryVariables;
+  response: SettingsPurchases_Test_Query$data;
+  variables: SettingsPurchases_Test_Query$variables;
 };
-
-
-
-/*
-query SettingsPurchases_Test_Query {
-  me {
-    ...SettingsPurchases_me
-    id
-  }
-}
-
-fragment CommercePagination_pageCursors on CommercePageCursors {
-  around {
-    cursor
-    page
-    isCurrent
-  }
-  first {
-    cursor
-    page
-    isCurrent
-  }
-  last {
-    cursor
-    page
-    isCurrent
-  }
-  previous {
-    cursor
-    page
-  }
-}
-
-fragment SettingsPurchasesRow_order on CommerceOrder {
-  __isCommerceOrder: __typename
-  internalID
-  code
-  displayState
-  state
-  requestedFulfillment {
-    __typename
-  }
-  paymentMethodDetails {
-    __typename
-    ... on CreditCard {
-      lastDigits
-      id
-    }
-    ... on BankAccount {
-      last4
-      id
-    }
-    ... on WireTransfer {
-      isManualPayment
-    }
-  }
-  buyerTotal(precision: 2)
-  createdAt
-  currencyCode
-  lineItems {
-    edges {
-      node {
-        artwork {
-          href
-          image {
-            cropped(width: 45, height: 45) {
-              src
-              srcSet
-            }
-          }
-          partner {
-            href
-            initials
-            name
-            profile {
-              icon {
-                cropped(width: 45, height: 45) {
-                  src
-                  srcSet
-                }
-              }
-              id
-            }
-            id
-          }
-          shippingOrigin
-          title
-          artistNames
-          artists {
-            href
-            id
-          }
-          id
-        }
-        fulfillments(first: 1) {
-          edges {
-            node {
-              trackingId
-              id
-            }
-          }
-        }
-        id
-      }
-    }
-  }
-}
-
-fragment SettingsPurchases_me on Me {
-  name
-  orders(states: [APPROVED, CANCELED, FULFILLED, REFUNDED, SUBMITTED], first: 10) {
-    totalCount
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    pageCursors {
-      ...CommercePagination_pageCursors
-    }
-    edges {
-      node {
-        __typename
-        code
-        ...SettingsPurchasesRow_order
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -343,7 +219,8 @@ return {
                   "CANCELED",
                   "FULFILLED",
                   "REFUNDED",
-                  "SUBMITTED"
+                  "SUBMITTED",
+                  "PROCESSING_APPROVAL"
                 ]
               }
             ],
@@ -771,7 +648,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "orders(first:10,states:[\"APPROVED\",\"CANCELED\",\"FULFILLED\",\"REFUNDED\",\"SUBMITTED\"])"
+            "storageKey": "orders(first:10,states:[\"APPROVED\",\"CANCELED\",\"FULFILLED\",\"REFUNDED\",\"SUBMITTED\",\"PROCESSING_APPROVAL\"])"
           },
           (v5/*: any*/)
         ],
@@ -780,7 +657,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f4b34aa309f6193f99f38e41ff9ad572",
+    "cacheID": "a2b3d3b0780c9b4d1216198496a0722d",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -942,6 +819,7 @@ return {
             "APPROVED",
             "CANCELED",
             "FULFILLED",
+            "IN_REVIEW",
             "PENDING",
             "PROCESSING_APPROVAL",
             "REFUNDED",
@@ -995,9 +873,11 @@ return {
     },
     "name": "SettingsPurchases_Test_Query",
     "operationKind": "query",
-    "text": "query SettingsPurchases_Test_Query {\n  me {\n    ...SettingsPurchases_me\n    id\n  }\n}\n\nfragment CommercePagination_pageCursors on CommercePageCursors {\n  around {\n    cursor\n    page\n    isCurrent\n  }\n  first {\n    cursor\n    page\n    isCurrent\n  }\n  last {\n    cursor\n    page\n    isCurrent\n  }\n  previous {\n    cursor\n    page\n  }\n}\n\nfragment SettingsPurchasesRow_order on CommerceOrder {\n  __isCommerceOrder: __typename\n  internalID\n  code\n  displayState\n  state\n  requestedFulfillment {\n    __typename\n  }\n  paymentMethodDetails {\n    __typename\n    ... on CreditCard {\n      lastDigits\n      id\n    }\n    ... on BankAccount {\n      last4\n      id\n    }\n    ... on WireTransfer {\n      isManualPayment\n    }\n  }\n  buyerTotal(precision: 2)\n  createdAt\n  currencyCode\n  lineItems {\n    edges {\n      node {\n        artwork {\n          href\n          image {\n            cropped(width: 45, height: 45) {\n              src\n              srcSet\n            }\n          }\n          partner {\n            href\n            initials\n            name\n            profile {\n              icon {\n                cropped(width: 45, height: 45) {\n                  src\n                  srcSet\n                }\n              }\n              id\n            }\n            id\n          }\n          shippingOrigin\n          title\n          artistNames\n          artists {\n            href\n            id\n          }\n          id\n        }\n        fulfillments(first: 1) {\n          edges {\n            node {\n              trackingId\n              id\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment SettingsPurchases_me on Me {\n  name\n  orders(states: [APPROVED, CANCELED, FULFILLED, REFUNDED, SUBMITTED], first: 10) {\n    totalCount\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    pageCursors {\n      ...CommercePagination_pageCursors\n    }\n    edges {\n      node {\n        __typename\n        code\n        ...SettingsPurchasesRow_order\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query SettingsPurchases_Test_Query {\n  me {\n    ...SettingsPurchases_me\n    id\n  }\n}\n\nfragment CommercePagination_pageCursors on CommercePageCursors {\n  around {\n    cursor\n    page\n    isCurrent\n  }\n  first {\n    cursor\n    page\n    isCurrent\n  }\n  last {\n    cursor\n    page\n    isCurrent\n  }\n  previous {\n    cursor\n    page\n  }\n}\n\nfragment SettingsPurchasesRow_order on CommerceOrder {\n  __isCommerceOrder: __typename\n  internalID\n  code\n  displayState\n  state\n  requestedFulfillment {\n    __typename\n  }\n  paymentMethodDetails {\n    __typename\n    ... on CreditCard {\n      lastDigits\n      id\n    }\n    ... on BankAccount {\n      last4\n      id\n    }\n    ... on WireTransfer {\n      isManualPayment\n    }\n  }\n  buyerTotal(precision: 2)\n  createdAt\n  currencyCode\n  lineItems {\n    edges {\n      node {\n        artwork {\n          href\n          image {\n            cropped(width: 45, height: 45) {\n              src\n              srcSet\n            }\n          }\n          partner {\n            href\n            initials\n            name\n            profile {\n              icon {\n                cropped(width: 45, height: 45) {\n                  src\n                  srcSet\n                }\n              }\n              id\n            }\n            id\n          }\n          shippingOrigin\n          title\n          artistNames\n          artists {\n            href\n            id\n          }\n          id\n        }\n        fulfillments(first: 1) {\n          edges {\n            node {\n              trackingId\n              id\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment SettingsPurchases_me on Me {\n  name\n  orders(states: [APPROVED, CANCELED, FULFILLED, REFUNDED, SUBMITTED, PROCESSING_APPROVAL], first: 10) {\n    totalCount\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    pageCursors {\n      ...CommercePagination_pageCursors\n    }\n    edges {\n      node {\n        __typename\n        code\n        ...SettingsPurchasesRow_order\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '7e82d547b04a31df6bc41f4aea8f71aa';
+
+(node as any).hash = "7e82d547b04a31df6bc41f4aea8f71aa";
+
 export default node;

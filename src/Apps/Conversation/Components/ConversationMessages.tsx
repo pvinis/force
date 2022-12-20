@@ -1,30 +1,33 @@
 import { Fragment, useEffect, useState } from "react"
 import { createFragmentContainer } from "react-relay"
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
 import { Spacer } from "@artsy/palette"
 import { DateTime } from "luxon"
 import { sortBy } from "lodash"
 
-import { groupMessages, Message as MessageType } from "../Utils/groupMessages"
+import {
+  groupMessages,
+  Message as MessageType,
+} from "Apps/Conversation/Utils/groupMessages"
 import { TimeSince, fromToday } from "./TimeSince"
 import { MessageFragmentContainer as Message } from "./Message"
 import { NewMessageMarker } from "./NewMessageMarker"
 import { OrderUpdateFragmentContainer } from "./OrderUpdate"
 import { extractNodes } from "Utils/extractNodes"
 
-import { ConversationMessages_events } from "__generated__/ConversationMessages_events.graphql"
-import { Message_message } from "__generated__/Message_message.graphql"
-import { ConversationMessages_messages } from "__generated__/ConversationMessages_messages.graphql"
+import { ConversationMessages_events$data } from "__generated__/ConversationMessages_events.graphql"
+import { Message_message$data } from "__generated__/Message_message.graphql"
+import { ConversationMessages_messages$data } from "__generated__/ConversationMessages_messages.graphql"
 
 interface ConversationMessageProps {
-  messages: ConversationMessages_messages
-  events: ConversationMessages_events | null
+  messages: ConversationMessages_messages$data
+  events: ConversationMessages_events$data | null
   lastViewedMessageID?: string | null
   setShowDetails: (showDetails: boolean) => void
 }
 type Order = NonNullable<
   NonNullable<
-    NonNullable<NonNullable<ConversationMessages_events>["edges"]>[number]
+    NonNullable<NonNullable<ConversationMessages_events$data>["edges"]>[number]
   >["node"]
 >
 type OrderEvent = Order["orderHistory"][number]
@@ -69,7 +72,9 @@ export const ConversationMessages = ({
     "CommerceOfferSubmittedEvent",
     "CommerceOrderStateChangedEvent",
   ]
-  const isRelevantEvent = (item: Message_message): item is Message_message => {
+  const isRelevantEvent = (
+    item: Message_message$data
+  ): item is Message_message$data => {
     return (
       item?.__typename !== "Message" && relevantEvents.includes(item.__typename)
     )
@@ -139,7 +144,7 @@ export const ConversationMessages = ({
                         messageGroup.length - 1 === messageIndex
                       }
                     />
-                    <Spacer mb={spaceAfter} />
+                    <Spacer y={spaceAfter} />
                   </Fragment>
                 )
               }

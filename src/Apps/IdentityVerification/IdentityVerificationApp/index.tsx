@@ -6,7 +6,7 @@ import {
   Text,
   useToasts,
 } from "@artsy/palette"
-import { IdentityVerificationApp_identityVerification } from "__generated__/IdentityVerificationApp_identityVerification.graphql"
+import { IdentityVerificationApp_identityVerification$data } from "__generated__/IdentityVerificationApp_identityVerification.graphql"
 import { IdentityVerificationAppStartMutation } from "__generated__/IdentityVerificationAppStartMutation.graphql"
 import * as DeprecatedSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { useMemo, useState } from "react"
@@ -29,7 +29,7 @@ import { HttpError } from "found"
 const logger = createLogger("IdentityVerificationApp.tsx")
 
 interface Props {
-  identityVerification: IdentityVerificationApp_identityVerification
+  identityVerification: IdentityVerificationApp_identityVerification$data
   relay: RelayProp
 }
 
@@ -147,7 +147,7 @@ const IdentityVerificationApp: React.FC<Props> = ({
     <>
       <MetaTags title="Artsy | ID Verification" />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns>
         <Column span={[12, 8, 6]} start={[1, 3, 4]}>
@@ -159,11 +159,11 @@ const IdentityVerificationApp: React.FC<Props> = ({
                 Artsy identity verification
               </Text>
 
-              <Spacer mt={4} />
+              <Spacer y={4} />
 
               <Text variant="lg-display">You’ll need</Text>
 
-              <Spacer mt={1} />
+              <Spacer y={1} />
 
               <Text variant="sm">
                 • Your non-expired government id
@@ -171,11 +171,11 @@ const IdentityVerificationApp: React.FC<Props> = ({
                 picture of yourself
               </Text>
 
-              <Spacer mt={4} />
+              <Spacer y={4} />
 
               <Text variant="lg-display">Keep in mind</Text>
 
-              <Spacer mt={1} />
+              <Spacer y={1} />
 
               <Text variant="sm">
                 • The verification process can take up to 5 minutes, and needs
@@ -189,11 +189,11 @@ const IdentityVerificationApp: React.FC<Props> = ({
                 partner during this process
               </Text>
 
-              <Spacer mt={4} />
+              <Spacer y={4} />
 
               <Text variant="lg-display">Compatible browsers</Text>
 
-              <Spacer mt={1} />
+              <Spacer y={1} />
 
               <Text>
                 • iOS: Safari
@@ -201,14 +201,14 @@ const IdentityVerificationApp: React.FC<Props> = ({
                 <br />• Mac/PC: Safari, Chrome, Firefox, Microsoft Edge
               </Text>
 
-              <Spacer mt={4} />
+              <Spacer y={4} />
 
               <Text variant="xs" textAlign="center">
                 By clicking the button, you'll be redirected to our identity
                 verification partner.
               </Text>
 
-              <Spacer mt={1} />
+              <Spacer y={1} />
 
               <Button
                 width="100%"
@@ -222,7 +222,7 @@ const IdentityVerificationApp: React.FC<Props> = ({
                 Continue to verification
               </Button>
 
-              <Spacer mt={1} />
+              <Spacer y={1} />
 
               <Text variant="xs" color="black60" textAlign="center">
                 For more information, see the{" "}
@@ -240,8 +240,7 @@ export const IdentityVerificationAppFragmentContainer = createFragmentContainer(
   IdentityVerificationApp,
   {
     identityVerification: graphql`
-      fragment IdentityVerificationApp_identityVerification on IdentityVerification
-        @argumentDefinitions(id: { type: "String!" }) {
+      fragment IdentityVerificationApp_identityVerification on IdentityVerification {
         internalID
         state
       }

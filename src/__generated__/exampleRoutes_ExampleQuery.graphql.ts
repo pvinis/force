@@ -1,37 +1,25 @@
+/**
+ * @generated SignedSource<<449cd452ac36eac310def245265abc98>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type exampleRoutes_ExampleQueryVariables = {};
-export type exampleRoutes_ExampleQueryResponse = {
-    readonly system: {
-        readonly " $fragmentRefs": FragmentRefs<"ExampleApp_system">;
-    } | null;
+export type exampleRoutes_ExampleQuery$variables = {};
+export type exampleRoutes_ExampleQuery$data = {
+  readonly system: {
+    readonly " $fragmentSpreads": FragmentRefs<"ExampleApp_system">;
+  } | null;
 };
 export type exampleRoutes_ExampleQuery = {
-    readonly response: exampleRoutes_ExampleQueryResponse;
-    readonly variables: exampleRoutes_ExampleQueryVariables;
+  response: exampleRoutes_ExampleQuery$data;
+  variables: exampleRoutes_ExampleQuery$variables;
 };
-
-
-
-/*
-query exampleRoutes_ExampleQuery {
-  system {
-    ...ExampleApp_system
-  }
-}
-
-fragment ExampleApp_system on System {
-  time {
-    day
-    month
-    year
-  }
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -120,5 +108,7 @@ const node: ConcreteRequest = {
     "text": "query exampleRoutes_ExampleQuery {\n  system {\n    ...ExampleApp_system\n  }\n}\n\nfragment ExampleApp_system on System {\n  time {\n    day\n    month\n    year\n  }\n}\n"
   }
 };
-(node as any).hash = '5878a11299e2592a0669ac8089848737';
+
+(node as any).hash = "5878a11299e2592a0669ac8089848737";
+
 export default node;

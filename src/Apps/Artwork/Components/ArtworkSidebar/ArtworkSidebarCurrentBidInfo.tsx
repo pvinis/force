@@ -1,25 +1,24 @@
-import { Clickable, Spacer } from "@artsy/palette"
-import { ArtworkSidebarCurrentBidInfo_artwork } from "__generated__/ArtworkSidebarCurrentBidInfo_artwork.graphql"
-import * as React from "react"
+import { ArtworkSidebarCurrentBidInfo_artwork$data } from "__generated__/ArtworkSidebarCurrentBidInfo_artwork.graphql"
 import { createFragmentContainer, graphql } from "react-relay"
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { useTracking } from "react-tracking"
 import {
   Box,
+  Clickable,
   Flex,
   LosingBidIcon,
-  Separator,
+  Spacer,
   Text,
   WinningBidIcon,
 } from "@artsy/palette"
 import { useDialog } from "Utils/Hooks/useDialog"
 import { AuctionBuyersPremiumDialogQueryRenderer } from "Components/AuctionBuyersPremiumDialog"
 import styled, { keyframes } from "styled-components"
-import { lotIsClosed } from "../../Utils/lotIsClosed"
-import { ArtworkSidebarBiddingClosedMessageFragmentContainer } from "./ArtworkSidebarBiddingClosedMessage"
+import { ArtworkSidebarBiddingClosedMessageFragmentContainer } from "Apps/Artwork/Components/ArtworkSidebar/ArtworkSidebarBiddingClosedMessage"
+import { lotIsClosed } from "Apps/Artwork/Utils/lotIsClosed"
 
 export interface ArtworkSidebarCurrentBidInfoProps {
-  artwork: ArtworkSidebarCurrentBidInfo_artwork
+  artwork: ArtworkSidebarCurrentBidInfo_artwork$data
   currentBidChanged: boolean
 }
 
@@ -127,7 +126,7 @@ export const ArtworkSidebarCurrentBidInfo: React.FC<ArtworkSidebarCurrentBidInfo
     <>
       {dialogComponent}
 
-      <Separator my={2} />
+      <Spacer y={2} />
 
       <Flex width="100%" flexDirection="row" justifyContent="space-between">
         <Text variant="lg-display" pr={1}>
@@ -174,7 +173,7 @@ export const ArtworkSidebarCurrentBidInfo: React.FC<ArtworkSidebarCurrentBidInfo
 
       {artwork.sale && artwork.sale.is_with_buyers_premium && (
         <>
-          <Spacer mt={1} />
+          <Spacer y={1} />
 
           <Text variant="xs" color="black60">
             This auction has a{" "}
@@ -223,6 +222,7 @@ export const ArtworkSidebarCurrentBidInfoFragmentContainer = createFragmentConta
             }
           }
         }
+        ...ArtworkSidebarBiddingClosedMessage_artwork
         ...ArtworkSidebarBiddingClosedMessage_artwork
       }
     `,

@@ -7,31 +7,37 @@ import {
   Spacer,
   Text,
 } from "@artsy/palette"
-import { SearchApp_viewer } from "__generated__/SearchApp_viewer.graphql"
+import { SearchApp_viewer$data } from "__generated__/SearchApp_viewer.graphql"
 import { NavigationTabsFragmentContainer as NavigationTabs } from "Apps/Search/Components/NavigationTabs"
 import { SearchMeta } from "Apps/Search/Components/SearchMeta"
 import { RecentlyViewed } from "Components/RecentlyViewed"
 import { createFragmentContainer, graphql } from "react-relay"
 import { ZeroState } from "./Components/ZeroState"
 import { useRouter } from "System/Router/useRouter"
-import { Sticky, StickyProvider } from "Components/Sticky"
-import { AppContainer } from "../Components/AppContainer"
+import { Sticky } from "Components/Sticky"
+import { AppContainer } from "Apps/Components/AppContainer"
+import { useTranslation } from "react-i18next"
+import { Jump } from "Utils/Hooks/useJump"
 
 export interface SearchAppProps {
-  viewer: SearchApp_viewer
+  viewer: SearchApp_viewer$data
 }
 
 const TotalResults: React.FC<{ count: number; term: string }> = ({
   count,
   term,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <>
-      <Text variant={["lg-display", "xl"]} display="inline">
-        {count.toLocaleString()} result{count > 1 ? "s" : ""} for
-      </Text>
-      <Text variant={["lg-display", "xl"]} color="blue100" display="inline">
-        {` \u201C${term}\u201D`}
+      <Text variant={["lg-display", "xl"]}>
+        {t(`searchApp.resultsCount`, { count: count })}
+
+        <Box as="span" color="blue100">
+          {" "}
+          “{term}”
+        </Box>
       </Text>
     </>
   )
@@ -66,16 +72,16 @@ export const SearchApp: React.FC<SearchAppProps> = ({ viewer, children }) => {
   const totalCount = countWithoutArtworks + artworkCount
 
   return (
-    <StickyProvider>
+    <>
       <SearchMeta term={term} />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       {hasResults ? (
         <>
           <TotalResults count={totalCount} term={term} />
 
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           <Sticky>
             {({ stuck }) => {
@@ -96,7 +102,9 @@ export const SearchApp: React.FC<SearchAppProps> = ({ viewer, children }) => {
             }}
           </Sticky>
 
-          <Spacer mt={4} />
+          <Spacer y={4} />
+
+          <Jump id="searchResultTabs" />
 
           <Box minHeight="30vh">{children}</Box>
         </>
@@ -108,10 +116,10 @@ export const SearchApp: React.FC<SearchAppProps> = ({ viewer, children }) => {
         </>
       )}
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <RecentlyViewed />
-    </StickyProvider>
+    </>
   )
 }
 

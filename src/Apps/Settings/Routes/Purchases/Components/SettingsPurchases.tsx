@@ -6,11 +6,11 @@ import {
   SettingsPurchasesRowFragmentContainer,
   SettingsPurchasesRowPlaceholder,
 } from "./SettingsPurchasesRow"
-import { SettingsPurchases_me } from "__generated__/SettingsPurchases_me.graphql"
+import { SettingsPurchases_me$data } from "__generated__/SettingsPurchases_me.graphql"
 import { CommercePaginationFragmentContainer } from "Components/Pagination/CommercePagination"
 
 export interface SettingsPurchasesProps {
-  me: SettingsPurchases_me
+  me: SettingsPurchases_me$data
   relay: RelayRefetchProp
 }
 
@@ -38,7 +38,14 @@ const SettingsPurchases: FC<SettingsPurchasesProps> = ({
       {
         after: cursor,
         first: 10,
-        states: ["APPROVED", "SUBMITTED", "CANCELED", "FULFILLED", "REFUNDED"],
+        states: [
+          "APPROVED",
+          "SUBMITTED",
+          "CANCELED",
+          "FULFILLED",
+          "REFUNDED",
+          "PROCESSING_APPROVAL",
+        ],
       },
       null,
       error => {
@@ -57,7 +64,7 @@ const SettingsPurchases: FC<SettingsPurchasesProps> = ({
 
   return !loading ? (
     <>
-      <Join separator={<Spacer mt={4} />}>
+      <Join separator={<Spacer y={4} />}>
         {orders.map(order => (
           <SettingsPurchasesRowFragmentContainer
             key={order.code}
@@ -76,7 +83,7 @@ const SettingsPurchases: FC<SettingsPurchasesProps> = ({
       )}
     </>
   ) : (
-    <Join separator={<Spacer mt={4} />}>
+    <Join separator={<Spacer y={4} />}>
       {[...new Array(10)].map((_, i) => {
         return <SettingsPurchasesRowPlaceholder key={i} />
       })}
@@ -94,7 +101,14 @@ export const SettingsPurchasesFragmentContainer = createRefetchContainer(
           first: { type: "Int", defaultValue: 10 }
           states: {
             type: "[CommerceOrderStateEnum!]"
-            defaultValue: [APPROVED, CANCELED, FULFILLED, REFUNDED, SUBMITTED]
+            defaultValue: [
+              APPROVED
+              CANCELED
+              FULFILLED
+              REFUNDED
+              SUBMITTED
+              PROCESSING_APPROVAL
+            ]
           }
         ) {
         name

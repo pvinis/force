@@ -1,59 +1,39 @@
+/**
+ * @generated SignedSource<<e13ca250504353fbb1c3f69f890a62a6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MockRelayRendererFixturesBadQueryVariables = {};
-export type MockRelayRendererFixturesBadQueryResponse = {
-    readonly something_that_is_not_expected: {
-        readonly " $fragmentRefs": FragmentRefs<"MockRelayRendererFixtures_artwork">;
-    } | null;
+export type MockRelayRendererFixturesBadQuery$variables = {};
+export type MockRelayRendererFixturesBadQuery$data = {
+  readonly something_that_is_not_expected: {
+    readonly " $fragmentSpreads": FragmentRefs<"MockRelayRendererFixtures_artwork">;
+  } | null;
 };
-export type MockRelayRendererFixturesBadQueryRawResponse = {
-    readonly something_that_is_not_expected: ({
-        readonly image: ({
-            readonly url: string | null;
-        }) | null;
-        readonly artist: ({
-            readonly slug: string;
-            readonly id: string;
-        }) | null;
-        readonly title: string | null;
-        readonly id: string;
-    }) | null;
+export type MockRelayRendererFixturesBadQuery$rawResponse = {
+  readonly something_that_is_not_expected: {
+    readonly artist: {
+      readonly id: string;
+      readonly slug: string;
+    } | null;
+    readonly id: string;
+    readonly image: {
+      readonly url: string | null;
+    } | null;
+    readonly title: string | null;
+  } | null;
 };
 export type MockRelayRendererFixturesBadQuery = {
-    readonly response: MockRelayRendererFixturesBadQueryResponse;
-    readonly variables: MockRelayRendererFixturesBadQueryVariables;
-    readonly rawResponse: MockRelayRendererFixturesBadQueryRawResponse;
+  rawResponse: MockRelayRendererFixturesBadQuery$rawResponse;
+  response: MockRelayRendererFixturesBadQuery$data;
+  variables: MockRelayRendererFixturesBadQuery$variables;
 };
-
-
-
-/*
-query MockRelayRendererFixturesBadQuery {
-  something_that_is_not_expected: artwork(id: "mona-lisa") {
-    ...MockRelayRendererFixtures_artwork
-    id
-  }
-}
-
-fragment MockRelayRendererFixtures_artwork on Artwork {
-  image {
-    url
-  }
-  artist {
-    slug
-    id
-  }
-  ...MockRelayRendererFixtures_artworkMetadata
-}
-
-fragment MockRelayRendererFixtures_artworkMetadata on Artwork {
-  title
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -171,5 +151,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'e4d07dd6eef5ab7d33ea7fc5986956ac';
+
+(node as any).hash = "e4d07dd6eef5ab7d33ea7fc5986956ac";
+
 export default node;

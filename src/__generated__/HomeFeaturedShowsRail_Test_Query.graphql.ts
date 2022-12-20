@@ -1,86 +1,25 @@
+/**
+ * @generated SignedSource<<eb5ea3e60a6b02a49018b8599786c2bd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HomeFeaturedShowsRail_Test_QueryVariables = {};
-export type HomeFeaturedShowsRail_Test_QueryResponse = {
-    readonly orderedSet: {
-        readonly " $fragmentRefs": FragmentRefs<"HomeFeaturedShowsRail_orderedSet">;
-    } | null;
+export type HomeFeaturedShowsRail_Test_Query$variables = {};
+export type HomeFeaturedShowsRail_Test_Query$data = {
+  readonly orderedSet: {
+    readonly " $fragmentSpreads": FragmentRefs<"HomeFeaturedShowsRail_orderedSet">;
+  } | null;
 };
 export type HomeFeaturedShowsRail_Test_Query = {
-    readonly response: HomeFeaturedShowsRail_Test_QueryResponse;
-    readonly variables: HomeFeaturedShowsRail_Test_QueryVariables;
+  response: HomeFeaturedShowsRail_Test_Query$data;
+  variables: HomeFeaturedShowsRail_Test_Query$variables;
 };
-
-
-
-/*
-query HomeFeaturedShowsRail_Test_Query {
-  orderedSet(id: "example") {
-    ...HomeFeaturedShowsRail_orderedSet
-    id
-  }
-}
-
-fragment CellShow_show on Show {
-  internalID
-  slug
-  name
-  href
-  startAt
-  endAt
-  isFairBooth
-  exhibitionPeriod
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment HomeFeaturedShow_show on Show {
-  ...CellShow_show
-  internalID
-  slug
-}
-
-fragment HomeFeaturedShowsRail_orderedSet on OrderedSet {
-  items {
-    __typename
-    ... on Show {
-      ...HomeFeaturedShow_show
-      internalID
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on FeaturedLink {
-      id
-    }
-    ... on Profile {
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -288,7 +227,6 @@ return {
                             "kind": "Literal",
                             "name": "version",
                             "value": [
-                              "normalized",
                               "larger",
                               "large"
                             ]
@@ -319,7 +257,7 @@ return {
                             "storageKey": null
                           }
                         ],
-                        "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                        "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                       }
                     ],
                     "storageKey": null
@@ -351,7 +289,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eb97459991e7873aaa7a30cac7d52fbc",
+    "cacheID": "3dca8b4eb2fb2bf82ef845016da08138",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -412,9 +350,11 @@ return {
     },
     "name": "HomeFeaturedShowsRail_Test_Query",
     "operationKind": "query",
-    "text": "query HomeFeaturedShowsRail_Test_Query {\n  orderedSet(id: \"example\") {\n    ...HomeFeaturedShowsRail_orderedSet\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment HomeFeaturedShow_show on Show {\n  ...CellShow_show\n  internalID\n  slug\n}\n\nfragment HomeFeaturedShowsRail_orderedSet on OrderedSet {\n  items {\n    __typename\n    ... on Show {\n      ...HomeFeaturedShow_show\n      internalID\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n"
+    "text": "query HomeFeaturedShowsRail_Test_Query {\n  orderedSet(id: \"example\") {\n    ...HomeFeaturedShowsRail_orderedSet\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment HomeFeaturedShow_show on Show {\n  ...CellShow_show\n  internalID\n  slug\n}\n\nfragment HomeFeaturedShowsRail_orderedSet on OrderedSet {\n  items {\n    __typename\n    ... on Show {\n      ...HomeFeaturedShow_show\n      internalID\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '4bf647cb7acfa53ac3204fd28dbe4199';
+
+(node as any).hash = "4bf647cb7acfa53ac3204fd28dbe4199";
+
 export default node;

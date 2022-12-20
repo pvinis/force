@@ -1,30 +1,36 @@
-import { AuthContextModule, ContextModule } from "@artsy/cohesion"
-import { Column, Flex, GridColumns } from "@artsy/palette"
-import { ArtworkGrid_artworks } from "__generated__/ArtworkGrid_artworks.graphql"
+import { AuthContextModule } from "@artsy/cohesion"
+import {
+  Column,
+  Flex,
+  GridColumns,
+  ResponsiveBox,
+  SkeletonBox,
+  Spacer,
+} from "@artsy/palette"
+import { ArtworkGrid_artworks$data } from "__generated__/ArtworkGrid_artworks.graphql"
 import { ArtworkGridEmptyState } from "Components/ArtworkGrid/ArtworkGridEmptyState"
 import { isEmpty, isEqual } from "lodash"
 import memoizeOnce from "memoize-one"
 import { ReactNode } from "react"
 import * as React from "react"
 import ReactDOM from "react-dom"
-// @ts-ignore
-import { ComponentRef, createFragmentContainer, graphql } from "react-relay"
+import { createFragmentContainer, graphql } from "react-relay"
 import styled from "styled-components"
 import { Media, valuesWithBreakpointProps } from "Utils/Responsive"
-import GridItem from "../Artwork/GridItem"
+import GridItem from "Components/Artwork/GridItem"
 import { withArtworkGridContext } from "./ArtworkGridContext"
 import { extractNodes } from "Utils/extractNodes"
-import { FlatGridItemFragmentContainer } from "../Artwork/FlatGridItem"
+import { FlatGridItemFragmentContainer } from "Components/Artwork/FlatGridItem"
+import { Masonry, MasonryProps } from "Components/Masonry"
+import { MetadataPlaceholder } from "Components/Artwork/Metadata"
 
 // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-type SectionedArtworks = Array<Array<ArtworkGrid_artworks["edges"][0]["node"]>>
+type Artwork = ArtworkGrid_artworks$data["edges"][0]["node"]
 
-// @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-type Artwork = ArtworkGrid_artworks["edges"][0]["node"]
+type SectionedArtworks = Array<Array<Artwork>>
 
-export interface ArtworkGridProps
-  extends React.HTMLProps<ArtworkGridContainer> {
-  artworks: ArtworkGrid_artworks
+export interface ArtworkGridProps extends React.HTMLProps<HTMLDivElement> {
+  artworks: ArtworkGrid_artworks$data
   contextModule?: AuthContextModule
   columnCount?: number | number[]
   preloadImageCount?: number
@@ -91,7 +97,7 @@ export class ArtworkGridContainer extends React.Component<
   //       artworks are added (paginated). Ideally it would just continue
   //       calculations from where it finished last time.
   sectionedArtworksForAllBreakpoints: (
-    artworks: ArtworkGrid_artworks,
+    artworks: ArtworkGrid_artworks$data,
     columnCount: number[]
   ) => SectionedArtworks[] = memoizeOnce(
     (artworks, columnCount) =>
@@ -246,7 +252,7 @@ export class ArtworkGridContainer extends React.Component<
     )
 
     return (
-      <div className={className} data-test={ContextModule.artworkGrid}>
+      <div className={className} data-test="artworkGrid">
         {hasArtworks ? artworkGrids : emptyState}
       </div>
     )
@@ -273,7 +279,7 @@ export default createFragmentContainer(withArtworkGridContext(ArtworkGrid), {
           href
           internalID
           image {
-            aspect_ratio: aspectRatio
+            aspectRatio
           }
           ...GridItem_artwork
           ...FlatGridItem_artwork
@@ -290,8 +296,8 @@ function areSectionedArtworksEqual(current: any, previous: any) {
   if (Array.isArray(current)) {
     return isEqual(current, previous)
   } else {
-    const currentEdges = (current as ArtworkGrid_artworks).edges
-    const previousEdges = (previous as ArtworkGrid_artworks).edges
+    const currentEdges = (current as ArtworkGrid_artworks$data).edges
+    const previousEdges = (previous as ArtworkGrid_artworks$data).edges
     return (
       // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
       currentEdges.length === previousEdges.length &&
@@ -302,7 +308,7 @@ function areSectionedArtworksEqual(current: any, previous: any) {
 }
 
 export function createSectionedArtworks(
-  artworksConnection: ArtworkGrid_artworks,
+  artworksConnection: ArtworkGrid_artworks$data,
   columnCount: number
 ): SectionedArtworks {
   const sectionedArtworks: SectionedArtworks = []
@@ -342,7 +348,7 @@ export function createSectionedArtworks(
 
         // Keep track of total section aspect ratio
         // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-        const aspectRatio = artwork.image.aspect_ratio || 1 // Ensure we never divide by null/0
+        const aspectRatio = artwork.image.aspectRatio || 1 // Ensure we never divide by null/0
         // Invert the aspect ratio so that a lower value means a shorter section.
         // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
         sectionRatioSums[sectionIndex] += 1 / aspectRatio
@@ -351,4 +357,50 @@ export function createSectionedArtworks(
   })
 
   return sectionedArtworks
+}
+
+const PLACEHOLDER_DIMENSIONS = [
+  [300, 400],
+  [300, 375],
+  [300, 200],
+  [300, 450],
+  [300, 300],
+  [300, 400],
+  [300, 380],
+  [300, 300],
+]
+
+interface ArtworkGridPlaceholderProps extends MasonryProps {
+  amount?: number
+}
+
+export const ArtworkGridPlaceholder: React.FC<ArtworkGridPlaceholderProps> = ({
+  amount = 8,
+  ...rest
+}) => {
+  return (
+    <Masonry {...rest}>
+      {[...new Array(amount)].map((_, i) => {
+        const [width, height] = PLACEHOLDER_DIMENSIONS[
+          i % PLACEHOLDER_DIMENSIONS.length
+        ]
+
+        return (
+          <div key={i}>
+            <ResponsiveBox
+              aspectWidth={width}
+              aspectHeight={height}
+              maxWidth="100%"
+            >
+              <SkeletonBox width="100%" height="100%" />
+            </ResponsiveBox>
+
+            <MetadataPlaceholder />
+
+            <Spacer y={4} />
+          </div>
+        )
+      })}
+    </Masonry>
+  )
 }

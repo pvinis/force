@@ -1,28 +1,31 @@
+/**
+ * @generated SignedSource<<ba1662f6511a1371b5460d333c3a95dd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HomeTrendingArtistsRail_viewer = {
-    readonly artistsConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-                readonly slug: string;
-                readonly " $fragmentRefs": FragmentRefs<"CellArtist_artist">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "HomeTrendingArtistsRail_viewer";
+export type HomeTrendingArtistsRail_viewer$data = {
+  readonly curatedTrendingArtists: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly slug: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CellArtist_artist">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly " $fragmentType": "HomeTrendingArtistsRail_viewer";
 };
-export type HomeTrendingArtistsRail_viewer$data = HomeTrendingArtistsRail_viewer;
 export type HomeTrendingArtistsRail_viewer$key = {
-    readonly " $data"?: HomeTrendingArtistsRail_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"HomeTrendingArtistsRail_viewer">;
+  readonly " $data"?: HomeTrendingArtistsRail_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"HomeTrendingArtistsRail_viewer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -36,17 +39,12 @@ const node: ReaderFragment = {
         {
           "kind": "Literal",
           "name": "first",
-          "value": 99
-        },
-        {
-          "kind": "Literal",
-          "name": "sort",
-          "value": "TRENDING_DESC"
+          "value": 20
         }
       ],
       "concreteType": "ArtistConnection",
       "kind": "LinkedField",
-      "name": "artistsConnection",
+      "name": "curatedTrendingArtists",
       "plural": false,
       "selections": [
         {
@@ -66,6 +64,11 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "CellArtist_artist"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
@@ -78,11 +81,6 @@ const node: ReaderFragment = {
                   "kind": "ScalarField",
                   "name": "slug",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "CellArtist_artist"
                 }
               ],
               "storageKey": null
@@ -91,11 +89,13 @@ const node: ReaderFragment = {
           "storageKey": null
         }
       ],
-      "storageKey": "artistsConnection(first:99,sort:\"TRENDING_DESC\")"
+      "storageKey": "curatedTrendingArtists(first:20)"
     }
   ],
   "type": "Viewer",
   "abstractKey": null
 };
-(node as any).hash = 'b7b7d2b5aa747dcbd490ee8e82545413';
+
+(node as any).hash = "5497b01030956d7818f10980b8096eb9";
+
 export default node;

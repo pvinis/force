@@ -13,8 +13,8 @@ import { BreadCrumbList } from "Components/Seo"
 
 import { getMetadata, Medium, Color } from "./Utils/getMetadata"
 
-import { Collect_marketingCollections } from "__generated__/Collect_marketingCollections.graphql"
-import { collectRoutes_ArtworkFilterQueryResponse } from "__generated__/collectRoutes_ArtworkFilterQuery.graphql"
+import { Collect_marketingCollections$data } from "__generated__/Collect_marketingCollections.graphql"
+import { collectRoutes_ArtworkFilterQuery$data } from "__generated__/collectRoutes_ArtworkFilterQuery.graphql"
 import { CollectionsHubsNavFragmentContainer as CollectionsHubsNav } from "Components/CollectionsHubsNav"
 import { ArtworkFilter } from "Components/ArtworkFilter"
 import { RouterLink } from "System/Router/RouterLink"
@@ -30,9 +30,9 @@ import { useSystemContext } from "System"
 export interface CollectAppProps {
   match: Match
   router: Router
-  marketingCollections: Collect_marketingCollections
-  viewer: collectRoutes_ArtworkFilterQueryResponse["viewer"]
-  filterArtworks: collectRoutes_ArtworkFilterQueryResponse["filterArtworks"]
+  marketingCollections: Collect_marketingCollections$data
+  viewer: collectRoutes_ArtworkFilterQuery$data["viewer"]
+  filterArtworks: collectRoutes_ArtworkFilterQuery$data["filterArtworks"]
 }
 
 export const CollectApp: React.FC<CollectAppProps> = ({
@@ -109,7 +109,7 @@ export const CollectApp: React.FC<CollectAppProps> = ({
             <Text variant={["lg-display", "xl"]}>
               <h1>Collect art and design online</h1>
             </Text>
-            <Spacer my={1} />
+            <Spacer y={1} />
             <Text variant="sm-display">
               <RouterLink to="/collections">Browse by collection</RouterLink>
             </Text>
@@ -119,7 +119,7 @@ export const CollectApp: React.FC<CollectAppProps> = ({
 
           <CollectionsHubsNav marketingCollections={marketingCollections} />
 
-          <Spacer my={6} />
+          <Spacer y={6} />
         </Box>
 
         <Box>
@@ -156,7 +156,7 @@ export const CollectApp: React.FC<CollectAppProps> = ({
               router.replace({
                 ...newLocation,
                 state: {
-                  scrollTo: "#jump--artworkFilter"
+                  scrollTo: "#JUMP--artworkFilter"
                 },
               })
             *

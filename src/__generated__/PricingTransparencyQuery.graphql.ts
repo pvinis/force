@@ -1,62 +1,40 @@
+/**
+ * @generated SignedSource<<c912f4830c5c1437946562b43179575c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type PricingTransparencyQueryVariables = {
-    saleId: string;
-    artworkId: string;
-    bidAmountMinor: number;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type PricingTransparencyQuery$variables = {
+  artworkId: string;
+  bidAmountMinor: number;
+  saleId: string;
 };
-export type PricingTransparencyQueryResponse = {
-    readonly artwork: {
-        readonly saleArtwork: {
-            readonly calculatedCost: {
-                readonly bidAmount: {
-                    readonly display: string | null;
-                } | null;
-                readonly buyersPremium: {
-                    readonly display: string | null;
-                } | null;
-                readonly subtotal: {
-                    readonly display: string | null;
-                } | null;
-            } | null;
+export type PricingTransparencyQuery$data = {
+  readonly artwork: {
+    readonly saleArtwork: {
+      readonly calculatedCost: {
+        readonly bidAmount: {
+          readonly display: string | null;
         } | null;
+        readonly buyersPremium: {
+          readonly display: string | null;
+        } | null;
+        readonly subtotal: {
+          readonly display: string | null;
+        } | null;
+      } | null;
     } | null;
+  } | null;
 };
 export type PricingTransparencyQuery = {
-    readonly response: PricingTransparencyQueryResponse;
-    readonly variables: PricingTransparencyQueryVariables;
+  response: PricingTransparencyQuery$data;
+  variables: PricingTransparencyQuery$variables;
 };
-
-
-
-/*
-query PricingTransparencyQuery(
-  $saleId: String!
-  $artworkId: String!
-  $bidAmountMinor: Int!
-) {
-  artwork(id: $artworkId) {
-    saleArtwork(saleID: $saleId) {
-      calculatedCost(bidAmountMinor: $bidAmountMinor) {
-        bidAmount {
-          display
-        }
-        buyersPremium {
-          display
-        }
-        subtotal {
-          display
-        }
-      }
-      id
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -236,5 +214,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'f61a93d688779864e1e5e3fb1201b2af';
+
+(node as any).hash = "f61a93d688779864e1e5e3fb1201b2af";
+
 export default node;

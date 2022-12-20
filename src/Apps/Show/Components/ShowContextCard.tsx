@@ -8,7 +8,7 @@ import {
 } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ShowContextCard_show } from "__generated__/ShowContextCard_show.graphql"
+import { ShowContextCard_show$data } from "__generated__/ShowContextCard_show.graphql"
 import { FairTimingFragmentContainer as FairTiming } from "Apps/Fair/Components/FairHeader/FairTiming"
 import { FairCardFragmentContainer as FairCard } from "Components/FairCard"
 import { StyledLink } from "Components/Links/StyledLink"
@@ -27,7 +27,7 @@ import {
 } from "@artsy/cohesion"
 
 interface Props {
-  show: ShowContextCard_show
+  show: ShowContextCard_show$data
 }
 
 const CARD_FULL_MAX_WIDTH = 768
@@ -85,7 +85,7 @@ export const ShowContextCard: React.FC<Props> = ({ show }) => {
             {/* @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION */}
             <FairCard fair={fair} />
 
-            <Spacer mb={2} />
+            <Spacer y={2} />
             <Box>
               {/* @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION */}
               <Text variant="xl">{fair.name}</Text>

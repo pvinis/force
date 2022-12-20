@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useState } from "react"
-import * as React from "react"
 import { Box, BoxProps } from "@artsy/palette"
-import { useFormikContext } from "formik"
-import { useSystemContext } from "System"
+import { PhotoDropzone } from "Components/PhotoUpload/Components/PhotoDropzone"
+import { PhotoThumbnail } from "Components/PhotoUpload/Components/PhotoThumbnail"
 import {
   getErrorMessage,
   normalizePhoto,
   Photo,
   uploadPhoto,
-} from "../../Utils/fileUtils"
-import { PhotoDropzone } from "./PhotoDropzone"
+} from "Components/PhotoUpload/Utils/fileUtils"
+import { useFormikContext } from "formik"
+import * as React from "react"
+import { useEffect, useState } from "react"
 import { FileRejection } from "react-dropzone"
-import { PhotoThumbnail } from "./PhotoThumbnail"
+import { useSystemContext } from "System"
 
 export interface UploadPhotosFormModel {
   photos: Photo[]
@@ -52,7 +52,9 @@ export const UploadPhotosForm: React.FC<UploadPhotosFormProps> = ({
       photo.loading = false
 
       if (!geminiToken) {
-        photo.errorMessage = `Photo could not be added: ${photo.name}`
+        photo.errorMessage = photo.externalUrl
+          ? "Artwork image could not be automatically added. Please add a photo."
+          : `Photo could not be added: ${photo.name}`
         setFieldValue("photos", values.photos)
         return
       }
@@ -65,7 +67,7 @@ export const UploadPhotosForm: React.FC<UploadPhotosFormProps> = ({
 
   useEffect(() => {
     const imagesToUpload = values.photos.filter(
-      c => !(c.geminiToken || c.url) && !c.loading
+      c => !(c.geminiToken || c.url) && !c.loading && !c.errorMessage
     )
 
     if (imagesToUpload.length) {
@@ -74,7 +76,7 @@ export const UploadPhotosForm: React.FC<UploadPhotosFormProps> = ({
     }
   }, [values.photos])
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const onDrop = (acceptedFiles: File[]) => {
     const photos = acceptedFiles.map(file => normalizePhoto(file))
 
     setErrors([])
@@ -82,7 +84,7 @@ export const UploadPhotosForm: React.FC<UploadPhotosFormProps> = ({
       ...values.photos.filter(p => !p.errorMessage),
       ...photos,
     ])
-  }, [])
+  }
 
   const onReject = (rejections: FileRejection[]) => {
     setErrors(rejections)
@@ -95,6 +97,7 @@ export const UploadPhotosForm: React.FC<UploadPhotosFormProps> = ({
   return (
     <Box {...rest}>
       <PhotoDropzone
+        allPhotos={values.photos}
         onDrop={onDrop}
         maxTotalSize={maxTotalSize}
         px={[2, 4]}

@@ -1,57 +1,30 @@
+/**
+ * @generated SignedSource<<172e058d555ef5dc49fba124383e0e6f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InquiryBasicInfoQueryVariables = {
-    id: string;
+export type InquiryBasicInfoQuery$variables = {
+  id: string;
 };
-export type InquiryBasicInfoQueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"InquiryBasicInfo_artwork">;
-    } | null;
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"InquiryBasicInfo_me">;
-    } | null;
+export type InquiryBasicInfoQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"InquiryBasicInfo_artwork">;
+  } | null;
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"InquiryBasicInfo_me">;
+  } | null;
 };
 export type InquiryBasicInfoQuery = {
-    readonly response: InquiryBasicInfoQueryResponse;
-    readonly variables: InquiryBasicInfoQueryVariables;
+  response: InquiryBasicInfoQuery$data;
+  variables: InquiryBasicInfoQuery$variables;
 };
-
-
-
-/*
-query InquiryBasicInfoQuery(
-  $id: String!
-) {
-  artwork(id: $id) {
-    ...InquiryBasicInfo_artwork
-    id
-  }
-  me {
-    ...InquiryBasicInfo_me
-    id
-  }
-}
-
-fragment InquiryBasicInfo_artwork on Artwork {
-  partner {
-    name
-    id
-  }
-}
-
-fragment InquiryBasicInfo_me on Me {
-  location {
-    display
-    id
-  }
-  phone
-  profession
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -186,7 +159,7 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "phone",
+            "name": "otherRelevantPositions",
             "storageKey": null
           },
           {
@@ -203,14 +176,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b19a3cf4c7a4fca9fc7280ffc8a1a166",
+    "cacheID": "4b472894bfd896cea754a1ed8d959b26",
     "id": null,
     "metadata": {},
     "name": "InquiryBasicInfoQuery",
     "operationKind": "query",
-    "text": "query InquiryBasicInfoQuery(\n  $id: String!\n) {\n  artwork(id: $id) {\n    ...InquiryBasicInfo_artwork\n    id\n  }\n  me {\n    ...InquiryBasicInfo_me\n    id\n  }\n}\n\nfragment InquiryBasicInfo_artwork on Artwork {\n  partner {\n    name\n    id\n  }\n}\n\nfragment InquiryBasicInfo_me on Me {\n  location {\n    display\n    id\n  }\n  phone\n  profession\n}\n"
+    "text": "query InquiryBasicInfoQuery(\n  $id: String!\n) {\n  artwork(id: $id) {\n    ...InquiryBasicInfo_artwork\n    id\n  }\n  me {\n    ...InquiryBasicInfo_me\n    id\n  }\n}\n\nfragment InquiryBasicInfo_artwork on Artwork {\n  partner {\n    name\n    id\n  }\n}\n\nfragment InquiryBasicInfo_me on Me {\n  location {\n    display\n    id\n  }\n  otherRelevantPositions\n  profession\n}\n"
   }
 };
 })();
-(node as any).hash = '587675ba2f1e1d08b0c7b66a9b254b9c';
+
+(node as any).hash = "587675ba2f1e1d08b0c7b66a9b254b9c";
+
 export default node;

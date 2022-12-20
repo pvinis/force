@@ -1,54 +1,25 @@
+/**
+ * @generated SignedSource<<7345af74f894bcf5fa9756e5ab14022d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairOrganizerPastEventsRail_Test_QueryVariables = {};
-export type FairOrganizerPastEventsRail_Test_QueryResponse = {
-    readonly fairOrganizer: {
-        readonly " $fragmentRefs": FragmentRefs<"FairOrganizerPastEventsRail_fairOrganizer">;
-    } | null;
+export type FairOrganizerPastEventsRail_Test_Query$variables = {};
+export type FairOrganizerPastEventsRail_Test_Query$data = {
+  readonly fairOrganizer: {
+    readonly " $fragmentSpreads": FragmentRefs<"FairOrganizerPastEventsRail_fairOrganizer">;
+  } | null;
 };
 export type FairOrganizerPastEventsRail_Test_Query = {
-    readonly response: FairOrganizerPastEventsRail_Test_QueryResponse;
-    readonly variables: FairOrganizerPastEventsRail_Test_QueryVariables;
+  response: FairOrganizerPastEventsRail_Test_Query$data;
+  variables: FairOrganizerPastEventsRail_Test_Query$variables;
 };
-
-
-
-/*
-query FairOrganizerPastEventsRail_Test_Query {
-  fairOrganizer(id: "the-armory-show") {
-    ...FairOrganizerPastEventsRail_fairOrganizer
-    id
-  }
-}
-
-fragment FairOrganizerPastEventRailCell_fair on Fair {
-  slug
-  name
-  image {
-    cropped(width: 325, height: 244) {
-      width
-      height
-      src
-      srcSet
-    }
-  }
-}
-
-fragment FairOrganizerPastEventsRail_fairOrganizer on FairOrganizer {
-  pastFairs: fairsConnection(first: 20, sort: START_AT_DESC, status: CLOSED, hasFullFeature: true) {
-    edges {
-      node {
-        id
-        ...FairOrganizerPastEventRailCell_fair
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -322,5 +293,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'dddd73919a036a5a81a2c45083847f89';
+
+(node as any).hash = "dddd73919a036a5a81a2c45083847f89";
+
 export default node;

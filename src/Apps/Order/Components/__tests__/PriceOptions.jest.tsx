@@ -1,4 +1,4 @@
-import { PriceOptionsFragmentContainer } from "../PriceOptions"
+import { PriceOptionsFragmentContainer } from "Apps/Order/Components/PriceOptions"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { graphql } from "react-relay"
 import { fireEvent, screen, within } from "@testing-library/react"

@@ -1,33 +1,36 @@
+/**
+ * @generated SignedSource<<297021af544aa4ac5e4625e4289a4ec8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SettingsSavesCategories_me = {
-    readonly followsAndSaves: {
-        readonly categoriesConnection: {
-            readonly totalCount: number | null;
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly internalID: string;
-                    readonly category: {
-                        readonly internalID: string;
-                        readonly " $fragmentRefs": FragmentRefs<"CategoryRail_category">;
-                    } | null;
-                } | null;
-            } | null> | null;
+export type SettingsSavesCategories_me$data = {
+  readonly followsAndSaves: {
+    readonly categoriesConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly category: {
+            readonly internalID: string;
+            readonly " $fragmentSpreads": FragmentRefs<"CategoryRail_category">;
+          } | null;
+          readonly internalID: string;
         } | null;
+      } | null> | null;
+      readonly totalCount: number | null;
     } | null;
-    readonly " $refType": "SettingsSavesCategories_me";
+  } | null;
+  readonly " $fragmentType": "SettingsSavesCategories_me";
 };
-export type SettingsSavesCategories_me$data = SettingsSavesCategories_me;
 export type SettingsSavesCategories_me$key = {
-    readonly " $data"?: SettingsSavesCategories_me$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SettingsSavesCategories_me">;
+  readonly " $data"?: SettingsSavesCategories_me$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SettingsSavesCategories_me">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -174,5 +177,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6de6e05d5dbe69b4e8f089ba0d9a9636';
+
+(node as any).hash = "6de6e05d5dbe69b4e8f089ba0d9a9636";
+
 export default node;

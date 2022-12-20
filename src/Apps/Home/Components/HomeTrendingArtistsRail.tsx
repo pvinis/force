@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from "react-relay"
 import { useSystemContext } from "System"
 import { useTracking } from "react-tracking"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { HomeTrendingArtistsRail_viewer } from "__generated__/HomeTrendingArtistsRail_viewer.graphql"
+import { HomeTrendingArtistsRail_viewer$data } from "__generated__/HomeTrendingArtistsRail_viewer.graphql"
 import { HomeTrendingArtistsRailQuery } from "__generated__/HomeTrendingArtistsRailQuery.graphql"
 import { extractNodes } from "Utils/extractNodes"
 import {
@@ -20,7 +20,7 @@ import {
 } from "Components/Cells/CellArtist"
 
 interface HomeTrendingArtistsRailProps {
-  viewer: HomeTrendingArtistsRail_viewer
+  viewer: HomeTrendingArtistsRail_viewer$data
 }
 
 const HomeTrendingArtistsRail: React.FC<HomeTrendingArtistsRailProps> = ({
@@ -28,7 +28,7 @@ const HomeTrendingArtistsRail: React.FC<HomeTrendingArtistsRailProps> = ({
 }) => {
   const { trackEvent } = useTracking()
 
-  const artists = extractNodes(viewer.artistsConnection)
+  const artists = extractNodes(viewer.curatedTrendingArtists)
 
   if (artists.length === 0) {
     return null
@@ -96,7 +96,7 @@ export const HomeTrendingArtistsRailFragmentContainer = createFragmentContainer(
   {
     viewer: graphql`
       fragment HomeTrendingArtistsRail_viewer on Viewer {
-        artistsConnection(sort: TRENDING_DESC, first: 99) {
+        curatedTrendingArtists(first: 20) {
           edges {
             node {
               ...CellArtist_artist

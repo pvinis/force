@@ -1,8 +1,8 @@
 import { graphql } from "react-relay"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
 import { FairOrganizerPastEventsRail_Test_Query } from "__generated__/FairOrganizerPastEventsRail_Test_Query.graphql"
-import { FairOrganizerPastEventRailCell } from "../FairOrganizerPastEventRailCell"
-import { FairOrganizerPastEventsRailFragmentContainer as FairOrganizerPastEventsRail } from "../FairOrganizerPastEventsRail"
+import { FairOrganizerPastEventRailCell } from "Apps/FairOrginizer/Components/FairOrganizerPastEventRailCell"
+import { FairOrganizerPastEventsRailFragmentContainer as FairOrganizerPastEventsRail } from "Apps/FairOrginizer/Components/FairOrganizerPastEventsRail"
 
 jest.unmock("react-relay")
 

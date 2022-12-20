@@ -1,24 +1,27 @@
+/**
+ * @generated SignedSource<<7356bbbf853e09241fe415a94743a62c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistInsightAchievements_artist = {
-    readonly slug: string;
-    readonly insightAchievements: ReadonlyArray<{
-        readonly label: string;
-        readonly entities: ReadonlyArray<string>;
-    }>;
-    readonly " $refType": "ArtistInsightAchievements_artist";
+export type ArtistInsightAchievements_artist$data = {
+  readonly insightAchievements: ReadonlyArray<{
+    readonly entities: ReadonlyArray<string>;
+    readonly label: string;
+  }>;
+  readonly slug: string;
+  readonly " $fragmentType": "ArtistInsightAchievements_artist";
 };
-export type ArtistInsightAchievements_artist$data = ArtistInsightAchievements_artist;
 export type ArtistInsightAchievements_artist$key = {
-    readonly " $data"?: ArtistInsightAchievements_artist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistInsightAchievements_artist">;
+  readonly " $data"?: ArtistInsightAchievements_artist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistInsightAchievements_artist">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -74,5 +77,7 @@ const node: ReaderFragment = {
   "type": "Artist",
   "abstractKey": null
 };
-(node as any).hash = 'bf060451a4d8351860174c98ea9322d0';
+
+(node as any).hash = "bf060451a4d8351860174c98ea9322d0";
+
 export default node;

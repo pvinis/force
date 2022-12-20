@@ -1,42 +1,45 @@
+/**
+ * @generated SignedSource<<a5123c4aa3d0a51d5601060ef47a510e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ArtworkAggregation = "ARTIST" | "ARTIST_NATIONALITY" | "ATTRIBUTION_CLASS" | "COLOR" | "DIMENSION_RANGE" | "FOLLOWED_ARTISTS" | "GALLERY" | "INSTITUTION" | "LOCATION_CITY" | "MAJOR_PERIOD" | "MATERIALS_TERMS" | "MEDIUM" | "MERCHANDISABLE_ARTISTS" | "PARTNER" | "PARTNER_CITY" | "PERIOD" | "PRICE_RANGE" | "SIMPLE_PRICE_HISTOGRAM" | "TOTAL" | "%future added value";
-export type Works_partner = {
-    readonly slug: string;
-    readonly internalID: string;
-    readonly sidebar: {
-        readonly counts?: {
-            readonly followedArtists: number | null;
-        } | null | undefined;
-        readonly aggregations: ReadonlyArray<{
-            readonly slice: ArtworkAggregation | null;
-            readonly counts: ReadonlyArray<{
-                readonly name: string;
-                readonly value: string;
-                readonly count: number;
-            } | null> | null;
-        } | null> | null;
+import { FragmentRefs } from "relay-runtime";
+export type Works_partner$data = {
+  readonly filtered_artworks: {
+    readonly counts: {
+      readonly total: any | null;
     } | null;
-    readonly filtered_artworks: {
-        readonly id: string;
-        readonly counts: {
-            readonly total: number | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkFilterArtworkGrid_filtered_artworks">;
+    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkFilterArtworkGrid_filtered_artworks">;
+  } | null;
+  readonly internalID: string;
+  readonly sidebar: {
+    readonly aggregations: ReadonlyArray<{
+      readonly counts: ReadonlyArray<{
+        readonly count: number;
+        readonly name: string;
+        readonly value: string;
+      } | null> | null;
+      readonly slice: ArtworkAggregation | null;
+    } | null> | null;
+    readonly counts?: {
+      readonly followedArtists: any | null;
     } | null;
-    readonly " $refType": "Works_partner";
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "Works_partner";
 };
-export type Works_partner$data = Works_partner;
 export type Works_partner$key = {
-    readonly " $data"?: Works_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Works_partner">;
+  readonly " $data"?: Works_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Works_partner">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -94,6 +97,31 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "condition": "shouldFetchCounts",
+          "kind": "Condition",
+          "passingValue": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "FilterArtworksCounts",
+              "kind": "LinkedField",
+              "name": "counts",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "followedArtists",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ]
+        },
+        {
           "alias": null,
           "args": null,
           "concreteType": "ArtworksAggregationResults",
@@ -142,31 +170,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "condition": "shouldFetchCounts",
-          "kind": "Condition",
-          "passingValue": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "FilterArtworksCounts",
-              "kind": "LinkedField",
-              "name": "counts",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "followedArtists",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ]
         }
       ],
       "storageKey": null
@@ -233,5 +236,7 @@ const node: ReaderFragment = {
   "type": "Partner",
   "abstractKey": null
 };
-(node as any).hash = '8717354f1f5956bc30748da7d832e576';
+
+(node as any).hash = "8717354f1f5956bc30748da7d832e576";
+
 export default node;

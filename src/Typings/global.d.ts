@@ -1,3 +1,5 @@
+import Braze from "@braze/web-sdk"
+
 declare global {
   interface Document {
     readonly fullscreenElement: Element | null
@@ -36,6 +38,7 @@ declare global {
     __RELAY_BOOTSTRAP__: string
     _sift: any
     analytics: any
+    braze?: typeof Braze
     desktopPageTimeTrackers: [{ path: string; reset: (path) => void }]
     grecaptcha: any
     OnetrustActiveGroups: string
@@ -43,7 +46,9 @@ declare global {
     OptanonWrapper: () => void
     ReactNativeWebView?: { postMessage: (message: string) => void }
     sd: any
+    // Zendesk properties
     zEmbed: { show: () => void; hide: () => void }
+    zESettings: object
   }
 }
 

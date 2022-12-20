@@ -1,5 +1,4 @@
-import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
-import { ContextModule, Intent } from "@artsy/cohesion"
+import { ContextModule, Intent, OwnerType } from "@artsy/cohesion"
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -14,25 +13,28 @@ import {
   ResponsiveBox,
   Text,
 } from "@artsy/palette"
-import { ArtistAuctionResultItem_auctionResult } from "__generated__/ArtistAuctionResultItem_auctionResult.graphql"
+import { ArtistAuctionResultItem_auctionResult$data } from "__generated__/ArtistAuctionResultItem_auctionResult.graphql"
 import { SystemContextProps, useSystemContext } from "System"
 import { SystemContext } from "System"
 import { ModalType } from "Components/Authentication/Types"
 import { DateTime, LocaleOptions } from "luxon"
 import { FC, useContext, useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { useTracking } from "react-tracking"
 import { openAuthModal } from "Utils/openAuthModal"
 import { AuctionResultPerformance } from "Components/AuctionResultPerformance"
+import { useRouter } from "System/Router/useRouter"
+import { useAuctionResultsTracking } from "Apps/Artist/Routes/AuctionResults/Components/Hooks/useAuctionResultsTracking"
 
 export interface Props extends SystemContextProps {
   expanded?: boolean
-  auctionResult: ArtistAuctionResultItem_auctionResult
+  auctionResult: ArtistAuctionResultItem_auctionResult$data
   filtersAtDefault: boolean
+  showArtistName?: boolean
 }
 
 export const ArtistAuctionResultItem: FC<Props> = props => {
-  const tracking = useTracking()
+  const { trackClickedAuctionResultItem } = useAuctionResultsTracking()
+  const { pathname } = useRouter().match.location
 
   const [expanded, setExpanded] = useState(false)
 
@@ -41,14 +43,16 @@ export const ArtistAuctionResultItem: FC<Props> = props => {
 
     setExpanded(!expanded)
 
-    tracking.trackEvent({
-      context_page: DeprecatedAnalyticsSchema.PageName.ArtistAuctionResults,
-      action_type:
-        DeprecatedAnalyticsSchema.ActionType.AuctionResultItemClicked,
-      current: {
-        expanded: expand,
-      },
-    })
+    if (pathname.startsWith("/my-collection/artwork")) {
+      trackClickedAuctionResultItem(
+        expand,
+        OwnerType.myCollectionArtworkInsights
+      )
+    } else if (pathname.startsWith("/settings/insights")) {
+      trackClickedAuctionResultItem(expand, OwnerType.myCollectionInsights)
+    } else {
+      trackClickedAuctionResultItem(expand)
+    }
   }
 
   return (
@@ -72,6 +76,7 @@ export const ArtistAuctionResultItem: FC<Props> = props => {
 const ArtistAuctionResultItemTop: FC<Props> = props => {
   const {
     expanded,
+    showArtistName,
     auctionResult: {
       images,
       date_text,
@@ -79,11 +84,13 @@ const ArtistAuctionResultItemTop: FC<Props> = props => {
       title,
       mediumText,
       saleDate,
+      artist,
     },
   } = getProps(props)
 
   const dateOfSale = getDisplaySaleDate(saleDate)
   const image = images?.larger?.cropped
+  const artistName = artist?.name
 
   return (
     <GridColumns>
@@ -108,9 +115,20 @@ const ArtistAuctionResultItemTop: FC<Props> = props => {
       </Column>
 
       <Column span={4}>
-        <Text variant="sm-display">
-          {[title, date_text].filter(Boolean).join(", ")}
-        </Text>
+        {!!showArtistName && <Text variant="sm-display">{artistName}</Text>}
+
+        {showArtistName ? (
+          <Text variant="sm-display" color="black60">
+            <i>{title?.trim()}</i>
+            {date_text &&
+              date_text.replace(/\s+/g, "").length > 0 &&
+              ", " + date_text}
+          </Text>
+        ) : (
+          <Text variant="sm-display">
+            {[title, date_text].filter(Boolean).join(", ")}
+          </Text>
+        )}
 
         {mediumText !== "Unknown" && (
           <Text variant="xs" color="black60" lineClamp={4}>
@@ -150,6 +168,9 @@ export const ArtistAuctionResultItemFragmentContainer = createFragmentContainer(
         title
         dimension_text: dimensionText
         organization
+        artist {
+          name
+        }
         images {
           larger {
             cropped(width: 100, height: 100) {

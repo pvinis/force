@@ -1,10 +1,10 @@
-import { InquiryBasicInfoFragmentContainer } from "../../Views/InquiryBasicInfo"
-import { useUpdateMyUserProfile } from "../../Hooks/useUpdateMyUserProfile"
-import { useInquiryContext } from "../../Hooks/useInquiryContext"
+import { InquiryBasicInfoFragmentContainer } from "Components/Inquiry/Views/InquiryBasicInfo"
+import { useUpdateMyUserProfile } from "Components/Inquiry/Hooks/useUpdateMyUserProfile"
+import { useInquiryContext } from "Components/Inquiry/Hooks/useInquiryContext"
 import { flushPromiseQueue } from "DevTools"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
-import { graphql } from "relay-runtime"
-import { fill } from "../util"
+import { graphql } from "react-relay"
+import { fill } from "Components/Inquiry/__tests__/util"
 
 jest.unmock("react-relay")
 jest.mock("../../Hooks/useUpdateMyUserProfile")
@@ -58,6 +58,9 @@ describe("InquiryBasicInfo", () => {
     expect(wrapper.html()).toContain(
       "Tell Example Partner a little bit about yourself."
     )
+    expect(wrapper.html()).toContain(
+      "Galleries are more likely to respond to collectors who share their profile."
+    )
   })
 
   it("updates the collector profile when the form is submitted", async () => {
@@ -66,14 +69,14 @@ describe("InquiryBasicInfo", () => {
     expect(mockSubmitUpdateMyUserProfile).not.toBeCalled()
     expect(mockNext).not.toBeCalled()
 
-    fill(wrapper, "phone", "555-555-5555")
+    fill(wrapper, "otherRelevantPositions", "Collector")
 
     wrapper.find("form").simulate("submit")
 
     await flushPromiseQueue()
 
     expect(mockSubmitUpdateMyUserProfile).toBeCalledWith({
-      phone: "555-555-5555",
+      otherRelevantPositions: "Collector",
       shareFollows: true,
     })
 
@@ -87,9 +90,7 @@ describe("InquiryBasicInfo", () => {
     expect(mockNext).not.toBeCalled()
 
     fill(wrapper, "profession", "Carpenter")
-    fill(wrapper, "phone", "555-555-5555")
-
-    wrapper.find('[role="checkbox"]').first().simulate("click")
+    fill(wrapper, "otherRelevantPositions", "Artist")
 
     wrapper.find("form").simulate("submit")
 
@@ -97,8 +98,8 @@ describe("InquiryBasicInfo", () => {
 
     expect(mockSubmitUpdateMyUserProfile).toBeCalledWith({
       profession: "Carpenter",
-      phone: "555-555-5555",
-      shareFollows: false,
+      otherRelevantPositions: "Artist",
+      shareFollows: true,
     })
 
     expect(mockNext).toBeCalled()

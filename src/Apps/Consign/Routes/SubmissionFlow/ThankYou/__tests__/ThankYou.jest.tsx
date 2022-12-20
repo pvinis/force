@@ -1,6 +1,6 @@
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { mount } from "enzyme"
-import { ThankYou } from "../ThankYou"
+import { ThankYou } from "Apps/Consign/Routes/SubmissionFlow/ThankYou/ThankYou"
 import { useSystemContext } from "System"
 import { ContextModule, OwnerType } from "@artsy/cohesion"
 import { useRouter } from "System/Router/useRouter"
@@ -37,15 +37,6 @@ describe("ThankYou page", () => {
         },
       }
     })
-    ;(useSystemContext as jest.Mock).mockImplementation(() => {
-      return {
-        isLoggedIn: true,
-        user: {
-          id: "123",
-          email: "d@e.f",
-        },
-      }
-    })
   })
 
   describe("when user is logged in", () => {
@@ -53,6 +44,10 @@ describe("ThankYou page", () => {
       ;(useSystemContext as jest.Mock).mockImplementation(() => {
         return {
           isLoggedIn: true,
+          user: {
+            id: "123",
+            email: "d@e.f",
+          },
         }
       })
     })
@@ -62,7 +57,7 @@ describe("ThankYou page", () => {
 
       expect(text).toContain("Your artwork has been submitted")
       expect(text).toContain(
-        "We will email you within 1-3 days to confirm if your artwork has been accepted or not. In the meantime your submission will appear in the feature, My Collection, on the Artsy app."
+        "We will email you within 1-3 days to confirm if your artwork has been accepted or not. In the meantime your submission will appear in the feature, My Collection."
       )
       expect(text).toContain(
         "With low fees, informed pricing, and multiple sales options, why not submit another piece with Artsy."
@@ -115,41 +110,6 @@ describe("ThankYou page", () => {
 
       expect(wrapper.find("SoldRecentlyOnArtsyQueryRenderer").length).toBe(1)
       expect(wrapper.find("FAQ").length).toBe(1)
-    })
-  })
-
-  describe("when user logged in", () => {
-    it("tracks submit another artwork click with user email and ID", async () => {
-      const wrapper = mount(<ThankYou />)
-
-      const submitAnotherButton = wrapper.find(
-        "button[data-test-id='submit-another-work']"
-      )
-
-      submitAnotherButton.simulate("click")
-
-      expect(trackEvent).toHaveBeenCalled()
-      expect(trackEvent).toHaveBeenCalledWith({
-        action_type: DeprecatedAnalyticsSchema.ActionType.SubmitAnotherArtwork,
-        context_module: ContextModule.consignSubmissionFlow,
-        context_owner_type: OwnerType.consignmentSubmission,
-        submission_id: "12345",
-        user_email: "d@e.f",
-        user_id: "123",
-      })
-    })
-  })
-  describe("when user is notlogged in", () => {
-    beforeEach(() => {
-      ;(useSystemContext as jest.Mock).mockImplementation(() => {
-        return {
-          isLoggedIn: false,
-          user: {
-            id: "",
-            email: "",
-          },
-        }
-      })
     })
 
     it("tracks submit another artwork click without user email", async () => {

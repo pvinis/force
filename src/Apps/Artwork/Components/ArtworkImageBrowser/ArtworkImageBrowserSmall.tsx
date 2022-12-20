@@ -8,26 +8,28 @@ import {
   SwiperRailProps,
 } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtworkImageBrowserSmall_artwork } from "__generated__/ArtworkImageBrowserSmall_artwork.graphql"
+import { ArtworkImageBrowserSmall_artwork$data } from "__generated__/ArtworkImageBrowserSmall_artwork.graphql"
 import { DeepZoomFragmentContainer, useDeepZoom } from "Components/DeepZoom"
-import { ArtworkLightboxFragmentContainer } from "../ArtworkLightbox"
-import { ArtworkVideoPlayerFragmentContainer } from "../ArtworkVideoPlayer"
+import { ArtworkLightboxFragmentContainer } from "Apps/Artwork/Components/ArtworkLightbox"
+import { ArtworkVideoPlayerFragmentContainer } from "Apps/Artwork/Components/ArtworkVideoPlayer"
 
 interface ArtworkImageBrowserSmallProps {
-  artwork: ArtworkImageBrowserSmall_artwork
-  index: number
-  setIndex(index: number): void
+  artwork: ArtworkImageBrowserSmall_artwork$data
+  /** Index of the currently active artwork */
+  activeIndex: number
+  /** Update the currently active artwork (on swipe change) */
+  setActiveIndex(index: number): void
   maxHeight: number
 }
 
 const ArtworkImageBrowserSmall: React.FC<ArtworkImageBrowserSmallProps> = ({
   artwork,
-  index,
-  setIndex,
+  activeIndex,
+  setActiveIndex,
   maxHeight,
 }) => {
   const figures = artwork.figures
-  const activeFigure = figures[index]
+  const activeFigure = figures[activeIndex]
 
   const { isDeepZoomVisible, showDeepZoom, hideDeepZoom } = useDeepZoom()
 
@@ -44,7 +46,13 @@ const ArtworkImageBrowserSmall: React.FC<ArtworkImageBrowserSmallProps> = ({
         />
       )}
 
-      <Swiper snap="center" onChange={setIndex} Cell={Cell} Rail={Rail}>
+      <Swiper
+        snap="center"
+        onChange={setActiveIndex}
+        Cell={Cell}
+        Rail={Rail}
+        initialIndex={activeIndex}
+      >
         {figures.map((figure, i) => {
           switch (figure.type) {
             case "Image":
@@ -54,7 +62,7 @@ const ArtworkImageBrowserSmall: React.FC<ArtworkImageBrowserSmallProps> = ({
                   maxHeight={maxHeight}
                   my={2}
                   artwork={artwork}
-                  activeIndex={i}
+                  activeIndex={artwork.isSetVideoAsCover ? i - 1 : i}
                   lazyLoad={i !== 0}
                   onClick={
                     activeFigure.type === "Image" && activeFigure.isZoomable
@@ -83,7 +91,8 @@ const ArtworkImageBrowserSmall: React.FC<ArtworkImageBrowserSmallProps> = ({
         <ProgressDots
           variant="dash"
           amount={figures.length}
-          activeIndex={index}
+          activeIndex={activeIndex}
+          onClick={setActiveIndex}
         />
       )}
     </>
@@ -118,6 +127,7 @@ export const ArtworkImageBrowserSmallFragmentContainer = createFragmentContainer
       fragment ArtworkImageBrowserSmall_artwork on Artwork {
         ...ArtworkLightbox_artwork
         ...ArtworkVideoPlayer_artwork
+        isSetVideoAsCover
         figures {
           ... on Image {
             ...DeepZoom_image

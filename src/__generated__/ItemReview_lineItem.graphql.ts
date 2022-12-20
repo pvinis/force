@@ -1,45 +1,48 @@
+/**
+ * @generated SignedSource<<dc851d24abcc67626a6158ef0b56e6bd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ItemReview_lineItem = {
-    readonly artwork: {
-        readonly artistNames: string | null;
-        readonly title: string | null;
-        readonly date: string | null;
-        readonly medium: string | null;
-        readonly dimensions: {
-            readonly in: string | null;
-            readonly cm: string | null;
-        } | null;
-        readonly attribution_class: {
-            readonly shortDescription: string | null;
-        } | null;
-        readonly image: {
-            readonly resized: {
-                readonly url: string;
-            } | null;
-        } | null;
-        readonly edition_sets: ReadonlyArray<{
-            readonly internalID: string;
-            readonly dimensions: {
-                readonly in: string | null;
-                readonly cm: string | null;
-            } | null;
-        } | null> | null;
+export type ItemReview_lineItem$data = {
+  readonly artwork: {
+    readonly artistNames: string | null;
+    readonly attribution_class: {
+      readonly shortDescription: string | null;
     } | null;
-    readonly editionSetId: string | null;
-    readonly " $refType": "ItemReview_lineItem";
+    readonly date: string | null;
+    readonly dimensions: {
+      readonly cm: string | null;
+      readonly in: string | null;
+    } | null;
+    readonly edition_sets: ReadonlyArray<{
+      readonly dimensions: {
+        readonly cm: string | null;
+        readonly in: string | null;
+      } | null;
+      readonly internalID: string;
+    } | null> | null;
+    readonly image: {
+      readonly resized: {
+        readonly url: string;
+      } | null;
+    } | null;
+    readonly medium: string | null;
+    readonly title: string | null;
+  } | null;
+  readonly editionSetId: string | null;
+  readonly " $fragmentType": "ItemReview_lineItem";
 };
-export type ItemReview_lineItem$data = ItemReview_lineItem;
 export type ItemReview_lineItem$key = {
-    readonly " $data"?: ItemReview_lineItem$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ItemReview_lineItem">;
+  readonly " $data"?: ItemReview_lineItem$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemReview_lineItem">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -197,5 +200,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '21a2e52e8eb6eaafb635eaa2a27ed561';
+
+(node as any).hash = "21a2e52e8eb6eaafb635eaa2a27ed561";
+
 export default node;

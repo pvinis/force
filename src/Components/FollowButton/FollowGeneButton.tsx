@@ -2,15 +2,22 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { useSystemContext } from "System"
 import { FollowButton } from "./Button"
-import { FollowGeneButton_gene } from "__generated__/FollowGeneButton_gene.graphql"
+import { FollowGeneButton_gene$data } from "__generated__/FollowGeneButton_gene.graphql"
 import { ButtonProps } from "@artsy/palette"
 import { openAuthToSatisfyIntent } from "Utils/openAuthModal"
-import { Intent, ContextModule, AuthContextModule } from "@artsy/cohesion"
+import {
+  Intent,
+  ContextModule,
+  AuthContextModule,
+  OwnerType,
+} from "@artsy/cohesion"
 import { useMutation } from "Utils/Hooks/useMutation"
 import { useFollowButtonTracking } from "./useFollowButtonTracking"
+import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
+import { FollowGeneButtonQuery } from "__generated__/FollowGeneButtonQuery.graphql"
 
 interface FollowGeneButtonProps extends Omit<ButtonProps, "variant"> {
-  gene: FollowGeneButton_gene
+  gene: FollowGeneButton_gene$data
   contextModule?: AuthContextModule
   onFollow?: (followed: boolean) => void
 }
@@ -24,6 +31,7 @@ const FollowGeneButton: React.FC<FollowGeneButtonProps> = ({
   const { isLoggedIn, mediator } = useSystemContext()
 
   const { trackFollow } = useFollowButtonTracking({
+    ownerType: OwnerType.gene,
     ownerId: gene.internalID,
     ownerSlug: gene.slug,
     contextModule,
@@ -82,6 +90,9 @@ const FollowGeneButton: React.FC<FollowGeneButtonProps> = ({
     <FollowButton
       isFollowed={!!gene.isFollowed}
       handleFollow={handleClick}
+      aria-label={
+        gene.isFollowed ? `Unfollow ${gene.name}` : `Follow ${gene.name}`
+      }
       {...rest}
     />
   )
@@ -102,4 +113,34 @@ export const FollowGeneButtonFragmentContainer = createFragmentContainer(
   }
 )
 
-// TODO: QueryRenderer
+interface FollowGeneButtonQueryRendererProps
+  extends Omit<FollowGeneButtonProps, "gene"> {
+  id: string
+}
+
+export const FollowGeneButtonQueryRenderer: React.FC<FollowGeneButtonQueryRendererProps> = ({
+  id,
+  ...rest
+}) => {
+  return (
+    <SystemQueryRenderer<FollowGeneButtonQuery>
+      lazyLoad
+      query={graphql`
+        query FollowGeneButtonQuery($id: String!) {
+          gene(id: $id) {
+            ...FollowGeneButton_gene
+          }
+        }
+      `}
+      placeholder={<FollowButton {...rest} />}
+      variables={{ id }}
+      render={({ error, props }) => {
+        if (error || !props?.gene) {
+          return <FollowButton {...rest} />
+        }
+
+        return <FollowGeneButtonFragmentContainer {...rest} gene={props.gene} />
+      }}
+    />
+  )
+}

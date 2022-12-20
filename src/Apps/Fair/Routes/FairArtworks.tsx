@@ -1,4 +1,4 @@
-import { FairArtworks_fair } from "__generated__/FairArtworks_fair.graphql"
+import { FairArtworks_fair$data } from "__generated__/FairArtworks_fair.graphql"
 import { BaseArtworkFilter } from "Components/ArtworkFilter"
 import {
   ArtworkFilterContextProvider,
@@ -23,9 +23,12 @@ import { ArtworkLocationFilter } from "Components/ArtworkFilter/ArtworkFilters/A
 import { SizeFilter } from "Components/ArtworkFilter/ArtworkFilters/SizeFilter"
 import { ActiveFilterPills } from "Components/SavedSearchAlert/Components/ActiveFilterPills"
 import { useSystemContext } from "System"
+import { useFeatureFlag } from "System/useFeatureFlag"
+import { KeywordFilter } from "Components/ArtworkFilter/ArtworkFilters/KeywordFilter"
+import { Join, Spacer } from "@artsy/palette"
 
 interface FairArtworksFilterProps {
-  fair: FairArtworks_fair
+  fair: FairArtworks_fair$data
   relay: RelayRefetchProp
 }
 
@@ -33,6 +36,7 @@ const FairArtworksFilter: React.FC<FairArtworksFilterProps> = props => {
   const { relay, fair } = props
   const { match } = useRouter()
   const { userPreferences } = useSystemContext()
+  const showKeywordFilter = useFeatureFlag("artist-artwork-grid-keyword-search")
   const { filtered_artworks, sidebarAggregations } = fair
 
   const hasFilter = filtered_artworks && filtered_artworks.id
@@ -48,7 +52,8 @@ const FairArtworksFilter: React.FC<FairArtworksFilterProps> = props => {
   // For some reason, they are undefined when `useSystemContext()` is referenced
   // in <ArtistsFilter />. So, pass as props for now.
   const Filters = (
-    <>
+    <Join separator={<Spacer y={4} />}>
+      {showKeywordFilter && <KeywordFilter />}
       <PartnersFilter label="Exhibitors" expanded />
       <ArtistsFilter fairID={fair.internalID} expanded />
       <AttributionClassFilter expanded />
@@ -61,7 +66,7 @@ const FairArtworksFilter: React.FC<FairArtworksFilterProps> = props => {
       <ArtworkLocationFilter expanded />
       <TimePeriodFilter expanded />
       <ColorFilter expanded />
-    </>
+    </Join>
   )
 
   return (
@@ -85,7 +90,7 @@ const FairArtworksFilter: React.FC<FairArtworksFilterProps> = props => {
       userPreferredMetric={userPreferences?.metric}
     >
       <BaseArtworkFilter
-        mt={6}
+        mt={[0, 6]}
         relay={relay}
         viewer={fair}
         Filters={Filters}

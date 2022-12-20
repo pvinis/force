@@ -1,27 +1,31 @@
+/**
+ * @generated SignedSource<<e211312e7c0edd756b30abb669545d2b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerArtistArtworksRail_partnerArtist = {
-    readonly artworksConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"FillwidthItem_artwork">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "PartnerArtistArtworksRail_partnerArtist";
+export type PartnerArtistArtworksRail_partnerArtist$data = {
+  readonly artworksConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShelfArtwork_artwork">;
+      } | null;
+    } | null> | null;
+    readonly totalCount: number | null;
+  } | null;
+  readonly " $fragmentType": "PartnerArtistArtworksRail_partnerArtist";
 };
-export type PartnerArtistArtworksRail_partnerArtist$data = PartnerArtistArtworksRail_partnerArtist;
 export type PartnerArtistArtworksRail_partnerArtist$key = {
-    readonly " $data"?: PartnerArtistArtworksRail_partnerArtist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnerArtistArtworksRail_partnerArtist">;
+  readonly " $data"?: PartnerArtistArtworksRail_partnerArtist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnerArtistArtworksRail_partnerArtist">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -62,6 +66,13 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "ArtworkEdge",
           "kind": "LinkedField",
           "name": "edges",
@@ -76,10 +87,15 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ShelfArtwork_artwork"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "id",
+                  "name": "internalID",
                   "storageKey": null
                 },
                 {
@@ -88,11 +104,6 @@ const node: ReaderFragment = {
                   "kind": "ScalarField",
                   "name": "__typename",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "FillwidthItem_artwork"
                 }
               ],
               "storageKey": null
@@ -139,5 +150,7 @@ const node: ReaderFragment = {
   "type": "ArtistPartnerEdge",
   "abstractKey": null
 };
-(node as any).hash = '292a7fb2cf8a823f690116e4c56469b5';
+
+(node as any).hash = "60f6d7b38c7470b4b0618dc407c149e1";
+
 export default node;

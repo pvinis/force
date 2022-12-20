@@ -1,30 +1,30 @@
 import {
+  Box,
   Button,
   Flex,
-  Box,
-  Text,
-  Spacer,
   ModalDialog,
+  Spacer,
+  Text,
   useToasts,
 } from "@artsy/palette"
-import { useState } from "react"
 import * as React from "react"
-import { RelayRefetchProp, graphql, createRefetchContainer } from "react-relay"
+import { useState } from "react"
+import { createRefetchContainer, graphql, RelayRefetchProp } from "react-relay"
+import { ConfirmPasswordModal } from "Components/ConfirmPasswordModal"
 // eslint-disable-next-line no-restricted-imports
 import request from "superagent"
 import { useSystemContext } from "System"
-import { AppSecondFactorModal, OnCompleteRedirectModal } from "./Modal"
-import { ApiError } from "../../ApiError"
-import { CreateAppSecondFactor } from "./Mutation/CreateAppSecondFactor"
-import { DisableFactorConfirmation } from "../DisableFactorConfirmation"
-import { AppSecondFactor_me } from "__generated__/AppSecondFactor_me.graphql"
-import { ConfirmPasswordModal } from "Components/ConfirmPasswordModal"
+import { AppSecondFactor_me$data } from "__generated__/AppSecondFactor_me.graphql"
 import { CreateAppSecondFactorInput } from "__generated__/CreateAppSecondFactorMutation.graphql"
+import { ApiError } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/ApiError"
+import { DisableFactorConfirmation } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/Components/DisableFactorConfirmation"
+import { AppSecondFactorModal, OnCompleteRedirectModal } from "./Modal"
+import { CreateAppSecondFactor } from "./Mutation/CreateAppSecondFactor"
 
 import { afterUpdateRedirect } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/helpers"
 
 interface AppSecondFactorProps {
-  me: AppSecondFactor_me
+  me: AppSecondFactor_me$data
   relay: RelayRefetchProp
 }
 
@@ -166,15 +166,15 @@ export const AppSecondFactor: React.FC<AppSecondFactorProps> = ({
         flexDirection={["column", "row"]}
       >
         <Box flexBasis="50%">
-          <Text variant="lg-display">App Authenticator</Text>
+          <Text variant={["md", "lg"]}>App Authenticator</Text>
 
           {enabledSecondFactorLabel && (
-            <Text variant="lg-display" color="black60">
+            <Text variant={["md", "lg"]} color="black60">
               {enabledSecondFactorLabel}
             </Text>
           )}
 
-          <Spacer mt={2} />
+          <Spacer y={2} />
 
           <Text variant="sm" color="black60">
             Generate secure authentication codes using an application such as{" "}
@@ -197,7 +197,7 @@ export const AppSecondFactor: React.FC<AppSecondFactorProps> = ({
           </Text>
         </Box>
 
-        <Spacer ml={[0, 2]} mt={[2, 0]} />
+        <Spacer x={[0, 2]} y={[2, 0]} />
 
         <Flex flexBasis="50%" alignItems="center" justifyContent="flex-end">
           {isEnabled ? (
@@ -212,7 +212,7 @@ export const AppSecondFactor: React.FC<AppSecondFactorProps> = ({
                 Disable
               </Button>
 
-              <Spacer ml={1} />
+              <Spacer x={1} />
 
               <Button
                 width={["100%", "auto"]}

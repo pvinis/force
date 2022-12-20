@@ -1,26 +1,29 @@
+/**
+ * @generated SignedSource<<3a33733c994168a075393ef01afc2385>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairSubApp_fair = {
-    readonly id: string;
-    readonly name: string | null;
-    readonly slug: string;
-    readonly profile: {
-        readonly __typename: string;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"FairMeta_fair">;
-    readonly " $refType": "FairSubApp_fair";
+export type FairSubApp_fair$data = {
+  readonly href: string | null;
+  readonly id: string;
+  readonly name: string | null;
+  readonly profile: {
+    readonly __typename: "Profile";
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"FairMeta_fair">;
+  readonly " $fragmentType": "FairSubApp_fair";
 };
-export type FairSubApp_fair$data = FairSubApp_fair;
 export type FairSubApp_fair$key = {
-    readonly " $data"?: FairSubApp_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairSubApp_fair">;
+  readonly " $data"?: FairSubApp_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairSubApp_fair">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -28,6 +31,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "FairSubApp_fair",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "FairMeta_fair"
+    },
     {
       "alias": null,
       "args": null,
@@ -46,7 +54,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "slug",
+      "name": "href",
       "storageKey": null
     },
     {
@@ -66,15 +74,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "FairMeta_fair"
     }
   ],
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = '6e764f17377d6510ad976161b446cef9';
+
+(node as any).hash = "8800fcf01337098f990219c0fee9f38e";
+
 export default node;

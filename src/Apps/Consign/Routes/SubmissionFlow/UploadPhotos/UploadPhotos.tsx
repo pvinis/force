@@ -1,41 +1,53 @@
+import { ActionType, ContextModule, OwnerType } from "@artsy/cohesion"
 import { Box, Button, Text } from "@artsy/palette"
-import { useSystemContext } from "System"
-import { Form, Formik } from "formik"
 import { SubmissionStepper } from "Apps/Consign/Components/SubmissionStepper"
+import { useSubmissionFlowSteps } from "Apps/Consign/Hooks/useSubmissionFlowSteps"
+import {
+  useAddAssetToConsignmentSubmission,
+  useRemoveAssetFromConsignmentSubmission,
+} from "Apps/Consign/Routes/SubmissionFlow/Mutations"
+import { createOrUpdateConsignSubmission } from "Apps/Consign/Routes/SubmissionFlow/Utils/createOrUpdateConsignSubmission"
+import {
+  uploadPhotosValidationSchema,
+  validate,
+} from "Apps/Consign/Routes/SubmissionFlow/Utils/validation"
+import { BackLink } from "Components/Links/BackLink"
+import { PhotoThumbnail } from "Components/PhotoUpload/Components/PhotoThumbnail"
+import { normalizePhoto, Photo } from "Components/PhotoUpload/Utils/fileUtils"
+import { Form, Formik } from "formik"
+import { LocationDescriptor } from "found"
+import { findLast } from "lodash"
+import { useRef, useState } from "react"
+import {
+  createFragmentContainer,
+  Environment,
+  fetchQuery,
+  graphql,
+} from "react-relay"
+import { trackEvent } from "Server/analytics/helpers"
+import { isServer } from "Server/isServer"
+import { useSystemContext } from "System"
+import { useRouter } from "System/Router/useRouter"
+import { useFeatureFlag } from "System/useFeatureFlag"
+import { getENV } from "Utils/getENV"
+import createLogger from "Utils/logger"
+import { redirects_submission$data } from "__generated__/redirects_submission.graphql"
+import { UploadPhotos_ImageRefetch_Query } from "__generated__/UploadPhotos_ImageRefetch_Query.graphql"
+import { UploadPhotos_myCollectionArtwork$data } from "__generated__/UploadPhotos_myCollectionArtwork.graphql"
+import { UploadPhotos_submission$data } from "__generated__/UploadPhotos_submission.graphql"
 import {
   UploadPhotosForm,
   UploadPhotosFormModel,
 } from "./Components/UploadPhotosForm"
-import { PhotoThumbnail } from "./Components/PhotoThumbnail"
-import { Photo } from "../Utils/fileUtils"
-import { useRouter } from "System/Router/useRouter"
-import { BackLink } from "Components/Links/BackLink"
-import { getENV } from "Utils/getENV"
-import { uploadPhotosValidationSchema, validate } from "../Utils/validation"
-import { isServer } from "lib/isServer"
-import {
-  createFragmentContainer,
-  graphql,
-  fetchQuery,
-  Environment,
-} from "react-relay"
-import { UploadPhotos_submission } from "__generated__/UploadPhotos_submission.graphql"
-import { UploadPhotos_ImageRefetch_Query } from "__generated__/UploadPhotos_ImageRefetch_Query.graphql"
-
-import {
-  useRemoveAssetFromConsignmentSubmission,
-  useAddAssetToConsignmentSubmission,
-} from "../Mutations"
-import createLogger from "Utils/logger"
-import { useRef, useState } from "react"
 
 const logger = createLogger("SubmissionFlow/UploadPhotos.tsx")
 
 export interface UploadPhotosProps {
-  submission?: UploadPhotos_submission
+  submission?: UploadPhotos_submission$data
+  myCollectionArtwork?: UploadPhotos_myCollectionArtwork$data
 }
 
-type SubmissionAsset = NonNullable<UploadPhotos_submission["assets"]>[0]
+type SubmissionAsset = NonNullable<UploadPhotos_submission$data["assets"]>[0]
 
 const shouldRefetchPhotoUrls = (photos: Photo[]) => {
   return photos.some(photo => !!photo.assetId && !photo.url && !photo.file)
@@ -48,10 +60,13 @@ const getPhotoUrlFromAsset = (asset: SubmissionAsset) => {
 }
 
 export const getUploadPhotosFormInitialValues = (
-  submission?: UploadPhotos_submission
+  submission?: UploadPhotos_submission$data | redirects_submission$data,
+  myCollectionArtwork?: UploadPhotos_myCollectionArtwork$data
 ): UploadPhotosFormModel => {
-  return {
-    photos:
+  let photos: Photo[] = []
+
+  if (submission?.assets?.length) {
+    photos =
       submission?.assets
         ?.filter(asset => !!asset)
         .map(asset => ({
@@ -63,11 +78,26 @@ export const getUploadPhotosFormInitialValues = (
           url: getPhotoUrlFromAsset(asset),
           removed: false,
           loading: false,
-        })) || [],
+        })) || []
+  } else if (myCollectionArtwork) {
+    photos =
+      myCollectionArtwork?.images
+        ?.map(image => ({
+          name: "Automatically added",
+          externalUrl: image?.url!,
+          type: "image/jpg",
+        }))
+        ?.map(file => normalizePhoto(file, undefined, file.externalUrl)) || []
   }
+
+  return { photos }
 }
 
-export const UploadPhotos: React.FC<UploadPhotosProps> = ({ submission }) => {
+export const UploadPhotos: React.FC<UploadPhotosProps> = ({
+  submission,
+  myCollectionArtwork,
+}) => {
+  const isCollectorProfileEnabled = useFeatureFlag("cx-collector-profile")
   const { router } = useRouter()
   const { isLoggedIn, relayEnvironment } = useSystemContext()
   const [isPhotosRefetchStarted, setIsPhotosRefetchStarted] = useState(false)
@@ -77,25 +107,134 @@ export const UploadPhotos: React.FC<UploadPhotosProps> = ({ submission }) => {
   } = useRemoveAssetFromConsignmentSubmission()
   const { submitMutation: addAsset } = useAddAssetToConsignmentSubmission()
 
-  const initialValue = getUploadPhotosFormInitialValues(submission)
+  const steps = useSubmissionFlowSteps()
+  const stepIndex = Math.max(
+    [...steps].indexOf("Upload Photos"),
+    [...steps].indexOf("Photos")
+  )
+  const isLastStep = stepIndex === steps.length - 1
+  const isFirstStep = stepIndex === 0
+
+  const initialValue = getUploadPhotosFormInitialValues(
+    submission,
+    myCollectionArtwork
+  )
   const initialErrors = validate(initialValue, uploadPhotosValidationSchema)
+  const artworkId = myCollectionArtwork?.internalID
 
   const handleSubmit = async () => {
     if (submission) {
-      router.push({
-        pathname: `/sell/submission/${submission.externalId}/contact-information`,
+      if (isLastStep && relayEnvironment) {
+        const submissionId = await createOrUpdateConsignSubmission(
+          relayEnvironment,
+          {
+            externalId: submission.externalId,
+            state: isLastStep ? "SUBMITTED" : "DRAFT",
+            sessionID: !isLoggedIn ? getENV("SESSION_ID") : undefined,
+            // myCollectionArtworkID is necessary in order to prevent duplication or mycollection artwork
+            myCollectionArtworkID:
+              artworkId && isFirstStep ? artworkId : undefined,
+            // Source is necessary in order to link this to a mycollection artwork
+            source: isFirstStep && artworkId ? "MY_COLLECTION" : undefined,
+          }
+        )
+        trackEvent({
+          action: ActionType.consignmentSubmitted,
+          submission_id: submissionId,
+          user_id: submission.userId,
+          user_email: submission.userEmail,
+        })
+      }
+
+      trackEvent({
+        action: ActionType.uploadPhotosCompleted,
+        context_owner_type: OwnerType.consignmentFlow,
+        context_module: ContextModule.uploadPhotos,
+        submission_id: submission.externalId,
+        user_id: submission.userId,
+        user_email: submission.userEmail,
       })
+
+      router.replace(
+        artworkId
+          ? isCollectorProfileEnabled
+            ? "/collector-profile/my-collection"
+            : "/settings/my-collection"
+          : "/sell"
+      )
+
+      const consignPath = artworkId
+        ? isCollectorProfileEnabled
+          ? "/collector-profile/my-collection/submission"
+          : "/my-collection/submission"
+        : "/sell/submission"
+
+      const nextStepIndex = isLastStep ? null : stepIndex + 1
+      let nextRoute: LocationDescriptor = consignPath
+      if (nextStepIndex !== null) {
+        let nextStep = steps[nextStepIndex]
+        if (nextStep === "Contact" || nextStep === "Contact Information") {
+          nextRoute = `${consignPath}/${submission.externalId}/contact-information`
+        } else if (nextStep === "Artwork" || nextStep === "Artwork Details") {
+          nextRoute = `${consignPath}/${submission.externalId}/artwork-details`
+        }
+      }
+
+      if (nextRoute === consignPath) {
+        // there is no next step to go to. Prepare to go to thank you screen
+        nextRoute = `${nextRoute}/${submission.externalId}/thank-you`
+      }
+
+      if (artworkId) {
+        // artworkId should ever only be present for `/my-collection/submission` consign path
+        nextRoute = nextRoute + "/" + artworkId
+      }
+
+      router.push(nextRoute)
     }
   }
 
+  const deriveBackLinkTo = () => {
+    const defaultBackLink = artworkId
+      ? isCollectorProfileEnabled
+        ? "/collector-profile/my-collection"
+        : "/my-collection"
+      : "/sell"
+
+    let backTo = defaultBackLink
+    if (stepIndex === 0 && artworkId) {
+      return backTo + `/artwork/${artworkId}`
+    }
+    let prevStep = ""
+    if (stepIndex > 0) {
+      switch (steps[stepIndex - 1]) {
+        case "Contact":
+        case "Contact Information":
+          prevStep = "contact-information"
+          break
+        case "Artwork":
+        case "Artwork Details":
+          prevStep = "artwork-details"
+          break
+        default:
+          break
+      }
+      if (submission) {
+        backTo = backTo + `/submission/${submission.externalId}`
+      }
+    }
+    backTo = prevStep ? backTo + `/${prevStep}` : backTo
+    if (artworkId) {
+      backTo = backTo + `/${artworkId}`
+    }
+    return backTo
+  }
+
+  const backTo = deriveBackLinkTo()
+
   return (
     <>
-      <BackLink
-        py={2}
-        mb={6}
-        width="min-content"
-        to={`/sell/submission/${submission?.externalId}/artwork-details`}
-      >
+      <BackLink py={2} mb={6} width="min-content" to={backTo}>
         Back
       </BackLink>
 
@@ -155,7 +294,7 @@ export const UploadPhotos: React.FC<UploadPhotosProps> = ({ submission }) => {
                       externalSubmissionId: submission.externalId,
                       sessionID: !isLoggedIn ? getENV("SESSION_ID") : undefined,
                       filename: photo.name,
-                      size: photo.size.toString(),
+                      size: photo.size?.toString(),
                     },
                   },
                 })
@@ -222,6 +361,12 @@ export const UploadPhotos: React.FC<UploadPhotosProps> = ({ submission }) => {
             refetchPhotos()
           }
 
+          const errorMessageForAutomaticallyUploadedPhotos = findLast(
+            values.photos,
+            photo => photo.errorMessage && photo.externalUrl
+            // @ts-ignore
+          )?.errorMessage
+
           return (
             <Form>
               <UploadPhotosForm
@@ -241,6 +386,16 @@ export const UploadPhotos: React.FC<UploadPhotosProps> = ({ submission }) => {
                     onDelete={handlePhotoDelete}
                   />
                 ))}
+                {!!errorMessageForAutomaticallyUploadedPhotos && (
+                  <Text
+                    data-testid="photo-thumbnail-error"
+                    mt={[0.5, 2]}
+                    variant="xs"
+                    color="red100"
+                  >
+                    {errorMessageForAutomaticallyUploadedPhotos}
+                  </Text>
+                )}
               </Box>
 
               <Button
@@ -249,7 +404,7 @@ export const UploadPhotos: React.FC<UploadPhotosProps> = ({ submission }) => {
                 loading={isSubmitting || values.photos.some(c => c.loading)}
                 type="submit"
               >
-                Save and Continue
+                {isLastStep ? "Submit Artwork" : "Save and Continue"}
               </Button>
             </Form>
           )
@@ -274,11 +429,11 @@ const refetchSubmissionAssets = async (
     `,
     { id: submissionId, sessionID: getENV("SESSION_ID") },
     {
-      force: true,
+      fetchPolicy: "network-only",
     }
-  )
+  ).toPromise()
 
-  return response.submission?.assets || []
+  return response?.submission?.assets || []
 }
 
 export const UploadPhotosFragmentContainer = createFragmentContainer(
@@ -287,12 +442,22 @@ export const UploadPhotosFragmentContainer = createFragmentContainer(
     submission: graphql`
       fragment UploadPhotos_submission on ConsignmentSubmission {
         externalId
+        userId
+        userEmail
         assets {
           id
           imageUrls
           geminiToken
           size
           filename
+        }
+      }
+    `,
+    myCollectionArtwork: graphql`
+      fragment UploadPhotos_myCollectionArtwork on Artwork {
+        internalID
+        images {
+          url(version: "large")
         }
       }
     `,

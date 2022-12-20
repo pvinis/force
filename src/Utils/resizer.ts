@@ -1,13 +1,45 @@
-import qs from "qs"
+import { configureImageServices, ServiceConfigurations } from "@artsy/img"
+import { getFeatureVariant } from "System/useFeatureFlag"
 import { getENV } from "./getENV"
 
-const GEMINI_CLOUDFRONT_URL =
+export const GEMINI_CLOUDFRONT_URL =
   getENV("GEMINI_CLOUDFRONT_URL") ?? "https://d7hftxdivxxvm.cloudfront.net"
 
-const warn = (message: string) => {
-  if (process.env.NODE_ENV === "development") {
-    console.warn(message)
+const services = configureImageServices({
+  gemini: {
+    endpoint: GEMINI_CLOUDFRONT_URL,
+  },
+  lambda: {
+    endpoint: "https://d1j88w5k23s1nr.cloudfront.net",
+    sources: [
+      {
+        source: "https://d32dm0rphc51dk.cloudfront.net",
+        bucket: "artsy-media-assets",
+      },
+      {
+        source: "https://files.artsy.net",
+        bucket: "artsy-vanity-files-production",
+      },
+      {
+        source: "https://artsy-media-uploads.s3.amazonaws.com",
+        bucket: "artsy-media-uploads",
+      },
+    ],
+  },
+})
+
+type ImageService = keyof ServiceConfigurations
+
+const DEFAULT_IMAGE_SERVICE: ImageService = "gemini"
+
+export const getImageService = (): ImageService => {
+  const variant = getFeatureVariant("image-service")
+
+  if (!!variant && "payload" in variant && variant.payload && variant.enabled) {
+    return (variant.payload.value || DEFAULT_IMAGE_SERVICE) as ImageService
   }
+
+  return DEFAULT_IMAGE_SERVICE
 }
 
 export const crop = (
@@ -16,34 +48,13 @@ export const crop = (
     width: number
     height: number
     quality?: number
-    convert_to?: string
   }
 ) => {
-  const { width, height, quality, convert_to } = options
-
-  if (!src) return null
-
-  if (!width && !height) {
-    warn("requires width and height")
-    return src
-  } else if (width === 0) {
-    warn("width must be non-zero")
-    return src
-  } else if (height === 0) {
-    warn("height must be non-zero")
-    return src
-  }
-
-  const config = {
-    resize_to: "fill",
-    src,
-    width,
-    height,
-    quality: quality || 80,
-    convert_to,
-  }
-
-  return [GEMINI_CLOUDFRONT_URL, qs.stringify(config)].join("?")
+  return services[getImageService()].exec("crop", src, {
+    width: options.width,
+    height: options.height,
+    quality: options.quality,
+  })
 }
 
 export const resize = (
@@ -52,31 +63,11 @@ export const resize = (
     width?: number
     height?: number
     quality?: number
-    convert_to?: string
   }
 ) => {
-  const { width, height, quality, convert_to } = options
-
-  if (!src) return null
-
-  let resizeTo
-
-  if (width && !height) {
-    resizeTo = "width"
-  } else if (height && !width) {
-    resizeTo = "height"
-  } else {
-    resizeTo = "fit"
-  }
-
-  const config = {
-    resize_to: resizeTo,
-    src,
-    width,
-    height,
-    quality: quality || 80,
-    convert_to,
-  }
-
-  return [GEMINI_CLOUDFRONT_URL, qs.stringify(config)].join("?")
+  return services[getImageService()].exec("resize", src, {
+    width: options.width,
+    height: options.height,
+    quality: options.quality,
+  })
 }

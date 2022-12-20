@@ -13,11 +13,11 @@ import {
   Store,
   fetchQuery,
 } from "relay-runtime"
-import { createMockNetworkLayer2 } from "../index"
+import { createMockNetworkLayer2 } from "DevTools/index"
 jest.unmock("react-relay")
 
 describe("createMockNetworkLayer", () => {
-  function _fetchQueryWithResolvers<T extends OperationType>(
+  async function _fetchQueryWithResolvers<T extends OperationType>(
     options: Parameters<typeof createMockNetworkLayer2>[0],
     query: GraphQLTaggedNode
   ) {
@@ -27,7 +27,7 @@ describe("createMockNetworkLayer", () => {
     const store = new Store(source)
     const environment = new Environment({ network, store })
 
-    return fetchQuery<T>(environment, query, {})
+    return await fetchQuery<T>(environment, query, {}).toPromise()
   }
 
   function fetchArtworkQueryWithResolvers(
@@ -86,8 +86,7 @@ describe("createMockNetworkLayer", () => {
           artwork: { title: "Untitled", id: "untitled" },
         },
       })
-      // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-      expect(data.artwork.title).toEqual("Untitled")
+      expect(data?.artwork?.title).toEqual("Untitled")
     })
 
     it("returns null for nullable fields which are given as null", async () => {
@@ -96,8 +95,7 @@ describe("createMockNetworkLayer", () => {
           artwork: { title: null, id: "null" },
         },
       })
-      // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-      expect(data.artwork.title).toEqual(null)
+      expect(data?.artwork?.title).toEqual(null)
     })
   })
 
@@ -109,6 +107,7 @@ describe("createMockNetworkLayer", () => {
         },
       })
     } catch (e) {
+      // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
       expect(e.message).toMatchInlineSnapshot(
         `"RelayMockNetworkLayerError: A mock for field at path 'artwork/title' of type 'String' was expected for operation 'createMockNetworkLayerTestQuery', but none was found."`
       )
@@ -117,6 +116,7 @@ describe("createMockNetworkLayer", () => {
 
   // TODO: upgrade graphql. The version we have does hardly any validaton of leaf values.
   // see https://github.com/graphql/graphql-js/commit/3521e1429eec7eabeee4da65c93306b51308727b
+  // eslint-disable-next-line jest/no-disabled-tests
   it.skip("complains with a helpful error when leaf field type is incorrect", async () => {
     try {
       await fetchArtworkQueryWithResolvers({
@@ -125,12 +125,13 @@ describe("createMockNetworkLayer", () => {
         },
       })
     } catch (e) {
+      // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
       expect(e.message).toMatchInlineSnapshot()
     }
   })
 
   // TODO: related to above, the only check right now is that you can't return an array as a string
-  it("complains with a helpful error when leaf field type is incorrect", async () => {
+  it("complains with a helpful error when leaf field type is incorrect 2", async () => {
     try {
       await fetchArtworkQueryWithResolvers({
         mockData: {
@@ -138,6 +139,7 @@ describe("createMockNetworkLayer", () => {
         },
       })
     } catch (e) {
+      // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
       expect(e.message).toMatchInlineSnapshot(
         `"RelayMockNetworkLayerError: Expected mock value of type 'String' but got 'object' at path 'artwork/title' for operation 'createMockNetworkLayerTestQuery'"`
       )
@@ -152,6 +154,7 @@ describe("createMockNetworkLayer", () => {
         },
       })
     } catch (e) {
+      // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
       expect(e.message).toMatchInlineSnapshot(
         `"RelayMockNetworkLayerError: The value at path 'artwork' for operation 'createMockNetworkLayerTestQuery' should be an object but is a number."`
       )
@@ -165,7 +168,7 @@ describe("createMockNetworkLayer", () => {
       },
     })
 
-    expect(data.artwork).toBeNull()
+    expect(data?.artwork).toBeNull()
   })
 
   it("uses data provided with an aliased name", async () => {
@@ -204,12 +207,10 @@ describe("createMockNetworkLayer", () => {
         }
       `
     )
-    // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-    expect(data.artist.forSaleArtworks.edges[0].node).toEqual({
+    expect(data?.artist?.forSaleArtworks?.edges?.[0]?.node).toEqual({
       id: "for-sale-work",
     })
-    // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-    expect(data.artist.notForSaleArtworks.edges[0].node).toEqual({
+    expect(data?.artist?.notForSaleArtworks?.edges?.[0]?.node).toEqual({
       id: "no-for-sale-work",
     })
   })
@@ -241,8 +242,7 @@ describe("createMockNetworkLayer", () => {
         }
       `
     )
-    // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-    expect(data.artist.forSaleArtworks.edges[0].node).toEqual({
+    expect(data?.artist?.forSaleArtworks?.edges?.[0]?.node!).toEqual({
       id: "for-sale-work",
     })
   })
@@ -357,6 +357,7 @@ describe("createMockNetworkLayer", () => {
           },
         })
       } catch (e) {
+        // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
         expect(e.message).toMatchInlineSnapshot(
           `"RelayMockNetworkLayerError: Ambiguous object at path 'commerceBuyerAcceptOffer/orderOrError/order' for operation 'createMockNetworkLayerTestMutationResultsMutation'. Add a __typename from this list: [CommerceBuyOrder, CommerceOfferOrder]"`
         )
@@ -418,6 +419,7 @@ describe("createMockNetworkLayer", () => {
           mockNetworkFailure: true,
         })
       } catch (e) {
+        // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
         expect(e.message).toMatchInlineSnapshot(`"failed to fetch"`)
       }
     })
@@ -443,6 +445,7 @@ describe("createMockNetworkLayer", () => {
           },
         })
       } catch (e) {
+        // eslint-disable-next-line jest/no-conditional-expect, jest/no-try-expect
         expect(e.message).toMatchInlineSnapshot(
           `"RelayMockNetworkLayerError: Expected object of type 'CommerceOrder!' but got 'string' at path 'commerceBuyerAcceptOffer/orderOrError/order' for operation 'createMockNetworkLayerTestMutationResultsMutation'"`
         )

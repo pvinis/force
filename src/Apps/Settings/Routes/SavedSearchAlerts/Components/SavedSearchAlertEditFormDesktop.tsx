@@ -11,7 +11,7 @@ export const SavedSearchAlertEditFormDesktop: React.FC<EditAlertFormBase> = ({
   return (
     <Box flex={1} p={4}>
       <Flex justifyContent="space-between" alignItems="center">
-        <Text variant="lg-display" flex={1} mr={1}>
+        <Text variant={["md", "lg"]} flex={1} mr={1}>
           Edit {editAlertEntity.name}
         </Text>
         <Clickable onClick={onCloseClick}>
@@ -19,7 +19,7 @@ export const SavedSearchAlertEditFormDesktop: React.FC<EditAlertFormBase> = ({
         </Clickable>
       </Flex>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <SavedSearchAlertEditFormQueryRenderer
         editAlertEntity={editAlertEntity}

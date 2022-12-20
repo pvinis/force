@@ -1,43 +1,43 @@
+/**
+ * @generated SignedSource<<ce6b33ac2cd8812f72c9514e58351f6a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type SaveArtworkInput = {
-    artworkID?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
-    remove?: boolean | null | undefined;
+  artworkID?: string | null;
+  clientMutationId?: string | null;
+  remove?: boolean | null;
 };
-export type AuthIntentSaveArtworkMutationVariables = {
-    input: SaveArtworkInput;
+export type AuthIntentSaveArtworkMutation$variables = {
+  input: SaveArtworkInput;
 };
-export type AuthIntentSaveArtworkMutationResponse = {
-    readonly saveArtwork: {
-        readonly artwork: {
-            readonly id: string;
-            readonly isSaved: boolean | null;
-        } | null;
+export type AuthIntentSaveArtworkMutation$data = {
+  readonly saveArtwork: {
+    readonly artwork: {
+      readonly id: string;
+      readonly isSaved: boolean | null;
     } | null;
+  } | null;
+};
+export type AuthIntentSaveArtworkMutation$rawResponse = {
+  readonly saveArtwork: {
+    readonly artwork: {
+      readonly id: string;
+      readonly isSaved: boolean | null;
+    } | null;
+  } | null;
 };
 export type AuthIntentSaveArtworkMutation = {
-    readonly response: AuthIntentSaveArtworkMutationResponse;
-    readonly variables: AuthIntentSaveArtworkMutationVariables;
+  rawResponse: AuthIntentSaveArtworkMutation$rawResponse;
+  response: AuthIntentSaveArtworkMutation$data;
+  variables: AuthIntentSaveArtworkMutation$variables;
 };
-
-
-
-/*
-mutation AuthIntentSaveArtworkMutation(
-  $input: SaveArtworkInput!
-) {
-  saveArtwork(input: $input) {
-    artwork {
-      id
-      isSaved
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -118,5 +118,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2f0e4b1d5370a41280441f06178aa7aa';
+
+(node as any).hash = "e3264dca9c4b2227f5086e1978706c2c";
+
 export default node;

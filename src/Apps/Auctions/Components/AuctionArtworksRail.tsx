@@ -1,8 +1,8 @@
 import * as React from "react"
-import { BoxProps, Skeleton, SkeletonBox, SkeletonText } from "@artsy/palette"
+import { BoxProps, Skeleton } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { AuctionArtworksRail_sale } from "__generated__/AuctionArtworksRail_sale.graphql"
-import { tabTypeToContextModuleMap } from "../Utils/tabTypeToContextModuleMap"
+import { AuctionArtworksRail_sale$data } from "__generated__/AuctionArtworksRail_sale.graphql"
+import { tabTypeToContextModuleMap } from "Apps/Auctions/Utils/tabTypeToContextModuleMap"
 import { useTracking } from "react-tracking"
 import {
   ActionType,
@@ -17,7 +17,7 @@ import { Rail } from "Components/Rail"
 import { extractNodes } from "Utils/extractNodes"
 import {
   ShelfArtworkFragmentContainer,
-  IMG_HEIGHT,
+  ShelfArtworkPlaceholder,
 } from "Components/Artwork/ShelfArtwork"
 import { trackHelpers } from "Utils/cohesionHelpers"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
@@ -31,7 +31,7 @@ export type TabType =
   | "worksByArtistsYouFollow"
 
 interface AuctionArtworksRailProps extends BoxProps {
-  sale: AuctionArtworksRail_sale
+  sale: AuctionArtworksRail_sale$data
   tabType: TabType
 }
 
@@ -96,20 +96,7 @@ const PLACEHOLDER = (
       subTitle="Some subtitle"
       getItems={() => {
         return [...new Array(10)].map((_, i) => {
-          return (
-            <React.Fragment key={i}>
-              <SkeletonBox
-                width={200}
-                height={[IMG_HEIGHT.mobile, IMG_HEIGHT.desktop]}
-                mb={1}
-              />
-              <SkeletonText variant="sm" fontWeight="bold">
-                Artist Name
-              </SkeletonText>
-              <SkeletonText variant="sm">Artwork Title</SkeletonText>
-              <SkeletonText variant="sm">Price</SkeletonText>
-            </React.Fragment>
-          )
+          return <ShelfArtworkPlaceholder key={i} index={i} />
         })
       }}
     />
@@ -124,9 +111,9 @@ export const AuctionArtworksRailFragmentContainer = createFragmentContainer(
         artworksConnection(first: 20) {
           edges {
             node {
+              ...ShelfArtwork_artwork
               internalID
               slug
-              ...ShelfArtwork_artwork @arguments(width: 200)
             }
           }
         }

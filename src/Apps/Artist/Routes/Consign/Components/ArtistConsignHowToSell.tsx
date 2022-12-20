@@ -9,7 +9,7 @@ import {
   GridColumns,
   Column,
 } from "@artsy/palette"
-import { ArtistConsignHowToSell_artist } from "__generated__/ArtistConsignHowToSell_artist.graphql"
+import { ArtistConsignHowToSell_artist$data } from "__generated__/ArtistConsignHowToSell_artist.graphql"
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { useTracking } from "react-tracking"
 import { RouterLink } from "System/Router/RouterLink"
@@ -19,7 +19,7 @@ import { Subheader } from "./Subheader"
 import { getConsignSubmissionUrl } from "./Utils/getConsignSubmissionUrl"
 
 interface ArtistConsignHowtoSellProps {
-  artist: ArtistConsignHowToSell_artist
+  artist: ArtistConsignHowToSell_artist$data
 }
 
 const ArtistConsignHowtoSell: React.FC<ArtistConsignHowtoSellProps> = ({
@@ -31,7 +31,7 @@ const ArtistConsignHowtoSell: React.FC<ArtistConsignHowtoSellProps> = ({
     <SectionContainer height="100%" bg="black10" textAlign="center">
       <Subheader>How to sell your collection with Artsy</Subheader>
 
-      <Spacer my={2} />
+      <Spacer y={2} />
 
       <GridColumns>
         <Section
@@ -56,7 +56,7 @@ const ArtistConsignHowtoSell: React.FC<ArtistConsignHowtoSellProps> = ({
         />
       </GridColumns>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <Button
         // @ts-ignore

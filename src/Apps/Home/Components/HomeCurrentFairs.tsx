@@ -16,7 +16,7 @@ import { useSystemContext } from "System"
 import { useTracking } from "react-tracking"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { RouterLink } from "System/Router/RouterLink"
-import { HomeCurrentFairs_viewer } from "__generated__/HomeCurrentFairs_viewer.graphql"
+import { HomeCurrentFairs_viewer$data } from "__generated__/HomeCurrentFairs_viewer.graphql"
 import { HomeCurrentFairsQuery } from "__generated__/HomeCurrentFairsQuery.graphql"
 import {
   ActionType,
@@ -26,7 +26,7 @@ import {
 } from "@artsy/cohesion"
 
 interface HomeCurrentFairsProps {
-  viewer: HomeCurrentFairs_viewer
+  viewer: HomeCurrentFairs_viewer$data
 }
 
 const HomeCurrentFairs: React.FC<HomeCurrentFairsProps> = ({ viewer }) => {
@@ -123,7 +123,7 @@ const HomeCurrentFairsContainer: React.FC = ({ children }) => {
         </Text>
       </Flex>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       {children}
     </>

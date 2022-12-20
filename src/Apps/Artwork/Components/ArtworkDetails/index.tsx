@@ -14,10 +14,9 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import styled from "styled-components"
 import { ArtworkDetailsAboutTheWorkFromArtsyFragmentContainer } from "./ArtworkDetailsAboutTheWorkFromArtsy"
-import { ArtworkDetailsAboutTheWorkFromPartnerFragmentContainer } from "./ArtworkDetailsAboutTheWorkFromPartner"
 import { ArtworkDetailsAdditionalInfoFragmentContainer } from "./ArtworkDetailsAdditionalInfo"
 import { ArtworkDetailsArticlesFragmentContainer } from "./ArtworkDetailsArticles"
-import { ArtworkDetails_artwork } from "__generated__/ArtworkDetails_artwork.graphql"
+import { ArtworkDetails_artwork$data } from "__generated__/ArtworkDetails_artwork.graphql"
 import * as DeprecatedSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import Events from "Utils/Events"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
@@ -26,7 +25,7 @@ import { useSystemContext } from "System"
 import track from "react-tracking"
 
 export interface ArtworkDetailsProps {
-  artwork: ArtworkDetails_artwork
+  artwork: ArtworkDetails_artwork$data
 }
 
 @track(
@@ -60,9 +59,7 @@ export class ArtworkDetails extends Component<ArtworkDetailsProps> {
             <ArtworkDetailsAboutTheWorkFromArtsyFragmentContainer
               artwork={artwork}
             />
-            <ArtworkDetailsAboutTheWorkFromPartnerFragmentContainer
-              artwork={artwork}
-            />
+
             <ArtworkDetailsAdditionalInfoFragmentContainer artwork={artwork} />
           </Tab>
 
@@ -116,7 +113,6 @@ export const ArtworkDetailsFragmentContainer = createFragmentContainer(
     artwork: graphql`
       fragment ArtworkDetails_artwork on Artwork {
         ...ArtworkDetailsAboutTheWorkFromArtsy_artwork
-        ...ArtworkDetailsAboutTheWorkFromPartner_artwork
         ...ArtworkDetailsAdditionalInfo_artwork
         ...ArtworkDetailsArticles_artwork
         articles(size: 10) {
@@ -165,30 +161,32 @@ export const ArtworkDetailsQueryRenderer: React.FC<{
   const { relayEnvironment } = useSystemContext()
 
   return (
-    <SystemQueryRenderer<ArtworkDetailsQuery>
-      lazyLoad
-      environment={relayEnvironment}
-      variables={{ slug }}
-      placeholder={PLACEHOLDER}
-      query={graphql`
-        query ArtworkDetailsQuery($slug: String!) {
-          artwork(id: $slug) {
-            ...ArtworkDetails_artwork
+    <Box data-test="ArtworkDetailsQueryRenderer">
+      <SystemQueryRenderer<ArtworkDetailsQuery>
+        lazyLoad
+        environment={relayEnvironment}
+        variables={{ slug }}
+        placeholder={PLACEHOLDER}
+        query={graphql`
+          query ArtworkDetailsQuery($slug: String!) {
+            artwork(id: $slug) {
+              ...ArtworkDetails_artwork
+            }
           }
-        }
-      `}
-      render={({ error, props }) => {
-        if (error) {
-          console.error(error)
-          return null
-        }
-        if (!props) {
-          return PLACEHOLDER
-        }
-        if (props.artwork) {
-          return <ArtworkDetailsFragmentContainer artwork={props.artwork} />
-        }
-      }}
-    />
+        `}
+        render={({ error, props }) => {
+          if (error) {
+            console.error(error)
+            return null
+          }
+          if (!props) {
+            return PLACEHOLDER
+          }
+          if (props.artwork) {
+            return <ArtworkDetailsFragmentContainer artwork={props.artwork} />
+          }
+        }}
+      />
+    </Box>
   )
 }

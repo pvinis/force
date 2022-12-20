@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { MyBidsBidHeader_sale } from "__generated__/MyBidsBidHeader_sale.graphql"
+import { MyBidsBidHeader_sale$data } from "__generated__/MyBidsBidHeader_sale.graphql"
 import { Box, Image, Text, Spacer } from "@artsy/palette"
 import { RouterLink } from "System/Router/RouterLink"
 import { useTracking } from "react-tracking"
@@ -8,7 +8,7 @@ import { ContextModule, clickedEntityGroup, OwnerType } from "@artsy/cohesion"
 import { useAnalyticsContext } from "System"
 
 interface MyBidsBidHeaderProps {
-  sale: MyBidsBidHeader_sale
+  sale: MyBidsBidHeader_sale$data
 }
 
 export const MyBidsBidHeader: React.FC<MyBidsBidHeaderProps> = ({ sale }) => {
@@ -47,12 +47,12 @@ export const MyBidsBidHeader: React.FC<MyBidsBidHeaderProps> = ({ sale }) => {
         <Box bg="black10" height={100} />
       )}
 
-      <Spacer mt={1} />
+      <Spacer y={1} />
 
       <Box px={2}>
         {sale.partner && <Text variant="xs">{sale.partner.name}</Text>}
 
-        <Spacer mt={1} />
+        <Spacer y={1} />
 
         <Text variant="lg-display">{sale.name}</Text>
 

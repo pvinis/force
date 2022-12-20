@@ -12,13 +12,13 @@ import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { ArticleShare } from "Components/ArticleShare"
 import { TopContextBar } from "Components/TopContextBar"
-import { ArticleSeries_article } from "__generated__/ArticleSeries_article.graphql"
+import { ArticleSeries_article$data } from "__generated__/ArticleSeries_article.graphql"
 import { ArticleAd } from "./ArticleAd"
 import { ArticleSponsorFragmentContainer } from "./ArticleSponsor"
 import { ArticleSeriesItemFragmentContainer } from "./ArticleSeriesItem"
 
 interface ArticleSeriesProps {
-  article: ArticleSeries_article
+  article: ArticleSeries_article$data
 }
 
 const ArticleSeries: FC<ArticleSeriesProps> = ({ article }) => {
@@ -36,9 +36,9 @@ const ArticleSeries: FC<ArticleSeriesProps> = ({ article }) => {
         <ArticleSponsorFragmentContainer sponsor={article.sponsor} mt={4} />
       )}
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
-      <Join separator={<Spacer mt={4} />}>
+      <Join separator={<Spacer y={4} />}>
         {article.relatedArticles.map(relatedArticle => {
           return (
             <ArticleSeriesItemFragmentContainer
@@ -49,7 +49,7 @@ const ArticleSeries: FC<ArticleSeriesProps> = ({ article }) => {
         })}
       </Join>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <GridColumns>
         {article.series?.description && (
@@ -75,7 +75,7 @@ const ArticleSeries: FC<ArticleSeriesProps> = ({ article }) => {
         )}
       </GridColumns>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <FullBleed p={1} bg="black5">
         <ArticleAd unit="Desktop_InContentLB2" size="970x250" />

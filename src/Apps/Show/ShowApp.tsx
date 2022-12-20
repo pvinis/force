@@ -13,7 +13,7 @@ import { ShowHeaderFragmentContainer as ShowHeader } from "./Components/ShowHead
 import { ShowAboutFragmentContainer as ShowAbout } from "./Components/ShowAbout"
 import { ShowInstallShotsFragmentContainer as ShowInstallShots } from "./Components/ShowInstallShots"
 import { ShowViewingRoomFragmentContainer as ShowViewingRoom } from "./Components/ShowViewingRoom"
-import { ShowApp_show } from "__generated__/ShowApp_show.graphql"
+import { ShowApp_show$data } from "__generated__/ShowApp_show.graphql"
 import { ShowArtworksRefetchContainer as ShowArtworksFilter } from "./Components/ShowArtworks"
 import { ShowContextCardFragmentContainer as ShowContextCard } from "./Components/ShowContextCard"
 import {
@@ -29,7 +29,7 @@ import { RouterLink } from "System/Router/RouterLink"
 import { BackToFairBannerFragmentContainer as BackToFairBanner } from "./Components/BackToFairBanner"
 
 interface ShowAppProps {
-  show: ShowApp_show
+  show: ShowApp_show$data
 }
 
 export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
@@ -53,11 +53,13 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
             contextPageOwnerType,
           }}
         >
-          {isFairBooth && <BackToFairBanner show={show} />}
+          {show.fair?.hasFullFeature && isFairBooth && (
+            <BackToFairBanner show={show} />
+          )}
 
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
-          <Join separator={<Spacer mt={4} />}>
+          <Join separator={<Spacer y={4} />}>
             {Number(show?.images?.length) > 0 && (
               <ShowInstallShots show={show} />
             )}
@@ -71,7 +73,7 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
 
                 {!hasAbout && show.href && (
                   <>
-                    <Spacer mt={1} />
+                    <Spacer y={1} />
 
                     <RouterLink to={`${show.href}/info`}>
                       <Text variant="sm">More info</Text>
@@ -110,6 +112,7 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
             ) : (
               <>
                 <Separator as="hr" />
+
                 <ShowArtworksEmptyState show={show} />
               </>
             )}
@@ -117,6 +120,7 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
             {!show.fair?.hasFullFeature && (
               <>
                 <Separator as="hr" />
+
                 <ShowContextCard show={show} />
               </>
             )}

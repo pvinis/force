@@ -1,50 +1,27 @@
+/**
+ * @generated SignedSource<<70b5e51436d885d2f1b9b32311dc8df2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DeepZoom_Test_QueryVariables = {};
-export type DeepZoom_Test_QueryResponse = {
-    readonly artwork: {
-        readonly images: ReadonlyArray<{
-            readonly " $fragmentRefs": FragmentRefs<"DeepZoom_image">;
-        } | null> | null;
-    } | null;
+export type DeepZoom_Test_Query$variables = {};
+export type DeepZoom_Test_Query$data = {
+  readonly artwork: {
+    readonly images: ReadonlyArray<{
+      readonly " $fragmentSpreads": FragmentRefs<"DeepZoom_image">;
+    } | null> | null;
+  } | null;
 };
 export type DeepZoom_Test_Query = {
-    readonly response: DeepZoom_Test_QueryResponse;
-    readonly variables: DeepZoom_Test_QueryVariables;
+  response: DeepZoom_Test_Query$data;
+  variables: DeepZoom_Test_Query$variables;
 };
-
-
-
-/*
-query DeepZoom_Test_Query {
-  artwork(id: "example") {
-    images {
-      ...DeepZoom_image
-    }
-    id
-  }
-}
-
-fragment DeepZoom_image on Image {
-  deepZoom {
-    Image {
-      xmlns
-      Url
-      Format
-      TileSize
-      Overlap
-      Size {
-        Width
-        Height
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -279,5 +256,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'bb3864a326c9787c58d501e5497d2d64';
+
+(node as any).hash = "bb3864a326c9787c58d501e5497d2d64";
+
 export default node;

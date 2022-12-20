@@ -1,41 +1,25 @@
+/**
+ * @generated SignedSource<<8adb1ef74bae0244fd68ffc8f81c98c8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FollowArtistButton_Test_QueryVariables = {};
-export type FollowArtistButton_Test_QueryResponse = {
-    readonly artist: {
-        readonly " $fragmentRefs": FragmentRefs<"FollowArtistButton_artist">;
-    } | null;
+export type FollowArtistButton_Test_Query$variables = {};
+export type FollowArtistButton_Test_Query$data = {
+  readonly artist: {
+    readonly " $fragmentSpreads": FragmentRefs<"FollowArtistButton_artist">;
+  } | null;
 };
 export type FollowArtistButton_Test_Query = {
-    readonly response: FollowArtistButton_Test_QueryResponse;
-    readonly variables: FollowArtistButton_Test_QueryVariables;
+  response: FollowArtistButton_Test_Query$data;
+  variables: FollowArtistButton_Test_Query$variables;
 };
-
-
-
-/*
-query FollowArtistButton_Test_Query {
-  artist(id: "example") {
-    ...FollowArtistButton_artist
-    id
-  }
-}
-
-fragment FollowArtistButton_artist on Artist {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-  counts {
-    follows
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -196,5 +180,7 @@ return {
   }
 };
 })();
-(node as any).hash = '510862b85367ba5fc4dff0ac73e7cbd9';
+
+(node as any).hash = "510862b85367ba5fc4dff0ac73e7cbd9";
+
 export default node;

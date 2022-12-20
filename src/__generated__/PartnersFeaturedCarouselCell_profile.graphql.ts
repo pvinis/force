@@ -1,60 +1,70 @@
+/**
+ * @generated SignedSource<<d7277e4fe4d42d10c9d885e88637f180>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnersFeaturedCarouselCell_profile = {
-    readonly owner: {
-        readonly internalID?: string | undefined;
-        readonly href?: string | null | undefined;
-        readonly name?: string | null | undefined;
-        readonly featuredShow?: {
-            readonly href: string | null;
-            readonly name: string | null;
-            readonly status: string | null;
-            readonly statusUpdate: string | null;
-            readonly startAt: string | null;
-            readonly endAt: string | null;
-            readonly isOnlineExclusive: boolean;
-            readonly location: {
-                readonly city: string | null;
-            } | null;
-            readonly coverImage: {
-                readonly resized: {
-                    readonly src: string;
-                    readonly srcSet: string;
-                } | null;
-            } | null;
-        } | null | undefined;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"FollowProfileButton_profile">;
-    readonly " $refType": "PartnersFeaturedCarouselCell_profile";
+export type PartnersFeaturedCarouselCell_profile$data = {
+  readonly internalID: string;
+  readonly owner: {
+    readonly featuredShow?: {
+      readonly coverImage: {
+        readonly resized: {
+          readonly src: string;
+          readonly srcSet: string;
+        } | null;
+      } | null;
+      readonly endAt: string | null;
+      readonly href: string | null;
+      readonly isOnlineExclusive: boolean;
+      readonly location: {
+        readonly city: string | null;
+      } | null;
+      readonly name: string | null;
+      readonly startAt: string | null;
+      readonly status: string | null;
+      readonly statusUpdate: string | null;
+    } | null;
+    readonly href?: string | null;
+    readonly internalID?: string;
+    readonly name?: string | null;
+  };
+  readonly " $fragmentType": "PartnersFeaturedCarouselCell_profile";
 };
-export type PartnersFeaturedCarouselCell_profile$data = PartnersFeaturedCarouselCell_profile;
 export type PartnersFeaturedCarouselCell_profile$key = {
-    readonly " $data"?: PartnersFeaturedCarouselCell_profile$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnersFeaturedCarouselCell_profile">;
+  readonly " $data"?: PartnersFeaturedCarouselCell_profile$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnersFeaturedCarouselCell_profile">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "href",
+  "name": "internalID",
   "storageKey": null
 },
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "href",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v2 = [
+v3 = [
   {
     "kind": "Literal",
     "name": "format",
@@ -67,6 +77,7 @@ return {
   "metadata": null,
   "name": "PartnersFeaturedCarouselCell_profile",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -78,15 +89,9 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "internalID",
-              "storageKey": null
-            },
             (v0/*: any*/),
             (v1/*: any*/),
+            (v2/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -95,8 +100,8 @@ return {
               "name": "featuredShow",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
                 (v1/*: any*/),
+                (v2/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -113,14 +118,14 @@ return {
                 },
                 {
                   "alias": null,
-                  "args": (v2/*: any*/),
+                  "args": (v3/*: any*/),
                   "kind": "ScalarField",
                   "name": "startAt",
                   "storageKey": "startAt(format:\"MMM D\")"
                 },
                 {
                   "alias": null,
-                  "args": (v2/*: any*/),
+                  "args": (v3/*: any*/),
                   "kind": "ScalarField",
                   "name": "endAt",
                   "storageKey": "endAt(format:\"MMM D\")"
@@ -210,16 +215,13 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "FollowProfileButton_profile"
     }
   ],
   "type": "Profile",
   "abstractKey": null
 };
 })();
-(node as any).hash = '96f2438a5e38ecb4f1902def2992ea57';
+
+(node as any).hash = "4c89f00625fe836ba767808b0d5941b1";
+
 export default node;

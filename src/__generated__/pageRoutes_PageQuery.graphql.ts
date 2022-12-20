@@ -1,40 +1,27 @@
+/**
+ * @generated SignedSource<<4f95f410cf2aabf97e3ceb69ea1101d8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type pageRoutes_PageQueryVariables = {
-    id: string;
+export type pageRoutes_PageQuery$variables = {
+  id: string;
 };
-export type pageRoutes_PageQueryResponse = {
-    readonly page: {
-        readonly " $fragmentRefs": FragmentRefs<"PageApp_page">;
-    };
+export type pageRoutes_PageQuery$data = {
+  readonly page: {
+    readonly " $fragmentSpreads": FragmentRefs<"PageApp_page">;
+  };
 };
 export type pageRoutes_PageQuery = {
-    readonly response: pageRoutes_PageQueryResponse;
-    readonly variables: pageRoutes_PageQueryVariables;
+  response: pageRoutes_PageQuery$data;
+  variables: pageRoutes_PageQuery$variables;
 };
-
-
-
-/*
-query pageRoutes_PageQuery(
-  $id: ID!
-) {
-  page(id: $id) @principalField {
-    ...PageApp_page
-    id
-  }
-}
-
-fragment PageApp_page on Page {
-  internalID
-  name
-  content(format: HTML)
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -141,5 +128,7 @@ return {
   }
 };
 })();
-(node as any).hash = '45e5b86c54cb7b4e6e24703a746af08b';
+
+(node as any).hash = "45e5b86c54cb7b4e6e24703a746af08b";
+
 export default node;

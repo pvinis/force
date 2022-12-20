@@ -1,61 +1,28 @@
+/**
+ * @generated SignedSource<<029ddafc0120173f3aca0790f012ce7d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchBarRefetchQueryVariables = {
-    term: string;
-    hasTerm: boolean;
+export type SearchBarRefetchQuery$variables = {
+  hasTerm: boolean;
+  term: string;
 };
-export type SearchBarRefetchQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"SearchBar_viewer">;
-    } | null;
+export type SearchBarRefetchQuery$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"SearchBar_viewer">;
+  } | null;
 };
 export type SearchBarRefetchQuery = {
-    readonly response: SearchBarRefetchQueryResponse;
-    readonly variables: SearchBarRefetchQueryVariables;
+  response: SearchBarRefetchQuery$data;
+  variables: SearchBarRefetchQuery$variables;
 };
-
-
-
-/*
-query SearchBarRefetchQuery(
-  $term: String!
-  $hasTerm: Boolean!
-) {
-  viewer {
-    ...SearchBar_viewer_2Mejjw
-  }
-}
-
-fragment SearchBar_viewer_2Mejjw on Viewer {
-  searchConnection(query: $term, mode: AUTOSUGGEST, first: 7) @include(if: $hasTerm) {
-    edges {
-      node {
-        displayLabel
-        href
-        __typename
-        ... on SearchableItem {
-          displayType
-          slug
-        }
-        ... on Artist {
-          statuses {
-            artworks
-            auctionLots
-          }
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -285,5 +252,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'cb6e3d4666fd34a44ff7abab4e21d91f';
+
+(node as any).hash = "cb6e3d4666fd34a44ff7abab4e21d91f";
+
 export default node;

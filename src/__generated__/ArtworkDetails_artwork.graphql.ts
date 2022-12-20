@@ -1,26 +1,29 @@
+/**
+ * @generated SignedSource<<132661ec7328dda24bb818f177fe0dde>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkDetails_artwork = {
-    readonly articles: ReadonlyArray<{
-        readonly slug: string | null;
-    } | null> | null;
-    readonly literature: string | null;
-    readonly exhibition_history: string | null;
-    readonly provenance: string | null;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkDetailsAboutTheWorkFromArtsy_artwork" | "ArtworkDetailsAboutTheWorkFromPartner_artwork" | "ArtworkDetailsAdditionalInfo_artwork" | "ArtworkDetailsArticles_artwork">;
-    readonly " $refType": "ArtworkDetails_artwork";
+export type ArtworkDetails_artwork$data = {
+  readonly articles: ReadonlyArray<{
+    readonly slug: string | null;
+  } | null> | null;
+  readonly exhibition_history: string | null;
+  readonly literature: string | null;
+  readonly provenance: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkDetailsAboutTheWorkFromArtsy_artwork" | "ArtworkDetailsAdditionalInfo_artwork" | "ArtworkDetailsArticles_artwork">;
+  readonly " $fragmentType": "ArtworkDetails_artwork";
 };
-export type ArtworkDetails_artwork$data = ArtworkDetails_artwork;
 export type ArtworkDetails_artwork$key = {
-    readonly " $data"?: ArtworkDetails_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkDetails_artwork">;
+  readonly " $data"?: ArtworkDetails_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkDetails_artwork">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -36,6 +39,21 @@ return {
   "metadata": null,
   "name": "ArtworkDetails_artwork",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArtworkDetailsAboutTheWorkFromArtsy_artwork"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArtworkDetailsAdditionalInfo_artwork"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArtworkDetailsArticles_artwork"
+    },
     {
       "alias": null,
       "args": [
@@ -80,31 +98,13 @@ return {
       "kind": "ScalarField",
       "name": "provenance",
       "storageKey": "provenance(format:\"HTML\")"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArtworkDetailsAboutTheWorkFromArtsy_artwork"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArtworkDetailsAboutTheWorkFromPartner_artwork"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArtworkDetailsAdditionalInfo_artwork"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArtworkDetailsArticles_artwork"
     }
   ],
   "type": "Artwork",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ea24475efa27d1d663735de4d3c074f2';
+
+(node as any).hash = "6be4d52aec696238dc923f77568c0f83";
+
 export default node;

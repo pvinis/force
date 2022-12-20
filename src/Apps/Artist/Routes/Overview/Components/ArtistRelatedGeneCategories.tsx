@@ -5,11 +5,11 @@ import { useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { RouterLink } from "System/Router/RouterLink"
 import { extractNodes } from "Utils/extractNodes"
-import { ArtistRelatedGeneCategories_artist } from "__generated__/ArtistRelatedGeneCategories_artist.graphql"
+import { ArtistRelatedGeneCategories_artist$data } from "__generated__/ArtistRelatedGeneCategories_artist.graphql"
 import { ArtistRelatedGeneCategoriesQuery } from "__generated__/ArtistRelatedGeneCategoriesQuery.graphql"
 
 interface ArtistRelatedGeneCategoriesProps {
-  artist: ArtistRelatedGeneCategories_artist
+  artist: ArtistRelatedGeneCategories_artist$data
 }
 
 const ArtistRelatedGeneCategories: FC<ArtistRelatedGeneCategoriesProps> = ({
@@ -23,7 +23,7 @@ const ArtistRelatedGeneCategories: FC<ArtistRelatedGeneCategoriesProps> = ({
     <>
       <Text variant="lg-display">Related Categories</Text>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <Box mb={-1}>
         {categories.map(category => {

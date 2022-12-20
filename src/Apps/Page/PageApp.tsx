@@ -3,12 +3,12 @@ import { FC, useMemo } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
 import { useRouter } from "System/Router/useRouter"
-import { PageApp_page } from "__generated__/PageApp_page.graphql"
+import { PageApp_page$data } from "__generated__/PageApp_page.graphql"
 import { PageHTML } from "./Components/PageHTML"
 import { TOP_LEVEL_PAGE_SLUG_ALLOWLIST } from "./pageRoutes"
 
 interface PageAppProps {
-  page: PageApp_page
+  page: PageApp_page$data
 }
 
 const PageApp: FC<PageAppProps> = ({ page }) => {
@@ -41,7 +41,7 @@ const PageApp: FC<PageAppProps> = ({ page }) => {
         pathname={canonical}
       />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns gridRowGap={4}>
         <Column span={8} start={3}>

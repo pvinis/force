@@ -1,133 +1,25 @@
+/**
+ * @generated SignedSource<<29230dedfafe24e4f18387deafdfa012>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type OnboardingOrderedSet_Test_QueryVariables = {};
-export type OnboardingOrderedSet_Test_QueryResponse = {
-    readonly orderedSet: {
-        readonly " $fragmentRefs": FragmentRefs<"OnboardingOrderedSet_orderedSet">;
-    } | null;
+export type OnboardingOrderedSet_Test_Query$variables = {};
+export type OnboardingOrderedSet_Test_Query$data = {
+  readonly orderedSet: {
+    readonly " $fragmentSpreads": FragmentRefs<"OnboardingOrderedSet_orderedSet">;
+  } | null;
 };
 export type OnboardingOrderedSet_Test_Query = {
-    readonly response: OnboardingOrderedSet_Test_QueryResponse;
-    readonly variables: OnboardingOrderedSet_Test_QueryVariables;
+  response: OnboardingOrderedSet_Test_Query$data;
+  variables: OnboardingOrderedSet_Test_Query$variables;
 };
-
-
-
-/*
-query OnboardingOrderedSet_Test_Query {
-  orderedSet(id: "onboarding:test-ordered-set") {
-    ...OnboardingOrderedSet_orderedSet
-    id
-  }
-}
-
-fragment EntityHeaderArtist_artist on Artist {
-  internalID
-  href
-  slug
-  name
-  initials
-  formattedNationalityAndBirthday
-  counts {
-    artworks
-    forSaleArtworks
-  }
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment OnboardingOrderedSet_orderedSet on OrderedSet {
-  orderedItemsConnection(first: 50) {
-    edges {
-      node {
-        __typename
-        ... on Artist {
-          internalID
-          ...EntityHeaderArtist_artist
-        }
-        ... on Profile {
-          internalID
-          owner {
-            __typename
-            ... on Partner {
-              ...EntityHeaderPartner_partner
-            }
-            ... on Node {
-              __isNode: __typename
-              id
-            }
-            ... on FairOrganizer {
-              id
-            }
-          }
-          id
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-        ... on FeaturedLink {
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -495,17 +387,7 @@ return {
                                     "name": "profile",
                                     "plural": false,
                                     "selections": [
-                                      (v11/*: any*/),
-                                      (v4/*: any*/),
-                                      (v5/*: any*/),
                                       (v2/*: any*/),
-                                      {
-                                        "alias": null,
-                                        "args": null,
-                                        "kind": "ScalarField",
-                                        "name": "isFollowed",
-                                        "storageKey": null
-                                      },
                                       (v10/*: any*/),
                                       {
                                         "alias": null,
@@ -539,7 +421,8 @@ return {
                                           }
                                         ],
                                         "storageKey": null
-                                      }
+                                      },
+                                      (v11/*: any*/)
                                     ],
                                     "storageKey": null
                                   }
@@ -585,7 +468,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "17b5691e3978d8532dba8ffa56e46155",
+    "cacheID": "9042ade765b9bb61d6b713c28ddded8a",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -692,14 +575,6 @@ return {
         "orderedSet.orderedItemsConnection.edges.node.owner.profile.icon.cropped.srcSet": (v15/*: any*/),
         "orderedSet.orderedItemsConnection.edges.node.owner.profile.id": (v14/*: any*/),
         "orderedSet.orderedItemsConnection.edges.node.owner.profile.internalID": (v14/*: any*/),
-        "orderedSet.orderedItemsConnection.edges.node.owner.profile.isFollowed": {
-          "enumValues": null,
-          "nullable": true,
-          "plural": false,
-          "type": "Boolean"
-        },
-        "orderedSet.orderedItemsConnection.edges.node.owner.profile.name": (v19/*: any*/),
-        "orderedSet.orderedItemsConnection.edges.node.owner.profile.slug": (v14/*: any*/),
         "orderedSet.orderedItemsConnection.edges.node.owner.slug": (v14/*: any*/),
         "orderedSet.orderedItemsConnection.edges.node.owner.type": (v19/*: any*/),
         "orderedSet.orderedItemsConnection.edges.node.slug": (v14/*: any*/)
@@ -707,9 +582,11 @@ return {
     },
     "name": "OnboardingOrderedSet_Test_Query",
     "operationKind": "query",
-    "text": "query OnboardingOrderedSet_Test_Query {\n  orderedSet(id: \"onboarding:test-ordered-set\") {\n    ...OnboardingOrderedSet_orderedSet\n    id\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment OnboardingOrderedSet_orderedSet on OrderedSet {\n  orderedItemsConnection(first: 50) {\n    edges {\n      node {\n        __typename\n        ... on Artist {\n          internalID\n          ...EntityHeaderArtist_artist\n        }\n        ... on Profile {\n          internalID\n          owner {\n            __typename\n            ... on Partner {\n              ...EntityHeaderPartner_partner\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n            ... on FairOrganizer {\n              id\n            }\n          }\n          id\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n        ... on FeaturedLink {\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query OnboardingOrderedSet_Test_Query {\n  orderedSet(id: \"onboarding:test-ordered-set\") {\n    ...OnboardingOrderedSet_orderedSet\n    id\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment OnboardingOrderedSet_orderedSet on OrderedSet {\n  orderedItemsConnection(first: 50) {\n    edges {\n      node {\n        __typename\n        ... on Artist {\n          internalID\n          ...EntityHeaderArtist_artist\n        }\n        ... on Profile {\n          internalID\n          owner {\n            __typename\n            ... on Partner {\n              ...EntityHeaderPartner_partner\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n            ... on FairOrganizer {\n              id\n            }\n          }\n          id\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n        ... on FeaturedLink {\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'dd0ec315e43e9ea305e6c7fb6b67782c';
+
+(node as any).hash = "dd0ec315e43e9ea305e6c7fb6b67782c";
+
 export default node;

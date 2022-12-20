@@ -1,345 +1,244 @@
 import {
   Box,
+  BoxProps,
   Button,
   Column,
   Flex,
-  FullBleed,
   GridColumns,
   Image,
-  Join,
   ResponsiveBox,
-  Separator,
   Spacer,
   Text,
 } from "@artsy/palette"
 import { MetaTags } from "Components/MetaTags"
-import { AppContainer } from "Apps/Components/AppContainer"
-import styled from "styled-components"
-import { HorizontalPadding } from "../Components/HorizontalPadding"
 import { RouterLink } from "System/Router/RouterLink"
 import { resized } from "Utils/resized"
 import { AboutArtworksRailQueryRenderer } from "./AboutArtworksRail"
+import {
+  FullBleedHeader,
+  FullBleedHeaderOverlay,
+} from "Components/FullBleedHeader"
+import { useJump } from "Utils/Hooks/useJump"
 
 export const AboutApp: React.FC = () => {
   return (
     <>
       <MetaTags
         title="About | Artsy"
-        description="Artsy’s mission is to make all of the world’s art accessible to anyone with an Internet connection."
+        description="Artsy’s mission is to expand the art market to support more artists and art in the world."
+        imageURL="https://files.artsy.net/images/00_CVP_About_Hero_og.png"
         pathname="/about"
       />
-
-      <Spacer mt={4} />
-
-      <GridColumns>
-        <Column span={6}>
-          <Text as="h1" variant="xl">
-            For the Love of Art
+      <FullBleedHeader
+        src="https://files.artsy.net/images/00_CVP_About_Hero (1).png"
+        caption="Detail of Cassi Namoda, A Strange Song, 2022. Detail of Alex Katz,
+            Day Lily 1, 1969."
+      >
+        <FullBleedHeaderOverlay
+          alignItems="center"
+          justifyContent={["center", "flex-start"]}
+          p={4}
+        >
+          <Text
+            variant={["xl", "xxl"]}
+            as="h1"
+            color="white100"
+            textAlign={["center", "left"]}
+          >
+            The Future of Art Collecting
           </Text>
-        </Column>
+        </FullBleedHeaderOverlay>
+      </FullBleedHeader>
 
-        <Column span={6}>
-          <Text variant="sm">
-            Artsy envisions a future where everyone is moved by art every day.
-            To get there, we’re expanding the art market to support more artists
-            and art around the world. As the leading marketplace to discover,
-            buy, and sell fine art, Artsy believes that the process of buying
-            art should be as brilliant as art itself. That’s why we’re dedicated
-            to making a joyful, welcoming experience that connects collectors
-            with the artists and artworks they love.
+      <Spacer y={4} />
+
+      <Box textAlign="center" width="100%">
+        <Box maxWidth={950} margin="auto">
+          <Text as="h1" variant={["lg", "xl"]}>
+            Artsy is for art collecting.
           </Text>
-        </Column>
+
+          <Text variant={["sm-display", "lg-display"]} mt={2}>
+            As the leading marketplace for art by the world’s emerging and
+            established artists, we’ve made it easy for new and experienced
+            collectors to discover, buy, and sell art—and so much more.
+            Everything you’ll ever need to collect art, you’ll find on Artsy.
+          </Text>
+        </Box>
+      </Box>
+
+      <Spacer y={6} />
+
+      <GridColumns gridRowGap={4}>
+        {SECTION_DATA.map((section, index) => {
+          return (
+            <Column span={6}>
+              <Section {...section} key={index} />
+            </Column>
+          )
+        })}
       </GridColumns>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <AboutArtworksRailQueryRenderer />
-
-      <Spacer my={12} />
-
-      <Join separator={<Spacer mt={6} />}>
-        <SellWithArtsy />
-        <AppDownload />
-        <CollectorInfo />
-        <Separator />
-        <ArtsySpecialists />
-      </Join>
     </>
   )
 }
 
-const SellWithArtsy: React.FC = () => {
-  const image = resized(
-    "https://files.artsy.net/images/molly_green_original.jpeg",
-    { width: 640 }
-  )
+interface SectionProps {
+  imageUrl: string
+  title: string
+  description: string
+  caption: string
+  href: string
+}
+
+const Section: React.FC<SectionProps & BoxProps> = ({
+  imageUrl,
+  title,
+  description,
+  caption,
+  href,
+  ...rest
+}) => {
+  const image = resized(imageUrl, { width: 640 })
+
+  const { jumpTo } = useJump()
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    if (title !== "Manage your collection") return
+
+    event.preventDefault()
+
+    jumpTo("download-app-banner")
+  }
 
   return (
-    <Container bg="black100" color="white100">
-      {image.src && (
-        <Box
-          position="fixed"
-          top={0}
-          left={0}
-          width="100%"
-          height="100%"
-          opacity={0.4}
-          style={{
-            transform: "scale(1.3)",
-            pointerEvents: "none",
-            filter: "blur(3px)",
-          }}
+    <RouterLink
+      to={href}
+      textDecoration="none"
+      display="block"
+      onClick={handleClick}
+    >
+      <Box {...rest}>
+        <ResponsiveBox
+          aspectWidth={640}
+          aspectHeight={480}
+          maxWidth="100%"
+          position="relative"
         >
           <Image
             src={image.src}
-            lazyLoad
-            width="100%"
-            height="100%"
-            style={{
-              objectFit: "cover",
-            }}
-            alt=""
-          />
-        </Box>
-      )}
-
-      <AppContainer
-        position="relative"
-        display="flex"
-        alignItems="start"
-        py={6}
-      >
-        <HorizontalPadding>
-          <GridColumns gridRowGap={[2, 4]}>
-            <Column span={6}>
-              <Text variant="xxl">Interested in Partnering with Artsy?</Text>
-            </Column>
-
-            <Column span={4} start={9}>
-              <Button
-                variant="primaryWhite"
-                width="100%"
-                //@ts-ignore
-                as={RouterLink}
-                to="https://partners.artsy.net/gallery-partnerships/"
-                mb={2}
-              >
-                Apply to Become a Partner
-              </Button>
-
-              <Button
-                bg="transparent"
-                width="100%"
-                borderColor="white100"
-                // @ts-ignore
-                as={RouterLink}
-                to="https://partners.artsy.net/"
-                mb={2}
-              >
-                Partnership Overview
-              </Button>
-
-              <Button
-                bg="transparent"
-                width="100%"
-                border="none"
-                // @ts-ignore
-                as={RouterLink}
-                to="/galleries"
-              >
-                See Full List of Partners
-              </Button>
-            </Column>
-          </GridColumns>
-        </HorizontalPadding>
-      </AppContainer>
-    </Container>
-  )
-}
-
-const AppDownload: React.FC = () => {
-  const image = resized(
-    "https://files.artsy.net/images/about2/appstore_image_highres.png",
-    {
-      width: 910,
-      height: 652,
-    }
-  )
-
-  return (
-    <GridColumns gridRowGap={4}>
-      <Column span={6}>
-        <Text variant="xs">Artsy App</Text>
-
-        <Text variant="xl" mt={1}>
-          The Art Market at Your Fingertips
-        </Text>
-
-        <Text variant="sm" mt={1} mb={4}>
-          Discover artworks just for you, get market insights, and buy and sell
-          with confidence—all on the Artsy app.
-        </Text>
-
-        <Flex>
-          <Box
-            width={120}
-            height={40}
-            as="a"
-            // @ts-ignore
-            href="https://apps.apple.com/us/app/artsy-buy-sell-original-art/id703796080"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="https://files.artsy.net/images/download-ios-app.svg"
-              width="100%"
-              height="100%"
-              alt=""
-              loading="lazy"
-            />
-          </Box>
-
-          <Spacer ml={2} />
-
-          <Box
-            width={120}
-            height={40}
-            as="a"
-            // @ts-ignore
-            href="https://play.google.com/store/apps/details?id=net.artsy.app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="https://files.artsy.net/images/download-android-app.svg"
-              width="100%"
-              height="100%"
-              alt=""
-              loading="lazy"
-            />
-          </Box>
-        </Flex>
-      </Column>
-
-      <Column span={6}>
-        <ResponsiveBox aspectHeight={652} aspectWidth={910} maxWidth="100%">
-          <Image
-            src={image.src}
             width="100%"
             height="100%"
             srcSet={image.srcSet}
             lazyLoad
             alt=""
           />
-        </ResponsiveBox>
-      </Column>
-    </GridColumns>
-  )
-}
-
-const CollectorInfo: React.FC = () => {
-  const image = resized(
-    "https://files.artsy.net/about2_page_collector_img.jpg",
-    {
-      width: 910,
-      height: 652,
-    }
-  )
-
-  return (
-    <GridColumns gridRowGap={[4, 6]}>
-      <Column span={12}>
-        <Text variant="xl">Collecting</Text>
-      </Column>
-
-      <Column span={6}>
-        <ResponsiveBox aspectHeight={652} aspectWidth={910} maxWidth="100%">
-          <Image
-            src={image.src}
-            width="100%"
-            height="100%"
-            srcSet={image.srcSet}
-            lazyLoad
-            alt=""
-          />
+          <Text
+            variant={["xs", "sm"]}
+            position="absolute"
+            bottom={0}
+            right={0}
+            p={1}
+            color="white100"
+            fontStyle="italic"
+          >
+            {caption}
+          </Text>
         </ResponsiveBox>
 
-        <Text variant="xs" textColor="black60" mt={0.5}>
-          The Collection for Carole Server by Emily Johnston for Artsy 2015.
-          Courtesy of Carole Server.
-        </Text>
-      </Column>
+        <Spacer y={1} />
 
-      <Column span={6}>
-        <Text variant="xs">On Artsy</Text>
-
-        <Text variant="xl" mt={1}>
-          Where Collectors Belong
-        </Text>
-
-        <Text variant="sm" mt={1}>
-          Artsy lets collectors find their favorite artists—and discover some
-          new ones—all in one place. We bring together over 1 million artworks
-          from our network of 4,000+ partners, including the world’s leading
-          galleries, auction houses, fairs, and institutions. To connect
-          collectors to the art they care about, we feature the largest
-          selection of international emerging, established, and blue-chip
-          artists.
-        </Text>
-      </Column>
-    </GridColumns>
-  )
-}
-
-const ArtsySpecialists: React.FC = () => {
-  return (
-    <GridColumns gridRowGap={4}>
-      <Column span={6}>
-        <Text variant="xs">Artsy Specialists</Text>
-
-        <Text variant="xl" mt={1}>
-          Here to Help You Find the Art You Love
-        </Text>
-
-        <Text variant="sm" mt={1}>
-          Artsy specialists are available to all Artsy members, wherever you are
-          in your collector’s journey. Our specialists join Artsy from leading
-          auction houses, galleries, and museums, and are ready to help you find
-          works that you love—with your price range, taste, and current
-          collection in mind.
-        </Text>
-
-        <Text variant="sm" mt={4}>
-          More questions about collecting?
-        </Text>
-
-        <Flex flexDirection={["column", "column", "column", "row"]} mt={4}>
-          <Button
-            variant="primaryBlack"
-            // @ts-ignore
-            as={RouterLink}
-            to="/meet-the-specialists"
-          >
-            Contact Specialist
-          </Button>
-
-          <Spacer ml={[0, 0, 0, 2]} mt={[2, 2, 2, 0]} />
+        <Flex
+          justifyContent="space-between"
+          flexDirection="row"
+          alignItems="center"
+        >
+          <Box>
+            <Text variant={["lg", "xl"]}>{title}</Text>
+            <Text variant="sm">{description}</Text>
+          </Box>
 
           <Button
-            variant="secondaryBlack"
             // @ts-ignore
             as={RouterLink}
-            to="https://support.artsy.net/hc/en-us"
+            to={href}
+            variant="secondaryNeutral"
+            size={["small", "large"]}
+            ml={1}
           >
-            Collector Resources
+            View
           </Button>
         </Flex>
-      </Column>
-    </GridColumns>
+      </Box>
+    </RouterLink>
   )
 }
 
-const Container = styled(FullBleed)`
-  overflow: hidden;
-  clip-path: inset(0);
-`
+const SECTION_DATA: SectionProps[] = [
+  {
+    title: "Find the art you want",
+    description:
+      "Be the first to know when the art you’re looking for is available with custom alerts.",
+    caption: "Angela Heisch, Diving for Pearls, 2021",
+    href: "/collect",
+    imageUrl: "https://files.artsy.net/images/01_CVP_About_Find.png",
+  },
+  {
+    title: "Buy art with ease",
+    description: "Buy art simply and safely, from purchase to delivery.",
+    caption: "Andy Warhol, Flowers F&S ll.64, 1970.",
+    href: "/collect",
+    imageUrl: "https://files.artsy.net/images/02_CVP_About_Buy.png",
+  },
+  {
+    title: "Bid in global auctions",
+    description: "Bid in leading global auctions, from wherever you are.",
+    caption: "Anna Park, Ready Set, 2020.",
+    href: "/auctions",
+    imageUrl: "https://files.artsy.net/images/03_CVP_About_Bid.png",
+  },
+  {
+    title: "Track the art market",
+    description: "Invest smarter with our free auction results database.",
+    caption: "Harold Ancart, Untitled, 2016.",
+    href: "/price-database",
+    imageUrl: "https://files.artsy.net/images/04_CVP_About_Track.png",
+  },
+  {
+    title: "Manage your collection",
+    description:
+      "Get insight into the market value of artworks in your collection.",
+    caption: "John Baldessari, Marina Abramovic, 2018.",
+    href: "#",
+    imageUrl: "https://files.artsy.net/images/05_CVP_About_Manage.png",
+  },
+  {
+    title: "Sell from your collection",
+    description:
+      "Sell art from your collection to the right buyer with the help of our experts.",
+    caption: "Ezra Johnson, Small Interior, 2022.",
+    href: "/sell",
+    imageUrl: "https://files.artsy.net/images/06_CVP_About_Sell.png",
+  },
+  {
+    title: "Discover new talents",
+    description:
+      "Get to know today’s up-and-coming artists and trends in the art world.",
+    caption: "Evie O'Connor, Delivery Down The Grand Canal, 2021.",
+    href: "/articles",
+    imageUrl: "https://files.artsy.net/images/07_CVP_About_Discover.png",
+  },
+  {
+    title: "Follow your favorite artists",
+    description:
+      "Follow artists for updates on their latest works and career milestones.",
+    caption: "Amy Beager, Pixie Dust, 2022.",
+    href: "/artists",
+    imageUrl: "https://files.artsy.net/images/08_CVP_About_Follow (2).png",
+  },
+]

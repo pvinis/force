@@ -1,38 +1,41 @@
+/**
+ * @generated SignedSource<<81d76e0308eb9510c6b384ac387898aa>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
+export type CommercePaymentMethodEnum = "CREDIT_CARD" | "SEPA_DEBIT" | "US_BANK_ACCOUNT" | "WIRE_TRANSFER" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type CommercePaymentMethodEnum = "CREDIT_CARD" | "US_BANK_ACCOUNT" | "WIRE_TRANSFER" | "%future added value";
-export type PaymentMethodSummaryItem_order = {
-    readonly paymentMethod: CommercePaymentMethodEnum | null;
-    readonly paymentMethodDetails: ({
-        readonly __typename: "CreditCard";
-        readonly brand: string;
-        readonly lastDigits: string;
-        readonly expirationYear: number;
-        readonly expirationMonth: number;
-    } | {
-        readonly __typename: "BankAccount";
-        readonly last4: string;
-    } | {
-        readonly __typename: "WireTransfer";
-        readonly isManualPayment: boolean;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    }) | null;
-    readonly " $refType": "PaymentMethodSummaryItem_order";
+export type PaymentMethodSummaryItem_order$data = {
+  readonly paymentMethod: CommercePaymentMethodEnum | null;
+  readonly paymentMethodDetails: {
+    readonly __typename: "BankAccount";
+    readonly last4: string;
+  } | {
+    readonly __typename: "CreditCard";
+    readonly brand: string;
+    readonly expirationMonth: number;
+    readonly expirationYear: number;
+    readonly lastDigits: string;
+  } | {
+    readonly __typename: "WireTransfer";
+    readonly isManualPayment: boolean;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  } | null;
+  readonly " $fragmentType": "PaymentMethodSummaryItem_order";
 };
-export type PaymentMethodSummaryItem_order$data = PaymentMethodSummaryItem_order;
 export type PaymentMethodSummaryItem_order$key = {
-    readonly " $data"?: PaymentMethodSummaryItem_order$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PaymentMethodSummaryItem_order">;
+  readonly " $data"?: PaymentMethodSummaryItem_order$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PaymentMethodSummaryItem_order">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -132,5 +135,7 @@ const node: ReaderFragment = {
   "type": "CommerceOrder",
   "abstractKey": "__isCommerceOrder"
 };
-(node as any).hash = '4938da2b1934e0f537ef9e699c47eff8';
+
+(node as any).hash = "4938da2b1934e0f537ef9e699c47eff8";
+
 export default node;

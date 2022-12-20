@@ -1,39 +1,42 @@
+/**
+ * @generated SignedSource<<197b3082ed6a8648e1bd60add001d25e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerHeader_partner = {
-    readonly name: string | null;
-    readonly type: string | null;
-    readonly slug: string;
-    readonly profile: {
-        readonly icon: {
-            readonly resized: {
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"FollowProfileButton_profile">;
+export type PartnerHeader_partner$data = {
+  readonly locations: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly city: string | null;
+      } | null;
+    } | null> | null;
+    readonly totalCount: number | null;
+  } | null;
+  readonly name: string | null;
+  readonly profile: {
+    readonly icon: {
+      readonly resized: {
+        readonly src: string;
+        readonly srcSet: string;
+      } | null;
     } | null;
-    readonly locations: {
-        readonly totalCount: number | null;
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly city: string | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "PartnerHeader_partner";
+    readonly internalID: string;
+  } | null;
+  readonly slug: string;
+  readonly type: string | null;
+  readonly " $fragmentType": "PartnerHeader_partner";
 };
-export type PartnerHeader_partner$data = PartnerHeader_partner;
 export type PartnerHeader_partner$key = {
-    readonly " $data"?: PartnerHeader_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnerHeader_partner">;
+  readonly " $data"?: PartnerHeader_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnerHeader_partner">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -70,6 +73,13 @@ const node: ReaderFragment = {
       "name": "profile",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "internalID",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -121,11 +131,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowProfileButton_profile"
         }
       ],
       "storageKey": null
@@ -187,5 +192,7 @@ const node: ReaderFragment = {
   "type": "Partner",
   "abstractKey": null
 };
-(node as any).hash = 'fe9cf6f429efc3e64d48822788699330';
+
+(node as any).hash = "7f0a97c890f8c512b9cf5a8e7837424a";
+
 export default node;

@@ -1,68 +1,27 @@
+/**
+ * @generated SignedSource<<e29d85c9f49c6643f608c439b5158208>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellArtistStoryQueryVariables = {
-    id: string;
+export type CellArtistStoryQuery$variables = {
+  id: string;
 };
-export type CellArtistStoryQueryResponse = {
-    readonly artist: {
-        readonly " $fragmentRefs": FragmentRefs<"CellArtist_artist">;
-    } | null;
+export type CellArtistStoryQuery$data = {
+  readonly artist: {
+    readonly " $fragmentSpreads": FragmentRefs<"CellArtist_artist">;
+  } | null;
 };
 export type CellArtistStoryQuery = {
-    readonly response: CellArtistStoryQueryResponse;
-    readonly variables: CellArtistStoryQueryVariables;
+  response: CellArtistStoryQuery$data;
+  variables: CellArtistStoryQuery$variables;
 };
-
-
-
-/*
-query CellArtistStoryQuery(
-  $id: String!
-) {
-  artist(id: $id) {
-    ...CellArtist_artist
-    id
-  }
-}
-
-fragment CellArtist_artist on Artist {
-  ...EntityHeaderArtist_artist
-  internalID
-  slug
-  name
-  href
-  initials
-  image {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment EntityHeaderArtist_artist on Artist {
-  internalID
-  href
-  slug
-  name
-  initials
-  formattedNationalityAndBirthday
-  counts {
-    artworks
-    forSaleArtworks
-  }
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -255,7 +214,6 @@ return {
                     "kind": "Literal",
                     "name": "version",
                     "value": [
-                      "normalized",
                       "larger",
                       "large"
                     ]
@@ -271,7 +229,7 @@ return {
                 "name": "cropped",
                 "plural": false,
                 "selections": (v2/*: any*/),
-                "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
               }
             ],
             "storageKey": null
@@ -289,14 +247,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d6af2244d36418993abc9e781ab2c29b",
+    "cacheID": "e7f73965879f691d67676d8fb06cf0f0",
     "id": null,
     "metadata": {},
     "name": "CellArtistStoryQuery",
     "operationKind": "query",
-    "text": "query CellArtistStoryQuery(\n  $id: String!\n) {\n  artist(id: $id) {\n    ...CellArtist_artist\n    id\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query CellArtistStoryQuery(\n  $id: String!\n) {\n  artist(id: $id) {\n    ...CellArtist_artist\n    id\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e873bebdbb59c58201c96d6d6999e74f';
+
+(node as any).hash = "e873bebdbb59c58201c96d6d6999e74f";
+
 export default node;

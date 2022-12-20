@@ -1,53 +1,28 @@
+/**
+ * @generated SignedSource<<cc72ec70a8c3b4fe39575788f5580261>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InquiryBasicInfo_Test_QueryVariables = {};
-export type InquiryBasicInfo_Test_QueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"InquiryBasicInfo_artwork">;
-    } | null;
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"InquiryBasicInfo_me">;
-    } | null;
+export type InquiryBasicInfo_Test_Query$variables = {};
+export type InquiryBasicInfo_Test_Query$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"InquiryBasicInfo_artwork">;
+  } | null;
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"InquiryBasicInfo_me">;
+  } | null;
 };
 export type InquiryBasicInfo_Test_Query = {
-    readonly response: InquiryBasicInfo_Test_QueryResponse;
-    readonly variables: InquiryBasicInfo_Test_QueryVariables;
+  response: InquiryBasicInfo_Test_Query$data;
+  variables: InquiryBasicInfo_Test_Query$variables;
 };
-
-
-
-/*
-query InquiryBasicInfo_Test_Query {
-  artwork(id: "example") {
-    ...InquiryBasicInfo_artwork
-    id
-  }
-  me {
-    ...InquiryBasicInfo_me
-    id
-  }
-}
-
-fragment InquiryBasicInfo_artwork on Artwork {
-  partner {
-    name
-    id
-  }
-}
-
-fragment InquiryBasicInfo_me on Me {
-  location {
-    display
-    id
-  }
-  phone
-  profession
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -187,7 +162,7 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "phone",
+            "name": "otherRelevantPositions",
             "storageKey": null
           },
           {
@@ -204,7 +179,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "63b28423738c12d0a249d1f77d6bdb66",
+    "cacheID": "bca73cc165f1bf630d87c939340909dc",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -238,15 +213,17 @@ return {
         },
         "me.location.display": (v3/*: any*/),
         "me.location.id": (v2/*: any*/),
-        "me.phone": (v3/*: any*/),
+        "me.otherRelevantPositions": (v3/*: any*/),
         "me.profession": (v3/*: any*/)
       }
     },
     "name": "InquiryBasicInfo_Test_Query",
     "operationKind": "query",
-    "text": "query InquiryBasicInfo_Test_Query {\n  artwork(id: \"example\") {\n    ...InquiryBasicInfo_artwork\n    id\n  }\n  me {\n    ...InquiryBasicInfo_me\n    id\n  }\n}\n\nfragment InquiryBasicInfo_artwork on Artwork {\n  partner {\n    name\n    id\n  }\n}\n\nfragment InquiryBasicInfo_me on Me {\n  location {\n    display\n    id\n  }\n  phone\n  profession\n}\n"
+    "text": "query InquiryBasicInfo_Test_Query {\n  artwork(id: \"example\") {\n    ...InquiryBasicInfo_artwork\n    id\n  }\n  me {\n    ...InquiryBasicInfo_me\n    id\n  }\n}\n\nfragment InquiryBasicInfo_artwork on Artwork {\n  partner {\n    name\n    id\n  }\n}\n\nfragment InquiryBasicInfo_me on Me {\n  location {\n    display\n    id\n  }\n  otherRelevantPositions\n  profession\n}\n"
   }
 };
 })();
-(node as any).hash = '365e94690199b0fa004e41d220f5bfac';
+
+(node as any).hash = "365e94690199b0fa004e41d220f5bfac";
+
 export default node;

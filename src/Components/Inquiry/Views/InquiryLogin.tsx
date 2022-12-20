@@ -13,11 +13,11 @@ import { useState } from "react"
 import * as React from "react"
 import { createRelaySSREnvironment } from "System/Relay/createRelaySSREnvironment"
 import { wait } from "Utils/wait"
-import { useInquiryContext } from "../Hooks/useInquiryContext"
-import { useArtworkInquiryRequest } from "../Hooks/useArtworkInquiryRequest"
+import { useInquiryContext } from "Components/Inquiry/Hooks/useInquiryContext"
+import { useArtworkInquiryRequest } from "Components/Inquiry/Hooks/useArtworkInquiryRequest"
 import { login } from "Utils/auth"
 import { useInquiryAccountContext, Screen } from "./InquiryAccount"
-import { logger } from "../util"
+import { logger } from "Components/Inquiry/util"
 import { useTracking } from "react-tracking"
 import {
   ActionType,
@@ -80,7 +80,6 @@ export const InquiryLogin: React.FC = () => {
           postalCode: user.location?.postalCode,
           country: user.location?.country,
         },
-        phone: user.phone,
         profession: user.profession,
         requiresReload: true,
         shareFollows: user.share_follows,
@@ -189,7 +188,7 @@ export const InquiryLogin: React.FC = () => {
           />
         )}
 
-        <Spacer mt={2} />
+        <Spacer y={2} />
 
         <Button
           type="submit"
@@ -201,7 +200,7 @@ export const InquiryLogin: React.FC = () => {
           Login and Send Message
         </Button>
 
-        <Spacer mt={2} />
+        <Spacer y={2} />
 
         <Flex alignItems="center" justifyContent="flex-end">
           <Clickable textDecoration="underline" onClick={handleClick}>

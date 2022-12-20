@@ -1,9 +1,39 @@
 import loadable from "@loadable/component"
-import { Redirect, RedirectException } from "found"
+import { RedirectException, RouteRenderArgs } from "found"
 import { graphql } from "react-relay"
 import { AppRouteConfig } from "System/Router/Route"
 import { getENV } from "Utils/getENV"
 import { getRedirect } from "./Routes/SubmissionFlow/Utils/redirects"
+
+const ConsignmentInquiryApp = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "consignBundle" */ "./Routes/ConsignmentInquiry/ConsignmentInquiry"
+    ),
+  {
+    resolveComponent: component =>
+      component.ConsignmentInquiryFragmentContainer,
+  }
+)
+const ConsignmentInquiryConfirmationApp = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "consignBundle" */ "./Routes/ConsignmentInquiry/ConsignmentInquiryConfirmation"
+    ),
+  {
+    resolveComponent: component => component.ConsignmentInquiryConfirmation,
+  }
+)
+
+const ConsignmentInquiryContainer = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "consignBundle" */ "./Routes/ConsignmentInquiry/ConsignmentInquiryContainer"
+    ),
+  {
+    resolveComponent: component => component.ConsignmentInquiryContainer,
+  }
+)
 
 const MarketingLandingApp = loadable(
   () =>
@@ -12,6 +42,16 @@ const MarketingLandingApp = loadable(
     ),
   {
     resolveComponent: component => component.MarketingLandingApp,
+  }
+)
+
+const FAQApp = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "consignBundle" */ "./Routes/MarketingLanding/FAQApp"
+    ),
+  {
+    resolveComponent: component => component.FAQApp,
   }
 )
 
@@ -113,14 +153,51 @@ const prepareSubmissionFlowStepVariables = data => {
   }
 }
 
+const contactInformationQuery = graphql`
+  query consignRoutes_contactInformationQuery(
+    $id: ID
+    $externalId: ID
+    $sessionID: String
+  ) {
+    submission(id: $id, externalId: $externalId, sessionID: $sessionID) {
+      ...ContactInformation_submission
+      ...redirects_submission @relay(mask: false)
+    }
+    me {
+      ...ContactInformation_me
+    }
+  }
+`
+
+const renderConsignmentInquiry = ({ Component, props }: RouteRenderArgs) => {
+  if (!(Component && props)) {
+    return undefined
+  }
+  return <Component {...props} />
+}
+
 export const consignRoutes: AppRouteConfig[] = [
   {
     path: "/sell",
-    getComponent: () => MarketingLandingApp,
-    onClientSideRender: () => {
-      MarketingLandingApp.preload()
-    },
+    children: [
+      {
+        path: "/",
+        getComponent: () => MarketingLandingApp,
+        onClientSideRender: () => {
+          MarketingLandingApp.preload()
+        },
+      },
+      {
+        path: "faq",
+        hideFooter: true,
+        getComponent: () => FAQApp,
+        onClientSideRender: () => {
+          FAQApp.preload()
+        },
+      },
+    ],
   },
+
   {
     path: "/consign",
     children: [
@@ -144,13 +221,52 @@ export const consignRoutes: AppRouteConfig[] = [
     ],
   },
   {
+    path: "/sell/inquiry",
+    getComponent: () => ConsignmentInquiryContainer,
+    children: [
+      {
+        path: "/",
+        getComponent: () => ConsignmentInquiryApp,
+        hideFooter: true,
+        hideNav: true,
+        onClientSideRender: () => {
+          ConsignmentInquiryApp.preload()
+        },
+        query: graphql`
+          query consignRoutes_ConsignmentInquiryAppQuery {
+            me {
+              ...ConsignmentInquiry_me
+            }
+          }
+        `,
+        render: renderConsignmentInquiry,
+      },
+      {
+        path: "sent",
+        hideFooter: true,
+        hideNav: true,
+        hideNavigationTabs: true,
+        getComponent: () => ConsignmentInquiryConfirmationApp,
+        onClientSideRender: () => {
+          ConsignmentInquiryConfirmationApp.preload()
+        },
+      },
+    ],
+  },
+  {
     path: "/sell/submission",
     getComponent: () => SubmissionLayout,
+    onServerSideRender: ({ res }) => {
+      if (
+        res.locals.sd.FEATURE_FLAGS["reorder-swa-artwork-submission-flow"]
+          .flagEnabled
+      ) {
+        res.redirect("/sell/submission/contact-information")
+      } else {
+        res.redirect("/sell/submission/artwork-details")
+      }
+    },
     children: [
-      new Redirect({
-        from: "/",
-        to: "/sell/submission/artwork-details",
-      }) as any,
       {
         path: "artwork-details",
         hideNav: true,
@@ -159,6 +275,18 @@ export const consignRoutes: AppRouteConfig[] = [
         onClientSideRender: () => {
           ArtworkDetails.preload()
         },
+      },
+      {
+        path: "contact-information",
+        hideNav: true,
+        hideFooter: true,
+        getComponent: () => ContactInformation,
+        onClientSideRender: () => {
+          ContactInformation.preload()
+        },
+        query: contactInformationQuery,
+        render: renderSubmissionFlowStep,
+        prepareVariables: prepareSubmissionFlowStepVariables,
       },
       {
         path: ":id/artwork-details",
@@ -222,25 +350,7 @@ export const consignRoutes: AppRouteConfig[] = [
         onClientSideRender: () => {
           ContactInformation.preload()
         },
-        query: graphql`
-          query consignRoutes_contactInformationQuery(
-            $id: ID
-            $externalId: ID
-            $sessionID: String
-          ) {
-            submission(
-              id: $id
-              externalId: $externalId
-              sessionID: $sessionID
-            ) {
-              ...ContactInformation_submission
-              ...redirects_submission @relay(mask: false)
-            }
-            me {
-              ...ContactInformation_me
-            }
-          }
-        `,
+        query: contactInformationQuery,
         render: renderSubmissionFlowStep,
         prepareVariables: prepareSubmissionFlowStepVariables,
       },

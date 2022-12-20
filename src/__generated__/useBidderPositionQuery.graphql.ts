@@ -1,199 +1,43 @@
+/**
+ * @generated SignedSource<<1943581959b01c1a21d8c66db43f1c3b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type useBidderPositionQueryVariables = {
-    bidderPositionID: string;
+export type useBidderPositionQuery$variables = {
+  bidderPositionID: string;
 };
-export type useBidderPositionQueryResponse = {
-    readonly me: {
-        readonly bidderPosition: {
-            readonly status: string;
-            readonly messageHeader: string | null;
-            readonly position: {
-                readonly internalID: string;
-                readonly suggestedNextBid: {
-                    readonly cents: number | null;
-                    readonly display: string | null;
-                } | null;
-                readonly saleArtwork: {
-                    readonly artwork: {
-                        readonly " $fragmentRefs": FragmentRefs<"Details_artwork">;
-                    } | null;
-                } | null;
-            } | null;
+export type useBidderPositionQuery$data = {
+  readonly me: {
+    readonly bidderPosition: {
+      readonly messageHeader: string | null;
+      readonly position: {
+        readonly internalID: string;
+        readonly saleArtwork: {
+          readonly artwork: {
+            readonly " $fragmentSpreads": FragmentRefs<"Details_artwork">;
+          } | null;
         } | null;
-        readonly " $fragmentRefs": FragmentRefs<"AuctionActiveBids_me">;
+        readonly suggestedNextBid: {
+          readonly cents: number | null;
+          readonly display: string | null;
+        } | null;
+      } | null;
+      readonly status: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionActiveBids_me">;
+  } | null;
 };
 export type useBidderPositionQuery = {
-    readonly response: useBidderPositionQueryResponse;
-    readonly variables: useBidderPositionQueryVariables;
+  response: useBidderPositionQuery$data;
+  variables: useBidderPositionQuery$variables;
 };
-
-
-
-/*
-query useBidderPositionQuery(
-  $bidderPositionID: String!
-) {
-  me {
-    ...AuctionActiveBids_me
-    bidderPosition(id: $bidderPositionID) {
-      status
-      messageHeader
-      position {
-        internalID
-        suggestedNextBid {
-          cents
-          display
-        }
-        saleArtwork {
-          artwork {
-            ...Details_artwork
-            id
-          }
-          id
-        }
-        id
-      }
-    }
-    id
-  }
-}
-
-fragment AuctionActiveBids_me on Me {
-  internalID
-  lotStandings(live: true) {
-    isHighestBidder
-    saleArtwork {
-      ...AuctionLotInfo_saleArtwork_4oTW5x
-      counts {
-        bidderPositions
-      }
-      currentBid {
-        display
-      }
-      slug
-      lotLabel
-      reserveStatus
-      saleID
-      highestBid {
-        display
-      }
-      endedAt
-      sale {
-        slug
-        liveStartAt
-        endAt
-        isLiveOpen
-        isClosed
-        id
-      }
-      id
-    }
-  }
-}
-
-fragment AuctionLotInfo_saleArtwork_4oTW5x on SaleArtwork {
-  counts {
-    bidderPositions
-  }
-  lotLabel
-  currentBid {
-    display
-  }
-  formattedEndDateTime
-  artwork {
-    internalID
-    date
-    title
-    image {
-      resized(width: 100, height: 100, version: "medium") {
-        src
-        srcSet
-        width
-        height
-      }
-    }
-    imageUrl
-    artistNames
-    slug
-    id
-  }
-}
-
-fragment Details_artwork on Artwork {
-  href
-  title
-  date
-  sale_message: saleMessage
-  cultural_maker: culturalMaker
-  artists(shallow: true) {
-    id
-    href
-    name
-  }
-  collecting_institution: collectingInstitution
-  partner(shallow: true) {
-    name
-    href
-    id
-  }
-  sale {
-    endAt
-    cascadingEndTimeIntervalMinutes
-    extendedBiddingIntervalMinutes
-    startAt
-    is_auction: isAuction
-    is_closed: isClosed
-    id
-  }
-  sale_artwork: saleArtwork {
-    lotID
-    lotLabel
-    endAt
-    extendedBiddingEndAt
-    formattedEndDateTime
-    counts {
-      bidder_positions: bidderPositions
-    }
-    highest_bid: highestBid {
-      display
-    }
-    opening_bid: openingBid {
-      display
-    }
-    id
-  }
-  ...NewSaveButton_artwork
-  ...HoverDetails_artwork
-}
-
-fragment HoverDetails_artwork on Artwork {
-  internalID
-  attributionClass {
-    name
-    id
-  }
-  mediumType {
-    filterGene {
-      name
-      id
-    }
-  }
-}
-
-fragment NewSaveButton_artwork on Artwork {
-  id
-  internalID
-  slug
-  is_saved: isSaved
-  title
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -350,6 +194,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AuctionActiveBids_me"
+          },
+          {
             "alias": null,
             "args": (v1/*: any*/),
             "concreteType": "BidderPositionResult",
@@ -401,11 +250,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AuctionActiveBids_me"
           }
         ],
         "storageKey": null
@@ -713,6 +557,54 @@ return {
                           },
                           {
                             "alias": null,
+                            "args": null,
+                            "concreteType": "Artist",
+                            "kind": "LinkedField",
+                            "name": "artist",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ArtistTargetSupply",
+                                "kind": "LinkedField",
+                                "name": "targetSupply",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "isP1",
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              },
+                              (v13/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ArtworkPriceInsights",
+                            "kind": "LinkedField",
+                            "name": "marketPriceInsights",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "demandRank",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
                             "args": (v16/*: any*/),
                             "concreteType": "Artist",
                             "kind": "LinkedField",
@@ -923,14 +815,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a4a9e5793ff9044926e104cfddba61bc",
+    "cacheID": "eb9f893abcd687004c1f19c84bab187f",
     "id": null,
     "metadata": {},
     "name": "useBidderPositionQuery",
     "operationKind": "query",
-    "text": "query useBidderPositionQuery(\n  $bidderPositionID: String!\n) {\n  me {\n    ...AuctionActiveBids_me\n    bidderPosition(id: $bidderPositionID) {\n      status\n      messageHeader\n      position {\n        internalID\n        suggestedNextBid {\n          cents\n          display\n        }\n        saleArtwork {\n          artwork {\n            ...Details_artwork\n            id\n          }\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment AuctionActiveBids_me on Me {\n  internalID\n  lotStandings(live: true) {\n    isHighestBidder\n    saleArtwork {\n      ...AuctionLotInfo_saleArtwork_4oTW5x\n      counts {\n        bidderPositions\n      }\n      currentBid {\n        display\n      }\n      slug\n      lotLabel\n      reserveStatus\n      saleID\n      highestBid {\n        display\n      }\n      endedAt\n      sale {\n        slug\n        liveStartAt\n        endAt\n        isLiveOpen\n        isClosed\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment AuctionLotInfo_saleArtwork_4oTW5x on SaleArtwork {\n  counts {\n    bidderPositions\n  }\n  lotLabel\n  currentBid {\n    display\n  }\n  formattedEndDateTime\n  artwork {\n    internalID\n    date\n    title\n    image {\n      resized(width: 100, height: 100, version: \"medium\") {\n        src\n        srcSet\n        width\n        height\n      }\n    }\n    imageUrl\n    artistNames\n    slug\n    id\n  }\n}\n\nfragment Details_artwork on Artwork {\n  href\n  title\n  date\n  sale_message: saleMessage\n  cultural_maker: culturalMaker\n  artists(shallow: true) {\n    id\n    href\n    name\n  }\n  collecting_institution: collectingInstitution\n  partner(shallow: true) {\n    name\n    href\n    id\n  }\n  sale {\n    endAt\n    cascadingEndTimeIntervalMinutes\n    extendedBiddingIntervalMinutes\n    startAt\n    is_auction: isAuction\n    is_closed: isClosed\n    id\n  }\n  sale_artwork: saleArtwork {\n    lotID\n    lotLabel\n    endAt\n    extendedBiddingEndAt\n    formattedEndDateTime\n    counts {\n      bidder_positions: bidderPositions\n    }\n    highest_bid: highestBid {\n      display\n    }\n    opening_bid: openingBid {\n      display\n    }\n    id\n  }\n  ...NewSaveButton_artwork\n  ...HoverDetails_artwork\n}\n\nfragment HoverDetails_artwork on Artwork {\n  internalID\n  attributionClass {\n    name\n    id\n  }\n  mediumType {\n    filterGene {\n      name\n      id\n    }\n  }\n}\n\nfragment NewSaveButton_artwork on Artwork {\n  id\n  internalID\n  slug\n  is_saved: isSaved\n  title\n}\n"
+    "text": "query useBidderPositionQuery(\n  $bidderPositionID: String!\n) {\n  me {\n    ...AuctionActiveBids_me\n    bidderPosition(id: $bidderPositionID) {\n      status\n      messageHeader\n      position {\n        internalID\n        suggestedNextBid {\n          cents\n          display\n        }\n        saleArtwork {\n          artwork {\n            ...Details_artwork\n            id\n          }\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment AuctionActiveBids_me on Me {\n  internalID\n  lotStandings(live: true) {\n    isHighestBidder\n    saleArtwork {\n      ...AuctionLotInfo_saleArtwork_4oTW5x\n      counts {\n        bidderPositions\n      }\n      currentBid {\n        display\n      }\n      slug\n      lotLabel\n      reserveStatus\n      saleID\n      highestBid {\n        display\n      }\n      endedAt\n      sale {\n        slug\n        liveStartAt\n        endAt\n        isLiveOpen\n        isClosed\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment AuctionLotInfo_saleArtwork_4oTW5x on SaleArtwork {\n  counts {\n    bidderPositions\n  }\n  lotLabel\n  currentBid {\n    display\n  }\n  formattedEndDateTime\n  artwork {\n    internalID\n    date\n    title\n    image {\n      resized(width: 100, height: 100, version: \"medium\") {\n        src\n        srcSet\n        width\n        height\n      }\n    }\n    imageUrl\n    artistNames\n    slug\n    id\n  }\n}\n\nfragment Details_artwork on Artwork {\n  href\n  title\n  date\n  sale_message: saleMessage\n  cultural_maker: culturalMaker\n  artist {\n    targetSupply {\n      isP1\n    }\n    id\n  }\n  marketPriceInsights {\n    demandRank\n  }\n  artists(shallow: true) {\n    id\n    href\n    name\n  }\n  collecting_institution: collectingInstitution\n  partner(shallow: true) {\n    name\n    href\n    id\n  }\n  sale {\n    endAt\n    cascadingEndTimeIntervalMinutes\n    extendedBiddingIntervalMinutes\n    startAt\n    is_auction: isAuction\n    is_closed: isClosed\n    id\n  }\n  sale_artwork: saleArtwork {\n    lotID\n    lotLabel\n    endAt\n    extendedBiddingEndAt\n    formattedEndDateTime\n    counts {\n      bidder_positions: bidderPositions\n    }\n    highest_bid: highestBid {\n      display\n    }\n    opening_bid: openingBid {\n      display\n    }\n    id\n  }\n  ...NewSaveButton_artwork\n  ...HoverDetails_artwork\n}\n\nfragment HoverDetails_artwork on Artwork {\n  internalID\n  attributionClass {\n    name\n    id\n  }\n  mediumType {\n    filterGene {\n      name\n      id\n    }\n  }\n}\n\nfragment NewSaveButton_artwork on Artwork {\n  id\n  internalID\n  slug\n  is_saved: isSaved\n  title\n}\n"
   }
 };
 })();
-(node as any).hash = 'b3f43b7520d27d3d8051cb407c0392a2';
+
+(node as any).hash = "b3f43b7520d27d3d8051cb407c0392a2";
+
 export default node;

@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react"
 import * as React from "react"
-import {
-  Button,
-  Flex,
-  themeProps,
-  Text,
-  Dropdown,
-  ThemeProviderV3,
-  Box,
-} from "@artsy/palette"
+import { Button, Flex, themeProps, Text, Dropdown, Box } from "@artsy/palette"
 import { useSystemContext } from "System/SystemContext"
 import { SearchBarQueryRenderer } from "Components/Search/SearchBar"
 import { NavBarSubMenu } from "./Menus"
@@ -16,7 +8,6 @@ import {
   NavBarMobileMenu,
   NavBarMobileMenuIcon,
 } from "./NavBarMobileMenu/NavBarMobileMenu"
-import { NavBarMobileMenuInboxNotificationCountQueryRenderer } from "./NavBarMobileMenu/NavBarMobileMenuInboxNotificationCount"
 import { ModalType } from "Components/Authentication/Types"
 import {
   ARTISTS_SUBMENU_DATA,
@@ -36,7 +27,6 @@ import {
   NavBarItemLink,
   NavBarItemUnfocusableAnchor,
 } from "./NavBarItem"
-import { scrollIntoView } from "Utils/scrollHelpers"
 import { AppContainer } from "Apps/Components/AppContainer"
 import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
 import { useNavBarHeight } from "./useNavBarHeight"
@@ -44,19 +34,13 @@ import { RouterLink } from "System/Router/RouterLink"
 import { useTracking } from "react-tracking"
 import { Z } from "Apps/Components/constants"
 import { useTranslation } from "react-i18next"
+import { NavBarMobileMenuNotificationsIndicatorQueryRenderer } from "./NavBarMobileMenu/NavBarMobileMenuNotificationsIndicator"
+import { useJump } from "Utils/Hooks/useJump"
 
 /**
- * Old Force pages have the navbar height hardcoded in several places. If
- * you're modifying the navbar you may need to update these files:
- *
- * src/desktop/apps/articles/stylesheets/articles.styl
- * src/desktop/components/stylus_lib/index.styl
- *
- * Additional context:
- * https://github.com/artsy/force/pull/6991
- *
  * NOTE: Fresnel doesn't work correctly here because this is included
  * on older CoffeeScript pages. Hence the `display={["none", "flex"]}` usage
+ * (FIXME: Can use Fresnel now)
  */
 
 export const NavBar: React.FC = track(
@@ -69,9 +53,13 @@ export const NavBar: React.FC = track(
   }
 )(() => {
   const { mediator, user, isEigen } = useSystemContext()
+
+  // FIXME: Doesn't follow rules of hooks
   if (isEigen) {
     return null
   }
+
+  const { jumpTo } = useJump({ behavior: "smooth" })
   const { trackEvent } = useTracking()
   const { t } = useTranslation()
   const [showMobileMenu, toggleMobileNav] = useState(false)
@@ -122,8 +110,16 @@ export const NavBar: React.FC = track(
 
   const { height } = useNavBarHeight()
 
+  const renderNotificationsIndicator = () => {
+    if (!showNotificationCount) {
+      return null
+    }
+
+    return <NavBarMobileMenuNotificationsIndicatorQueryRenderer />
+  }
+
   return (
-    <ThemeProviderV3>
+    <>
       <NavBarSkipLink />
 
       <Box
@@ -207,7 +203,7 @@ export const NavBar: React.FC = track(
                     {t`navbar.priceDatabase`}
                   </NavBarItemLink>
 
-                  <Flex alignItems="center" display={["none", "none", "flex"]}>
+                  <Flex alignItems="center" display={["none", "flex"]}>
                     <NavBarItemLink
                       href="/articles"
                       textDecoration="none"
@@ -233,6 +229,8 @@ export const NavBar: React.FC = track(
                           mode: ModalType.login,
                           intent: Intent.login,
                           contextModule: ContextModule.header,
+                          copy:
+                            "Log in to collect art by the world’s leading artists",
                         })
                       }}
                     >
@@ -247,6 +245,8 @@ export const NavBar: React.FC = track(
                           mode: ModalType.signup,
                           intent: Intent.signup,
                           contextModule: ContextModule.header,
+                          copy:
+                            "Sign up to collect art by the world’s leading artists",
                           redirectTo: window.location.href,
                         })
                       }}
@@ -286,9 +286,7 @@ export const NavBar: React.FC = track(
                 >
                   <NavBarMobileMenuIcon open={showMobileMenu} />
 
-                  {showNotificationCount && (
-                    <NavBarMobileMenuInboxNotificationCountQueryRenderer />
-                  )}
+                  {renderNotificationsIndicator()}
                 </NavBarItemButton>
               </Flex>
             </Flex>
@@ -417,14 +415,6 @@ export const NavBar: React.FC = track(
                 >
                   {t`navbar.museums`}
                 </NavBarItemLink>
-
-                <NavBarItemLink
-                  href="/nft"
-                  onClick={handleClick}
-                  data-label="NFTs"
-                >
-                  {t`navbar.nfts`}
-                </NavBarItemLink>
               </Flex>
 
               <Flex alignItems="stretch" display={["none", "none", "flex"]}>
@@ -433,10 +423,7 @@ export const NavBar: React.FC = track(
                   px={0}
                   pl={1}
                   onClick={() => {
-                    scrollIntoView({
-                      selector: "#download-app-banner",
-                      behavior: "smooth",
-                    })
+                    jumpTo("download-app-banner")
                   }}
                 >
                   {t`navbar.downloadApp`}
@@ -456,6 +443,6 @@ export const NavBar: React.FC = track(
           />
         </>
       )}
-    </ThemeProviderV3>
+    </>
   )
 })

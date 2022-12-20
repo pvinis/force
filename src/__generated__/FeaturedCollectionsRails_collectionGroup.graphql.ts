@@ -1,30 +1,33 @@
+/**
+ * @generated SignedSource<<a96c0163ef734e90e1e9ce5c3bf2cecf>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type MarketingCollectionGroupTypeEnum = "ArtistSeries" | "FeaturedCollections" | "OtherCollections" | "%future added value";
-export type FeaturedCollectionsRails_collectionGroup = {
-    readonly groupType: MarketingCollectionGroupTypeEnum;
-    readonly name: string;
-    readonly members: ReadonlyArray<{
-        readonly id: string;
-        readonly slug: string;
-        readonly title: string;
-        readonly description: string | null;
-        readonly priceGuidance: number | null;
-        readonly thumbnail: string | null;
-    }>;
-    readonly " $refType": "FeaturedCollectionsRails_collectionGroup";
+import { FragmentRefs } from "relay-runtime";
+export type FeaturedCollectionsRails_collectionGroup$data = {
+  readonly groupType: MarketingCollectionGroupTypeEnum;
+  readonly members: ReadonlyArray<{
+    readonly description: string | null;
+    readonly id: string;
+    readonly priceGuidance: number | null;
+    readonly slug: string;
+    readonly thumbnail: string | null;
+    readonly title: string;
+  }>;
+  readonly name: string;
+  readonly " $fragmentType": "FeaturedCollectionsRails_collectionGroup";
 };
-export type FeaturedCollectionsRails_collectionGroup$data = FeaturedCollectionsRails_collectionGroup;
 export type FeaturedCollectionsRails_collectionGroup$key = {
-    readonly " $data"?: FeaturedCollectionsRails_collectionGroup$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsRails_collectionGroup">;
+  readonly " $data"?: FeaturedCollectionsRails_collectionGroup$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FeaturedCollectionsRails_collectionGroup">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -103,5 +106,7 @@ const node: ReaderFragment = {
   "type": "MarketingCollectionGroup",
   "abstractKey": null
 };
-(node as any).hash = 'b2af7ee18d4fa1d6393ffea8d8050e51';
+
+(node as any).hash = "b2af7ee18d4fa1d6393ffea8d8050e51";
+
 export default node;

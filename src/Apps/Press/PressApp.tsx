@@ -3,11 +3,11 @@ import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
 import { RouteTab, RouteTabs } from "Components/RouteTabs"
-import { PressApp_page } from "__generated__/PressApp_page.graphql"
+import { PressApp_page$data } from "__generated__/PressApp_page.graphql"
 import { PageHTML } from "../Page/Components/PageHTML"
 
 interface PressAppProps {
-  page: PressApp_page
+  page: PressApp_page$data
 }
 
 const PressApp: FC<PressAppProps> = ({ page }) => {
@@ -17,7 +17,7 @@ const PressApp: FC<PressAppProps> = ({ page }) => {
     <>
       <MetaTags title={`${page.name} | Artsy`} />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <Text variant="xl">Artsy Press</Text>
 
@@ -28,7 +28,7 @@ const PressApp: FC<PressAppProps> = ({ page }) => {
         </a>
       </Text>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <RouteTabs fill>
         <RouteTab to="/press/in-the-media">Artsy in the Media</RouteTab>
@@ -38,7 +38,7 @@ const PressApp: FC<PressAppProps> = ({ page }) => {
         </RouteTab>
       </RouteTabs>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns gridRowGap={4}>
         <Column span={8} start={3}>

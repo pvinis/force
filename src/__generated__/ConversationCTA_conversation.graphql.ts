@@ -1,61 +1,64 @@
+/**
+ * @generated SignedSource<<c384d74f56d4c9fa4224ab8b80c2b6d7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type CommerceBuyerOfferActionEnum = "OFFER_ACCEPTED" | "OFFER_ACCEPTED_CONFIRM_NEEDED" | "OFFER_RECEIVED" | "OFFER_RECEIVED_CONFIRM_NEEDED" | "PAYMENT_FAILED" | "PROVISIONAL_OFFER_ACCEPTED" | "%future added value";
-export type CommerceOrderStateEnum = "ABANDONED" | "APPROVED" | "CANCELED" | "FULFILLED" | "PENDING" | "PROCESSING_APPROVAL" | "REFUNDED" | "SUBMITTED" | "%future added value";
-export type ConversationCTA_conversation = {
-    readonly internalID: string | null;
-    readonly items: ReadonlyArray<{
-        readonly liveArtwork: ({
-            readonly __typename: "Artwork";
-            readonly isOfferableFromInquiry: boolean | null;
-            readonly is_acquireable: boolean | null;
-            readonly is_offerable: boolean | null;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }) | null;
-        readonly item: ({
-            readonly __typename: "Artwork";
-            readonly internalID: string;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }) | null;
-    } | null> | null;
-    readonly activeOrders: {
-        readonly edges: ReadonlyArray<{
+export type CommerceOrderStateEnum = "ABANDONED" | "APPROVED" | "CANCELED" | "FULFILLED" | "IN_REVIEW" | "PENDING" | "PROCESSING_APPROVAL" | "REFUNDED" | "SUBMITTED" | "%future added value";
+import { FragmentRefs } from "relay-runtime";
+export type ConversationCTA_conversation$data = {
+  readonly activeOrders: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly buyerAction?: CommerceBuyerOfferActionEnum | null;
+        readonly internalID: string;
+        readonly offers?: {
+          readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly internalID: string;
-                readonly state: CommerceOrderStateEnum;
-                readonly stateReason: string | null;
-                readonly stateExpiresAt: string | null;
-                readonly buyerAction?: CommerceBuyerOfferActionEnum | null | undefined;
-                readonly offers?: {
-                    readonly edges: ReadonlyArray<{
-                        readonly node: {
-                            readonly internalID: string;
-                        } | null;
-                    } | null> | null;
-                } | null | undefined;
+              readonly internalID: string;
             } | null;
-        } | null> | null;
+          } | null> | null;
+        } | null;
+        readonly state: CommerceOrderStateEnum;
+        readonly stateExpiresAt: string | null;
+        readonly stateReason: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly internalID: string | null;
+  readonly items: ReadonlyArray<{
+    readonly item: {
+      readonly __typename: "Artwork";
+      readonly internalID: string;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"PurchaseOnInquiryButton_conversation" | "MakeOfferOnInquiryButton_conversation">;
-    readonly " $refType": "ConversationCTA_conversation";
+    readonly liveArtwork: {
+      readonly __typename: "Artwork";
+      readonly isOfferableFromInquiry: boolean | null;
+      readonly is_acquireable: boolean | null;
+      readonly is_offerable: boolean | null;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    } | null;
+  } | null> | null;
+  readonly " $fragmentSpreads": FragmentRefs<"MakeOfferOnInquiryButton_conversation" | "PurchaseOnInquiryButton_conversation">;
+  readonly " $fragmentType": "ConversationCTA_conversation";
 };
-export type ConversationCTA_conversation$data = ConversationCTA_conversation;
 export type ConversationCTA_conversation$key = {
-    readonly " $data"?: ConversationCTA_conversation$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ConversationCTA_conversation">;
+  readonly " $data"?: ConversationCTA_conversation$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ConversationCTA_conversation">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -290,5 +293,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '189d341881a765e63aaec84434b1b908';
+
+(node as any).hash = "189d341881a765e63aaec84434b1b908";
+
 export default node;

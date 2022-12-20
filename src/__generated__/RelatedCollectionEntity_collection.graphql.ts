@@ -1,42 +1,45 @@
+/**
+ * @generated SignedSource<<a974e4de30950ddcb16e945e63f1e1f5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RelatedCollectionEntity_collection = {
-    readonly headerImage: string | null;
-    readonly slug: string;
-    readonly title: string;
-    readonly id: string;
-    readonly priceGuidance: number | null;
-    readonly artworksConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly artist: {
-                    readonly name: string | null;
-                } | null;
-                readonly title: string | null;
-                readonly image: {
-                    readonly resized: {
-                        readonly width: number | null;
-                        readonly height: number | null;
-                        readonly src: string;
-                        readonly srcSet: string;
-                    } | null;
-                } | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "RelatedCollectionEntity_collection";
+export type RelatedCollectionEntity_collection$data = {
+  readonly artworksConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly artist: {
+          readonly name: string | null;
+        } | null;
+        readonly image: {
+          readonly resized: {
+            readonly height: number | null;
+            readonly src: string;
+            readonly srcSet: string;
+            readonly width: number | null;
+          } | null;
+        } | null;
+        readonly title: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly headerImage: string | null;
+  readonly id: string;
+  readonly priceGuidance: number | null;
+  readonly slug: string;
+  readonly title: string;
+  readonly " $fragmentType": "RelatedCollectionEntity_collection";
 };
-export type RelatedCollectionEntity_collection$data = RelatedCollectionEntity_collection;
 export type RelatedCollectionEntity_collection$key = {
-    readonly " $data"?: RelatedCollectionEntity_collection$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RelatedCollectionEntity_collection">;
+  readonly " $data"?: RelatedCollectionEntity_collection$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RelatedCollectionEntity_collection">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -217,5 +220,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '0fc5ba820c1e40da55e2a3b58d19d657';
+
+(node as any).hash = "0fc5ba820c1e40da55e2a3b58d19d657";
+
 export default node;

@@ -1,19 +1,15 @@
-import {
-  Box,
-  Shelf,
-  Skeleton,
-  SkeletonText,
-  SkeletonBox,
-  Spacer,
-} from "@artsy/palette"
+import { Shelf, Skeleton } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { useSystemContext } from "System"
 import { useTracking } from "react-tracking"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { HomeWorksByArtistsYouFollowRail_homePage } from "__generated__/HomeWorksByArtistsYouFollowRail_homePage.graphql"
+import { HomeWorksByArtistsYouFollowRail_homePage$data } from "__generated__/HomeWorksByArtistsYouFollowRail_homePage.graphql"
 import { HomeWorksByArtistsYouFollowRailQuery } from "__generated__/HomeWorksByArtistsYouFollowRailQuery.graphql"
-import { ShelfArtworkFragmentContainer } from "Components/Artwork/ShelfArtwork"
+import {
+  ShelfArtworkFragmentContainer,
+  ShelfArtworkPlaceholder,
+} from "Components/Artwork/ShelfArtwork"
 import {
   ActionType,
   ClickedArtworkGroup,
@@ -22,7 +18,7 @@ import {
 } from "@artsy/cohesion"
 
 interface HomeWorksByArtistsYouFollowRailProps {
-  homePage: HomeWorksByArtistsYouFollowRail_homePage
+  homePage: HomeWorksByArtistsYouFollowRail_homePage$data
 }
 
 const HomeWorksByArtistsYouFollowRail: React.FC<HomeWorksByArtistsYouFollowRailProps> = ({
@@ -72,18 +68,7 @@ const PLACEHOLDER = (
   <Skeleton>
     <Shelf>
       {[...new Array(8)].map((_, i) => {
-        return (
-          <Box width={200} key={i}>
-            <SkeletonBox width={200} height={[200, 300, 250, 275][i % 4]} />
-
-            <Spacer mt={1} />
-
-            <SkeletonText variant="sm-display">Artist Name</SkeletonText>
-            <SkeletonText variant="sm-display">Artwork Title</SkeletonText>
-            <SkeletonText variant="xs">Partner</SkeletonText>
-            <SkeletonText variant="xs">Price</SkeletonText>
-          </Box>
-        )
+        return <ShelfArtworkPlaceholder key={i} index={i} />
       })}
     </Shelf>
   </Skeleton>
@@ -98,7 +83,7 @@ export const HomeWorksByArtistsYouFollowRailFragmentContainer = createFragmentCo
           results {
             internalID
             slug
-            ...ShelfArtwork_artwork @arguments(width: 210)
+            ...ShelfArtwork_artwork
           }
         }
       }

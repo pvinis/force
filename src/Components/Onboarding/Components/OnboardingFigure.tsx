@@ -36,7 +36,7 @@ export const OnboardingFigure: ForwardRefExoticComponent<
           src={img.src}
           srcSet={img.srcSet}
           width="100%"
-          height="100%"
+          height="auto"
           alt=""
           lazyLoad
         />
@@ -47,6 +47,7 @@ export const OnboardingFigure: ForwardRefExoticComponent<
           position="absolute"
           right={2}
           bottom={2}
+          fontStyle="italic"
         >
           {caption}
         </Text>

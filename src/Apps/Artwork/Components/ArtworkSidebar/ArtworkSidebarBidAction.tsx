@@ -13,8 +13,8 @@ import {
 } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtworkSidebarBidAction_artwork } from "__generated__/ArtworkSidebarBidAction_artwork.graphql"
-import { ArtworkSidebarBidAction_me } from "__generated__/ArtworkSidebarBidAction_me.graphql"
+import { ArtworkSidebarBidAction_artwork$data } from "__generated__/ArtworkSidebarBidAction_artwork.graphql"
+import { ArtworkSidebarBidAction_me$data } from "__generated__/ArtworkSidebarBidAction_me.graphql"
 import * as DeprecatedSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import track from "react-tracking"
 import { getENV } from "Utils/getENV"
@@ -22,14 +22,14 @@ import { bidderQualifications } from "Utils/identityVerificationRequirements"
 import { compact } from "lodash"
 import { Router } from "found"
 import { useRouter } from "System/Router/useRouter"
-import { openAuthModal } from "lib/openAuthModal"
+import { openAuthModal } from "Server/openAuthModal"
 import { ModalType } from "Components/Authentication/Types"
 import { ContextModule, Intent } from "@artsy/cohesion"
-import { lotIsClosed } from "../../Utils/lotIsClosed"
+import { lotIsClosed } from "Apps/Artwork/Utils/lotIsClosed"
 
 export interface ArtworkSidebarBidActionProps {
-  artwork: ArtworkSidebarBidAction_artwork
-  me: ArtworkSidebarBidAction_me
+  artwork: ArtworkSidebarBidAction_artwork$data
+  me: ArtworkSidebarBidAction_me$data
   router?: Router
 }
 
@@ -127,7 +127,7 @@ export class ArtworkSidebarBidAction extends React.Component<
     context_module: DeprecatedSchema.ContextModule.Sidebar,
     action_type: DeprecatedSchema.ActionType.Click,
   })
-  redirectToLiveBidding(me: ArtworkSidebarBidAction_me | null) {
+  redirectToLiveBidding(me: ArtworkSidebarBidAction_me$data | null) {
     const slug = this.props.artwork.sale?.slug
     const liveUrl = `${getENV("PREDICTION_URL")}/${slug}`
     if (me) {
@@ -201,7 +201,7 @@ export class ArtworkSidebarBidAction extends React.Component<
         <>
           <PreviewAction />
 
-          <Spacer mt={1} />
+          <Spacer y={1} />
 
           {userLacksIdentityVerification && <IdentityVerificationDisclaimer />}
         </>
@@ -239,7 +239,7 @@ export class ArtworkSidebarBidAction extends React.Component<
               Enter live bidding
             </Button>
 
-            <Spacer mt={1} />
+            <Spacer y={1} />
 
             {userLacksIdentityVerification && (
               <IdentityVerificationDisclaimer />
@@ -263,7 +263,7 @@ export class ArtworkSidebarBidAction extends React.Component<
               </Button>
             )}
 
-            <Spacer mt={1} />
+            <Spacer y={1} />
 
             {userLacksIdentityVerification && (
               <IdentityVerificationDisclaimer />
@@ -301,7 +301,7 @@ export class ArtworkSidebarBidAction extends React.Component<
           <>
             <RegisterToBidButton onClick={this.redirectToRegister} />
 
-            <Spacer mt={1} />
+            <Spacer y={1} />
 
             <IdentityVerificationDisclaimer />
           </>
@@ -331,7 +331,7 @@ export class ArtworkSidebarBidAction extends React.Component<
               </Tooltip>
             </Flex>
 
-            <Spacer mt={1} />
+            <Spacer y={1} />
 
             <Select
               variant="default"
@@ -339,7 +339,7 @@ export class ArtworkSidebarBidAction extends React.Component<
               onSelect={this.setMaxBid}
             />
 
-            <Spacer mt={1} />
+            <Spacer y={1} />
 
             <Button
               width="100%"

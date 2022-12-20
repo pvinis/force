@@ -1,48 +1,25 @@
+/**
+ * @generated SignedSource<<ac7408c5773bfb36db5c5966f846e042>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkSidebarPartnerInfo_Test_QueryVariables = {};
-export type ArtworkSidebarPartnerInfo_Test_QueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkSidebarPartnerInfo_artwork">;
-    } | null;
+export type ArtworkSidebarPartnerInfo_Test_Query$variables = {};
+export type ArtworkSidebarPartnerInfo_Test_Query$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkSidebarPartnerInfo_artwork">;
+  } | null;
 };
 export type ArtworkSidebarPartnerInfo_Test_Query = {
-    readonly response: ArtworkSidebarPartnerInfo_Test_QueryResponse;
-    readonly variables: ArtworkSidebarPartnerInfo_Test_QueryVariables;
+  response: ArtworkSidebarPartnerInfo_Test_Query$data;
+  variables: ArtworkSidebarPartnerInfo_Test_Query$variables;
 };
-
-
-
-/*
-query ArtworkSidebarPartnerInfo_Test_Query {
-  artwork(id: "artwork_from_partner_with_locations") {
-    ...ArtworkSidebarPartnerInfo_artwork
-    id
-  }
-}
-
-fragment ArtworkSidebarPartnerInfo_artwork on Artwork {
-  internalID
-  slug
-  isInquireable
-  is_in_auction: isInAuction
-  partner {
-    name
-    href
-    cities
-    id
-  }
-  sale {
-    name
-    href
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -154,7 +131,7 @@ return {
             "storageKey": null
           },
           {
-            "alias": "is_in_auction",
+            "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "isInAuction",
@@ -202,7 +179,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bb977c6761ae059ef4a42721894f7334",
+    "cacheID": "202201ab4405375737fca7b1c6b5604b",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -214,8 +191,8 @@ return {
         },
         "artwork.id": (v4/*: any*/),
         "artwork.internalID": (v4/*: any*/),
+        "artwork.isInAuction": (v5/*: any*/),
         "artwork.isInquireable": (v5/*: any*/),
-        "artwork.is_in_auction": (v5/*: any*/),
         "artwork.partner": {
           "enumValues": null,
           "nullable": true,
@@ -245,9 +222,11 @@ return {
     },
     "name": "ArtworkSidebarPartnerInfo_Test_Query",
     "operationKind": "query",
-    "text": "query ArtworkSidebarPartnerInfo_Test_Query {\n  artwork(id: \"artwork_from_partner_with_locations\") {\n    ...ArtworkSidebarPartnerInfo_artwork\n    id\n  }\n}\n\nfragment ArtworkSidebarPartnerInfo_artwork on Artwork {\n  internalID\n  slug\n  isInquireable\n  is_in_auction: isInAuction\n  partner {\n    name\n    href\n    cities\n    id\n  }\n  sale {\n    name\n    href\n    id\n  }\n}\n"
+    "text": "query ArtworkSidebarPartnerInfo_Test_Query {\n  artwork(id: \"artwork_from_partner_with_locations\") {\n    ...ArtworkSidebarPartnerInfo_artwork\n    id\n  }\n}\n\nfragment ArtworkSidebarPartnerInfo_artwork on Artwork {\n  internalID\n  slug\n  isInquireable\n  isInAuction\n  partner {\n    name\n    href\n    cities\n    id\n  }\n  sale {\n    name\n    href\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c28fcd12678374ea3678a8b3c41e5dbc';
+
+(node as any).hash = "c28fcd12678374ea3678a8b3c41e5dbc";
+
 export default node;

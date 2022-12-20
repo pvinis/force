@@ -9,7 +9,7 @@ import {
 import { updateUrl } from "Components/ArtworkFilter/Utils/urlBuilder"
 import { usePathnameComplete } from "Utils/Hooks/usePathnameComplete"
 import { useRouter } from "System/Router/useRouter"
-import { CollectionArtworksFilter_collection } from "__generated__/CollectionArtworksFilter_collection.graphql"
+import { CollectionArtworksFilter_collection$data } from "__generated__/CollectionArtworksFilter_collection.graphql"
 import { ColorFilter } from "Components/ArtworkFilter/ArtworkFilters/ColorFilter"
 import { MediumFilter } from "Components/ArtworkFilter/ArtworkFilters/MediumFilter"
 import { PriceRangeFilter } from "Components/ArtworkFilter/ArtworkFilters/PriceRangeFilter"
@@ -25,10 +25,11 @@ import { ArtistsFilter } from "Components/ArtworkFilter/ArtworkFilters/ArtistsFi
 import { __internal__useMatchMedia } from "Utils/Hooks/useMatchMedia"
 import { ActiveFilterPills } from "Components/SavedSearchAlert/Components/ActiveFilterPills"
 import { useSystemContext } from "System"
+import { Join, Spacer } from "@artsy/palette"
 
 interface CollectionArtworksFilterProps {
   relay: RelayRefetchProp
-  collection: CollectionArtworksFilter_collection
+  collection: CollectionArtworksFilter_collection$data
   aggregations?: SharedArtworkFilterContextProps["aggregations"]
   counts?: Counts
 }
@@ -43,7 +44,7 @@ export const CollectionArtworksFilter: React.FC<CollectionArtworksFilterProps> =
   const { userPreferences } = useSystemContext()
 
   const Filters = (
-    <>
+    <Join separator={<Spacer y={4} />}>
       {!isArtistCollection && <ArtistsFilter expanded />}
       <AttributionClassFilter expanded />
       <MediumFilter expanded />
@@ -56,7 +57,7 @@ export const CollectionArtworksFilter: React.FC<CollectionArtworksFilterProps> =
       <TimePeriodFilter expanded />
       <ColorFilter expanded />
       <PartnersFilter expanded />
-    </>
+    </Join>
   )
 
   return (

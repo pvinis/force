@@ -1,27 +1,30 @@
+/**
+ * @generated SignedSource<<8f2ab5d9934029eb4c478e603823eab5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type NewForYouArtworksGrid_viewer = {
-    readonly artworksForUser: {
-        readonly totalCount: number | null;
-        readonly pageInfo: {
-            readonly hasNextPage: boolean;
-            readonly endCursor: string | null;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkGrid_artworks">;
-    } | null;
-    readonly " $refType": "NewForYouArtworksGrid_viewer";
+export type NewForYouArtworksGrid_viewer$data = {
+  readonly artworksForUser: {
+    readonly pageInfo: {
+      readonly endCursor: string | null;
+      readonly hasNextPage: boolean;
+    };
+    readonly totalCount: number | null;
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkGrid_artworks">;
+  } | null;
+  readonly " $fragmentType": "NewForYouArtworksGrid_viewer";
 };
-export type NewForYouArtworksGrid_viewer$data = NewForYouArtworksGrid_viewer;
 export type NewForYouArtworksGrid_viewer$key = {
-    readonly " $data"?: NewForYouArtworksGrid_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"NewForYouArtworksGrid_viewer">;
+  readonly " $data"?: NewForYouArtworksGrid_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"NewForYouArtworksGrid_viewer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -34,6 +37,11 @@ const node: ReaderFragment = {
       "defaultValue": null,
       "kind": "LocalArgument",
       "name": "includeBackfill"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "maxWorksPerArtist"
     },
     {
       "defaultValue": null,
@@ -60,6 +68,11 @@ const node: ReaderFragment = {
         },
         {
           "kind": "Variable",
+          "name": "maxWorksPerArtist",
+          "variableName": "maxWorksPerArtist"
+        },
+        {
+          "kind": "Variable",
           "name": "version",
           "variableName": "version"
         }
@@ -75,6 +88,11 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "totalCount",
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ArtworkGrid_artworks"
         },
         {
           "alias": null,
@@ -100,11 +118,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ArtworkGrid_artworks"
         }
       ],
       "storageKey": null
@@ -113,5 +126,7 @@ const node: ReaderFragment = {
   "type": "Viewer",
   "abstractKey": null
 };
-(node as any).hash = 'f5bf554270769e034860baf604d273e6';
+
+(node as any).hash = "cbae1f0c92730af09b6a42016a53d692";
+
 export default node;

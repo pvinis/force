@@ -1,11 +1,11 @@
 import React from "react"
 import { Box, Image, Join, ResponsiveBox, Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ViewingRoomSubsections_viewingRoom } from "__generated__/ViewingRoomSubsections_viewingRoom.graphql"
+import { ViewingRoomSubsections_viewingRoom$data } from "__generated__/ViewingRoomSubsections_viewingRoom.graphql"
 import { resized } from "Utils/resized"
 
 interface ViewingRoomSubsectionsProps {
-  viewingRoom: ViewingRoomSubsections_viewingRoom
+  viewingRoom: ViewingRoomSubsections_viewingRoom$data
 }
 
 const ViewingRoomSubsections: React.FC<ViewingRoomSubsectionsProps> = ({
@@ -16,7 +16,7 @@ const ViewingRoomSubsections: React.FC<ViewingRoomSubsectionsProps> = ({
   }
 
   return (
-    <Join separator={<Spacer mt={4} />}>
+    <Join separator={<Spacer y={4} />}>
       {subsections.map(({ internalID, title, body, image, caption }) => {
         const img = image?.imageURLs?.normalized
           ? resized(image?.imageURLs?.normalized, {
@@ -40,7 +40,7 @@ const ViewingRoomSubsections: React.FC<ViewingRoomSubsectionsProps> = ({
 
             {img && (
               <>
-                <Spacer mt={4} />
+                <Spacer y={4} />
 
                 <ResponsiveBox
                   aspectWidth={image?.width ?? 1}

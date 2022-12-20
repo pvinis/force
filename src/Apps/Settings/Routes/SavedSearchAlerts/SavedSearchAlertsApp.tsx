@@ -13,7 +13,7 @@ import {
   RelayPaginationProp,
 } from "react-relay"
 import { useState } from "react"
-import { SavedSearchAlertsApp_me } from "__generated__/SavedSearchAlertsApp_me.graphql"
+import { SavedSearchAlertsApp_me$data } from "__generated__/SavedSearchAlertsApp_me.graphql"
 import { Media } from "Utils/Responsive"
 import { EditAlertEntity } from "./types"
 import { extractNodes } from "Utils/extractNodes"
@@ -26,14 +26,14 @@ import { SavedSearchAlertHeader } from "./Components/SavedSearchAlertHeader"
 import { MetaTags } from "Components/MetaTags"
 import { SavedSearchAlertsEmptyResults } from "./Components/SavedSearchAlertsEmptyResults"
 import { SavedSearchAlertEditFormDesktop } from "./Components/SavedSearchAlertEditFormDesktop"
-import { Sticky, StickyProvider } from "Components/Sticky"
+import { Sticky } from "Components/Sticky"
 import { useNavBarHeight } from "Components/NavBar/useNavBarHeight"
 import { SavedSearchAlertEditFormMobile } from "./Components/SavedSearchAlertEditFormMobile"
 import { useTracking } from "react-tracking"
 import { ActionType } from "@artsy/cohesion"
 
 interface SavedSearchAlertsAppProps {
-  me: SavedSearchAlertsApp_me
+  me: SavedSearchAlertsApp_me$data
   relay: RelayPaginationProp
 }
 
@@ -163,8 +163,8 @@ export const SavedSearchAlertsApp: React.FC<SavedSearchAlertsAppProps> = ({
   )
 
   return (
-    <StickyProvider>
-      <MetaTags title="Your Alerts | Artsy" pathname="/settings/alerts" />
+    <>
+      <MetaTags title="Alerts | Artsy" pathname="/settings/alerts" />
 
       <SavedSearchAlertHeader selected={sort} onSortSelect={handleSortSelect} />
 
@@ -226,7 +226,7 @@ export const SavedSearchAlertsApp: React.FC<SavedSearchAlertsAppProps> = ({
           </>
         )}
       </Box>
-    </StickyProvider>
+    </>
   )
 }
 

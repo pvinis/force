@@ -1,155 +1,83 @@
+/**
+ * @generated SignedSource<<daf791b32ad96e3c73bdc2d35c0348a6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkSidebarCurrentBidInfo_Test_QueryVariables = {};
-export type ArtworkSidebarCurrentBidInfo_Test_QueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkSidebarCurrentBidInfo_artwork">;
-    } | null;
+export type ArtworkSidebarCurrentBidInfo_Test_Query$variables = {};
+export type ArtworkSidebarCurrentBidInfo_Test_Query$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkSidebarCurrentBidInfo_artwork">;
+  } | null;
 };
-export type ArtworkSidebarCurrentBidInfo_Test_QueryRawResponse = {
-    readonly artwork: ({
-        readonly sale: ({
-            readonly is_closed: boolean | null;
-            readonly is_live_open: boolean | null;
-            readonly internalID: string;
-            readonly is_with_buyers_premium: boolean | null;
-            readonly id: string;
-        }) | null;
-        readonly sale_artwork: ({
-            readonly is_with_reserve: boolean | null;
-            readonly reserve_message: string | null;
-            readonly reserve_status: string | null;
-            readonly endedAt: string | null;
-            readonly current_bid: ({
-                readonly display: string | null;
-            }) | null;
-            readonly counts: ({
-                readonly bidder_positions: number | null;
-            }) | null;
-            readonly id: string;
-        }) | null;
-        readonly myLotStanding: ReadonlyArray<{
-            readonly active_bid: ({
-                readonly is_winning: boolean | null;
-                readonly id: string;
-            }) | null;
-            readonly most_recent_bid: ({
-                readonly max_bid: ({
-                    readonly display: string | null;
-                }) | null;
-                readonly id: string;
-            }) | null;
-        }> | null;
-        readonly artists: ReadonlyArray<({
-            readonly internalID: string;
-            readonly id: string;
-            readonly name: string | null;
-            readonly slug: string;
-        }) | null> | null;
-        readonly slug: string;
-        readonly internalID: string;
-        readonly title: string | null;
-        readonly attributionClass: ({
-            readonly internalID: string;
-            readonly id: string;
-        }) | null;
-        readonly mediumType: ({
-            readonly filterGene: ({
-                readonly slug: string;
-                readonly name: string | null;
-                readonly id: string;
-            }) | null;
-        }) | null;
+export type ArtworkSidebarCurrentBidInfo_Test_Query$rawResponse = {
+  readonly artwork: {
+    readonly artists: ReadonlyArray<{
+      readonly id: string;
+      readonly internalID: string;
+      readonly name: string | null;
+      readonly slug: string;
+    } | null> | null;
+    readonly attributionClass: {
+      readonly id: string;
+      readonly internalID: string;
+    } | null;
+    readonly id: string;
+    readonly internalID: string;
+    readonly mediumType: {
+      readonly filterGene: {
         readonly id: string;
-    }) | null;
+        readonly name: string | null;
+        readonly slug: string;
+      } | null;
+    } | null;
+    readonly myLotStanding: ReadonlyArray<{
+      readonly active_bid: {
+        readonly id: string;
+        readonly is_winning: boolean | null;
+      } | null;
+      readonly most_recent_bid: {
+        readonly id: string;
+        readonly max_bid: {
+          readonly display: string | null;
+        } | null;
+      } | null;
+    }> | null;
+    readonly sale: {
+      readonly id: string;
+      readonly internalID: string;
+      readonly is_closed: boolean | null;
+      readonly is_live_open: boolean | null;
+      readonly is_with_buyers_premium: boolean | null;
+    } | null;
+    readonly sale_artwork: {
+      readonly counts: {
+        readonly bidder_positions: any | null;
+      } | null;
+      readonly current_bid: {
+        readonly display: string | null;
+      } | null;
+      readonly endedAt: string | null;
+      readonly id: string;
+      readonly is_with_reserve: boolean | null;
+      readonly reserve_message: string | null;
+      readonly reserve_status: string | null;
+    } | null;
+    readonly slug: string;
+    readonly title: string | null;
+  } | null;
 };
 export type ArtworkSidebarCurrentBidInfo_Test_Query = {
-    readonly response: ArtworkSidebarCurrentBidInfo_Test_QueryResponse;
-    readonly variables: ArtworkSidebarCurrentBidInfo_Test_QueryVariables;
-    readonly rawResponse: ArtworkSidebarCurrentBidInfo_Test_QueryRawResponse;
+  rawResponse: ArtworkSidebarCurrentBidInfo_Test_Query$rawResponse;
+  response: ArtworkSidebarCurrentBidInfo_Test_Query$data;
+  variables: ArtworkSidebarCurrentBidInfo_Test_Query$variables;
 };
-
-
-
-/*
-query ArtworkSidebarCurrentBidInfo_Test_Query {
-  artwork(id: "auction_artwork_estimate_premium") {
-    ...ArtworkSidebarCurrentBidInfo_artwork
-    id
-  }
-}
-
-fragment ArtworkSidebarBiddingClosedMessage_artwork on Artwork {
-  artists {
-    internalID
-    id
-  }
-  ...ArtworkSidebarCreateAlertButton_artwork
-}
-
-fragment ArtworkSidebarCreateAlertButton_artwork on Artwork {
-  slug
-  internalID
-  title
-  artists {
-    internalID
-    name
-    slug
-    id
-  }
-  attributionClass {
-    internalID
-    id
-  }
-  mediumType {
-    filterGene {
-      slug
-      name
-      id
-    }
-  }
-}
-
-fragment ArtworkSidebarCurrentBidInfo_artwork on Artwork {
-  sale {
-    is_closed: isClosed
-    is_live_open: isLiveOpen
-    internalID
-    is_with_buyers_premium: isWithBuyersPremium
-    id
-  }
-  sale_artwork: saleArtwork {
-    is_with_reserve: isWithReserve
-    reserve_message: reserveMessage
-    reserve_status: reserveStatus
-    endedAt
-    current_bid: currentBid {
-      display
-    }
-    counts {
-      bidder_positions: bidderPositions
-    }
-    id
-  }
-  myLotStanding(live: true) {
-    active_bid: activeBid {
-      is_winning: isWinning
-      id
-    }
-    most_recent_bid: mostRecentBid {
-      max_bid: maxBid {
-        display
-      }
-      id
-    }
-  }
-  ...ArtworkSidebarBiddingClosedMessage_artwork
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -604,5 +532,7 @@ return {
   }
 };
 })();
-(node as any).hash = '9f53bea289b18fcf11082e0ef5bc824a';
+
+(node as any).hash = "9f53bea289b18fcf11082e0ef5bc824a";
+
 export default node;

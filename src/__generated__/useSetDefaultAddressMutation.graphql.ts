@@ -1,85 +1,39 @@
+/**
+ * @generated SignedSource<<cc824b77a0085b1d0a4ac48fa7b79afe>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateUserDefaultAddressInput = {
-    clientMutationId?: string | null | undefined;
-    userAddressID: string;
+  clientMutationId?: string | null;
+  userAddressID: string;
 };
-export type useSetDefaultAddressMutationVariables = {
-    input: UpdateUserDefaultAddressInput;
+export type useSetDefaultAddressMutation$variables = {
+  input: UpdateUserDefaultAddressInput;
 };
-export type useSetDefaultAddressMutationResponse = {
-    readonly updateUserDefaultAddress: {
-        readonly me: {
-            readonly " $fragmentRefs": FragmentRefs<"SettingsShippingAddresses_me">;
-        } | null;
-        readonly userAddressOrErrors: {
-            readonly errors?: ReadonlyArray<{
-                readonly message: string;
-            }> | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"SettingsShippingAddress_address">;
-        };
+export type useSetDefaultAddressMutation$data = {
+  readonly updateUserDefaultAddress: {
+    readonly me: {
+      readonly " $fragmentSpreads": FragmentRefs<"SettingsShippingAddresses_me">;
     } | null;
+    readonly userAddressOrErrors: {
+      readonly errors?: ReadonlyArray<{
+        readonly message: string;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"SettingsShippingAddress_address">;
+    };
+  } | null;
 };
 export type useSetDefaultAddressMutation = {
-    readonly response: useSetDefaultAddressMutationResponse;
-    readonly variables: useSetDefaultAddressMutationVariables;
+  response: useSetDefaultAddressMutation$data;
+  variables: useSetDefaultAddressMutation$variables;
 };
-
-
-
-/*
-mutation useSetDefaultAddressMutation(
-  $input: UpdateUserDefaultAddressInput!
-) {
-  updateUserDefaultAddress(input: $input) {
-    me {
-      ...SettingsShippingAddresses_me
-      id
-    }
-    userAddressOrErrors {
-      __typename
-      ... on UserAddress {
-        ...SettingsShippingAddress_address
-        id
-      }
-      ... on Errors {
-        errors {
-          message
-        }
-      }
-    }
-  }
-}
-
-fragment SettingsShippingAddress_address on UserAddress {
-  internalID
-  addressLine1
-  addressLine2
-  city
-  country
-  isDefault
-  name
-  phoneNumber
-  postalCode
-  region
-}
-
-fragment SettingsShippingAddresses_me on Me {
-  addresses: addressConnection {
-    edges {
-      node {
-        internalID
-        ...SettingsShippingAddress_address
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -183,6 +137,13 @@ v4 = [
     "args": null,
     "kind": "ScalarField",
     "name": "phoneNumber",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "phoneNumberCountryCode",
     "storageKey": null
   },
   {
@@ -352,14 +313,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "03e81059561e806142acd07cf9317f0e",
+    "cacheID": "b02407901d827dc87ef7d37aee64c1e6",
     "id": null,
     "metadata": {},
     "name": "useSetDefaultAddressMutation",
     "operationKind": "mutation",
-    "text": "mutation useSetDefaultAddressMutation(\n  $input: UpdateUserDefaultAddressInput!\n) {\n  updateUserDefaultAddress(input: $input) {\n    me {\n      ...SettingsShippingAddresses_me\n      id\n    }\n    userAddressOrErrors {\n      __typename\n      ... on UserAddress {\n        ...SettingsShippingAddress_address\n        id\n      }\n      ... on Errors {\n        errors {\n          message\n        }\n      }\n    }\n  }\n}\n\nfragment SettingsShippingAddress_address on UserAddress {\n  internalID\n  addressLine1\n  addressLine2\n  city\n  country\n  isDefault\n  name\n  phoneNumber\n  postalCode\n  region\n}\n\nfragment SettingsShippingAddresses_me on Me {\n  addresses: addressConnection {\n    edges {\n      node {\n        internalID\n        ...SettingsShippingAddress_address\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation useSetDefaultAddressMutation(\n  $input: UpdateUserDefaultAddressInput!\n) {\n  updateUserDefaultAddress(input: $input) {\n    me {\n      ...SettingsShippingAddresses_me\n      id\n    }\n    userAddressOrErrors {\n      __typename\n      ... on UserAddress {\n        ...SettingsShippingAddress_address\n        id\n      }\n      ... on Errors {\n        errors {\n          message\n        }\n      }\n    }\n  }\n}\n\nfragment SettingsShippingAddress_address on UserAddress {\n  internalID\n  addressLine1\n  addressLine2\n  city\n  country\n  isDefault\n  name\n  phoneNumber\n  phoneNumberCountryCode\n  postalCode\n  region\n}\n\nfragment SettingsShippingAddresses_me on Me {\n  addresses: addressConnection {\n    edges {\n      node {\n        internalID\n        ...SettingsShippingAddress_address\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b78d72749b5efa860f8255d128f227f2';
+
+(node as any).hash = "b78d72749b5efa860f8255d128f227f2";
+
 export default node;

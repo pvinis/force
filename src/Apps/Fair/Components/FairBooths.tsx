@@ -2,10 +2,10 @@ import { useState } from "react"
 import * as React from "react"
 import { createRefetchContainer, graphql, RelayRefetchProp } from "react-relay"
 import useDeepCompareEffect from "use-deep-compare-effect"
-import { Box, Flex, FullBleed, Spacer } from "@artsy/palette"
+import { Text, Flex, FullBleed, Spacer, Join } from "@artsy/palette"
 import { isEqual } from "lodash"
 import { usePrevious } from "Utils/Hooks/usePrevious"
-import { FairBooths_fair } from "__generated__/FairBooths_fair.graphql"
+import { FairBooths_fair$data } from "__generated__/FairBooths_fair.graphql"
 import { Media } from "Utils/Responsive"
 import { Sticky } from "Components/Sticky"
 import { LoadingArea } from "Components/LoadingArea"
@@ -23,28 +23,30 @@ import {
 } from "./BoothFilterContext"
 import { FairBoothSortFilter } from "./FairBoothSortFilter"
 import { FairBoothRailFragmentContainer as FairBoothRail } from "./FairBoothRail"
-import { defaultSort, isValidSort } from "../Utils/IsValidSort"
+import { defaultSort, isValidSort } from "Apps/Fair/Utils/IsValidSort"
 import { extractNodes } from "Utils/extractNodes"
+import { Jump } from "Utils/Hooks/useJump"
 
 const logger = createLogger("FairBooths.tsx")
 
 const PAGE_SIZE = 15
 
 interface FairBoothsProps {
-  fair: FairBooths_fair
+  fair: FairBooths_fair$data
   relay: RelayRefetchProp
 }
 
 const FairBooths: React.FC<FairBoothsProps> = ({ fair, relay }) => {
   const context = useBoothsFilterContext()
-  const [isLoading, setIsLoading] = useState(false)
-  const previousFilters = usePrevious(context.filters!)
-  const shows = extractNodes(fair.exhibitors)
 
-  const {
-    pageInfo: { hasNextPage },
-    pageCursors,
-  } = fair.exhibitors!
+  const [isLoading, setIsLoading] = useState(false)
+
+  const previousFilters = usePrevious(context.filters!)
+
+  const shows = extractNodes(fair.exhibitors).filter(show => {
+    // Skip rendering of booths without artworks
+    return !((show.counts?.artworks ?? 0) === 0 || !show.partner)
+  })
 
   useDeepCompareEffect(() => {
     const filtersHaveUpdated = Object.entries(context.filters!).some(
@@ -59,7 +61,7 @@ const FairBooths: React.FC<FairBoothsProps> = ({ fair, relay }) => {
     }
   }, [context.filters])
 
-  function fetchResults() {
+  const fetchResults = () => {
     setIsLoading(true)
 
     const relayParams = {
@@ -80,19 +82,23 @@ const FairBooths: React.FC<FairBoothsProps> = ({ fair, relay }) => {
     })
   }
 
-  function loadPage(page) {
+  const loadPage = (page: number) => {
     context.setFilter("page", page)
   }
 
-  function loadNext() {
+  const loadNext = () => {
     if (fair.exhibitors?.pageInfo.hasNextPage) {
       loadPage(context?.filters?.page! + 1)
     }
   }
 
+  if (shows.length === 0) {
+    return null
+  }
+
   return (
     <>
-      <Box id="jump--BoothsFilter" />
+      <Jump id="BoothsFilter" />
 
       <Media at="xs">
         <Sticky>
@@ -103,10 +109,7 @@ const FairBooths: React.FC<FairBoothsProps> = ({ fair, relay }) => {
                 py={1}
                 px={2}
                 {...(stuck
-                  ? {
-                      borderBottom: "1px solid",
-                      borderColor: "black10",
-                    }
+                  ? { borderBottom: "1px solid", borderColor: "black10" }
                   : {})}
               >
                 <Flex justifyContent="flex-end">
@@ -119,36 +122,31 @@ const FairBooths: React.FC<FairBoothsProps> = ({ fair, relay }) => {
       </Media>
 
       <Media greaterThan="xs">
-        <Flex justifyContent="flex-end">
+        <Flex justifyContent="space-between" alignItems="flex-end">
+          <Text variant="lg-display">Booths</Text>
+
           <FairBoothSortFilter />
         </Flex>
       </Media>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <LoadingArea isLoading={isLoading}>
-        {shows.map((show, index) => {
-          if (show.counts?.artworks === 0 || !show.partner) {
-            // Skip rendering of booths without artworks
-            return null
-          }
-
-          return (
-            <Box my={6} key={index}>
-              <FairBoothRail key={show.id} show={show} />
-            </Box>
-          )
-        })}
+        <Join separator={<Spacer y={6} />}>
+          {shows.map(show => {
+            return <FairBoothRail key={show.id} show={show} />
+          })}
+        </Join>
       </LoadingArea>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <Pagination
-        hasNextPage={hasNextPage}
-        pageCursors={pageCursors}
+        hasNextPage={!!fair.exhibitors?.pageInfo.hasNextPage}
+        pageCursors={fair.exhibitors?.pageCursors}
         onClick={(_cursor, page) => loadPage(page)}
-        onNext={() => loadNext()}
-        scrollTo="#jump--BoothsFilter"
+        onNext={loadNext}
+        scrollTo="BoothsFilter"
       />
     </>
   )

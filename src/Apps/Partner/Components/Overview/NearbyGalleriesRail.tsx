@@ -1,6 +1,6 @@
 import { Box, BoxProps, Shelf, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { NearbyGalleriesRail_partners } from "__generated__/NearbyGalleriesRail_partners.graphql"
+import { NearbyGalleriesRail_partners$data } from "__generated__/NearbyGalleriesRail_partners.graphql"
 import { NearbyGalleriesRailRendererQuery } from "__generated__/NearbyGalleriesRailRendererQuery.graphql"
 import { useSystemContext } from "System"
 import { NearbyGalleriesRailPlaceholder } from "./NearbyGalleriesRailPlaceholder"
@@ -9,7 +9,7 @@ import { compact } from "lodash"
 import { CellPartnerFragmentContainer } from "Components/Cells/CellPartner"
 
 interface NearbyGalleriesRailProps extends BoxProps {
-  partners: NearbyGalleriesRail_partners
+  partners: NearbyGalleriesRail_partners$data
 }
 
 const NearbyGalleriesRail: React.FC<NearbyGalleriesRailProps> = ({

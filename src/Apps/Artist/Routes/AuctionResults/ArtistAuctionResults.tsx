@@ -1,14 +1,13 @@
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
+import { Title } from "react-head"
 import { ContextModule, Intent } from "@artsy/cohesion"
 import {
-  Box,
   Column,
   GridColumns,
   Join,
   Message,
   Spacer,
   Text,
-  themeProps,
 } from "@artsy/palette"
 import { isEqual } from "lodash"
 import { useContext, useState } from "react"
@@ -30,9 +29,8 @@ import { usePrevious } from "Utils/Hooks/usePrevious"
 import createLogger from "Utils/logger"
 import { openAuthModal } from "Utils/openAuthModal"
 import { Media } from "Utils/Responsive"
-import { scrollIntoView } from "Utils/scrollHelpers"
-import { ArtistAuctionResults_artist } from "__generated__/ArtistAuctionResults_artist.graphql"
-import { allowedAuctionResultFilters } from "../../Utils/allowedAuctionResultFilters"
+import { ArtistAuctionResults_artist$data } from "__generated__/ArtistAuctionResults_artist.graphql"
+import { allowedAuctionResultFilters } from "Apps/Artist/Utils/allowedAuctionResultFilters"
 import { ArtistAuctionResultItemFragmentContainer } from "./ArtistAuctionResultItem"
 import {
   AuctionResultsFilterContextProvider,
@@ -47,8 +45,8 @@ import { KeywordFilter } from "./Components/KeywordFilter"
 import { MarketStatsQueryRenderer } from "./Components/MarketStats"
 import { SortSelect } from "./Components/SortSelect"
 import { TableSidebar } from "./Components/TableSidebar"
-import { MetaTags } from "Components/MetaTags"
 import { extractNodes } from "Utils/extractNodes"
+import { Jump, useJump } from "Utils/Hooks/useJump"
 
 const logger = createLogger("ArtistAuctionResults.tsx")
 
@@ -56,17 +54,19 @@ const PAGE_SIZE = 10
 
 interface AuctionResultsProps {
   relay: RelayRefetchProp
-  artist: ArtistAuctionResults_artist
+  artist: ArtistAuctionResults_artist$data
 }
 
 const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
   artist,
   relay,
 }) => {
-  const isMobile = __internal__useMatchMedia(themeProps.mediaQueries.xs)
   const { user, mediator } = useContext(SystemContext)
+
   const { filters, setFilter } = useAuctionResultsFilterContext()
+
   const selectedFilters = useCurrentlySelectedFiltersForAuctionResults()
+
   const { pageInfo } = artist.auctionResultsConnection ?? {}
   const { hasNextPage, endCursor } = pageInfo ?? {}
   const artistName = artist.name
@@ -74,30 +74,19 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
   const results = extractNodes(artist.auctionResultsConnection)
 
   const { match } = useRouter()
+
   const { scrollToMarketSignals } = paramsToCamelCase(
     match?.location.query
   ) as { scrollToMarketSignals?: boolean }
 
-  const scrollToAuctionResultsTop = () => {
-    // Increasing offset if the user is not logged in to compensate the top log in container height
-    const offset = isMobile && user ? 90 : 140
+  const { jumpTo } = useJump()
 
-    scrollIntoView({
-      selector: "#scrollTo--artistAuctionResultsTop",
-      behavior: "smooth",
-      offset,
-    })
+  const scrollToAuctionResultsTop = () => {
+    jumpTo("artistAuctionResultsTop", { offset: 20 })
   }
 
   const scrollToMarketSignalsTop = () => {
-    // Increasing offset if the user is not logged in to compensate the top log in container height
-    const offset = isMobile && !user ? 120 : 75
-
-    scrollIntoView({
-      selector: "#scrollTo--marketSignalsTop",
-      behavior: "smooth",
-      offset,
-    })
+    jumpTo("marketSignalsTop")
   }
 
   const loadNext = () => {
@@ -199,7 +188,7 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
     })
   }
 
-  const titleString = `${artist.name} - Auction Results on Artsy`
+  const titleString = `${artistName} - Auction Results on Artsy`
 
   const handleMarketStatsRendered = (visible: boolean) => {
     // Scroll to auction results if param flag is present
@@ -214,9 +203,9 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
 
   return (
     <>
-      <MetaTags title={titleString} />
+      <Title>{titleString}</Title>
 
-      <Box id="scrollTo--marketSignalsTop" />
+      <Jump id="marketSignalsTop" />
 
       <MarketStatsQueryRenderer
         artistInternalID={artist.internalID}
@@ -224,11 +213,11 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
         onRendered={handleMarketStatsRendered}
       />
 
-      <Box id="scrollTo--artistAuctionResultsTop" />
+      <Jump id="artistAuctionResultsTop" />
 
       <Text variant={["sm-display", "lg-display"]}>Auction Results</Text>
 
-      <Spacer my={2} />
+      <Spacer y={2} />
 
       {showMobileActionSheet && (
         <AuctionFilterMobileActionSheet
@@ -253,7 +242,7 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
           </Column>
         </GridColumns>
 
-        <Spacer mt={4} />
+        <Spacer y={4} />
       </Media>
 
       <GridColumns>
@@ -268,11 +257,11 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
             toggleMobileActionSheet={toggleMobileActionSheet}
           />
 
-          <Spacer mt={[2, 0]} />
+          <Spacer y={[2, 0]} />
 
           {results.length > 0 ? (
             <LoadingArea isLoading={isLoading}>
-              <Join separator={<Spacer mt={2} />}>
+              <Join separator={<Spacer y={2} />}>
                 {results.map((result, index) => {
                   return (
                     <ArtistAuctionResultItemFragmentContainer
@@ -297,7 +286,6 @@ const AuctionResultsContainer: React.FC<AuctionResultsProps> = ({
             pageCursors={artist.auctionResultsConnection?.pageCursors}
             onClick={(_cursor, page) => loadPage(_cursor, page)}
             onNext={() => loadNext()}
-            scrollTo="#jumpto-ArtistHeader"
           />
         </Column>
       </GridColumns>

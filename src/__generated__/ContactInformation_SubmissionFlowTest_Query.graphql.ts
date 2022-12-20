@@ -1,58 +1,30 @@
+/**
+ * @generated SignedSource<<c4aa9980e53db644425734187862db1a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContactInformation_SubmissionFlowTest_QueryVariables = {
-    externalId?: string | null | undefined;
+export type ContactInformation_SubmissionFlowTest_Query$variables = {
+  externalId?: string | null;
 };
-export type ContactInformation_SubmissionFlowTest_QueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"ContactInformation_me">;
-    } | null;
-    readonly submission: {
-        readonly " $fragmentRefs": FragmentRefs<"ContactInformation_submission">;
-    } | null;
+export type ContactInformation_SubmissionFlowTest_Query$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContactInformation_me">;
+  } | null;
+  readonly submission: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContactInformation_submission">;
+  } | null;
 };
 export type ContactInformation_SubmissionFlowTest_Query = {
-    readonly response: ContactInformation_SubmissionFlowTest_QueryResponse;
-    readonly variables: ContactInformation_SubmissionFlowTest_QueryVariables;
+  response: ContactInformation_SubmissionFlowTest_Query$data;
+  variables: ContactInformation_SubmissionFlowTest_Query$variables;
 };
-
-
-
-/*
-query ContactInformation_SubmissionFlowTest_Query(
-  $externalId: ID
-) {
-  me {
-    ...ContactInformation_me
-    id
-  }
-  submission(externalId: $externalId) {
-    ...ContactInformation_submission
-    id
-  }
-}
-
-fragment ContactInformation_me on Me {
-  internalID
-  name
-  email
-  phone
-  phoneNumber {
-    isValid
-    international: display(format: INTERNATIONAL)
-    national: display(format: NATIONAL)
-    regionCode
-  }
-}
-
-fragment ContactInformation_submission on ConsignmentSubmission {
-  externalId
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -250,7 +222,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dc3d7214b8e39e5dee081569ad46db4a",
+    "cacheID": "c70130e48d361db25fe0d24185d524a1",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -292,9 +264,11 @@ return {
     },
     "name": "ContactInformation_SubmissionFlowTest_Query",
     "operationKind": "query",
-    "text": "query ContactInformation_SubmissionFlowTest_Query(\n  $externalId: ID\n) {\n  me {\n    ...ContactInformation_me\n    id\n  }\n  submission(externalId: $externalId) {\n    ...ContactInformation_submission\n    id\n  }\n}\n\nfragment ContactInformation_me on Me {\n  internalID\n  name\n  email\n  phone\n  phoneNumber {\n    isValid\n    international: display(format: INTERNATIONAL)\n    national: display(format: NATIONAL)\n    regionCode\n  }\n}\n\nfragment ContactInformation_submission on ConsignmentSubmission {\n  externalId\n}\n"
+    "text": "query ContactInformation_SubmissionFlowTest_Query(\n  $externalId: ID\n) {\n  me {\n    ...ContactInformation_me\n    id\n  }\n  submission(externalId: $externalId) {\n    ...ContactInformation_submission\n    id\n  }\n}\n\nfragment ContactInformationForm_me on Me {\n  internalID\n  name\n  email\n  phone\n  phoneNumber {\n    isValid\n    international: display(format: INTERNATIONAL)\n    national: display(format: NATIONAL)\n    regionCode\n  }\n}\n\nfragment ContactInformation_me on Me {\n  internalID\n  name\n  email\n  phone\n  phoneNumber {\n    isValid\n    international: display(format: INTERNATIONAL)\n    national: display(format: NATIONAL)\n    regionCode\n  }\n  ...ContactInformationForm_me\n}\n\nfragment ContactInformation_submission on ConsignmentSubmission {\n  externalId\n}\n"
   }
 };
 })();
-(node as any).hash = '3a25683fc533f44cedfd5528a565c3f7';
+
+(node as any).hash = "3a25683fc533f44cedfd5528a565c3f7";
+
 export default node;

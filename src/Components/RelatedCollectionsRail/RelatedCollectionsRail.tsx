@@ -1,4 +1,4 @@
-import { RelatedCollectionsRail_collections } from "__generated__/RelatedCollectionsRail_collections.graphql"
+import { RelatedCollectionsRail_collections$data } from "__generated__/RelatedCollectionsRail_collections.graphql"
 import * as DeprecatedSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { once } from "lodash"
 import * as React from "react"
@@ -6,11 +6,11 @@ import { createFragmentContainer, graphql } from "react-relay"
 import Waypoint from "react-waypoint"
 import { RelatedCollectionEntityFragmentContainer as RelatedCollectionEntity } from "./RelatedCollectionEntity"
 import { useAnalyticsContext } from "System/Analytics/AnalyticsContext"
-import { Rail } from "../Rail"
+import { Rail } from "Components/Rail"
 import { useTracking } from "react-tracking"
 
 interface RelatedCollectionsRailProps {
-  collections: RelatedCollectionsRail_collections
+  collections: RelatedCollectionsRail_collections$data
   title?: string
   lazyLoadImages?: boolean
 }

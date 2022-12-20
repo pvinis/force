@@ -1,45 +1,47 @@
+/**
+ * @generated SignedSource<<575d10b1103ae788b5d78d214154b1db>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellPartner_partner = {
-    readonly internalID: string;
-    readonly slug: string;
+export type CellPartner_partner$data = {
+  readonly categories: ReadonlyArray<{
     readonly name: string | null;
-    readonly href: string | null;
-    readonly initials: string | null;
-    readonly locationsConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly city: string | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly categories: ReadonlyArray<{
-        readonly name: string | null;
-        readonly slug: string;
+    readonly slug: string;
+  } | null> | null;
+  readonly href: string | null;
+  readonly initials: string | null;
+  readonly internalID: string;
+  readonly locationsConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly city: string | null;
+      } | null;
     } | null> | null;
-    readonly profile: {
-        readonly image: {
-            readonly cropped: {
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"FollowProfileButton_profile">;
+  } | null;
+  readonly name: string | null;
+  readonly profile: {
+    readonly image: {
+      readonly cropped: {
+        readonly src: string;
+        readonly srcSet: string;
+      } | null;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHeaderPartner_partner">;
-    readonly " $refType": "CellPartner_partner";
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderPartner_partner">;
+  readonly " $fragmentType": "CellPartner_partner";
 };
-export type CellPartner_partner$data = CellPartner_partner;
 export type CellPartner_partner$key = {
-    readonly " $data"?: CellPartner_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CellPartner_partner">;
+  readonly " $data"?: CellPartner_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CellPartner_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -62,6 +64,11 @@ return {
   "metadata": null,
   "name": "CellPartner_partner",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "EntityHeaderPartner_partner"
+    },
     {
       "alias": null,
       "args": null,
@@ -208,24 +215,16 @@ return {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowProfileButton_profile"
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntityHeaderPartner_partner"
     }
   ],
   "type": "Partner",
   "abstractKey": null
 };
 })();
-(node as any).hash = '58bd0b98f38e647dd9bb2a1a74b181e5';
+
+(node as any).hash = "964a81aa9dfdd0182864e9b4d12d3308";
+
 export default node;

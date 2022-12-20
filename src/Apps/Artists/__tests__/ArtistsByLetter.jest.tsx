@@ -1,4 +1,4 @@
-import { ArtistsByLetterFragmentContainer } from "../Routes/ArtistsByLetter"
+import { ArtistsByLetterFragmentContainer } from "Apps/Artists/Routes/ArtistsByLetter"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
 import { ArtistsByLetterQuery } from "__generated__/ArtistsByLetterQuery.graphql"
 import { MockBoot } from "DevTools"

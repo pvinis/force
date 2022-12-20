@@ -1,11 +1,14 @@
 import { graphql } from "react-relay"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
-import { ArtistWorksForSaleRailFragmentContainer } from "../ArtistWorksForSaleRail"
+import { ArtistWorksForSaleRailFragmentContainer } from "Apps/Artist/Routes/Overview/Components/ArtistWorksForSaleRail"
 import { ArtistWorksForSaleRail_Test_Query } from "__generated__/ArtistWorksForSaleRail_Test_Query.graphql"
 import { useTracking } from "react-tracking"
 
 jest.unmock("react-relay")
 jest.mock("react-tracking")
+jest.mock("Utils/Hooks/useJump", () => ({
+  useJump: () => ({ jumpTo: jest.fn() }),
+}))
 
 describe("ArtistWorksForSaleRail", () => {
   const { getWrapper } = setupTestWrapper<ArtistWorksForSaleRail_Test_Query>({
@@ -45,13 +48,13 @@ describe("ArtistWorksForSaleRail", () => {
       }),
     })
     expect(wrapper.text()).toContain("Works For Sale")
-    expect(wrapper.find("RouterLink").length).toBe(4)
+    expect(wrapper.find("RouterLink").length).toBe(3)
     expect(wrapper.find("RouterLink").at(0).props().to).toContain(
       "/artist/artistSlug/works-for-sale"
     )
     expect(wrapper.text()).toContain("View All Works")
     expect(wrapper.find("Shelf").length).toBe(1)
-    expect(wrapper.find("Image").length).toBe(2)
+    expect(wrapper.find("Image").length).toBe(1)
     expect(wrapper.text()).toContain("title")
     expect(wrapper.text()).toContain("date")
   })

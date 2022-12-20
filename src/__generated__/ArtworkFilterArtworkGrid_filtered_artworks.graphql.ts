@@ -1,33 +1,36 @@
+/**
+ * @generated SignedSource<<c309a3d4ba5310d2f9b36a008076c16a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkFilterArtworkGrid_filtered_artworks = {
-    readonly id: string;
-    readonly pageInfo: {
-        readonly hasNextPage: boolean;
-        readonly endCursor: string | null;
-    };
-    readonly pageCursors: {
-        readonly " $fragmentRefs": FragmentRefs<"Pagination_pageCursors">;
-    };
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-        } | null;
-    } | null> | null;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkGrid_artworks">;
-    readonly " $refType": "ArtworkFilterArtworkGrid_filtered_artworks";
+export type ArtworkFilterArtworkGrid_filtered_artworks$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly id: string;
+    } | null;
+  } | null> | null;
+  readonly id: string;
+  readonly pageCursors: {
+    readonly " $fragmentSpreads": FragmentRefs<"Pagination_pageCursors">;
+  };
+  readonly pageInfo: {
+    readonly endCursor: string | null;
+    readonly hasNextPage: boolean;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkGrid_artworks">;
+  readonly " $fragmentType": "ArtworkFilterArtworkGrid_filtered_artworks";
 };
-export type ArtworkFilterArtworkGrid_filtered_artworks$data = ArtworkFilterArtworkGrid_filtered_artworks;
 export type ArtworkFilterArtworkGrid_filtered_artworks$key = {
-    readonly " $data"?: ArtworkFilterArtworkGrid_filtered_artworks$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkFilterArtworkGrid_filtered_artworks">;
+  readonly " $data"?: ArtworkFilterArtworkGrid_filtered_artworks$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkFilterArtworkGrid_filtered_artworks">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -118,5 +121,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '04cd49aefae4484840f678821ea905e1';
+
+(node as any).hash = "04cd49aefae4484840f678821ea905e1";
+
 export default node;

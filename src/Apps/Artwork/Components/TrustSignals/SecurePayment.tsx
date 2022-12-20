@@ -1,5 +1,5 @@
 import { Link, LockIcon } from "@artsy/palette"
-import { SecurePayment_artwork } from "__generated__/SecurePayment_artwork.graphql"
+import { SecurePayment_artwork$data } from "__generated__/SecurePayment_artwork.graphql"
 import * as React from "react"
 import { createFragmentContainer } from "react-relay"
 import { graphql } from "react-relay"
@@ -8,7 +8,7 @@ import { shouldRenderBuyerGuaranteeAndSecurePayment } from "Apps/Artwork/Utils/b
 
 interface SecurePaymentProps
   extends Omit<TrustSignalProps, "Icon" | "label" | "description"> {
-  artwork: SecurePayment_artwork
+  artwork: SecurePayment_artwork$data
 }
 
 export const SecurePayment: React.FC<SecurePaymentProps> = ({
@@ -19,7 +19,7 @@ export const SecurePayment: React.FC<SecurePaymentProps> = ({
     return (
       <TrustSignal
         Icon={<LockIcon />}
-        label="Secure payment"
+        label="Secure Checkout"
         description={
           <>
             {"Secure transactions by credit card through Stripe."}

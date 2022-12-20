@@ -1,78 +1,88 @@
+/**
+ * @generated SignedSource<<cae6d835e6f122b2fb3a9963b38bf8ba>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderPartner_partner = {
-    readonly internalID: string;
-    readonly type: string | null;
-    readonly slug: string;
-    readonly href: string | null;
+export type EntityHeaderPartner_partner$data = {
+  readonly categories: ReadonlyArray<{
     readonly name: string | null;
-    readonly initials: string | null;
-    readonly locationsConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly city: string | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly categories: ReadonlyArray<{
-        readonly name: string | null;
-        readonly slug: string;
+    readonly slug: string;
+  } | null> | null;
+  readonly href: string | null;
+  readonly initials: string | null;
+  readonly internalID: string;
+  readonly locationsConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly city: string | null;
+      } | null;
     } | null> | null;
-    readonly profile: {
-        readonly avatar: {
-            readonly cropped: {
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
-        readonly icon: {
-            readonly cropped: {
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"FollowProfileButton_profile">;
+  } | null;
+  readonly name: string | null;
+  readonly profile: {
+    readonly avatar: {
+      readonly cropped: {
+        readonly src: string;
+        readonly srcSet: string;
+      } | null;
     } | null;
-    readonly " $refType": "EntityHeaderPartner_partner";
+    readonly icon: {
+      readonly cropped: {
+        readonly src: string;
+        readonly srcSet: string;
+      } | null;
+    } | null;
+    readonly internalID: string;
+  } | null;
+  readonly slug: string;
+  readonly type: string | null;
+  readonly " $fragmentType": "EntityHeaderPartner_partner";
 };
-export type EntityHeaderPartner_partner$data = EntityHeaderPartner_partner;
 export type EntityHeaderPartner_partner$key = {
-    readonly " $data"?: EntityHeaderPartner_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHeaderPartner_partner">;
+  readonly " $data"?: EntityHeaderPartner_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderPartner_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "internalID",
   "storageKey": null
 },
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "slug",
   "storageKey": null
 },
 v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v3 = {
   "kind": "Literal",
   "name": "height",
   "value": 45
 },
-v3 = {
+v4 = {
   "kind": "Literal",
   "name": "width",
   "value": 45
 },
-v4 = [
+v5 = [
   {
     "alias": null,
     "args": null,
@@ -94,13 +104,7 @@ return {
   "metadata": null,
   "name": "EntityHeaderPartner_partner",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "internalID",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -108,7 +112,7 @@ return {
       "name": "type",
       "storageKey": null
     },
-    (v0/*: any*/),
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -116,7 +120,7 @@ return {
       "name": "href",
       "storageKey": null
     },
-    (v1/*: any*/),
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -178,8 +182,8 @@ return {
       "name": "categories",
       "plural": true,
       "selections": [
-        (v1/*: any*/),
-        (v0/*: any*/)
+        (v2/*: any*/),
+        (v1/*: any*/)
       ],
       "storageKey": null
     },
@@ -191,6 +195,7 @@ return {
       "name": "profile",
       "plural": false,
       "selections": [
+        (v0/*: any*/),
         {
           "alias": "avatar",
           "args": null,
@@ -202,14 +207,14 @@ return {
             {
               "alias": null,
               "args": [
-                (v2/*: any*/),
-                (v3/*: any*/)
+                (v3/*: any*/),
+                (v4/*: any*/)
               ],
               "concreteType": "CroppedImageUrl",
               "kind": "LinkedField",
               "name": "cropped",
               "plural": false,
-              "selections": (v4/*: any*/),
+              "selections": (v5/*: any*/),
               "storageKey": "cropped(height:45,width:45)"
             }
           ],
@@ -226,7 +231,7 @@ return {
             {
               "alias": null,
               "args": [
-                (v2/*: any*/),
+                (v3/*: any*/),
                 {
                   "kind": "Literal",
                   "name": "version",
@@ -236,22 +241,17 @@ return {
                     "square"
                   ]
                 },
-                (v3/*: any*/)
+                (v4/*: any*/)
               ],
               "concreteType": "CroppedImageUrl",
               "kind": "LinkedField",
               "name": "cropped",
               "plural": false,
-              "selections": (v4/*: any*/),
+              "selections": (v5/*: any*/),
               "storageKey": "cropped(height:45,version:[\"untouched-png\",\"large\",\"square\"],width:45)"
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowProfileButton_profile"
         }
       ],
       "storageKey": null
@@ -261,5 +261,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7f4e8871facf3f86981d91a011a74e42';
+
+(node as any).hash = "1fa70f0591ef3f427adcdc0e0633bfe5";
+
 export default node;

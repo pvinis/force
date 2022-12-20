@@ -25,7 +25,7 @@ export const CreditCardInput: React.FC<CreditCardInputProps> = ({
   ...rest
 }) => {
   return (
-    <Box {...rest}>
+    <Box data-test="creditCardInput" {...rest}>
       {(title || description) && (
         <>
           <div>
@@ -47,7 +47,7 @@ export const CreditCardInput: React.FC<CreditCardInputProps> = ({
             )}
           </div>
 
-          <Spacer m={0.5} />
+          <Spacer x={0.5} y={0.5} />
         </>
       )}
 

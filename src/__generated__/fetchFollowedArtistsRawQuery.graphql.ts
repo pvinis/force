@@ -1,53 +1,35 @@
+/**
+ * @generated SignedSource<<4d34595cd3daf96ab664a8846866870e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type fetchFollowedArtistsRawQueryVariables = {};
-export type fetchFollowedArtistsRawQueryResponse = {
-    readonly me: {
-        readonly followsAndSaves: {
-            readonly artistsConnection: {
-                readonly edges: ReadonlyArray<{
-                    readonly node: {
-                        readonly artist: {
-                            readonly slug: string;
-                            readonly internalID: string;
-                        } | null;
-                    } | null;
-                } | null> | null;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type fetchFollowedArtistsRawQuery$variables = {};
+export type fetchFollowedArtistsRawQuery$data = {
+  readonly me: {
+    readonly followsAndSaves: {
+      readonly artistsConnection: {
+        readonly edges: ReadonlyArray<{
+          readonly node: {
+            readonly artist: {
+              readonly internalID: string;
+              readonly slug: string;
             } | null;
-        } | null;
+          } | null;
+        } | null> | null;
+      } | null;
     } | null;
+  } | null;
 };
 export type fetchFollowedArtistsRawQuery = {
-    readonly response: fetchFollowedArtistsRawQueryResponse;
-    readonly variables: fetchFollowedArtistsRawQueryVariables;
+  response: fetchFollowedArtistsRawQuery$data;
+  variables: fetchFollowedArtistsRawQuery$variables;
 };
-
-
-
-/*
-query fetchFollowedArtistsRawQuery {
-  me {
-    followsAndSaves {
-      artistsConnection(first: 99) {
-        edges {
-          node {
-            artist {
-              slug
-              internalID
-              id
-            }
-            id
-          }
-        }
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -246,5 +228,7 @@ return {
   }
 };
 })();
-(node as any).hash = '33bef2615ffa38089137468acd41065c';
+
+(node as any).hash = "33bef2615ffa38089137468acd41065c";
+
 export default node;

@@ -1,82 +1,63 @@
+/**
+ * @generated SignedSource<<789b3a5307b1530ad2d6831210b8d50a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type UpdateSmsSecondFactorInput = {
-    attributes: SmsSecondFactorAttributes;
-    clientMutationId?: string | null | undefined;
-    secondFactorID: string;
+  attributes: SmsSecondFactorAttributes;
+  clientMutationId?: string | null;
+  secondFactorID: string;
 };
 export type SmsSecondFactorAttributes = {
-    countryCode?: string | null | undefined;
-    phoneNumber?: string | null | undefined;
+  countryCode?: string | null;
+  phoneNumber?: string | null;
 };
-export type UpdateSmsSecondFactorMutationVariables = {
-    input: UpdateSmsSecondFactorInput;
+export type UpdateSmsSecondFactorMutation$variables = {
+  input: UpdateSmsSecondFactorInput;
 };
-export type UpdateSmsSecondFactorMutationResponse = {
-    readonly updateSmsSecondFactor: {
-        readonly secondFactorOrErrors: {
-            readonly __typename: "SmsSecondFactor";
-        } | {
-            readonly __typename: "Errors";
-            readonly errors: ReadonlyArray<{
-                readonly message: string;
-                readonly code: string;
-                readonly data: unknown | null;
-            }>;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        };
-    } | null;
+export type UpdateSmsSecondFactorMutation$data = {
+  readonly updateSmsSecondFactor: {
+    readonly secondFactorOrErrors: {
+      readonly __typename: "Errors";
+      readonly errors: ReadonlyArray<{
+        readonly code: string;
+        readonly data: any | null;
+        readonly message: string;
+      }>;
+    } | {
+      readonly __typename: "SmsSecondFactor";
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    };
+  } | null;
 };
-export type UpdateSmsSecondFactorMutationRawResponse = {
-    readonly updateSmsSecondFactor: ({
-        readonly secondFactorOrErrors: {
-            readonly __typename: "Errors";
-            readonly errors: ReadonlyArray<{
-                readonly message: string;
-                readonly code: string;
-                readonly data: unknown | null;
-            }>;
-        } | {
-            readonly __typename: string;
-        };
-    }) | null;
+export type UpdateSmsSecondFactorMutation$rawResponse = {
+  readonly updateSmsSecondFactor: {
+    readonly secondFactorOrErrors: {
+      readonly __typename: "Errors";
+      readonly errors: ReadonlyArray<{
+        readonly code: string;
+        readonly data: any | null;
+        readonly message: string;
+      }>;
+    } | {
+      readonly __typename: string;
+    };
+  } | null;
 };
 export type UpdateSmsSecondFactorMutation = {
-    readonly response: UpdateSmsSecondFactorMutationResponse;
-    readonly variables: UpdateSmsSecondFactorMutationVariables;
-    readonly rawResponse: UpdateSmsSecondFactorMutationRawResponse;
+  rawResponse: UpdateSmsSecondFactorMutation$rawResponse;
+  response: UpdateSmsSecondFactorMutation$data;
+  variables: UpdateSmsSecondFactorMutation$variables;
 };
-
-
-
-/*
-mutation UpdateSmsSecondFactorMutation(
-  $input: UpdateSmsSecondFactorInput!
-) {
-  updateSmsSecondFactor(input: $input) {
-    secondFactorOrErrors {
-      __typename
-      ... on SmsSecondFactor {
-        __typename
-      }
-      ... on Errors {
-        __typename
-        errors {
-          message
-          code
-          data
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -231,5 +212,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b80fa9c087543c25564b1ede065855ca';
+
+(node as any).hash = "b80fa9c087543c25564b1ede065855ca";
+
 export default node;

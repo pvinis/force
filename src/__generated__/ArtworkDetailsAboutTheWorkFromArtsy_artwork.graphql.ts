@@ -1,22 +1,34 @@
+/**
+ * @generated SignedSource<<13c150a4fd96be3c7576e34350fd7eee>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkDetailsAboutTheWorkFromArtsy_artwork = {
-    readonly description: string | null;
-    readonly " $refType": "ArtworkDetailsAboutTheWorkFromArtsy_artwork";
+export type ArtworkDetailsAboutTheWorkFromArtsy_artwork$data = {
+  readonly additionalInformation: string | null;
+  readonly description: string | null;
+  readonly " $fragmentType": "ArtworkDetailsAboutTheWorkFromArtsy_artwork";
 };
-export type ArtworkDetailsAboutTheWorkFromArtsy_artwork$data = ArtworkDetailsAboutTheWorkFromArtsy_artwork;
 export type ArtworkDetailsAboutTheWorkFromArtsy_artwork$key = {
-    readonly " $data"?: ArtworkDetailsAboutTheWorkFromArtsy_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkDetailsAboutTheWorkFromArtsy_artwork">;
+  readonly " $data"?: ArtworkDetailsAboutTheWorkFromArtsy_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkDetailsAboutTheWorkFromArtsy_artwork">;
 };
 
-
-
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "kind": "Literal",
+    "name": "format",
+    "value": "HTML"
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -24,20 +36,24 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "format",
-          "value": "HTML"
-        }
-      ],
+      "args": (v0/*: any*/),
       "kind": "ScalarField",
       "name": "description",
       "storageKey": "description(format:\"HTML\")"
+    },
+    {
+      "alias": null,
+      "args": (v0/*: any*/),
+      "kind": "ScalarField",
+      "name": "additionalInformation",
+      "storageKey": "additionalInformation(format:\"HTML\")"
     }
   ],
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = '621e4eaa61c267369ccc26d7d14d9ef3';
+})();
+
+(node as any).hash = "d9c920f09b7daa0d6a39a333cb4d0d6e";
+
 export default node;

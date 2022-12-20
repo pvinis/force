@@ -1,7 +1,7 @@
 import { FullBleed, Join, Separator, Spacer } from "@artsy/palette"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArticleApp_article } from "__generated__/ArticleApp_article.graphql"
+import { ArticleApp_article$data } from "__generated__/ArticleApp_article.graphql"
 import { ArticleBodyFragmentContainer } from "./Components/ArticleBody"
 import { ArticleChannelRelatedArticlesQueryRenderer } from "./Components/ArticleChannelRelatedArticles"
 import { ArticleInfiniteScrollQueryRenderer } from "./Components/ArticleInfiniteScroll"
@@ -16,7 +16,7 @@ import { ContextModule, Intent } from "@artsy/cohesion"
 import { useRouter } from "System/Router/useRouter"
 
 interface ArticleAppProps {
-  article: ArticleApp_article
+  article: ArticleApp_article$data
 }
 
 const ArticleApp: FC<ArticleAppProps> = ({ article }) => {
@@ -30,8 +30,9 @@ const ArticleApp: FC<ArticleAppProps> = ({ article }) => {
       intent: Intent.viewEditorial,
       contextModule: ContextModule.popUpModal,
       copy: "Sign up for the latest in art market news",
-      destination: location.pathname,
-      afterSignUpAction: { action: "editorialSignup" },
+      // TODO: Onboarding is triggered based on contents of redirectTo
+      // prop. Move this to `afterSignupAction.action`
+      redirectTo: location.pathname,
     },
   })
 
@@ -39,7 +40,7 @@ const ArticleApp: FC<ArticleAppProps> = ({ article }) => {
     <ArticleAdProvider>
       <ArticleMetaTagsFragmentContainer article={article} />
 
-      <Join separator={<Spacer mt={4} />}>
+      <Join separator={<Spacer y={4} />}>
         {(() => {
           switch (article.layout) {
             case "SERIES":

@@ -1,77 +1,27 @@
+/**
+ * @generated SignedSource<<8e18d2466c9e628388b64b5f8c3d952d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkRelatedArtistsQueryVariables = {
-    slug: string;
+export type ArtworkRelatedArtistsQuery$variables = {
+  slug: string;
 };
-export type ArtworkRelatedArtistsQueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkRelatedArtists_artwork">;
-    } | null;
+export type ArtworkRelatedArtistsQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkRelatedArtists_artwork">;
+  } | null;
 };
 export type ArtworkRelatedArtistsQuery = {
-    readonly response: ArtworkRelatedArtistsQueryResponse;
-    readonly variables: ArtworkRelatedArtistsQueryVariables;
+  response: ArtworkRelatedArtistsQuery$data;
+  variables: ArtworkRelatedArtistsQuery$variables;
 };
-
-
-
-/*
-query ArtworkRelatedArtistsQuery(
-  $slug: String!
-) {
-  artwork(id: $slug) {
-    ...ArtworkRelatedArtists_artwork
-    id
-  }
-}
-
-fragment ArtworkRelatedArtists_artwork on Artwork {
-  slug
-  artist {
-    href
-    related {
-      artistsConnection(kind: MAIN, first: 6, after: "") {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        edges {
-          node {
-            ...EntityHeaderArtist_artist
-            id
-            __typename
-          }
-          cursor
-        }
-      }
-    }
-    id
-  }
-}
-
-fragment EntityHeaderArtist_artist on Artist {
-  internalID
-  href
-  slug
-  name
-  initials
-  formattedNationalityAndBirthday
-  counts {
-    artworks
-    forSaleArtworks
-  }
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -394,5 +344,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b70d8f1ea6766b10931ee952b9ab8c00';
+
+(node as any).hash = "b70d8f1ea6766b10931ee952b9ab8c00";
+
 export default node;

@@ -2,8 +2,8 @@ import { FC } from "react"
 import { Box, Flex, Join, Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
-import { ChannelApp_channel } from "__generated__/ChannelApp_channel.graphql"
-import { ArticleAdProvider } from "../Article/Components/ArticleAd"
+import { ChannelApp_channel$data } from "__generated__/ChannelApp_channel.graphql"
+import { ArticleAdProvider } from "Apps/Article/Components/ArticleAd"
 import {
   FullBleedHeader,
   FullBleedHeaderOverlay,
@@ -12,7 +12,7 @@ import { RouterLink } from "System/Router/RouterLink"
 import { ChannelArticlesPaginationContainer } from "./Components/ChannelArticles"
 
 interface ChannelAppProps {
-  channel: ChannelApp_channel
+  channel: ChannelApp_channel$data
 }
 
 const ChannelApp: FC<ChannelAppProps> = ({ channel }) => {
@@ -55,7 +55,7 @@ const ChannelApp: FC<ChannelAppProps> = ({ channel }) => {
 
               {channel.links.length > 0 && (
                 <Text variant="xs" display="flex" mt={[4, 0]}>
-                  <Join separator={<Spacer ml={1} />}>
+                  <Join separator={<Spacer x={1} />}>
                     {channel.links.map(link => (
                       <RouterLink
                         key={link.url}
@@ -73,7 +73,7 @@ const ChannelApp: FC<ChannelAppProps> = ({ channel }) => {
         </FullBleedHeader>
       ) : (
         <>
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           <Text variant="xxl" as="h1">
             {channel.name}
@@ -87,11 +87,11 @@ const ChannelApp: FC<ChannelAppProps> = ({ channel }) => {
         </>
       )}
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <Text variant="lg-display">Latest Articles</Text>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <ChannelArticlesPaginationContainer channel={channel} />
     </ArticleAdProvider>

@@ -1,6 +1,6 @@
 import { graphql } from "react-relay"
-import { ShowAppFragmentContainer } from "../ShowApp"
-import { ShowViewingRoom } from "../Components/ShowViewingRoom"
+import { ShowAppFragmentContainer } from "Apps/Show/ShowApp"
+import { ShowViewingRoom } from "Apps/Show/Components/ShowViewingRoom"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
 import { ShowApp_Test_Query } from "__generated__/ShowApp_Test_Query.graphql"
 
@@ -87,12 +87,24 @@ describe("ShowApp", () => {
     expect(wrapper.find(ShowViewingRoom)).toHaveLength(1)
   })
 
-  it("do not render `Back to Fair` banner by default", () => {
+  it("does not render `Back to Fair` banner by default", () => {
     const wrapper = getWrapper({
       Show: () => ({
         isFairBooth: false,
         name: "Example Show",
-        fair: { name: "Example Fair", href: "example" },
+        fair: { name: "Example Fair", href: "example", hasFullFeature: true },
+      }),
+    })
+
+    expect(wrapper.find("BackToFairBanner").length).toEqual(0)
+  })
+
+  it("does not render `Back to Fair` banner without full featured fair", () => {
+    const wrapper = getWrapper({
+      Show: () => ({
+        isFairBooth: true,
+        name: "Example Show",
+        fair: { name: "Example Fair", href: "example", hasFullFeature: false },
       }),
     })
 
@@ -104,7 +116,7 @@ describe("ShowApp", () => {
       Show: () => ({
         isFairBooth: true,
         name: "Example Show",
-        fair: { name: "Example Fair", href: "example" },
+        fair: { name: "Example Fair", href: "example", hasFullFeature: true },
       }),
     })
 

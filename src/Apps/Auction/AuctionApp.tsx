@@ -2,9 +2,9 @@ import { Box, Join, Message, Spacer, Tab, Tabs, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { FullBleedHeader } from "Components/FullBleedHeader"
 import { AnalyticsContext, useAnalyticsContext } from "System"
-import { AuctionApp_me } from "__generated__/AuctionApp_me.graphql"
-import { AuctionApp_sale } from "__generated__/AuctionApp_sale.graphql"
-import { AuctionApp_viewer } from "__generated__/AuctionApp_viewer.graphql"
+import { AuctionApp_me$data } from "__generated__/AuctionApp_me.graphql"
+import { AuctionApp_sale$data } from "__generated__/AuctionApp_sale.graphql"
+import { AuctionApp_viewer$data } from "__generated__/AuctionApp_viewer.graphql"
 import { AuctionMetaFragmentContainer } from "./Components/AuctionMeta"
 import { AuctionActiveBidsRefetchContainer } from "./Components/AuctionActiveBids"
 import { AuctionArtworkFilterRefetchContainer } from "./Components/AuctionArtworkFilter"
@@ -20,9 +20,9 @@ import { WebsocketContextProvider } from "System/WebsocketContext"
 import { CascadingEndTimesBannerFragmentContainer } from "Components/CascadingEndTimesBanner"
 
 export interface AuctionAppProps {
-  me: AuctionApp_me
-  sale: AuctionApp_sale
-  viewer: AuctionApp_viewer
+  me: AuctionApp_me$data
+  sale: AuctionApp_sale$data
+  viewer: AuctionApp_viewer$data
 }
 
 export const AuctionApp: React.FC<AuctionAppProps> = ({
@@ -84,14 +84,14 @@ export const AuctionApp: React.FC<AuctionAppProps> = ({
 
           <AuctionMetaFragmentContainer sale={sale} />
 
-          <Join separator={<Spacer my={4} />}>
+          <Join separator={<Spacer y={4} />}>
             {sale.coverImage?.url ? (
               <FullBleedHeader
                 fixed={isFullBleedHeaderFixed}
                 src={sale.coverImage.url}
               />
             ) : (
-              <Spacer my={2} />
+              <Spacer y={2} />
             )}
 
             <AuctionDetailsFragmentContainer sale={sale} me={me} />
@@ -140,7 +140,7 @@ export const AuctionApp: React.FC<AuctionAppProps> = ({
                   </Text>
                 </Message>
 
-                <Spacer my={2} />
+                <Spacer y={2} />
 
                 <AuctionCurrentAuctionsRailFragmentContainer viewer={viewer} />
               </>

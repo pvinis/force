@@ -1,22 +1,24 @@
 import { Box, BoxProps, Input } from "@artsy/palette"
 import { useFormikContext } from "formik"
-import { ContactInformation_me } from "__generated__/ContactInformation_me.graphql"
-import { getPhoneNumberInformation } from "../../Utils/phoneNumberUtils"
-import { useSystemContext } from "System"
-import { PhoneNumber, PhoneNumberInput } from "./PhoneNumberInput"
+import { createFragmentContainer, graphql } from "react-relay"
+import { ContactInformationForm_me$data } from "__generated__/ContactInformationForm_me.graphql"
+import { PhoneNumberInput } from "Components/PhoneNumberInput"
 
 export interface ContactInformationFormModel {
   name: string
   email: string
-  phone: PhoneNumber & { international?: string }
+  phoneNumber: string
+  phoneNumberCountryCode: string
 }
 
 export interface ContactInformationFormProps extends BoxProps {
-  me: ContactInformation_me
+  me: ContactInformationForm_me$data
+  optionalPhoneNumber?: boolean
 }
 
 export const ContactInformationForm: React.FC<ContactInformationFormProps> = ({
   me,
+  optionalPhoneNumber = false,
   ...rest
 }) => {
   const {
@@ -27,33 +29,13 @@ export const ContactInformationForm: React.FC<ContactInformationFormProps> = ({
     errors,
     setFieldValue,
   } = useFormikContext<ContactInformationFormModel>()
-  const { relayEnvironment } = useSystemContext()
-
-  const handlePhoneNumberChange = async (region, number) => {
-    if (region && number && relayEnvironment) {
-      const phoneInformation = await getPhoneNumberInformation(
-        number,
-        relayEnvironment,
-        region
-      )
-      setFieldValue("phone", phoneInformation)
-      return
-    }
-
-    setFieldValue("phone", {
-      international: "",
-      isValid: false,
-      national: "",
-      originalNumber: "",
-    })
-  }
 
   return (
     <Box {...rest}>
       <Input
         maxLength={256}
         name="name"
-        title="name"
+        title="Name"
         placeholder="Your full name"
         value={values.name}
         onChange={handleChange}
@@ -63,7 +45,7 @@ export const ContactInformationForm: React.FC<ContactInformationFormProps> = ({
         mt={4}
         maxLength={256}
         name="email"
-        title="email"
+        title="Email"
         placeholder="Your email address"
         value={values.email}
         onChange={handleChange}
@@ -72,15 +54,47 @@ export const ContactInformationForm: React.FC<ContactInformationFormProps> = ({
       />
       <PhoneNumberInput
         mt={4}
-        phoneNumber={values.phone}
-        onChange={handlePhoneNumberChange}
         inputProps={{
-          maxLength: 256,
-          onBlur: handleBlur("phone"),
+          name: "phoneNumber",
+          onBlur: handleBlur,
+          onChange: handleChange,
           placeholder: "(000) 000 0000",
+          value: values.phoneNumber,
         }}
-        error={touched.phone && (errors.phone as string)}
+        selectProps={{
+          name: "phoneNumberCountryCode",
+          onBlur: handleBlur,
+          selected: values.phoneNumberCountryCode,
+          onSelect: value => {
+            setFieldValue("phoneNumberCountryCode", value)
+          },
+        }}
+        required
+        error={
+          (touched.phoneNumberCountryCode && errors.phoneNumberCountryCode) ||
+          (touched.phoneNumber && errors.phoneNumber)
+        }
       />
     </Box>
   )
 }
+
+export const ContactInformationFormFragmentContainer = createFragmentContainer(
+  ContactInformationForm,
+  {
+    me: graphql`
+      fragment ContactInformationForm_me on Me {
+        internalID
+        name
+        email
+        phone
+        phoneNumber {
+          isValid
+          international: display(format: INTERNATIONAL)
+          national: display(format: NATIONAL)
+          regionCode
+        }
+      }
+    `,
+  }
+)

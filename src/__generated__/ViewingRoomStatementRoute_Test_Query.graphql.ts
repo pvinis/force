@@ -1,145 +1,69 @@
+/**
+ * @generated SignedSource<<d5edab6a0107c36a1cc5447985ed83f0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ViewingRoomStatementRoute_Test_QueryVariables = {
-    slug: string;
+export type ViewingRoomStatementRoute_Test_Query$variables = {
+  slug: string;
 };
-export type ViewingRoomStatementRoute_Test_QueryResponse = {
-    readonly viewingRoom: {
-        readonly " $fragmentRefs": FragmentRefs<"ViewingRoomStatementRoute_viewingRoom">;
+export type ViewingRoomStatementRoute_Test_Query$data = {
+  readonly viewingRoom: {
+    readonly " $fragmentSpreads": FragmentRefs<"ViewingRoomStatementRoute_viewingRoom">;
+  } | null;
+};
+export type ViewingRoomStatementRoute_Test_Query$rawResponse = {
+  readonly viewingRoom: {
+    readonly artworksConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly artistNames: string | null;
+          readonly date: string | null;
+          readonly id: string;
+          readonly image: {
+            readonly resized: {
+              readonly height: number | null;
+              readonly src: string;
+              readonly srcSet: string;
+              readonly width: number | null;
+            } | null;
+          } | null;
+          readonly internalID: string;
+          readonly saleMessage: string | null;
+          readonly title: string | null;
+        } | null;
+      } | null> | null;
+      readonly totalCount: number | null;
     } | null;
-};
-export type ViewingRoomStatementRoute_Test_QueryRawResponse = {
-    readonly viewingRoom: ({
-        readonly introStatement: string | null;
-        readonly artworksConnection: ({
-            readonly totalCount: number | null;
-            readonly edges: ReadonlyArray<({
-                readonly node: ({
-                    readonly internalID: string;
-                    readonly artistNames: string | null;
-                    readonly date: string | null;
-                    readonly saleMessage: string | null;
-                    readonly title: string | null;
-                    readonly image: ({
-                        readonly resized: ({
-                            readonly src: string;
-                            readonly srcSet: string;
-                            readonly width: number | null;
-                            readonly height: number | null;
-                        }) | null;
-                    }) | null;
-                    readonly id: string;
-                }) | null;
-            }) | null> | null;
-        }) | null;
-        readonly pullQuote: string | null;
-        readonly body: string | null;
-        readonly subsections: ReadonlyArray<{
-            readonly internalID: string;
-            readonly title: string | null;
-            readonly body: string | null;
-            readonly image: ({
-                readonly width: number | null;
-                readonly height: number | null;
-                readonly imageURLs: ({
-                    readonly normalized: string | null;
-                }) | null;
-            }) | null;
-            readonly caption: string | null;
-        }>;
-    }) | null;
+    readonly body: string | null;
+    readonly introStatement: string | null;
+    readonly pullQuote: string | null;
+    readonly subsections: ReadonlyArray<{
+      readonly body: string | null;
+      readonly caption: string | null;
+      readonly image: {
+        readonly height: number | null;
+        readonly imageURLs: {
+          readonly normalized: string | null;
+        } | null;
+        readonly width: number | null;
+      } | null;
+      readonly internalID: string;
+      readonly title: string | null;
+    }>;
+  } | null;
 };
 export type ViewingRoomStatementRoute_Test_Query = {
-    readonly response: ViewingRoomStatementRoute_Test_QueryResponse;
-    readonly variables: ViewingRoomStatementRoute_Test_QueryVariables;
-    readonly rawResponse: ViewingRoomStatementRoute_Test_QueryRawResponse;
+  rawResponse: ViewingRoomStatementRoute_Test_Query$rawResponse;
+  response: ViewingRoomStatementRoute_Test_Query$data;
+  variables: ViewingRoomStatementRoute_Test_Query$variables;
 };
-
-
-
-/*
-query ViewingRoomStatementRoute_Test_Query(
-  $slug: ID!
-) {
-  viewingRoom(id: $slug) {
-    ...ViewingRoomStatementRoute_viewingRoom
-  }
-}
-
-fragment ViewingRoomBody_viewingRoom on ViewingRoom {
-  body
-}
-
-fragment ViewingRoomIntro_viewingRoom on ViewingRoom {
-  introStatement
-}
-
-fragment ViewingRoomPullQuote_viewingRoom on ViewingRoom {
-  pullQuote
-}
-
-fragment ViewingRoomStatementRoute_viewingRoom on ViewingRoom {
-  ...ViewingRoomIntro_viewingRoom
-  ...ViewingRoomWorks_viewingRoom
-  ...ViewingRoomPullQuote_viewingRoom
-  ...ViewingRoomBody_viewingRoom
-  ...ViewingRoomSubsections_viewingRoom
-  artworksConnection(first: 2) {
-    totalCount
-  }
-  subsections {
-    internalID
-  }
-}
-
-fragment ViewingRoomSubsections_viewingRoom on ViewingRoom {
-  subsections {
-    internalID
-    title
-    body
-    image {
-      width
-      height
-      imageURLs {
-        normalized
-      }
-    }
-    caption
-  }
-}
-
-fragment ViewingRoomWorksArtwork_artwork on Artwork {
-  artistNames
-  date
-  saleMessage
-  title
-  image {
-    resized(width: 445) {
-      src
-      srcSet
-      width
-      height
-    }
-  }
-}
-
-fragment ViewingRoomWorks_viewingRoom on ViewingRoom {
-  artworksConnection(first: 2) {
-    totalCount
-    edges {
-      node {
-        internalID
-        ...ViewingRoomWorksArtwork_artwork
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -336,6 +260,15 @@ return {
                             "args": [
                               {
                                 "kind": "Literal",
+                                "name": "version",
+                                "value": [
+                                  "normalized",
+                                  "larger",
+                                  "large"
+                                ]
+                              },
+                              {
+                                "kind": "Literal",
                                 "name": "width",
                                 "value": 445
                               }
@@ -362,7 +295,7 @@ return {
                               (v4/*: any*/),
                               (v5/*: any*/)
                             ],
-                            "storageKey": "resized(width:445)"
+                            "storageKey": "resized(version:[\"normalized\",\"larger\",\"large\"],width:445)"
                           }
                         ],
                         "storageKey": null
@@ -449,7 +382,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cfb84bd9d30f51d49c43da8b0feb49b2",
+    "cacheID": "ed6a308597b85a994430993724d9ae17",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -532,9 +465,11 @@ return {
     },
     "name": "ViewingRoomStatementRoute_Test_Query",
     "operationKind": "query",
-    "text": "query ViewingRoomStatementRoute_Test_Query(\n  $slug: ID!\n) {\n  viewingRoom(id: $slug) {\n    ...ViewingRoomStatementRoute_viewingRoom\n  }\n}\n\nfragment ViewingRoomBody_viewingRoom on ViewingRoom {\n  body\n}\n\nfragment ViewingRoomIntro_viewingRoom on ViewingRoom {\n  introStatement\n}\n\nfragment ViewingRoomPullQuote_viewingRoom on ViewingRoom {\n  pullQuote\n}\n\nfragment ViewingRoomStatementRoute_viewingRoom on ViewingRoom {\n  ...ViewingRoomIntro_viewingRoom\n  ...ViewingRoomWorks_viewingRoom\n  ...ViewingRoomPullQuote_viewingRoom\n  ...ViewingRoomBody_viewingRoom\n  ...ViewingRoomSubsections_viewingRoom\n  artworksConnection(first: 2) {\n    totalCount\n  }\n  subsections {\n    internalID\n  }\n}\n\nfragment ViewingRoomSubsections_viewingRoom on ViewingRoom {\n  subsections {\n    internalID\n    title\n    body\n    image {\n      width\n      height\n      imageURLs {\n        normalized\n      }\n    }\n    caption\n  }\n}\n\nfragment ViewingRoomWorksArtwork_artwork on Artwork {\n  artistNames\n  date\n  saleMessage\n  title\n  image {\n    resized(width: 445) {\n      src\n      srcSet\n      width\n      height\n    }\n  }\n}\n\nfragment ViewingRoomWorks_viewingRoom on ViewingRoom {\n  artworksConnection(first: 2) {\n    totalCount\n    edges {\n      node {\n        internalID\n        ...ViewingRoomWorksArtwork_artwork\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query ViewingRoomStatementRoute_Test_Query(\n  $slug: ID!\n) {\n  viewingRoom(id: $slug) {\n    ...ViewingRoomStatementRoute_viewingRoom\n  }\n}\n\nfragment ViewingRoomBody_viewingRoom on ViewingRoom {\n  body\n}\n\nfragment ViewingRoomIntro_viewingRoom on ViewingRoom {\n  introStatement\n}\n\nfragment ViewingRoomPullQuote_viewingRoom on ViewingRoom {\n  pullQuote\n}\n\nfragment ViewingRoomStatementRoute_viewingRoom on ViewingRoom {\n  ...ViewingRoomIntro_viewingRoom\n  ...ViewingRoomWorks_viewingRoom\n  ...ViewingRoomPullQuote_viewingRoom\n  ...ViewingRoomBody_viewingRoom\n  ...ViewingRoomSubsections_viewingRoom\n  artworksConnection(first: 2) {\n    totalCount\n  }\n  subsections {\n    internalID\n  }\n}\n\nfragment ViewingRoomSubsections_viewingRoom on ViewingRoom {\n  subsections {\n    internalID\n    title\n    body\n    image {\n      width\n      height\n      imageURLs {\n        normalized\n      }\n    }\n    caption\n  }\n}\n\nfragment ViewingRoomWorksArtwork_artwork on Artwork {\n  artistNames\n  date\n  saleMessage\n  title\n  image {\n    resized(width: 445, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n      width\n      height\n    }\n  }\n}\n\nfragment ViewingRoomWorks_viewingRoom on ViewingRoom {\n  artworksConnection(first: 2) {\n    totalCount\n    edges {\n      node {\n        internalID\n        ...ViewingRoomWorksArtwork_artwork\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ff6fa30c7a24fd5b06c3ff3ec9e030a4';
+
+(node as any).hash = "ff6fa30c7a24fd5b06c3ff3ec9e030a4";
+
 export default node;

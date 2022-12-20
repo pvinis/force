@@ -1,18 +1,15 @@
-import {
-  Box,
-  Spacer,
-  Skeleton,
-  SkeletonText,
-  SkeletonBox,
-} from "@artsy/palette"
+import { Skeleton } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { HomeAuctionLotsRail_viewer } from "__generated__/HomeAuctionLotsRail_viewer.graphql"
+import { HomeAuctionLotsRail_viewer$data } from "__generated__/HomeAuctionLotsRail_viewer.graphql"
 import { HomeAuctionLotsRailQuery } from "__generated__/HomeAuctionLotsRailQuery.graphql"
 import { extractNodes } from "Utils/extractNodes"
-import { ShelfArtworkFragmentContainer } from "Components/Artwork/ShelfArtwork"
+import {
+  ShelfArtworkFragmentContainer,
+  ShelfArtworkPlaceholder,
+} from "Components/Artwork/ShelfArtwork"
 import {
   ActionType,
   ClickedArtworkGroup,
@@ -23,7 +20,7 @@ import { useTracking } from "react-tracking"
 import { Rail } from "Components/Rail"
 
 interface HomeAuctionLotsRailProps {
-  viewer: HomeAuctionLotsRail_viewer
+  viewer: HomeAuctionLotsRail_viewer$data
 }
 
 const HomeAuctionLotsRail: React.FC<HomeAuctionLotsRailProps> = ({
@@ -89,16 +86,7 @@ const PLACEHOLDER = (
       viewAllHref="/auctions"
       getItems={() => {
         return [...new Array(8)].map((_, i) => {
-          return (
-            <Box width={200} key={i}>
-              <SkeletonBox width={200} height={[200, 300, 250, 275][i % 4]} />
-              <Spacer mt={1} />
-              <SkeletonText variant="sm-display">Artist Name</SkeletonText>
-              <SkeletonText variant="sm-display">Artwork Title</SkeletonText>
-              <SkeletonText variant="xs">Partner</SkeletonText>
-              <SkeletonText variant="xs">Price</SkeletonText>
-            </Box>
-          )
+          return <ShelfArtworkPlaceholder key={i} index={i} />
         })
       }}
     />
@@ -117,7 +105,7 @@ export const HomeAuctionLotsRailFragmentContainer = createFragmentContainer(
         ) {
           edges {
             node {
-              ...ShelfArtwork_artwork @arguments(width: 210)
+              ...ShelfArtwork_artwork
               internalID
               slug
               href

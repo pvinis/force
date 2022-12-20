@@ -1,139 +1,81 @@
+/**
+ * @generated SignedSource<<092a1007aecd144522c356cc722c9c01>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SeoDataForArtwork_Test_QueryVariables = {};
-export type SeoDataForArtwork_Test_QueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"SeoDataForArtwork_artwork">;
-    } | null;
+export type SeoDataForArtwork_Test_Query$variables = {};
+export type SeoDataForArtwork_Test_Query$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"SeoDataForArtwork_artwork">;
+  } | null;
 };
-export type SeoDataForArtwork_Test_QueryRawResponse = {
-    readonly artwork: ({
-        readonly href: string | null;
-        readonly date: string | null;
-        readonly is_price_hidden: boolean | null;
-        readonly is_price_range: boolean | null;
-        readonly listPrice: ({
-            readonly __typename: "PriceRange";
-            readonly minPrice: ({
-                readonly major: number;
-                readonly currencyCode: string;
-            }) | null;
-            readonly maxPrice: ({
-                readonly major: number;
-            }) | null;
-        } | {
-            readonly __typename: "Money";
-            readonly major: number;
-            readonly currencyCode: string;
-        } | {
-            readonly __typename: string;
-        }) | null;
-        readonly meta_image: ({
-            readonly resized: ({
-                readonly width: number | null;
-                readonly height: number | null;
-                readonly url: string;
-            }) | null;
-        }) | null;
-        readonly meta: ({
-            readonly title: string | null;
-            readonly description: string | null;
-        }) | null;
-        readonly partner: ({
-            readonly name: string | null;
-            readonly type: string | null;
-            readonly profile: ({
-                readonly image: ({
-                    readonly resized: ({
-                        readonly url: string;
-                    }) | null;
-                }) | null;
-                readonly id: string;
-            }) | null;
-            readonly id: string;
-        }) | null;
-        readonly artistNames: string | null;
-        readonly availability: string | null;
-        readonly category: string | null;
-        readonly dimensions: ({
-            readonly in: string | null;
-        }) | null;
+export type SeoDataForArtwork_Test_Query$rawResponse = {
+  readonly artwork: {
+    readonly artistNames: string | null;
+    readonly availability: string | null;
+    readonly category: string | null;
+    readonly date: string | null;
+    readonly dimensions: {
+      readonly in: string | null;
+    } | null;
+    readonly href: string | null;
+    readonly id: string;
+    readonly is_price_hidden: boolean | null;
+    readonly is_price_range: boolean | null;
+    readonly listPrice: {
+      readonly __typename: "Money";
+      readonly currencyCode: string;
+      readonly major: number;
+    } | {
+      readonly __typename: "PriceRange";
+      readonly maxPrice: {
+        readonly major: number;
+      } | null;
+      readonly minPrice: {
+        readonly currencyCode: string;
+        readonly major: number;
+      } | null;
+    } | {
+      readonly __typename: string;
+    } | null;
+    readonly meta: {
+      readonly description: string | null;
+      readonly title: string | null;
+    } | null;
+    readonly meta_image: {
+      readonly resized: {
+        readonly height: number | null;
+        readonly url: string;
+        readonly width: number | null;
+      } | null;
+    } | null;
+    readonly partner: {
+      readonly id: string;
+      readonly name: string | null;
+      readonly profile: {
         readonly id: string;
-    }) | null;
+        readonly image: {
+          readonly resized: {
+            readonly url: string;
+          } | null;
+        } | null;
+      } | null;
+      readonly type: string | null;
+    } | null;
+  } | null;
 };
 export type SeoDataForArtwork_Test_Query = {
-    readonly response: SeoDataForArtwork_Test_QueryResponse;
-    readonly variables: SeoDataForArtwork_Test_QueryVariables;
-    readonly rawResponse: SeoDataForArtwork_Test_QueryRawResponse;
+  rawResponse: SeoDataForArtwork_Test_Query$rawResponse;
+  response: SeoDataForArtwork_Test_Query$data;
+  variables: SeoDataForArtwork_Test_Query$variables;
 };
-
-
-
-/*
-query SeoDataForArtwork_Test_Query {
-  artwork(id: "richard-anuszkiewicz-lino-yellow-318") {
-    ...SeoDataForArtwork_artwork
-    id
-  }
-}
-
-fragment SeoDataForArtwork_artwork on Artwork {
-  href
-  date
-  is_price_hidden: isPriceHidden
-  is_price_range: isPriceRange
-  listPrice {
-    __typename
-    ... on PriceRange {
-      minPrice {
-        major
-        currencyCode
-      }
-      maxPrice {
-        major
-      }
-    }
-    ... on Money {
-      major
-      currencyCode
-    }
-  }
-  meta_image: image {
-    resized(width: 640, height: 640, version: ["large", "medium", "tall"]) {
-      width
-      height
-      url
-    }
-  }
-  meta {
-    title
-    description(limit: 155)
-  }
-  partner {
-    name
-    type
-    profile {
-      image {
-        resized(width: 320, height: 320, version: ["medium"]) {
-          url
-        }
-      }
-      id
-    }
-    id
-  }
-  artistNames
-  availability
-  category
-  dimensions {
-    in
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -642,5 +584,7 @@ return {
   }
 };
 })();
-(node as any).hash = '42324582d26a2b149c439fb77a1ebb9b';
+
+(node as any).hash = "42324582d26a2b149c439fb77a1ebb9b";
+
 export default node;

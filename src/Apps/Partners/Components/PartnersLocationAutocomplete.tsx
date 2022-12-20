@@ -1,15 +1,16 @@
-import { AutocompleteInput } from "@artsy/palette"
+import { AutocompleteInput, Box, Text } from "@artsy/palette"
 import { FC, useMemo, useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { PartnersLocationAutocomplete_viewer } from "__generated__/PartnersLocationAutocomplete_viewer.graphql"
+import { PartnersLocationAutocomplete_viewer$data } from "__generated__/PartnersLocationAutocomplete_viewer.graphql"
 import { PartnersLocationAutocompleteQuery } from "__generated__/PartnersLocationAutocompleteQuery.graphql"
 import { useRouter } from "System/Router/useRouter"
 import { omit } from "lodash"
+import { filterCities } from "Apps/Partners/Utils/filterUtils"
 
 interface PartnersLocationAutocompleteProps {
-  viewer: PartnersLocationAutocomplete_viewer
+  viewer: PartnersLocationAutocomplete_viewer$data
 }
 
 const PartnersLocationAutocomplete: FC<PartnersLocationAutocompleteProps> = ({
@@ -28,10 +29,7 @@ const PartnersLocationAutocomplete: FC<PartnersLocationAutocompleteProps> = ({
     }
 
     const cities = value.length > 2 ? allCities : featuredCities
-
-    const filtered = cities.filter(({ text }) => {
-      return text.toLowerCase().includes(value.toLowerCase())
-    })
+    const filtered = filterCities(cities, value)
 
     setOptions(filtered)
   }
@@ -83,6 +81,19 @@ const PartnersLocationAutocomplete: FC<PartnersLocationAutocompleteProps> = ({
       onSelect={handleSelect}
       onClear={handleClear}
       defaultValue={defaultValue}
+      renderOption={option => {
+        return (
+          <Box {...("fullName" in option ? { px: 2, py: 1 } : { p: 2 })}>
+            <Text variant="sm-display">{option.text}</Text>
+
+            {"fullName" in option && (
+              <Text variant="xs" color="black60">
+                {option.fullName.split(", ").slice(1).join(", ")}
+              </Text>
+            )}
+          </Box>
+        )
+      }}
     />
   )
 }
@@ -103,6 +114,7 @@ export const PartnersLocationAutocompleteFragmentContainer = createFragmentConta
     viewer: graphql`
       fragment PartnersLocationAutocomplete_viewer on Viewer {
         featuredCities: cities(featured: true) {
+          fullName
           text: name
           value: slug
           coordinates {
@@ -111,6 +123,7 @@ export const PartnersLocationAutocompleteFragmentContainer = createFragmentConta
           }
         }
         allCities: cities {
+          fullName
           text: name
           value: slug
           coordinates {

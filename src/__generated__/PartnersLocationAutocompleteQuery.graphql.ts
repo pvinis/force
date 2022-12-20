@@ -1,51 +1,35 @@
+/**
+ * @generated SignedSource<<636c778a6475a9b1673e5b253e486e58>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnersLocationAutocompleteQueryVariables = {};
-export type PartnersLocationAutocompleteQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"PartnersLocationAutocomplete_viewer">;
-    } | null;
+export type PartnersLocationAutocompleteQuery$variables = {};
+export type PartnersLocationAutocompleteQuery$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"PartnersLocationAutocomplete_viewer">;
+  } | null;
 };
 export type PartnersLocationAutocompleteQuery = {
-    readonly response: PartnersLocationAutocompleteQueryResponse;
-    readonly variables: PartnersLocationAutocompleteQueryVariables;
+  response: PartnersLocationAutocompleteQuery$data;
+  variables: PartnersLocationAutocompleteQuery$variables;
 };
-
-
-
-/*
-query PartnersLocationAutocompleteQuery {
-  viewer {
-    ...PartnersLocationAutocomplete_viewer
-  }
-}
-
-fragment PartnersLocationAutocomplete_viewer on Viewer {
-  featuredCities: cities(featured: true) {
-    text: name
-    value: slug
-    coordinates {
-      lat
-      lng
-    }
-  }
-  allCities: cities {
-    text: name
-    value: slug
-    coordinates {
-      lat
-      lng
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "fullName",
+    "storageKey": null
+  },
   {
     "alias": "text",
     "args": null,
@@ -159,14 +143,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "924941acb7d72372c05d1b35144be54b",
+    "cacheID": "eeef8ce891628f4c737159ee38ba1b1e",
     "id": null,
     "metadata": {},
     "name": "PartnersLocationAutocompleteQuery",
     "operationKind": "query",
-    "text": "query PartnersLocationAutocompleteQuery {\n  viewer {\n    ...PartnersLocationAutocomplete_viewer\n  }\n}\n\nfragment PartnersLocationAutocomplete_viewer on Viewer {\n  featuredCities: cities(featured: true) {\n    text: name\n    value: slug\n    coordinates {\n      lat\n      lng\n    }\n  }\n  allCities: cities {\n    text: name\n    value: slug\n    coordinates {\n      lat\n      lng\n    }\n  }\n}\n"
+    "text": "query PartnersLocationAutocompleteQuery {\n  viewer {\n    ...PartnersLocationAutocomplete_viewer\n  }\n}\n\nfragment PartnersLocationAutocomplete_viewer on Viewer {\n  featuredCities: cities(featured: true) {\n    fullName\n    text: name\n    value: slug\n    coordinates {\n      lat\n      lng\n    }\n  }\n  allCities: cities {\n    fullName\n    text: name\n    value: slug\n    coordinates {\n      lat\n      lng\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1d8669d65db802a6ebce1789c1735b2f';
+
+(node as any).hash = "1d8669d65db802a6ebce1789c1735b2f";
+
 export default node;

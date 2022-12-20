@@ -4,32 +4,22 @@ import { Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
 import { getENV } from "Utils/getENV"
-import { NewsApp_viewer } from "__generated__/NewsApp_viewer.graphql"
+import { NewsApp_viewer$data } from "__generated__/NewsApp_viewer.graphql"
 import { NewsIndexArticlesPaginationContainer } from "./Components/NewsIndexArticles"
-import { ArticleAdProvider } from "../Article/Components/ArticleAd"
+import { ArticleAdProvider } from "Apps/Article/Components/ArticleAd"
 import { useScrollToOpenAuthModal } from "Utils/Hooks/useScrollToOpenAuthModal"
 import { ContextModule, Intent } from "@artsy/cohesion"
-import { useRouter } from "System/Router/useRouter"
-
 interface NewsAppProps {
-  viewer: NewsApp_viewer
+  viewer: NewsApp_viewer$data
 }
 
 const NewsApp: FC<NewsAppProps> = ({ viewer }) => {
-  const {
-    match: { location },
-  } = useRouter()
-
   useScrollToOpenAuthModal({
     key: "editorial-signup-dismissed",
     modalOptions: {
       intent: Intent.viewEditorial,
       contextModule: ContextModule.popUpModal,
       copy: "Sign up for the latest in art market news",
-      destination: location.pathname,
-      afterSignUpAction: {
-        action: "editorialSignup",
-      },
     },
   })
 
@@ -47,11 +37,11 @@ const NewsApp: FC<NewsAppProps> = ({ viewer }) => {
         title="Artsy News"
       />
 
-      <Spacer mt={[2, 4]} />
+      <Spacer y={[2, 4]} />
 
       <Text variant="xl">News</Text>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <NewsIndexArticlesPaginationContainer viewer={viewer} />
     </ArticleAdProvider>

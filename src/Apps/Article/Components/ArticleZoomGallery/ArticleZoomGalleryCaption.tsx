@@ -1,12 +1,12 @@
-import { Button, Flex, HTML } from "@artsy/palette"
+import { Box, Button, Flex, HTML, Text } from "@artsy/palette"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import Metadata from "Components/Artwork/Metadata"
 import { RouterLink } from "System/Router/RouterLink"
-import { ArticleZoomGalleryCaption_figure } from "__generated__/ArticleZoomGalleryCaption_figure.graphql"
+import { ArticleZoomGalleryCaption_figure$data } from "__generated__/ArticleZoomGalleryCaption_figure.graphql"
 
 interface ArticleZoomGalleryCaptionProps {
-  figure: ArticleZoomGalleryCaption_figure
+  figure: ArticleZoomGalleryCaption_figure$data
 }
 
 const ArticleZoomGalleryCaption: FC<ArticleZoomGalleryCaptionProps> = ({
@@ -42,6 +42,30 @@ const ArticleZoomGalleryCaption: FC<ArticleZoomGalleryCaptionProps> = ({
 
       return <HTML variant="sm" html={figure.caption} />
 
+    case "ArticleUnpublishedArtwork":
+      return (
+        <Box>
+          {figure.artist && (
+            <Text variant="sm-display" overflowEllipsis>
+              {figure.artist.name}
+            </Text>
+          )}
+
+          {figure.title && (
+            <Text variant="sm-display" color="black60" overflowEllipsis>
+              <i>{figure.title}</i>
+              {figure.date && `, ${figure.date}`}
+            </Text>
+          )}
+
+          {figure.partner && (
+            <Text variant="xs" color="black60" overflowEllipsis>
+              {figure.partner.name}
+            </Text>
+          )}
+        </Box>
+      )
+
     default:
       return <div />
   }
@@ -59,6 +83,16 @@ export const ArticleZoomGalleryCaptionFragmentContainer = createFragmentContaine
         }
         ... on ArticleImageSection {
           caption
+        }
+        ... on ArticleUnpublishedArtwork {
+          title
+          date
+          artist {
+            name
+          }
+          partner {
+            name
+          }
         }
       }
     `,

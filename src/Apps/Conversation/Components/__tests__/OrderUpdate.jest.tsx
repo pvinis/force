@@ -1,6 +1,6 @@
 import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { OrderUpdateFragmentContainer } from "../OrderUpdate"
+import { OrderUpdateFragmentContainer } from "Apps/Conversation/Components/OrderUpdate"
 import { OrderUpdate_Test_Query } from "__generated__/OrderUpdate_Test_Query.graphql"
 import { screen } from "@testing-library/react"
 import { DateTime } from "luxon"
@@ -228,7 +228,7 @@ describe("testing different statuses", () => {
       }),
     })
     expect(
-      screen.getByText("Offer accepted. Payment pending")
+      screen.getByText("Offer accepted. Payment processing")
     ).toBeInTheDocument()
   })
   it("render Offer Declined", () => {

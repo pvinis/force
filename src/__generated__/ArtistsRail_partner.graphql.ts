@@ -1,28 +1,31 @@
+/**
+ * @generated SignedSource<<166df1763347010f759284da0ebdcb13>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistsRail_partner = {
-    readonly slug: string;
-    readonly profileArtistsLayout: string | null;
-    readonly displayFullPartnerPage: boolean | null;
-    readonly artistsWithPublishedArtworks: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly representedArtistsWithoutPublishedArtworks: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly " $refType": "ArtistsRail_partner";
+export type ArtistsRail_partner$data = {
+  readonly artistsWithPublishedArtworks: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly displayFullPartnerPage: boolean | null;
+  readonly profileArtistsLayout: string | null;
+  readonly representedArtistsWithoutPublishedArtworks: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "ArtistsRail_partner";
 };
-export type ArtistsRail_partner$data = ArtistsRail_partner;
 export type ArtistsRail_partner$key = {
-    readonly " $data"?: ArtistsRail_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistsRail_partner">;
+  readonly " $data"?: ArtistsRail_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistsRail_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -110,5 +113,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6e3f5614154d029788ee03ec4b6937c3';
+
+(node as any).hash = "6e3f5614154d029788ee03ec4b6937c3";
+
 export default node;

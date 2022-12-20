@@ -1,63 +1,27 @@
+/**
+ * @generated SignedSource<<e52aea66034fa3f9268211715ccdfe4f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderFairOrganizerStoryQueryVariables = {
-    id: string;
+export type EntityHeaderFairOrganizerStoryQuery$variables = {
+  id: string;
 };
-export type EntityHeaderFairOrganizerStoryQueryResponse = {
-    readonly fairOrganizer: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityHeaderFairOrganizer_fairOrganizer">;
-    } | null;
+export type EntityHeaderFairOrganizerStoryQuery$data = {
+  readonly fairOrganizer: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderFairOrganizer_fairOrganizer">;
+  } | null;
 };
 export type EntityHeaderFairOrganizerStoryQuery = {
-    readonly response: EntityHeaderFairOrganizerStoryQueryResponse;
-    readonly variables: EntityHeaderFairOrganizerStoryQueryVariables;
+  response: EntityHeaderFairOrganizerStoryQuery$data;
+  variables: EntityHeaderFairOrganizerStoryQuery$variables;
 };
-
-
-
-/*
-query EntityHeaderFairOrganizerStoryQuery(
-  $id: String!
-) {
-  fairOrganizer(id: $id) {
-    ...EntityHeaderFairOrganizer_fairOrganizer
-    id
-  }
-}
-
-fragment EntityHeaderFairOrganizer_fairOrganizer on FairOrganizer {
-  internalID
-  slug
-  name
-  fairsConnection {
-    totalCount
-  }
-  profile {
-    ...FollowProfileButton_profile
-    href
-    initials
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -82,20 +46,6 @@ v2 = {
   "storageKey": null
 },
 v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -144,8 +94,20 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
-          (v4/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slug",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -172,17 +134,7 @@ return {
             "name": "profile",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
               (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "isFollowed",
-                "storageKey": null
-              },
               {
                 "alias": null,
                 "args": null,
@@ -243,25 +195,28 @@ return {
                   }
                 ],
                 "storageKey": null
-              }
+              },
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8b2acf8531cb3cbd611468b39515264c",
+    "cacheID": "db36ba4cd5f3cbc0bf7950977de888fb",
     "id": null,
     "metadata": {},
     "name": "EntityHeaderFairOrganizerStoryQuery",
     "operationKind": "query",
-    "text": "query EntityHeaderFairOrganizerStoryQuery(\n  $id: String!\n) {\n  fairOrganizer(id: $id) {\n    ...EntityHeaderFairOrganizer_fairOrganizer\n    id\n  }\n}\n\nfragment EntityHeaderFairOrganizer_fairOrganizer on FairOrganizer {\n  internalID\n  slug\n  name\n  fairsConnection {\n    totalCount\n  }\n  profile {\n    ...FollowProfileButton_profile\n    href\n    initials\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n"
+    "text": "query EntityHeaderFairOrganizerStoryQuery(\n  $id: String!\n) {\n  fairOrganizer(id: $id) {\n    ...EntityHeaderFairOrganizer_fairOrganizer\n    id\n  }\n}\n\nfragment EntityHeaderFairOrganizer_fairOrganizer on FairOrganizer {\n  internalID\n  slug\n  name\n  fairsConnection {\n    totalCount\n  }\n  profile {\n    internalID\n    href\n    initials\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '569b26e1ac6b86aa02075e596e15c6df';
+
+(node as any).hash = "569b26e1ac6b86aa02075e596e15c6df";
+
 export default node;

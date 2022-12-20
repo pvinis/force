@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ExampleApp_system } from "__generated__/ExampleApp_system.graphql"
+import { ExampleApp_system$data } from "__generated__/ExampleApp_system.graphql"
 import { Box, Flex, Join, Separator, Spacer, Text } from "@artsy/palette"
 import {
   RouterLink as BaseRouteLink,
@@ -10,7 +10,7 @@ import { ExampleAppMeta } from "./Components/ExampleAppMeta"
 import styled from "styled-components"
 
 export interface ExampleAppProps {
-  system: ExampleApp_system
+  system: ExampleApp_system$data
 }
 
 const ExampleApp: React.FC<ExampleAppProps> = ({ system, children }) => {
@@ -31,7 +31,7 @@ const ExampleApp: React.FC<ExampleAppProps> = ({ system, children }) => {
       </Box>
 
       <Flex mt={2}>
-        <Join separator={<Spacer mx={2} />}>
+        <Join separator={<Spacer x={4} />}>
           <RouterLink to="/example" exact>
             <Text>Welcome</Text>
           </RouterLink>

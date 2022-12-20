@@ -1,57 +1,25 @@
+/**
+ * @generated SignedSource<<85bf3c92af493189d25cc94975a4b913>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderFairFragmentContainer_Test_QueryVariables = {};
-export type EntityHeaderFairFragmentContainer_Test_QueryResponse = {
-    readonly fair: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityHeaderFair_fair">;
-    } | null;
+export type EntityHeaderFairFragmentContainer_Test_Query$variables = {};
+export type EntityHeaderFairFragmentContainer_Test_Query$data = {
+  readonly fair: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderFair_fair">;
+  } | null;
 };
 export type EntityHeaderFairFragmentContainer_Test_Query = {
-    readonly response: EntityHeaderFairFragmentContainer_Test_QueryResponse;
-    readonly variables: EntityHeaderFairFragmentContainer_Test_QueryVariables;
+  response: EntityHeaderFairFragmentContainer_Test_Query$data;
+  variables: EntityHeaderFairFragmentContainer_Test_Query$variables;
 };
-
-
-
-/*
-query EntityHeaderFairFragmentContainer_Test_Query {
-  fair(id: "example") {
-    ...EntityHeaderFair_fair
-    id
-  }
-}
-
-fragment EntityHeaderFair_fair on Fair {
-  internalID
-  href
-  name
-  startAt(format: "MMM Do")
-  endAt(format: "MMM Do YYYY")
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-  profile {
-    ...FollowProfileButton_profile
-    initials
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -72,29 +40,22 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "String"
 },
-v5 = {
+v4 = {
   "enumValues": null,
   "nullable": true,
   "plural": false,
   "type": "String"
 },
-v6 = {
+v5 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
@@ -149,7 +110,13 @@ return {
             "name": "href",
             "storageKey": null
           },
-          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": [
@@ -231,41 +198,26 @@ return {
             "name": "profile",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "slug",
-                "storageKey": null
-              },
-              (v2/*: any*/),
               (v1/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "isFollowed",
-                "storageKey": null
-              },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "initials",
                 "storageKey": null
-              }
+              },
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": "fair(id:\"example\")"
       }
     ]
   },
   "params": {
-    "cacheID": "b708dfc33f3dec97f614e394f6d76d9b",
+    "cacheID": "373915fac8d40076f3156e87d4274638",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -287,38 +239,32 @@ return {
           "plural": false,
           "type": "CroppedImageUrl"
         },
-        "fair.avatar.cropped.src": (v4/*: any*/),
-        "fair.avatar.cropped.srcSet": (v4/*: any*/),
-        "fair.endAt": (v5/*: any*/),
-        "fair.href": (v5/*: any*/),
-        "fair.id": (v6/*: any*/),
-        "fair.internalID": (v6/*: any*/),
-        "fair.name": (v5/*: any*/),
+        "fair.avatar.cropped.src": (v3/*: any*/),
+        "fair.avatar.cropped.srcSet": (v3/*: any*/),
+        "fair.endAt": (v4/*: any*/),
+        "fair.href": (v4/*: any*/),
+        "fair.id": (v5/*: any*/),
+        "fair.internalID": (v5/*: any*/),
+        "fair.name": (v4/*: any*/),
         "fair.profile": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "Profile"
         },
-        "fair.profile.id": (v6/*: any*/),
-        "fair.profile.initials": (v5/*: any*/),
-        "fair.profile.internalID": (v6/*: any*/),
-        "fair.profile.isFollowed": {
-          "enumValues": null,
-          "nullable": true,
-          "plural": false,
-          "type": "Boolean"
-        },
-        "fair.profile.name": (v5/*: any*/),
-        "fair.profile.slug": (v6/*: any*/),
-        "fair.startAt": (v5/*: any*/)
+        "fair.profile.id": (v5/*: any*/),
+        "fair.profile.initials": (v4/*: any*/),
+        "fair.profile.internalID": (v5/*: any*/),
+        "fair.startAt": (v4/*: any*/)
       }
     },
     "name": "EntityHeaderFairFragmentContainer_Test_Query",
     "operationKind": "query",
-    "text": "query EntityHeaderFairFragmentContainer_Test_Query {\n  fair(id: \"example\") {\n    ...EntityHeaderFair_fair\n    id\n  }\n}\n\nfragment EntityHeaderFair_fair on Fair {\n  internalID\n  href\n  name\n  startAt(format: \"MMM Do\")\n  endAt(format: \"MMM Do YYYY\")\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n  profile {\n    ...FollowProfileButton_profile\n    initials\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n"
+    "text": "query EntityHeaderFairFragmentContainer_Test_Query {\n  fair(id: \"example\") {\n    ...EntityHeaderFair_fair\n    id\n  }\n}\n\nfragment EntityHeaderFair_fair on Fair {\n  internalID\n  href\n  name\n  startAt(format: \"MMM Do\")\n  endAt(format: \"MMM Do YYYY\")\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n  profile {\n    internalID\n    initials\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '62371785af84d702486a3c6cca12d32c';
+
+(node as any).hash = "62371785af84d702486a3c6cca12d32c";
+
 export default node;

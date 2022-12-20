@@ -1,28 +1,33 @@
+/**
+ * @generated SignedSource<<734bc8e1132b64beec5c61812c77805b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairEditorialRailArticles_fair = {
-    readonly articlesConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-                readonly slug: string | null;
-                readonly " $fragmentRefs": FragmentRefs<"CellArticle_article">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "FairEditorialRailArticles_fair";
+export type FairEditorialRailArticles_fair$data = {
+  readonly articlesConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly slug: string | null;
+        readonly " $fragmentSpreads": FragmentRefs<"CellArticle_article">;
+      } | null;
+    } | null> | null;
+    readonly totalCount: number | null;
+  } | null;
+  readonly href: string | null;
+  readonly " $fragmentType": "FairEditorialRailArticles_fair";
 };
-export type FairEditorialRailArticles_fair$data = FairEditorialRailArticles_fair;
 export type FairEditorialRailArticles_fair$key = {
-    readonly " $data"?: FairEditorialRailArticles_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairEditorialRailArticles_fair">;
+  readonly " $data"?: FairEditorialRailArticles_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairEditorialRailArticles_fair">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -30,6 +35,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "FairEditorialRailArticles_fair",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "href",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": [
@@ -52,6 +64,13 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "ArticleEdge",
           "kind": "LinkedField",
           "name": "edges",
@@ -66,6 +85,11 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "CellArticle_article"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
@@ -78,11 +102,6 @@ const node: ReaderFragment = {
                   "kind": "ScalarField",
                   "name": "slug",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "CellArticle_article"
                 }
               ],
               "storageKey": null
@@ -97,5 +116,7 @@ const node: ReaderFragment = {
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = '30676188c1197d7f9f369fc18a86211c';
+
+(node as any).hash = "ca0f9aea8f020b7021a699f1f2f122e0";
+
 export default node;

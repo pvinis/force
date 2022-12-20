@@ -1,38 +1,33 @@
-import "lib/webpackPublicPath"
+import "Server/webpackPublicPath"
 
 import ReactDOM from "react-dom"
 import { getAppRoutes } from "routes"
 import { loadableReady } from "@loadable/component"
-import { logoutEventHandler } from "lib/logoutHandler"
-import { mediator } from "lib/mediator"
-import { beforeAnalyticsReady, onAnalyticsReady } from "lib/analytics/helpers"
+import { logoutEventHandler } from "Server/logoutHandler"
+import { mediator } from "Server/mediator"
+import {
+  beforeAnalyticsReady,
+  onAnalyticsReady,
+} from "Server/analytics/helpers"
 import { getClientParam } from "Utils/getClientParam"
 import { buildClientApp } from "System/Router/buildClientApp"
-import { loadSegment } from "lib/analytics/segmentOneTrustIntegration/segmentOneTrustIntegration"
+import { loadSegment } from "Server/analytics/segmentOneTrustIntegration/segmentOneTrustIntegration"
+import { initAuthModalContainer } from "Utils/initAuthModalContainer"
 
 async function setupClient() {
-  Promise.all([
-    import(
-      /* webpackChunkName: "clientAppModals", webpackPrefetch: true */
-      "Utils/initAuthModalContainer"
-    ),
-  ]).then(clientImports => {
-    const [{ initAuthModalContainer }] = clientImports
+  // Attach analytics
+  if (getClientParam("disableAnalytics") !== "true") {
+    beforeAnalyticsReady()
+    window.analytics?.ready(() => {
+      onAnalyticsReady()
+    })
+  }
 
-    // Attach analytics
-    if (getClientParam("disableAnalytics") !== "true") {
-      beforeAnalyticsReady()
-      window.analytics?.ready(() => {
-        onAnalyticsReady()
-      })
-    }
+  loadSegment()
+  initAuthModalContainer()
 
-    loadSegment()
-    initAuthModalContainer()
-
-    // Logout handler
-    mediator.on("auth:logout", logoutEventHandler)
-  })
+  // Logout handler
+  mediator.on("auth:logout", logoutEventHandler)
 
   const { ClientApp } = await buildClientApp({
     routes: getAppRoutes(),

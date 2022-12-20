@@ -1,13 +1,13 @@
 import * as React from "react"
 import { Box, BoxProps, Join, Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ShowHeader_show } from "__generated__/ShowHeader_show.graphql"
+import { ShowHeader_show$data } from "__generated__/ShowHeader_show.graphql"
 import { useCurrentTime } from "Utils/Hooks/useCurrentTime"
 import { useEventTiming } from "Utils/Hooks/useEventTiming"
 import { ShowContextualLinkFragmentContainer } from "./ShowContextualLink"
 
 interface ShowHeaderProps extends BoxProps {
-  show: ShowHeader_show
+  show: ShowHeader_show$data
 }
 export const ShowHeader: React.FC<ShowHeaderProps> = ({ show, ...rest }) => {
   const { name, startAt, endAt, formattedStartAt, formattedEndAt } = show
@@ -18,7 +18,7 @@ export const ShowHeader: React.FC<ShowHeaderProps> = ({ show, ...rest }) => {
 
   return (
     <Box {...rest}>
-      <Join separator={<Spacer mb={1} />}>
+      <Join separator={<Spacer y={1} />}>
         <Text variant="xs">Show</Text>
 
         <Box>

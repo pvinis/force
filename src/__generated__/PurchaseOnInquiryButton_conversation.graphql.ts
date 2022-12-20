@@ -1,36 +1,39 @@
+/**
+ * @generated SignedSource<<dcdce315a1e0fb6656dbf14f1e0563e0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PurchaseOnInquiryButton_conversation = {
-    readonly internalID: string | null;
-    readonly items: ReadonlyArray<{
-        readonly liveArtwork: ({
-            readonly __typename: "Artwork";
-            readonly isEdition: boolean | null;
-            readonly internalID: string;
-            readonly slug: string;
-            readonly editionSets: ReadonlyArray<{
-                readonly internalID: string;
-            } | null> | null;
-            readonly " $fragmentRefs": FragmentRefs<"ConfirmArtworkButton_artwork">;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }) | null;
-    } | null> | null;
-    readonly " $refType": "PurchaseOnInquiryButton_conversation";
+export type PurchaseOnInquiryButton_conversation$data = {
+  readonly internalID: string | null;
+  readonly items: ReadonlyArray<{
+    readonly liveArtwork: {
+      readonly __typename: "Artwork";
+      readonly editionSets: ReadonlyArray<{
+        readonly internalID: string;
+      } | null> | null;
+      readonly internalID: string;
+      readonly isEdition: boolean | null;
+      readonly slug: string;
+      readonly " $fragmentSpreads": FragmentRefs<"ConfirmArtworkButton_artwork">;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    } | null;
+  } | null> | null;
+  readonly " $fragmentType": "PurchaseOnInquiryButton_conversation";
 };
-export type PurchaseOnInquiryButton_conversation$data = PurchaseOnInquiryButton_conversation;
 export type PurchaseOnInquiryButton_conversation$key = {
-    readonly " $data"?: PurchaseOnInquiryButton_conversation$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PurchaseOnInquiryButton_conversation">;
+  readonly " $data"?: PurchaseOnInquiryButton_conversation$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PurchaseOnInquiryButton_conversation">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -120,5 +123,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '0f3ba5507f24bf17fbeaac4c400d74a3';
+
+(node as any).hash = "0f3ba5507f24bf17fbeaac4c400d74a3";
+
 export default node;

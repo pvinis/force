@@ -1,76 +1,31 @@
+/**
+ * @generated SignedSource<<06c3036651117d531b88c3a20688cf6d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type partnerRoutes_ArtistsQueryVariables = {
-    partnerId: string;
+export type partnerRoutes_ArtistsQuery$variables = {
+  partnerId: string;
 };
-export type partnerRoutes_ArtistsQueryResponse = {
-    readonly partner: {
-        readonly displayArtistsSection: boolean | null;
-        readonly allArtistsConnection: {
-            readonly totalCount: number | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"ArtistsRoute_partner">;
+export type partnerRoutes_ArtistsQuery$data = {
+  readonly partner: {
+    readonly allArtistsConnection: {
+      readonly totalCount: number | null;
     } | null;
+    readonly displayArtistsSection: boolean | null;
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistsRoute_partner">;
+  } | null;
 };
 export type partnerRoutes_ArtistsQuery = {
-    readonly response: partnerRoutes_ArtistsQueryResponse;
-    readonly variables: partnerRoutes_ArtistsQueryVariables;
+  response: partnerRoutes_ArtistsQuery$data;
+  variables: partnerRoutes_ArtistsQuery$variables;
 };
-
-
-
-/*
-query partnerRoutes_ArtistsQuery(
-  $partnerId: String!
-) {
-  partner(id: $partnerId) @principalField {
-    ...ArtistsRoute_partner
-    displayArtistsSection
-    allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {
-      totalCount
-    }
-    id
-  }
-}
-
-fragment ArtistsRoute_partner on Partner {
-  ...PartnerArtists_partner
-}
-
-fragment PartnerArtistItem_artist on Artist {
-  name
-  slug
-  href
-}
-
-fragment PartnerArtistList_artists on ArtistPartnerEdge {
-  representedBy
-  counts {
-    artworks
-  }
-  node {
-    internalID
-    ...PartnerArtistItem_artist
-    id
-  }
-}
-
-fragment PartnerArtists_partner on Partner {
-  slug
-  distinguishRepresentedArtists
-  displayFullPartnerPage
-  allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {
-    edges {
-      ...PartnerArtistList_artists
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -117,10 +72,19 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "href",
   "storageKey": null
 },
-v6 = {
+v6 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "artworks",
+    "storageKey": null
+  }
+],
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -142,6 +106,11 @@ return {
         "name": "partner",
         "plural": false,
         "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ArtistsRoute_partner"
+          },
           (v2/*: any*/),
           {
             "alias": null,
@@ -154,11 +123,6 @@ return {
               (v4/*: any*/)
             ],
             "storageKey": "allArtistsConnection(displayOnPartnerProfile:true,hasNotRepresentedArtistWithPublishedArtworks:true)"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ArtistsRoute_partner"
           }
         ],
         "storageKey": null
@@ -226,15 +190,7 @@ return {
                     "kind": "LinkedField",
                     "name": "counts",
                     "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "artworks",
-                        "storageKey": null
-                      }
-                    ],
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -256,6 +212,13 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
+                        "name": "slug",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
                         "name": "name",
                         "storageKey": null
                       },
@@ -263,15 +226,18 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "href",
+                        "concreteType": "ArtistCounts",
+                        "kind": "LinkedField",
+                        "name": "counts",
+                        "plural": false,
+                        "selections": (v6/*: any*/),
                         "storageKey": null
                       },
-                      (v6/*: any*/)
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v6/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -280,21 +246,23 @@ return {
             "storageKey": "allArtistsConnection(displayOnPartnerProfile:true,hasNotRepresentedArtistWithPublishedArtworks:true)"
           },
           (v2/*: any*/),
-          (v6/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ae4d0ef960446d2e88fc025c5e3ce837",
+    "cacheID": "190f4d195c3db0aff9672146b99c7e6b",
     "id": null,
     "metadata": {},
     "name": "partnerRoutes_ArtistsQuery",
     "operationKind": "query",
-    "text": "query partnerRoutes_ArtistsQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...ArtistsRoute_partner\n    displayArtistsSection\n    allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {\n      totalCount\n    }\n    id\n  }\n}\n\nfragment ArtistsRoute_partner on Partner {\n  ...PartnerArtists_partner\n}\n\nfragment PartnerArtistItem_artist on Artist {\n  name\n  slug\n  href\n}\n\nfragment PartnerArtistList_artists on ArtistPartnerEdge {\n  representedBy\n  counts {\n    artworks\n  }\n  node {\n    internalID\n    ...PartnerArtistItem_artist\n    id\n  }\n}\n\nfragment PartnerArtists_partner on Partner {\n  slug\n  distinguishRepresentedArtists\n  displayFullPartnerPage\n  allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {\n    edges {\n      ...PartnerArtistList_artists\n      id\n    }\n  }\n}\n"
+    "text": "query partnerRoutes_ArtistsQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...ArtistsRoute_partner\n    displayArtistsSection\n    allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {\n      totalCount\n    }\n    id\n  }\n}\n\nfragment ArtistsRoute_partner on Partner {\n  ...PartnerArtists_partner\n}\n\nfragment PartnerArtistList_partner on Partner {\n  href\n  distinguishRepresentedArtists\n  displayFullPartnerPage\n  allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {\n    edges {\n      representedBy\n      counts {\n        artworks\n      }\n      node {\n        internalID\n        slug\n        name\n        href\n        counts {\n          artworks\n        }\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment PartnerArtists_partner on Partner {\n  ...PartnerArtistList_partner\n}\n"
   }
 };
 })();
-(node as any).hash = '8eb5527874d6d1a52c849ccd5beab03b';
+
+(node as any).hash = "8eb5527874d6d1a52c849ccd5beab03b";
+
 export default node;

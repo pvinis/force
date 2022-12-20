@@ -1,13 +1,16 @@
 import { commitMutation as _commitMutation } from "react-relay"
-import { AddressModal, Props, GENERIC_FAIL_MESSAGE } from "../AddressModal"
+import {
+  AddressModal,
+  Props,
+  GENERIC_FAIL_MESSAGE,
+} from "Apps/Order/Components/AddressModal"
 import { mount } from "enzyme"
 import { validAddress } from "Components/__tests__/Utils/addressForm"
 import {
   updateAddressSuccess,
   updateAddressFailure,
 } from "Apps/Order/Routes/__fixtures__/MutationResults"
-import { Dialog } from "@artsy/palette"
-import { SavedAddressType } from "../../Utils/shippingUtils"
+import { SavedAddressType } from "Apps/Order/Utils/shippingUtils"
 import { useSystemContext } from "System/useSystemContext"
 jest.mock("System/useSystemContext")
 jest.mock("Utils/Hooks/useMatchMedia", () => ({
@@ -57,7 +60,8 @@ describe("AddressModal", () => {
           totalCount: 0,
           edges: [],
         },
-        " $refType": "SavedAddresses_me",
+
+        " $fragmentType": "SavedAddresses_me",
       },
       closeModal: jest.fn(),
     }
@@ -121,18 +125,19 @@ describe("AddressModal", () => {
   it("clicking the delete button spawns a correct dialog", () => {
     const wrapper = getWrapper(testAddressModalProps)
     const deleteButton = wrapper.find("Clickable[data-test='deleteButton']")
-    const dialog = wrapper.find(Dialog)
-    expect(dialog.props().show).toBe(false)
     deleteButton.simulate("click")
+    const dialog = wrapper.find("ModalDialog[data-test='deleteAddressDialog']")
 
     setTimeout(() => {
       expect(dialog).toHaveLength(1)
-      expect(dialog.props().title).toBe("Delete address?")
-      expect(dialog.props().detail).toBe(
-        "This will remove this address from your saved addresses."
+      expect(dialog.text()).toContain("Delete address?")
+      expect(dialog.text()).toContain(
+        "This will remove this address from your saved addresses"
       )
-      expect(dialog.props().primaryCta.text).toContain("Delete")
-      expect(dialog.props().secondaryCta.text).toContain("Cancel")
+      const dialogDelete = dialog.find("Button").at(1)
+      expect(dialogDelete.text()).toContain("Delete")
+      const dialogCancel = dialog.find("Button").at(0)
+      expect(dialogCancel.text()).toContain("Cancel")
     }, 0)
   })
 
@@ -140,10 +145,8 @@ describe("AddressModal", () => {
     const wrapper = getWrapper(testAddressModalProps)
     const deleteButton = wrapper.find("Clickable[data-test='deleteButton']")
     deleteButton.simulate("click")
-    const dialog = wrapper.find(Dialog)
-    const dialogDelete = dialog
-      .findWhere(node => node.text() === "Delete")
-      .first()
+    const dialog = wrapper.find("ModalDialog[data-test='deleteAddressDialog']")
+    const dialogDelete = dialog.find("Button").at(1)
     dialogDelete.simulate("click")
 
     setTimeout(() => {
@@ -156,10 +159,8 @@ describe("AddressModal", () => {
     const wrapper = getWrapper(testAddressModalProps)
     const deleteButton = wrapper.find("Clickable[data-test='deleteButton']")
     deleteButton.simulate("click")
-    const dialog = wrapper.find(Dialog)
-    const dialogCancel = dialog
-      .findWhere(node => node.text() === "Cancel")
-      .first()
+    const dialog = wrapper.find("ModalDialog[data-test='deleteAddressDialog']")
+    const dialogCancel = dialog.find("Button").at(0)
     dialogCancel.simulate("click")
 
     setTimeout(() => {
@@ -306,7 +307,8 @@ describe("AddressModal feature flag", () => {
           totalCount: 0,
           edges: [],
         },
-        " $refType": "SavedAddresses_me",
+
+        " $fragmentType": "SavedAddresses_me",
       },
       closeModal: jest.fn(),
     }

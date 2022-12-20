@@ -1,38 +1,25 @@
+/**
+ * @generated SignedSource<<ffa4e6e9a3f80557e5d38a00c0b1dc2c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SaveButtonTestQueryVariables = {};
-export type SaveButtonTestQueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"SaveButton_artwork">;
-    } | null;
+export type SaveButtonTestQuery$variables = {};
+export type SaveButtonTestQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"SaveButton_artwork">;
+  } | null;
 };
 export type SaveButtonTestQuery = {
-    readonly response: SaveButtonTestQueryResponse;
-    readonly variables: SaveButtonTestQueryVariables;
+  response: SaveButtonTestQuery$data;
+  variables: SaveButtonTestQuery$variables;
 };
-
-
-
-/*
-query SaveButtonTestQuery {
-  artwork(id: "example-artwork-id") {
-    ...SaveButton_artwork
-    id
-  }
-}
-
-fragment SaveButton_artwork on Artwork {
-  id
-  internalID
-  slug
-  is_saved: isSaved
-  title
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -163,5 +150,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4197398aea6751a896b08a6a2465ca4a';
+
+(node as any).hash = "4197398aea6751a896b08a6a2465ca4a";
+
 export default node;

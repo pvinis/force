@@ -1,31 +1,34 @@
+/**
+ * @generated SignedSource<<221aed31a094f645abf9cb2a624e3a86>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ViewingRoomWorksArtwork_artwork = {
-    readonly artistNames: string | null;
-    readonly date: string | null;
-    readonly saleMessage: string | null;
-    readonly title: string | null;
-    readonly image: {
-        readonly resized: {
-            readonly src: string;
-            readonly srcSet: string;
-            readonly width: number | null;
-            readonly height: number | null;
-        } | null;
+export type ViewingRoomWorksArtwork_artwork$data = {
+  readonly artistNames: string | null;
+  readonly date: string | null;
+  readonly image: {
+    readonly resized: {
+      readonly height: number | null;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number | null;
     } | null;
-    readonly " $refType": "ViewingRoomWorksArtwork_artwork";
+  } | null;
+  readonly saleMessage: string | null;
+  readonly title: string | null;
+  readonly " $fragmentType": "ViewingRoomWorksArtwork_artwork";
 };
-export type ViewingRoomWorksArtwork_artwork$data = ViewingRoomWorksArtwork_artwork;
 export type ViewingRoomWorksArtwork_artwork$key = {
-    readonly " $data"?: ViewingRoomWorksArtwork_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ViewingRoomWorksArtwork_artwork">;
+  readonly " $data"?: ViewingRoomWorksArtwork_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ViewingRoomWorksArtwork_artwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -74,6 +77,15 @@ const node: ReaderFragment = {
           "args": [
             {
               "kind": "Literal",
+              "name": "version",
+              "value": [
+                "normalized",
+                "larger",
+                "large"
+              ]
+            },
+            {
+              "kind": "Literal",
               "name": "width",
               "value": 445
             }
@@ -112,7 +124,7 @@ const node: ReaderFragment = {
               "storageKey": null
             }
           ],
-          "storageKey": "resized(width:445)"
+          "storageKey": "resized(version:[\"normalized\",\"larger\",\"large\"],width:445)"
         }
       ],
       "storageKey": null
@@ -121,5 +133,7 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = 'a149a33163d026e325fce92577b0255e';
+
+(node as any).hash = "bc2ea969378e60798cb48ba4e14cedc8";
+
 export default node;

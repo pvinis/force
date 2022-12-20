@@ -1,25 +1,28 @@
+/**
+ * @generated SignedSource<<56d6d1452611006a2e7a5fa3d33454d0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairMeta_fair = {
-    readonly name: string | null;
-    readonly slug: string;
-    readonly metaDescription: string | null;
-    readonly metaImage: {
-        readonly src: string | null;
-    } | null;
-    readonly " $refType": "FairMeta_fair";
+export type FairMeta_fair$data = {
+  readonly metaDescription: string | null;
+  readonly metaImage: {
+    readonly src: string | null;
+  } | null;
+  readonly name: string | null;
+  readonly slug: string;
+  readonly " $fragmentType": "FairMeta_fair";
 };
-export type FairMeta_fair$data = FairMeta_fair;
 export type FairMeta_fair$key = {
-    readonly " $data"?: FairMeta_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairMeta_fair">;
+  readonly " $data"?: FairMeta_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairMeta_fair">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -76,5 +79,7 @@ const node: ReaderFragment = {
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = 'df70e523e990f462efe34ddf4770162c';
+
+(node as any).hash = "df70e523e990f462efe34ddf4770162c";
+
 export default node;

@@ -1,119 +1,28 @@
+/**
+ * @generated SignedSource<<520d13aa414b53f3c1cdb420df0ab991>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type showsRoutes_ShowsIndexQueryVariables = {};
-export type showsRoutes_ShowsIndexQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"ShowsIndex_viewer">;
-    } | null;
-    readonly featuredShows: {
-        readonly " $fragmentRefs": FragmentRefs<"ShowsIndex_featuredShows">;
-    } | null;
+export type showsRoutes_ShowsIndexQuery$variables = {};
+export type showsRoutes_ShowsIndexQuery$data = {
+  readonly featuredShows: {
+    readonly " $fragmentSpreads": FragmentRefs<"ShowsIndex_featuredShows">;
+  } | null;
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"ShowsIndex_viewer">;
+  } | null;
 };
 export type showsRoutes_ShowsIndexQuery = {
-    readonly response: showsRoutes_ShowsIndexQueryResponse;
-    readonly variables: showsRoutes_ShowsIndexQueryVariables;
+  response: showsRoutes_ShowsIndexQuery$data;
+  variables: showsRoutes_ShowsIndexQuery$variables;
 };
-
-
-
-/*
-query showsRoutes_ShowsIndexQuery {
-  viewer {
-    ...ShowsIndex_viewer
-  }
-  featuredShows: orderedSet(id: "530ebe92139b21efd6000071") {
-    ...ShowsIndex_featuredShows
-    id
-  }
-}
-
-fragment ShowsFeaturedShow_show on Show {
-  ...ShowsShowDates_show
-  id
-  name
-  href
-  coverImage {
-    title
-    large: cropped(width: 910, height: 683) {
-      width
-      height
-      src
-      srcSet
-    }
-    small: cropped(width: 600, height: 450) {
-      width
-      height
-      src
-      srcSet
-    }
-  }
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on ExternalPartner {
-      name
-      id
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-
-fragment ShowsHeader_viewer on Viewer {
-  allCities: cities {
-    text: name
-    value: slug
-  }
-  featuredCities: cities(featured: true) {
-    text: name
-    value: slug
-  }
-}
-
-fragment ShowsIndex_featuredShows on OrderedSet {
-  name
-  items {
-    __typename
-    ... on Show {
-      id
-      ...ShowsFeaturedShow_show
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on FeaturedLink {
-      id
-    }
-    ... on Profile {
-      id
-    }
-  }
-}
-
-fragment ShowsIndex_viewer on Viewer {
-  ...ShowsHeader_viewer
-}
-
-fragment ShowsShowDates_show on Show {
-  startAt
-  endAt
-  formattedStartAt: startAt(format: "MMM D")
-  formattedEndAt: endAt(format: "MMM D")
-  location {
-    city
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -167,7 +76,16 @@ v5 = [
     "value": "MMM D"
   }
 ],
-v6 = [
+v6 = {
+  "kind": "Literal",
+  "name": "version",
+  "value": [
+    "normalized",
+    "larger",
+    "large"
+  ]
+},
+v7 = [
   {
     "alias": null,
     "args": null,
@@ -197,12 +115,12 @@ v6 = [
     "storageKey": null
   }
 ],
-v7 = [
+v8 = [
   (v4/*: any*/)
 ],
-v8 = {
+v9 = {
   "kind": "InlineFragment",
-  "selections": (v7/*: any*/),
+  "selections": (v8/*: any*/),
   "type": "Node",
   "abstractKey": "__isNode"
 };
@@ -392,6 +310,7 @@ return {
                             "name": "height",
                             "value": 683
                           },
+                          (v6/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "width",
@@ -402,8 +321,8 @@ return {
                         "kind": "LinkedField",
                         "name": "cropped",
                         "plural": false,
-                        "selections": (v6/*: any*/),
-                        "storageKey": "cropped(height:683,width:910)"
+                        "selections": (v7/*: any*/),
+                        "storageKey": "cropped(height:683,version:[\"normalized\",\"larger\",\"large\"],width:910)"
                       },
                       {
                         "alias": "small",
@@ -413,6 +332,7 @@ return {
                             "name": "height",
                             "value": 450
                           },
+                          (v6/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "width",
@@ -423,8 +343,8 @@ return {
                         "kind": "LinkedField",
                         "name": "cropped",
                         "plural": false,
-                        "selections": (v6/*: any*/),
-                        "storageKey": "cropped(height:450,width:600)"
+                        "selections": (v7/*: any*/),
+                        "storageKey": "cropped(height:450,version:[\"normalized\",\"larger\",\"large\"],width:600)"
                       }
                     ],
                     "storageKey": null
@@ -455,7 +375,7 @@ return {
                         "type": "ExternalPartner",
                         "abstractKey": null
                       },
-                      (v8/*: any*/)
+                      (v9/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -463,16 +383,16 @@ return {
                 "type": "Show",
                 "abstractKey": null
               },
-              (v8/*: any*/),
+              (v9/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "type": "FeaturedLink",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v7/*: any*/),
+                "selections": (v8/*: any*/),
                 "type": "Profile",
                 "abstractKey": null
               }
@@ -486,14 +406,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "903e534aca0cc832d3a09236dbc038d8",
+    "cacheID": "2a3d7958a33c663ff4aa49ac9b28068d",
     "id": null,
     "metadata": {},
     "name": "showsRoutes_ShowsIndexQuery",
     "operationKind": "query",
-    "text": "query showsRoutes_ShowsIndexQuery {\n  viewer {\n    ...ShowsIndex_viewer\n  }\n  featuredShows: orderedSet(id: \"530ebe92139b21efd6000071\") {\n    ...ShowsIndex_featuredShows\n    id\n  }\n}\n\nfragment ShowsFeaturedShow_show on Show {\n  ...ShowsShowDates_show\n  id\n  name\n  href\n  coverImage {\n    title\n    large: cropped(width: 910, height: 683) {\n      width\n      height\n      src\n      srcSet\n    }\n    small: cropped(width: 600, height: 450) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on ExternalPartner {\n      name\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ShowsHeader_viewer on Viewer {\n  allCities: cities {\n    text: name\n    value: slug\n  }\n  featuredCities: cities(featured: true) {\n    text: name\n    value: slug\n  }\n}\n\nfragment ShowsIndex_featuredShows on OrderedSet {\n  name\n  items {\n    __typename\n    ... on Show {\n      id\n      ...ShowsFeaturedShow_show\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n\nfragment ShowsIndex_viewer on Viewer {\n  ...ShowsHeader_viewer\n}\n\nfragment ShowsShowDates_show on Show {\n  startAt\n  endAt\n  formattedStartAt: startAt(format: \"MMM D\")\n  formattedEndAt: endAt(format: \"MMM D\")\n  location {\n    city\n    id\n  }\n}\n"
+    "text": "query showsRoutes_ShowsIndexQuery {\n  viewer {\n    ...ShowsIndex_viewer\n  }\n  featuredShows: orderedSet(id: \"530ebe92139b21efd6000071\") {\n    ...ShowsIndex_featuredShows\n    id\n  }\n}\n\nfragment ShowsFeaturedShow_show on Show {\n  ...ShowsShowDates_show\n  id\n  name\n  href\n  coverImage {\n    title\n    large: cropped(width: 910, height: 683, version: [\"normalized\", \"larger\", \"large\"]) {\n      width\n      height\n      src\n      srcSet\n    }\n    small: cropped(width: 600, height: 450, version: [\"normalized\", \"larger\", \"large\"]) {\n      width\n      height\n      src\n      srcSet\n    }\n  }\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on ExternalPartner {\n      name\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ShowsHeader_viewer on Viewer {\n  allCities: cities {\n    text: name\n    value: slug\n  }\n  featuredCities: cities(featured: true) {\n    text: name\n    value: slug\n  }\n}\n\nfragment ShowsIndex_featuredShows on OrderedSet {\n  name\n  items {\n    __typename\n    ... on Show {\n      id\n      ...ShowsFeaturedShow_show\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n\nfragment ShowsIndex_viewer on Viewer {\n  ...ShowsHeader_viewer\n}\n\nfragment ShowsShowDates_show on Show {\n  startAt\n  endAt\n  formattedStartAt: startAt(format: \"MMM D\")\n  formattedEndAt: endAt(format: \"MMM D\")\n  location {\n    city\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '78a1bbdc471215e91cf6dfcd9ab0345d';
+
+(node as any).hash = "78a1bbdc471215e91cf6dfcd9ab0345d";
+
 export default node;

@@ -1,48 +1,53 @@
+import { Input } from "@artsy/palette"
+import { flushPromiseQueue } from "DevTools"
 import { mount, ReactWrapper } from "enzyme"
+import { Form, Formik } from "formik"
+import { SystemContextProvider } from "System"
+import { ArtistAutoComplete } from "../Components/ArtistAutocomplete"
 import {
   ArtworkDetailsFormModel,
   getArtworkDetailsFormInitialValues,
+  SubmissionType,
 } from "../Components/ArtworkDetailsForm"
-import { ArtistAutoComplete } from "../Components/ArtistAutocomplete"
-import { Form, Formik } from "formik"
-import { Input } from "@artsy/palette"
-import { SystemContextProvider } from "System"
-import { flushPromiseQueue } from "DevTools"
 
 jest.mock("System/Router/useRouter", () => ({
   useRouter: jest.fn(() => ({ match: { params: { id: null } } })),
 }))
 
-jest.mock("react-relay", () => ({
-  ...jest.requireActual("react-relay"),
-  fetchQuery: jest.fn().mockResolvedValue({
-    searchConnection: {
-      edges: [
-        {
-          node: {
-            displayLabel: "Banksy",
-            internalID: "111",
-            image: {
-              cropped: {
-                height: 44,
-                src: "some-img",
-                srcSet: "some-img",
-                width: 44,
-              },
+const results = {
+  searchConnection: {
+    edges: [
+      {
+        node: {
+          displayLabel: "Banksy",
+          internalID: "111",
+          image: {
+            cropped: {
+              height: 44,
+              src: "some-img",
+              srcSet: "some-img",
+              width: 44,
             },
           },
         },
-        { node: { displayLabel: "Andy Warhol", internalID: "222" } },
-      ],
-    },
-  }),
+      },
+      { node: { displayLabel: "Andy Warhol", internalID: "222" } },
+    ],
+  },
+}
+
+jest.mock("react-relay", () => ({
+  ...jest.requireActual("react-relay"),
+  fetchQuery: jest.fn(),
 }))
 
 import { fetchQuery } from "react-relay"
 import { artworkDetailsValidationSchema } from "../../Utils/validation"
 
 const mockErrorHandler = jest.fn()
-const mockFetchQuery = fetchQuery as jest.Mock
+let mockFetchQuery = (fetchQuery as jest.Mock).mockImplementation(() => ({
+  toPromise: jest.fn().mockResolvedValue(results),
+}))
 
 let formikValues: ArtworkDetailsFormModel
 const renderArtistAutosuggest = (values: ArtworkDetailsFormModel) =>
@@ -57,7 +62,10 @@ const renderArtistAutosuggest = (values: ArtworkDetailsFormModel) =>
           formikValues = values
           return (
             <Form>
-              <ArtistAutoComplete onError={() => mockErrorHandler(true)} />
+              <ArtistAutoComplete
+                onSelect={() => {}}
+                onError={() => mockErrorHandler(true)}
+              />
             </Form>
           )
         }}
@@ -88,7 +96,15 @@ describe("ArtistAutocomplete", () => {
   let wrapper: ReactWrapper
 
   beforeAll(async () => {
-    wrapper = renderArtistAutosuggest(getArtworkDetailsFormInitialValues())
+    wrapper = renderArtistAutosuggest(
+      getArtworkDetailsFormInitialValues({ type: SubmissionType.default })
+    )
+  })
+
+  beforeEach(() => {
+    mockFetchQuery = (fetchQuery as jest.Mock).mockImplementation(() => ({
+      toPromise: jest.fn().mockResolvedValue(results),
+    }))
   })
 
   afterEach(() => {
@@ -106,8 +122,7 @@ describe("ArtistAutocomplete", () => {
     it("starts when character is entered", async () => {
       await simulateTyping(wrapper, "B")
 
-      const searchString = (fetchQuery as jest.Mock).mock.calls[0][2]
-        .searchQuery
+      const searchString = mockFetchQuery.mock.calls[0][2].searchQuery
 
       expect(fetchQuery).toHaveBeenCalledTimes(1)
       expect(searchString).toBe("B")
@@ -122,7 +137,9 @@ describe("ArtistAutocomplete", () => {
 
   describe("ArtistAutocomplete component", () => {
     it("fires error handler with correct arg when query failed", async () => {
-      mockFetchQuery.mockRejectedValueOnce("no artist")
+      mockFetchQuery.mockImplementation(() => ({
+        toPromise: jest.fn().mockRejectedValueOnce("no artist"),
+      }))
 
       await simulateTyping(wrapper, "cas")
 

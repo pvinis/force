@@ -1,28 +1,30 @@
-import { FC, useEffect } from "react"
 import {
   AppleIcon,
+  Button,
   FacebookIcon,
   GoogleIcon,
-  Button,
+  IconProps,
   Join,
   Spacer,
   Text,
   useToasts,
-  IconProps,
 } from "@artsy/palette"
+import { FC, useEffect } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import {
-  SettingsEditSettingsLinkedAccounts_me,
-  AuthenticationProvider,
-} from "__generated__/SettingsEditSettingsLinkedAccounts_me.graphql"
 import { useRouter } from "System/Router/useRouter"
-import { useUnlinkSettingsLinkedAccount } from "./useUnlinkSettingsLinkedAccount"
 import { getENV } from "Utils/getENV"
 import { useMode } from "Utils/Hooks/useMode"
+import {
+  AuthenticationProvider,
+  SettingsEditSettingsLinkedAccounts_me$data,
+} from "__generated__/SettingsEditSettingsLinkedAccounts_me.graphql"
+import { useUnlinkSettingsLinkedAccount } from "./useUnlinkSettingsLinkedAccount"
 
 interface SettingsEditSettingsLinkedAccountsProps {
-  me: SettingsEditSettingsLinkedAccounts_me
+  me: SettingsEditSettingsLinkedAccounts_me$data
 }
+
+const providerNames = ["Apple", "Facebook", "Google"]
 
 export const SettingsEditSettingsLinkedAccounts: FC<SettingsEditSettingsLinkedAccountsProps> = ({
   me,
@@ -31,28 +33,34 @@ export const SettingsEditSettingsLinkedAccounts: FC<SettingsEditSettingsLinkedAc
   const { sendToast } = useToasts()
 
   const authenticationPaths = getENV("AP")
-
-  // Errors from authentication providers are handled by routing back to
-  // this page with an `error` query string.
   const query = match?.location?.query ?? {}
 
   useEffect(() => {
-    if (query.error) {
-      sendToast({
-        variant: "error",
-        message: query.error,
-        ttl: Infinity,
-      })
+    if (query.error === "already-linked") {
+      const providerName = query.provider
+
+      if (providerNames.includes(providerName)) {
+        const message =
+          `${providerName} account already linked to another Artsy account. ` +
+          `Try logging out and back in with ${providerName}. Then consider ` +
+          `deleting that user account and re-linking ${providerName}. `
+
+        sendToast({
+          variant: "error",
+          message,
+          ttl: Infinity,
+        })
+      }
     }
-  }, [query.error, sendToast])
+  }, [query.error, query.provider, sendToast])
 
   return (
     <>
-      <Text variant="lg-display" mb={4}>
+      <Text variant={["md", "lg"]} mb={4}>
         Linked Accounts
       </Text>
 
-      <Join separator={<Spacer mt={2} />}>
+      <Join separator={<Spacer y={2} />}>
         <SettingsEditSettingsLinkedAccountsButton
           me={me}
           provider="FACEBOOK"
@@ -93,7 +101,7 @@ export const SettingsEditSettingsLinkedAccountsFragmentContainer = createFragmen
 
 interface SettingsEditSettingsLinkedAccountsButtonProps {
   Icon: React.FunctionComponent<IconProps>
-  me: SettingsEditSettingsLinkedAccounts_me
+  me: SettingsEditSettingsLinkedAccounts_me$data
   href?: string
   provider: AuthenticationProvider
 }

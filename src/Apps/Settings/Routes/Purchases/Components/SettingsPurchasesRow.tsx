@@ -19,7 +19,7 @@ import { DateTime } from "luxon"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink } from "System/Router/RouterLink"
-import { SettingsPurchasesRow_order } from "__generated__/SettingsPurchasesRow_order.graphql"
+import { SettingsPurchasesRow_order$data } from "__generated__/SettingsPurchasesRow_order.graphql"
 import { LocaleOptions } from "luxon"
 import { extractNodes } from "Utils/extractNodes"
 import { appendCurrencySymbol } from "Apps/Order/Utils/currencyUtils"
@@ -33,30 +33,33 @@ const ORDER_LABELS = {
   PROCESSING: "Processing",
   REFUNDED: "Refunded",
   SUBMITTED: "Pending",
+  PROCESSING_APPROVAL: "Payment processing",
 } as const
 
 const ORDER_ICONS = {
-  APPROVED: <PendingCircleIcon fill="black60" />,
+  APPROVED: <PendingCircleIcon fill="black100" />,
   CANCELED: <XCircleIcon fill="red100" />,
-  FULFILLED: <CheckCircleFillIcon />,
+  FULFILLED: <CheckCircleFillIcon fill="green100" />,
   IN_TRANSIT: <PendingCircleIcon fill="black60" />,
   PROCESSING: <PendingCircleIcon fill="black60" />,
   REFUNDED: <XCircleIcon fill="red100" />,
   SUBMITTED: <PendingCircleIcon fill="black60" />,
+  PROCESSING_APPROVAL: <PendingCircleIcon fill="black60" />,
 } as const
 
 const ORDER_COLORS = {
-  APPROVED: "black60",
+  APPROVED: "black100",
   CANCELED: "red100",
-  FULFILLED: "black100",
-  IN_TRANSIT: "black100",
+  FULFILLED: "green100",
+  IN_TRANSIT: "black60",
   PROCESSING: "black60",
   REFUNDED: "red100",
   SUBMITTED: "black60",
+  PROCESSING_APPROVAL: "black60",
 } as const
 
 const getPaymentMethodText = (
-  paymentMethodDetails: SettingsPurchasesRow_order["paymentMethodDetails"]
+  paymentMethodDetails: SettingsPurchasesRow_order$data["paymentMethodDetails"]
 ) => {
   switch (paymentMethodDetails?.__typename) {
     case "BankAccount":
@@ -71,7 +74,7 @@ const getPaymentMethodText = (
 }
 
 interface SettingsPurchasesRowProps {
-  order: SettingsPurchasesRow_order
+  order: SettingsPurchasesRow_order$data
 }
 
 const SettingsPurchasesRow: FC<SettingsPurchasesRowProps> = ({ order }) => {
@@ -99,7 +102,11 @@ const SettingsPurchasesRow: FC<SettingsPurchasesRowProps> = ({ order }) => {
         <Flex alignItems="center">
           {ORDER_ICONS[order.displayState]}
 
-          <Text ml={0.5} variant="xs" color={ORDER_COLORS[order.displayState]}>
+          <Text
+            ml={0.5}
+            variant="sm-display"
+            color={ORDER_COLORS[order.displayState]}
+          >
             {ORDER_LABELS[order.displayState]}
           </Text>
 

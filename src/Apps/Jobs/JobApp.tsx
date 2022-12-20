@@ -10,11 +10,11 @@ import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
 import { TopContextBar } from "Components/TopContextBar"
-import { JobApp_job } from "__generated__/JobApp_job.graphql"
-import { PageHTML } from "../Page/Components/PageHTML"
+import { JobApp_job$data } from "__generated__/JobApp_job.graphql"
+import { PageHTML } from "Apps/Page/Components/PageHTML"
 
 interface JobAppProps {
-  job: JobApp_job
+  job: JobApp_job$data
 }
 
 const JobApp: FC<JobAppProps> = ({ job }) => {
@@ -23,14 +23,14 @@ const JobApp: FC<JobAppProps> = ({ job }) => {
       <MetaTags
         title={`${job.title} | Artsy`}
         description="Artsy is redefining the way the world discovers art. Our mission is to make all the world’s art accessible to anyone with an Internet connection. Reaching that goal starts with our people, and so we dedicate serious time and energy to find excellent new team members as passionate about our product as we are. Want to help us? We’d love to hear from you."
-        pathname={`/jobs/${job.id}`}
+        pathname={`/job/${job.id}`}
       />
 
       <TopContextBar displayBackArrow href="/jobs">
         Join Our Team
       </TopContextBar>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <Text variant="xl" as="h1">
         {job.title}
@@ -40,11 +40,11 @@ const JobApp: FC<JobAppProps> = ({ job }) => {
         {job.location}
       </Text>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns gridRowGap={4}>
         <Column span={8} start={3}>
-          <Join separator={<Spacer mt={4} />}>
+          <Join separator={<Spacer y={4} />}>
             <PageHTML dangerouslySetInnerHTML={{ __html: job.content }} />
 
             <Separator my={2} />

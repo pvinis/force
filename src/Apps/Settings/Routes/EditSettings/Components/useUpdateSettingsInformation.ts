@@ -1,4 +1,4 @@
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
 import { useMutation } from "Utils/Hooks/useMutation"
 import { useUpdateSettingsInformationMutation } from "__generated__/useUpdateSettingsInformationMutation.graphql"
 
@@ -11,9 +11,11 @@ export const useUpdateSettingsInformation = () => {
         updateMyUserProfile(input: $input) {
           me {
             ...SettingsEditSettingsInformation_me
-            name
             email
+            name
             phone
+            priceRangeMin
+            priceRangeMax
           }
           userOrError {
             ... on UpdateMyProfileMutationSuccess {

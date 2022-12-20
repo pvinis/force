@@ -1,62 +1,65 @@
+/**
+ * @generated SignedSource<<a76155b72a988e0711181ea03b90c314>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Item_item = {
-    readonly __typename: "Artwork";
-    readonly internalID: string;
-    readonly id: string;
-    readonly date: string | null;
-    readonly title: string | null;
-    readonly artistNames: string | null;
-    readonly href: string | null;
-    readonly isOfferableFromInquiry: boolean | null;
-    readonly image: {
-        readonly url: string | null;
-    } | null;
-    readonly listPrice: ({
-        readonly __typename: "Money";
-        readonly display: string | null;
-    } | {
-        readonly __typename: "PriceRange";
-        readonly display: string | null;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    }) | null;
-    readonly " $refType": "Item_item";
-} | {
-    readonly __typename: "Show";
-    readonly id: string;
-    readonly fair: {
-        readonly name: string | null;
-        readonly exhibitionPeriod: string | null;
-        readonly location: {
-            readonly city: string | null;
-        } | null;
-    } | null;
-    readonly href: string | null;
-    readonly name: string | null;
-    readonly coverImage: {
-        readonly url: string | null;
-    } | null;
-    readonly " $refType": "Item_item";
-} | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
+export type Item_item$data = {
+  readonly __typename: "Artwork";
+  readonly artistNames: string | null;
+  readonly date: string | null;
+  readonly href: string | null;
+  readonly id: string;
+  readonly image: {
+    readonly url: string | null;
+  } | null;
+  readonly internalID: string;
+  readonly isOfferableFromInquiry: boolean | null;
+  readonly listPrice: {
+    readonly __typename: "Money";
+    readonly display: string | null;
+  } | {
+    readonly __typename: "PriceRange";
+    readonly display: string | null;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
     readonly __typename: "%other";
-    readonly " $refType": "Item_item";
+  } | null;
+  readonly title: string | null;
+  readonly " $fragmentType": "Item_item";
+} | {
+  readonly __typename: "Show";
+  readonly coverImage: {
+    readonly url: string | null;
+  } | null;
+  readonly fair: {
+    readonly exhibitionPeriod: string | null;
+    readonly location: {
+      readonly city: string | null;
+    } | null;
+    readonly name: string | null;
+  } | null;
+  readonly href: string | null;
+  readonly id: string;
+  readonly name: string | null;
+  readonly " $fragmentType": "Item_item";
+} | {
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "Item_item";
 };
-export type Item_item$data = Item_item;
 export type Item_item$key = {
-    readonly " $data"?: Item_item$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Item_item">;
+  readonly " $data"?: Item_item$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Item_item">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -267,5 +270,7 @@ return {
   "abstractKey": "__isConversationItemType"
 };
 })();
-(node as any).hash = 'ed08336624a97b40dd1e62ac0b8634b6';
+
+(node as any).hash = "ed08336624a97b40dd1e62ac0b8634b6";
+
 export default node;

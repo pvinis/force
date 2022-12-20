@@ -6,7 +6,7 @@ export const fetchUserPreferences = (relayEnvironment: Environment) => {
     relayEnvironment,
     USER_PREFERENCES_QUERY,
     {}
-  )
+  ).toPromise()
 }
 
 const USER_PREFERENCES_QUERY = graphql`

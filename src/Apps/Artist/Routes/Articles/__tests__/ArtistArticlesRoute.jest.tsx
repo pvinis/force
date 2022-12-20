@@ -1,6 +1,6 @@
 import { graphql } from "react-relay"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
-import { ArtistArticlesRouteFragmentContainer } from "../ArtistArticlesRoute"
+import { ArtistArticlesRouteFragmentContainer } from "Apps/Artist/Routes/Articles/ArtistArticlesRoute"
 import { ArtistArticlesRoute_Test_Query } from "__generated__/ArtistArticlesRoute_Test_Query.graphql"
 
 jest.unmock("react-relay")
@@ -23,27 +23,28 @@ describe("ArtistArticlesRoute", () => {
     `,
   })
 
-  it("does not render rail if no articles", () => {
+  it("render a zero state if no articles", () => {
     const wrapper = getWrapper({
       Artist: () => ({
         articlesConnection: { edges: null },
       }),
     })
-    expect(wrapper.html()).toBeFalsy()
+    expect(wrapper.html()).toContain("There aren’t any articles at this time.")
   })
 
   it("renders correctly", () => {
     const wrapper = getWrapper({
       Artist: () => ({
-        name: "artistName",
+        name: "Example Artist",
+      }),
+      Article: () => ({
+        thumbnailTitle: "Example Article",
       }),
     })
 
     const text = wrapper.text()
-    expect(text).toContain("artistName Articles")
-    expect(text).toContain("publishedAt")
-    expect(text).toContain("thumbnailTitle")
-    expect(text).toContain("name")
+    expect(text).toContain("Example Artist Articles")
+    expect(text).toContain("Example Article")
     expect(wrapper.find("PaginationFragmentContainer").length).toBe(1)
   })
 })

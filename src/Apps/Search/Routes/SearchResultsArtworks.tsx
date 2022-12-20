@@ -1,5 +1,5 @@
 import * as React from "react"
-import { SearchResultsArtworks_viewer } from "__generated__/SearchResultsArtworks_viewer.graphql"
+import { SearchResultsArtworks_viewer$data } from "__generated__/SearchResultsArtworks_viewer.graphql"
 import { ZeroState } from "Apps/Search/Components/ZeroState"
 import { ArtworkFilter } from "Components/ArtworkFilter"
 import { updateUrl } from "Components/ArtworkFilter/Utils/urlBuilder"
@@ -11,9 +11,10 @@ import {
 } from "Components/ArtworkFilter/ArtworkFilterContext"
 import { ActiveFilterPills } from "Components/SavedSearchAlert/Components/ActiveFilterPills"
 import { useSystemContext } from "System"
+import { SearchResultsArtworksFilters } from "Apps/Search/Components/SearchResultsArtworksFilters"
 
 interface SearchResultsRouteProps {
-  viewer: SearchResultsArtworks_viewer
+  viewer: SearchResultsArtworks_viewer$data
 }
 
 export const SearchResultsArtworksRoute: React.FC<SearchResultsRouteProps> = props => {
@@ -42,6 +43,7 @@ export const SearchResultsArtworksRoute: React.FC<SearchResultsRouteProps> = pro
         { value: "-year", text: "Artwork year (desc.)" },
         { value: "year", text: "Artwork year (asc.)" },
       ]}
+      Filters={<SearchResultsArtworksFilters />}
       FilterPillsSection={<ActiveFilterPills />}
       userPreferredMetric={userPreferences?.metric}
     />

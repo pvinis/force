@@ -9,10 +9,13 @@ interface ArtworkGridContextProps {
    * If its an auction artwork, no need to show bid badge, and show lot number
    */
   isAuctionArtwork?: boolean
+
+  hideLotLabel?: boolean
 }
 
 const ArtworkGridContext = createContext<ArtworkGridContextProps>({
   isAuctionArtwork: false,
+  hideLotLabel: false,
 })
 
 export const ArtworkGridContextProvider: React.FC<ArtworkGridContextProps> = ({
@@ -31,8 +34,10 @@ export const useArtworkGridContext = () => {
   return artworkGridContext
 }
 
-export const withArtworkGridContext = Component => {
-  return props => {
+export const withArtworkGridContext = <T,>(
+  Component: React.ComponentType<T>
+) => {
+  return (props: T) => {
     return (
       <ArtworkGridContext.Consumer>
         {contextValues => {

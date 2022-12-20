@@ -1,39 +1,25 @@
+/**
+ * @generated SignedSource<<60e677d74e17f71a91ab11b96aed6da6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type VerifiedSellerTestQueryVariables = {};
-export type VerifiedSellerTestQueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"VerifiedSeller_artwork">;
-    } | null;
+export type VerifiedSellerTestQuery$variables = {};
+export type VerifiedSellerTestQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"VerifiedSeller_artwork">;
+  } | null;
 };
 export type VerifiedSellerTestQuery = {
-    readonly response: VerifiedSellerTestQueryResponse;
-    readonly variables: VerifiedSellerTestQueryVariables;
+  response: VerifiedSellerTestQuery$data;
+  variables: VerifiedSellerTestQuery$variables;
 };
-
-
-
-/*
-query VerifiedSellerTestQuery {
-  artwork(id: "whatevs") {
-    ...VerifiedSeller_artwork
-    id
-  }
-}
-
-fragment VerifiedSeller_artwork on Artwork {
-  is_biddable: isBiddable
-  partner {
-    isVerifiedSeller
-    name
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -177,5 +163,7 @@ return {
   }
 };
 })();
-(node as any).hash = '99c1a37fc65e8b0255636404f65ab2a9';
+
+(node as any).hash = "99c1a37fc65e8b0255636404f65ab2a9";
+
 export default node;

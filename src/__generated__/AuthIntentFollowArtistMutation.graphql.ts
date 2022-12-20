@@ -1,43 +1,43 @@
+/**
+ * @generated SignedSource<<aecf1197fe3e8cb6cfccad5afd9203b2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type FollowArtistInput = {
-    artistID: string;
-    clientMutationId?: string | null | undefined;
-    unfollow?: boolean | null | undefined;
+  artistID: string;
+  clientMutationId?: string | null;
+  unfollow?: boolean | null;
 };
-export type AuthIntentFollowArtistMutationVariables = {
-    input: FollowArtistInput;
+export type AuthIntentFollowArtistMutation$variables = {
+  input: FollowArtistInput;
 };
-export type AuthIntentFollowArtistMutationResponse = {
-    readonly followArtist: {
-        readonly artist: {
-            readonly id: string;
-            readonly isFollowed: boolean | null;
-        } | null;
+export type AuthIntentFollowArtistMutation$data = {
+  readonly followArtist: {
+    readonly artist: {
+      readonly id: string;
+      readonly isFollowed: boolean | null;
     } | null;
+  } | null;
+};
+export type AuthIntentFollowArtistMutation$rawResponse = {
+  readonly followArtist: {
+    readonly artist: {
+      readonly id: string;
+      readonly isFollowed: boolean | null;
+    } | null;
+  } | null;
 };
 export type AuthIntentFollowArtistMutation = {
-    readonly response: AuthIntentFollowArtistMutationResponse;
-    readonly variables: AuthIntentFollowArtistMutationVariables;
+  rawResponse: AuthIntentFollowArtistMutation$rawResponse;
+  response: AuthIntentFollowArtistMutation$data;
+  variables: AuthIntentFollowArtistMutation$variables;
 };
-
-
-
-/*
-mutation AuthIntentFollowArtistMutation(
-  $input: FollowArtistInput!
-) {
-  followArtist(input: $input) {
-    artist {
-      id
-      isFollowed
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -118,5 +118,7 @@ return {
   }
 };
 })();
-(node as any).hash = '7dbf0de1cae972b061dabe439ae5b14a';
+
+(node as any).hash = "e1a0f96930c3d1fdb8afd7778b282975";
+
 export default node;

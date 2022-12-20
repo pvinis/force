@@ -1,5 +1,5 @@
 import { Image } from "@artsy/palette"
-import { DefaultHeaderArtwork_artwork } from "__generated__/DefaultHeaderArtwork_artwork.graphql"
+import { DefaultHeaderArtwork_artwork$data } from "__generated__/DefaultHeaderArtwork_artwork.graphql"
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { useTracking } from "react-tracking"
 import { RouterLink } from "System/Router/RouterLink"
@@ -7,7 +7,7 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 
 export interface DefaultHeaderArtworkProps {
-  artwork: DefaultHeaderArtwork_artwork
+  artwork: DefaultHeaderArtwork_artwork$data
   collectionId: string
   collectionSlug: string
 }
@@ -62,7 +62,11 @@ export const DefaultHeaderArtworkFragmentContainer = createFragmentContainer(
         href
         slug
         image {
-          resized(width: 300, height: 450) {
+          resized(
+            width: 300
+            height: 450
+            version: ["normalized", "larger", "large"]
+          ) {
             src
             srcSet
             width

@@ -1,49 +1,39 @@
 import { useContext } from "react"
 import * as React from "react"
-import { NavBarNotificationsQueryRenderer, NavBarUserMenu } from "./Menus"
+import { NavBarUserMenu } from "./Menus"
 import { SystemContext } from "System"
-import {
-  BellIcon,
-  Dropdown,
-  EnvelopeIcon,
-  Flex,
-  SoloIcon,
-} from "@artsy/palette"
-import { graphql } from "relay-runtime"
+import { BellIcon, Dropdown, EnvelopeIcon, SoloIcon } from "@artsy/palette"
+import { graphql } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import {
   NavBarLoggedInActionsQuery,
-  NavBarLoggedInActionsQueryResponse,
+  NavBarLoggedInActionsQuery$data,
 } from "__generated__/NavBarLoggedInActionsQuery.graphql"
-import { isServer } from "lib/isServer"
-import {
-  getConversationCount,
-  getNotificationCount,
-  updateConversationCache,
-  updateNotificationCache,
-} from "./helpers"
-import styled from "styled-components"
-import { themeGet } from "@styled-system/theme-get"
+import { isServer } from "Server/isServer"
 import { NavBarItemButton, NavBarItemLink } from "./NavBarItem"
 import { Z } from "Apps/Components/constants"
+import { NavBarNewNotifications } from "./Menus/NavBarNewNotifications"
+import { NavBarNotificationIndicator } from "./NavBarNotificationIndicator"
+import { useTracking } from "react-tracking"
+import { ActionType } from "@artsy/cohesion"
 
 /** Displays action icons for logged in users such as inbox, profile, and notifications */
 export const NavBarLoggedInActions: React.FC<Partial<
-  NavBarLoggedInActionsQueryResponse
+  NavBarLoggedInActionsQuery$data
 >> = ({ me }) => {
-  const hasUnreadNotifications =
-    (me?.unreadNotificationsCount ?? 0) > 0 || getNotificationCount() > 0
-  const hasUnreadConversations =
-    (me?.unreadConversationCount ?? 0) > 0 || getConversationCount() > 0
-
-  updateNotificationCache(me?.unreadNotificationsCount)
-  updateConversationCache(me?.unreadConversationCount)
+  const { trackEvent } = useTracking()
+  const unreadNotificationsCount = me?.unreadNotificationsCount ?? 0
+  const unreadConversationCount = me?.unreadConversationCount ?? 0
+  const hasConversations = unreadConversationCount > 0
+  const hasNotifications = unreadNotificationsCount > 0
 
   return (
     <>
       <Dropdown
         zIndex={Z.dropdown}
-        dropdown={<NavBarNotificationsQueryRenderer />}
+        dropdown={
+          <NavBarNewNotifications unreadCounts={unreadNotificationsCount} />
+        }
         placement="bottom-end"
         offset={0}
         openDropdownByClick
@@ -53,29 +43,50 @@ export const NavBarLoggedInActions: React.FC<Partial<
             ref={anchorRef as any}
             active={visible}
             {...anchorProps}
-          >
-            <BellIcon
-              title="Notifications"
-              // @ts-ignore
-              fill="currentColor"
-            />
+            aria-label={
+              hasNotifications
+                ? `${me?.unreadNotificationsCount} unread notifications`
+                : "Notifications"
+            }
+            onClick={event => {
+              anchorProps.onClick?.(event)
 
-            {hasUnreadNotifications && (
-              <NavBarLoggedInActionsNotificationIndicator />
+              if (!visible) {
+                trackEvent({
+                  action: ActionType.clickedNotificationsBell,
+                })
+              }
+            }}
+          >
+            <BellIcon title="Notifications" fill="currentColor" />
+
+            {hasNotifications && (
+              <NavBarNotificationIndicator
+                position="absolute"
+                top="15px"
+                right="9px"
+              />
             )}
           </NavBarItemButton>
         )}
       </Dropdown>
 
-      <NavBarItemLink href="/user/conversations">
-        <EnvelopeIcon
-          title="Inbox"
-          // @ts-ignore
-          fill="currentColor"
-        />
+      <NavBarItemLink
+        href="/user/conversations"
+        aria-label={
+          hasConversations
+            ? `${me?.unreadConversationCount} unread conversations`
+            : "Conversations"
+        }
+      >
+        <EnvelopeIcon title="Inbox" fill="currentColor" />
 
-        {hasUnreadConversations && (
-          <NavBarLoggedInActionsNotificationIndicator />
+        {hasConversations && (
+          <NavBarNotificationIndicator
+            position="absolute"
+            top="15px"
+            right="5px"
+          />
         )}
       </NavBarItemLink>
 
@@ -94,11 +105,7 @@ export const NavBarLoggedInActions: React.FC<Partial<
             active={visible}
             {...anchorProps}
           >
-            <SoloIcon
-              title="Your account"
-              // @ts-ignore
-              fill="currentColor"
-            />
+            <SoloIcon title="Your account" fill="currentColor" />
           </NavBarItemButton>
         )}
       </Dropdown>
@@ -148,16 +155,3 @@ export const NavBarLoggedInActionsQueryRenderer: React.FC<{}> = () => {
     />
   )
 }
-
-export const NavBarLoggedInActionsNotificationIndicator = styled(Flex).attrs({
-  bg: "red100",
-})`
-  border-radius: 50%;
-  width: 6px;
-  height: 6px;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: ${themeGet("space.2")};
-  right: 5px;
-`

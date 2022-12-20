@@ -1,34 +1,36 @@
+/**
+ * @generated SignedSource<<f4f6588a18ac558b5b909639b16ed536>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderGene_gene = {
-    readonly internalID: string;
-    readonly href: string | null;
-    readonly name: string | null;
-    readonly avatar: {
-        readonly cropped: {
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type EntityHeaderGene_gene$data = {
+  readonly avatar: {
+    readonly cropped: {
+      readonly src: string;
+      readonly srcSet: string;
     } | null;
-    readonly filterArtworksConnection: {
-        readonly counts: {
-            readonly total: number | null;
-        } | null;
+  } | null;
+  readonly filterArtworksConnection: {
+    readonly counts: {
+      readonly total: any | null;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"FollowGeneButton_gene">;
-    readonly " $refType": "EntityHeaderGene_gene";
+  } | null;
+  readonly href: string | null;
+  readonly internalID: string;
+  readonly name: string | null;
+  readonly " $fragmentType": "EntityHeaderGene_gene";
 };
-export type EntityHeaderGene_gene$data = EntityHeaderGene_gene;
 export type EntityHeaderGene_gene$key = {
-    readonly " $data"?: EntityHeaderGene_gene$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHeaderGene_gene">;
+  readonly " $data"?: EntityHeaderGene_gene$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderGene_gene">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -146,15 +148,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "filterArtworksConnection(first:1)"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "FollowGeneButton_gene"
     }
   ],
   "type": "Gene",
   "abstractKey": null
 };
-(node as any).hash = 'cb9d9de7329f02413194a65fd768cb10';
+
+(node as any).hash = "90714ad51091e668d2a1eae00ca3d146";
+
 export default node;

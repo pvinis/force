@@ -8,17 +8,18 @@ module.exports = {
     "jest",
     "jest-dom",
     "testing-library",
+    "no-relative-import-paths",
   ],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
     "plugin:styled-components-a11y/recommended",
     "plugin:jest/recommended",
     "plugin:jest-dom/recommended",
     "plugin:testing-library/react",
+    "prettier", // prettier should always be last
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -65,7 +66,7 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": "error",
 
     // FIXME: Investigate / reenable these rules. Disabled to introduce eslint
     // into codebase.
@@ -114,10 +115,14 @@ module.exports = {
         message: "Please use `useIntersectionObserver`",
       },
     ],
+    "no-relative-import-paths/no-relative-import-paths": [
+      "warn",
+      { allowSameFolder: true, rootDir: "src" },
+    ],
   },
   overrides: [
     {
-      files: ["src/**/*.test.js", "src/**/*.test.ts"],
+      files: ["*.cy.js", "*.cy.ts"],
       rules: {
         "jest/expect-expect": "off",
         "jest/valid-describe": "off",

@@ -1,19 +1,15 @@
-import { NewPayment_me } from "__generated__/NewPayment_me.graphql"
-import { NewPayment_order } from "__generated__/NewPayment_order.graphql"
+import { NewPayment_me$data } from "__generated__/NewPayment_me.graphql"
+import { NewPayment_order$data } from "__generated__/NewPayment_order.graphql"
 import { NewPaymentRouteSetOrderPaymentMutation } from "__generated__/NewPaymentRouteSetOrderPaymentMutation.graphql"
 import { ArtworkSummaryItemFragmentContainer as ArtworkSummaryItem } from "Apps/Order/Components/ArtworkSummaryItem"
-import { OrderStepper } from "Apps/Order/Components/OrderStepper"
 import { TransactionDetailsSummaryItemFragmentContainer as TransactionDetailsSummaryItem } from "Apps/Order/Components/TransactionDetailsSummaryItem"
-import { TwoColumnLayout } from "Apps/Order/Components/TwoColumnLayout"
-import { track } from "react-tracking"
 import { CountdownTimer } from "Components/CountdownTimer"
 import { RouteConfig, Router } from "found"
-import { createRef, Component } from "react"
+import { createRef, useState, FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import type { Stripe, StripeElements } from "@stripe/stripe-js"
 import createLogger from "Utils/logger"
 import { Media } from "Utils/Responsive"
-
 import { Button, Flex, Join, Spacer } from "@artsy/palette"
 import {
   CreditCardPicker,
@@ -25,9 +21,10 @@ import {
   injectCommitMutation,
 } from "Apps/Order/Utils/commitMutation"
 import { get } from "Utils/get"
-import { BuyerGuarantee } from "../../Components/BuyerGuarantee"
+import { BuyerGuarantee } from "Apps/Order/Components/BuyerGuarantee"
 import { createStripeWrapper } from "Utils/createStripeWrapper"
 import { ContextModule, OwnerType } from "@artsy/cohesion"
+import { OrderRouteContainer } from "Apps/Order/Components/OrderRouteContainer"
 
 export const ContinueButton = props => (
   <Button variant="primaryBlack" width={["100%", "50%"]} {...props}>
@@ -41,8 +38,8 @@ export interface StripeProps {
 }
 
 export interface NewPaymentProps {
-  order: NewPayment_order
-  me: NewPayment_me
+  order: NewPayment_order$data
+  me: NewPayment_me$data
   router: Router
   route: RouteConfig
   dialog: Dialog
@@ -50,166 +47,119 @@ export interface NewPaymentProps {
   isCommittingMutation: boolean
 }
 
-interface NewPaymentState {
-  isGettingCreditCardId: boolean
-}
+type CreditCardPickerResultType =
+  | { type: "error"; error: string | undefined }
+  | { type: "internal_error"; error: string | undefined }
+  | { type: "invalid_form" }
+  | { type: "success"; creditCardId: string }
 
 const logger = createLogger("Order/Routes/NewPayment/index.tsx")
 
-@track()
-export class NewPaymentRoute extends Component<
-  NewPaymentProps & StripeProps,
-  NewPaymentState
-> {
-  CreditCardPicker = createRef<CreditCardPicker>()
-  state = {
-    isGettingCreditCardId: false,
+export const NewPaymentRoute: FC<NewPaymentProps & StripeProps> = props => {
+  const [isGettingCreditCardId, setIsGettingCreditCardId] = useState(false)
+  const [
+    creditCardPickerResult,
+    setCreditCardPickerResult,
+  ] = useState<CreditCardPickerResultType | null>(null)
+
+  const {
+    order,
+    me,
+    router,
+    route,
+    dialog,
+    commitMutation,
+    isCommittingMutation,
+    stripe,
+  } = props
+  const isLoading = isCommittingMutation || isGettingCreditCardId
+  const CreditCardPicker = createRef<CreditCardPicker>()
+
+  const getCreditCardId = async (): Promise<string | null> => {
+    setIsGettingCreditCardId(true)
+
+    const result = await CreditCardPicker?.current?.getCreditCardId()
+
+    setIsGettingCreditCardId(false)
+
+    if (result?.type === "invalid_form") return null
+
+    if (result?.type === "error") {
+      dialog.showErrorDialog({
+        title: result?.error,
+        message:
+          "Please enter another payment method or contact your bank for more information.",
+      })
+      return null
+    }
+
+    if (result?.type === "internal_error") {
+      dialog.showErrorDialog({
+        title: "An internal error occurred",
+      })
+      logger.error(result?.error)
+      return null
+    }
+
+    if (result?.type === "success" && result?.creditCardId) {
+      setCreditCardPickerResult(result)
+      return result.creditCardId
+    }
+
+    return null
   }
 
-  onContinue = async () => {
+  const onContinue = async () => {
     try {
-      this.setState({ isGettingCreditCardId: true })
-      const result = await this.CreditCardPicker?.current?.getCreditCardId()!
-      this.setState({ isGettingCreditCardId: false })
+      const creditCardId =
+        creditCardPickerResult?.type === "success"
+          ? creditCardPickerResult.creditCardId
+          : await getCreditCardId()
 
-      if (result.type === "invalid_form") {
-        return
-      }
-
-      if (result.type === "error") {
-        this.props.dialog.showErrorDialog({
-          title: result.error,
-          message:
-            "Please enter another payment method or contact your bank for more information.",
-        })
-        return
-      }
-
-      if (result.type === "internal_error") {
-        this.props.dialog.showErrorDialog({
-          title: "An internal error occurred",
-        })
-        logger.error(result.error)
-        return
-      }
-
-      const orderOrError = (
-        await this.fixFailedPayment({
-          input: {
-            creditCardId: result.creditCardId,
-            offerId: this.props.order.lastOffer?.internalID,
-            orderId: this.props.order.internalID,
-          },
-        })
-      ).commerceFixFailedPayment?.orderOrError!
-
-      if (orderOrError.error) {
-        this.handleFixFailedPaymentError(orderOrError.error.code)
-        return
-      } else if (
-        orderOrError.actionData &&
-        orderOrError.actionData.clientSecret
-      ) {
-        const scaResult = await this.props.stripe.handleCardAction(
-          orderOrError.actionData.clientSecret
-        )
-        if (scaResult.error) {
-          this.props.dialog.showErrorDialog({
-            title: "An error occurred",
-            message: scaResult.error.message,
+      if (creditCardId) {
+        const orderOrError = (
+          await fixFailedPayment({
+            input: {
+              creditCardId,
+              offerId: order.lastOffer?.internalID,
+              orderId: order.internalID,
+            },
           })
-          return
-        } else {
-          this.onContinue()
-        }
-      } else {
-        this.props.router.push(`/orders/${this.props.order.internalID}/status`)
-      }
+        ).commerceFixFailedPayment?.orderOrError!
 
-      this.props.router.push(`/orders/${this.props.order.internalID}/status`)
+        if (orderOrError.error) {
+          handleFixFailedPaymentError(orderOrError.error.code)
+          return
+        }
+
+        if (orderOrError.actionData && orderOrError.actionData.clientSecret) {
+          const scaResult = await stripe.handleCardAction(
+            orderOrError.actionData.clientSecret
+          )
+          if (scaResult.error) {
+            dialog.showErrorDialog({
+              title: "An error occurred",
+              message: scaResult.error.message,
+            })
+            return
+          } else {
+            onContinue()
+          }
+        }
+
+        router.push(`/orders/${order.internalID}/status`)
+      }
     } catch (error) {
       logger.error(error)
-      this.props.dialog.showErrorDialog()
+      dialog.showErrorDialog()
     }
   }
 
-  render() {
-    const { order, isCommittingMutation } = this.props
-    const { isGettingCreditCardId } = this.state
-
-    const isLoading = isCommittingMutation || isGettingCreditCardId
-
-    return (
-      <>
-        <OrderStepper currentStep="Payment" steps={["Payment"]} />
-
-        <TwoColumnLayout
-          Content={
-            <Flex
-              flexDirection="column"
-              style={isLoading ? { pointerEvents: "none" } : {}}
-            >
-              {order.mode === "OFFER" && (
-                <>
-                  <Flex>
-                    <CountdownTimer
-                      action="Submit new payment"
-                      note="Expiration will end negotiations on this offer. Keep in mind the work can be sold to another buyer in the meantime."
-                      countdownStart={order.lastOffer?.createdAt!}
-                      countdownEnd={order.stateExpiresAt!}
-                    />
-                  </Flex>
-                  <Spacer mb={[2, 4]} />
-                </>
-              )}
-              <Join separator={<Spacer mb={4} />}>
-                <CreditCardPickerFragmentContainer
-                  order={order}
-                  me={this.props.me}
-                  commitMutation={this.props.commitMutation}
-                  innerRef={this.CreditCardPicker}
-                />
-                <Media greaterThan="xs">
-                  <ContinueButton
-                    onClick={this.onContinue}
-                    loading={isLoading}
-                  />
-                </Media>
-              </Join>
-            </Flex>
-          }
-          Sidebar={
-            <Flex flexDirection="column">
-              <Flex flexDirection="column">
-                <ArtworkSummaryItem order={order} />
-                <TransactionDetailsSummaryItem order={order} />
-              </Flex>
-              <BuyerGuarantee
-                contextModule={ContextModule.ordersNewPayment}
-                contextPageOwnerType={OwnerType.ordersNewPayment}
-              />
-              <Spacer mb={[2, 4]} />
-              <Media at="xs">
-                <>
-                  <ContinueButton
-                    onClick={this.onContinue}
-                    loading={isLoading}
-                  />
-                </>
-              </Media>
-            </Flex>
-          }
-        />
-      </>
-    )
-  }
-
-  fixFailedPayment(
+  const fixFailedPayment = (
     variables: NewPaymentRouteSetOrderPaymentMutation["variables"]
-  ) {
-    return this.props.commitMutation<NewPaymentRouteSetOrderPaymentMutation>({
+  ) => {
+    return commitMutation<NewPaymentRouteSetOrderPaymentMutation>({
       variables,
-      // TODO: Inputs to the mutation might have changed case of the keys!
       mutation: graphql`
         mutation NewPaymentRouteSetOrderPaymentMutation(
           $input: CommerceFixFailedPaymentInput!
@@ -253,10 +203,10 @@ export class NewPaymentRoute extends Component<
     })
   }
 
-  async handleFixFailedPaymentError(code: string) {
+  const handleFixFailedPaymentError = async (code: string) => {
     switch (code) {
       case "capture_failed": {
-        this.props.dialog.showErrorDialog({
+        dialog.showErrorDialog({
           title: "Charge failed",
           message:
             "Payment has been declined. Please contact your card provider or bank institution, then press “Continue” again. Alternatively, use another payment method.",
@@ -264,34 +214,90 @@ export class NewPaymentRoute extends Component<
         break
       }
       case "insufficient_inventory": {
-        await this.props.dialog.showErrorDialog({
+        await dialog.showErrorDialog({
           title: "Not available",
           message: "Sorry, the work is no longer available.",
         })
-        this.routeToArtistPage()
+        routeToArtistPage()
         break
       }
       default: {
-        this.props.dialog.showErrorDialog()
+        dialog.showErrorDialog()
         break
       }
     }
   }
 
-  artistId() {
+  const getArtistId = () => {
     return get(
-      this.props.order,
+      order,
       o => o.lineItems?.edges?.[0]?.node?.artwork?.artists?.[0]?.slug
     )
   }
 
-  routeToArtistPage() {
-    const artistId = this.artistId()
+  const routeToArtistPage = () => {
+    const artistId = getArtistId()
 
     // Don't confirm whether or not you want to leave the page
-    this.props.route.onTransition = () => null
+    route.onTransition = () => null
     window.location.assign(`/artist/${artistId}`)
   }
+
+  return (
+    <OrderRouteContainer
+      currentStep="Payment"
+      steps={["Payment"]}
+      content={
+        <Flex
+          flexDirection="column"
+          style={isLoading ? { pointerEvents: "none" } : {}}
+        >
+          {order.mode === "OFFER" && (
+            <>
+              <Flex>
+                <CountdownTimer
+                  action="Submit new payment"
+                  note="Expiration will end negotiations on this offer. Keep in mind the work can be sold to another buyer in the meantime."
+                  countdownStart={order.lastOffer?.createdAt!}
+                  countdownEnd={order.stateExpiresAt!}
+                />
+              </Flex>
+              <Spacer y={[2, 4]} />
+            </>
+          )}
+          <Join separator={<Spacer y={4} />}>
+            <CreditCardPickerFragmentContainer
+              order={order}
+              me={me}
+              commitMutation={commitMutation}
+              innerRef={CreditCardPicker}
+            />
+            <Media greaterThan="xs">
+              <ContinueButton onClick={onContinue} loading={isLoading} />
+            </Media>
+          </Join>
+        </Flex>
+      }
+      sidebar={
+        <Flex flexDirection="column">
+          <Flex flexDirection="column">
+            <ArtworkSummaryItem order={order} />
+            <TransactionDetailsSummaryItem order={order} />
+          </Flex>
+          <BuyerGuarantee
+            contextModule={ContextModule.ordersNewPayment}
+            contextPageOwnerType={OwnerType.ordersNewPayment}
+          />
+          <Spacer y={[2, 4]} />
+          <Media at="xs">
+            <>
+              <ContinueButton onClick={onContinue} loading={isLoading} />
+            </>
+          </Media>
+        </Flex>
+      }
+    />
+  )
 }
 
 export const NewPaymentFragmentContainer = createFragmentContainer(

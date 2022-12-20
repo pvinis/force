@@ -1,168 +1,27 @@
+/**
+ * @generated SignedSource<<7ce3208ae624514c64a3897ab0e3daa5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SettingsSavesProfilesQueryVariables = {
-    after?: string | null | undefined;
+export type SettingsSavesProfilesQuery$variables = {
+  after?: string | null;
 };
-export type SettingsSavesProfilesQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"SettingsSavesProfiles_me">;
-    } | null;
+export type SettingsSavesProfilesQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"SettingsSavesProfiles_me">;
+  } | null;
 };
 export type SettingsSavesProfilesQuery = {
-    readonly response: SettingsSavesProfilesQueryResponse;
-    readonly variables: SettingsSavesProfilesQueryVariables;
+  response: SettingsSavesProfilesQuery$data;
+  variables: SettingsSavesProfilesQuery$variables;
 };
-
-
-
-/*
-query SettingsSavesProfilesQuery(
-  $after: String
-) {
-  me {
-    ...SettingsSavesProfiles_me_WGPvJ
-    id
-  }
-}
-
-fragment EntityHeaderFairOrganizer_fairOrganizer on FairOrganizer {
-  internalID
-  slug
-  name
-  fairsConnection {
-    totalCount
-  }
-  profile {
-    ...FollowProfileButton_profile
-    href
-    initials
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment EntityHeaderFair_fair on Fair {
-  internalID
-  href
-  name
-  startAt(format: "MMM Do")
-  endAt(format: "MMM Do YYYY")
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-  profile {
-    ...FollowProfileButton_profile
-    initials
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment SettingsSavesProfiles_me_WGPvJ on Me {
-  followsAndSaves {
-    profilesConnection(first: 12, after: $after) {
-      totalCount
-      edges {
-        node {
-          internalID
-          profile {
-            name
-            href
-            avatar: image {
-              cropped(width: 45, height: 45) {
-                src
-                srcSet
-              }
-            }
-            owner {
-              __typename
-              ... on Partner {
-                ...EntityHeaderPartner_partner
-              }
-              ... on Fair {
-                ...EntityHeaderFair_fair
-              }
-              ... on FairOrganizer {
-                ...EntityHeaderFairOrganizer_fairOrganizer
-                id
-              }
-              ... on Node {
-                __isNode: __typename
-                id
-              }
-            }
-            id
-          }
-          id
-          __typename
-        }
-        cursor
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -289,13 +148,6 @@ v14 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v15 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "isFollowed",
   "storageKey": null
 };
 return {
@@ -479,11 +331,7 @@ return {
                                         "name": "profile",
                                         "plural": false,
                                         "selections": [
-                                          (v14/*: any*/),
-                                          (v12/*: any*/),
-                                          (v5/*: any*/),
                                           (v4/*: any*/),
-                                          (v15/*: any*/),
                                           (v10/*: any*/),
                                           {
                                             "alias": null,
@@ -517,7 +365,8 @@ return {
                                               }
                                             ],
                                             "storageKey": null
-                                          }
+                                          },
+                                          (v14/*: any*/)
                                         ],
                                         "storageKey": null
                                       }
@@ -566,12 +415,9 @@ return {
                                         "name": "profile",
                                         "plural": false,
                                         "selections": [
-                                          (v14/*: any*/),
-                                          (v12/*: any*/),
-                                          (v5/*: any*/),
                                           (v4/*: any*/),
-                                          (v15/*: any*/),
-                                          (v13/*: any*/)
+                                          (v13/*: any*/),
+                                          (v14/*: any*/)
                                         ],
                                         "storageKey": null
                                       }
@@ -605,14 +451,11 @@ return {
                                         "name": "profile",
                                         "plural": false,
                                         "selections": [
-                                          (v14/*: any*/),
-                                          (v12/*: any*/),
-                                          (v5/*: any*/),
                                           (v4/*: any*/),
-                                          (v15/*: any*/),
                                           (v6/*: any*/),
                                           (v13/*: any*/),
-                                          (v10/*: any*/)
+                                          (v10/*: any*/),
+                                          (v14/*: any*/)
                                         ],
                                         "storageKey": null
                                       },
@@ -698,14 +541,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "035d604bf1e2380afaa1429dede21ec6",
+    "cacheID": "b77583e2678bbe77e676070a68f80dcb",
     "id": null,
     "metadata": {},
     "name": "SettingsSavesProfilesQuery",
     "operationKind": "query",
-    "text": "query SettingsSavesProfilesQuery(\n  $after: String\n) {\n  me {\n    ...SettingsSavesProfiles_me_WGPvJ\n    id\n  }\n}\n\nfragment EntityHeaderFairOrganizer_fairOrganizer on FairOrganizer {\n  internalID\n  slug\n  name\n  fairsConnection {\n    totalCount\n  }\n  profile {\n    ...FollowProfileButton_profile\n    href\n    initials\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment EntityHeaderFair_fair on Fair {\n  internalID\n  href\n  name\n  startAt(format: \"MMM Do\")\n  endAt(format: \"MMM Do YYYY\")\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n  profile {\n    ...FollowProfileButton_profile\n    initials\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment SettingsSavesProfiles_me_WGPvJ on Me {\n  followsAndSaves {\n    profilesConnection(first: 12, after: $after) {\n      totalCount\n      edges {\n        node {\n          internalID\n          profile {\n            name\n            href\n            avatar: image {\n              cropped(width: 45, height: 45) {\n                src\n                srcSet\n              }\n            }\n            owner {\n              __typename\n              ... on Partner {\n                ...EntityHeaderPartner_partner\n              }\n              ... on Fair {\n                ...EntityHeaderFair_fair\n              }\n              ... on FairOrganizer {\n                ...EntityHeaderFairOrganizer_fairOrganizer\n                id\n              }\n              ... on Node {\n                __isNode: __typename\n                id\n              }\n            }\n            id\n          }\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
+    "text": "query SettingsSavesProfilesQuery(\n  $after: String\n) {\n  me {\n    ...SettingsSavesProfiles_me_WGPvJ\n    id\n  }\n}\n\nfragment EntityHeaderFairOrganizer_fairOrganizer on FairOrganizer {\n  internalID\n  slug\n  name\n  fairsConnection {\n    totalCount\n  }\n  profile {\n    internalID\n    href\n    initials\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment EntityHeaderFair_fair on Fair {\n  internalID\n  href\n  name\n  startAt(format: \"MMM Do\")\n  endAt(format: \"MMM Do YYYY\")\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n  profile {\n    internalID\n    initials\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment SettingsSavesProfiles_me_WGPvJ on Me {\n  followsAndSaves {\n    profilesConnection(first: 12, after: $after) {\n      totalCount\n      edges {\n        node {\n          internalID\n          profile {\n            name\n            href\n            avatar: image {\n              cropped(width: 45, height: 45) {\n                src\n                srcSet\n              }\n            }\n            owner {\n              __typename\n              ... on Partner {\n                ...EntityHeaderPartner_partner\n              }\n              ... on Fair {\n                ...EntityHeaderFair_fair\n              }\n              ... on FairOrganizer {\n                ...EntityHeaderFairOrganizer_fairOrganizer\n                id\n              }\n              ... on Node {\n                __isNode: __typename\n                id\n              }\n            }\n            id\n          }\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '431c2bd98728d785b5cc91550d2f3e8f';
+
+(node as any).hash = "431c2bd98728d785b5cc91550d2f3e8f";
+
 export default node;

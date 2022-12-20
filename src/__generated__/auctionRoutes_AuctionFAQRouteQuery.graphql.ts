@@ -1,52 +1,25 @@
+/**
+ * @generated SignedSource<<0842931f3a208a51bc25ce44a93f97e5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type auctionRoutes_AuctionFAQRouteQueryVariables = {};
-export type auctionRoutes_AuctionFAQRouteQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionFAQRoute_viewer">;
-    } | null;
+export type auctionRoutes_AuctionFAQRouteQuery$variables = {};
+export type auctionRoutes_AuctionFAQRouteQuery$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionFAQRoute_viewer">;
+  } | null;
 };
 export type auctionRoutes_AuctionFAQRouteQuery = {
-    readonly response: auctionRoutes_AuctionFAQRouteQueryResponse;
-    readonly variables: auctionRoutes_AuctionFAQRouteQueryVariables;
+  response: auctionRoutes_AuctionFAQRouteQuery$data;
+  variables: auctionRoutes_AuctionFAQRouteQuery$variables;
 };
-
-
-
-/*
-query auctionRoutes_AuctionFAQRouteQuery {
-  viewer {
-    ...AuctionFAQRoute_viewer
-  }
-}
-
-fragment AuctionFAQRoute_viewer on Viewer {
-  bidding: staticContent(id: "how-auctions-work-bidding") {
-    content(format: HTML)
-    id
-  }
-  buyersPremiumTaxesAndFees: staticContent(id: "how-auctions-work-buyers-premium-taxes-and-fees") {
-    content(format: HTML)
-    id
-  }
-  paymentsAndShipping: staticContent(id: "how-auctions-work-payments-and-shipping") {
-    content(format: HTML)
-    id
-  }
-  emailsAndAlerts: staticContent(id: "how-auctions-work-emails-and-alerts") {
-    content(format: HTML)
-    id
-  }
-  conditionsOfSale: staticContent(id: "how-auctions-work-conditions-of-sale") {
-    content(format: HTML)
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -207,5 +180,7 @@ return {
   }
 };
 })();
-(node as any).hash = '7c18bc7a323b659e3d2e7ee510a0a68b';
+
+(node as any).hash = "7c18bc7a323b659e3d2e7ee510a0a68b";
+
 export default node;

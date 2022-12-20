@@ -1,29 +1,32 @@
+/**
+ * @generated SignedSource<<eb8ccf82b68ede33cfd1fbfe22dd6a0d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairOrganizerPastEventRailCell_fair = {
-    readonly slug: string;
-    readonly name: string | null;
-    readonly image: {
-        readonly cropped: {
-            readonly width: number;
-            readonly height: number;
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type FairOrganizerPastEventRailCell_fair$data = {
+  readonly image: {
+    readonly cropped: {
+      readonly height: number;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number;
     } | null;
-    readonly " $refType": "FairOrganizerPastEventRailCell_fair";
+  } | null;
+  readonly name: string | null;
+  readonly slug: string;
+  readonly " $fragmentType": "FairOrganizerPastEventRailCell_fair";
 };
-export type FairOrganizerPastEventRailCell_fair$data = FairOrganizerPastEventRailCell_fair;
 export type FairOrganizerPastEventRailCell_fair$key = {
-    readonly " $data"?: FairOrganizerPastEventRailCell_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairOrganizerPastEventRailCell_fair">;
+  readonly " $data"?: FairOrganizerPastEventRailCell_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairOrganizerPastEventRailCell_fair">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -110,5 +113,7 @@ const node: ReaderFragment = {
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = '0128a360ad6a3c56c07bfede7f2fbb8f';
+
+(node as any).hash = "0128a360ad6a3c56c07bfede7f2fbb8f";
+
 export default node;

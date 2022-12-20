@@ -2,7 +2,6 @@ import {
   Banner,
   Box,
   Button,
-  Checkbox,
   Input,
   Skeleton,
   SkeletonBox,
@@ -11,9 +10,9 @@ import {
 } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { useInquiryContext } from "../Hooks/useInquiryContext"
-import { InquiryBasicInfo_artwork } from "__generated__/InquiryBasicInfo_artwork.graphql"
-import { InquiryBasicInfo_me } from "__generated__/InquiryBasicInfo_me.graphql"
+import { useInquiryContext } from "Components/Inquiry/Hooks/useInquiryContext"
+import { InquiryBasicInfo_artwork$data } from "__generated__/InquiryBasicInfo_artwork.graphql"
+import { InquiryBasicInfo_me$data } from "__generated__/InquiryBasicInfo_me.graphql"
 import { InquiryBasicInfoQuery } from "__generated__/InquiryBasicInfoQuery.graphql"
 import {
   Location,
@@ -22,14 +21,14 @@ import {
   Place,
 } from "Components/LocationAutocompleteInput"
 import { useState } from "react"
-import { useUpdateMyUserProfile } from "../Hooks/useUpdateMyUserProfile"
-import { logger } from "../util"
+import { useUpdateMyUserProfile } from "Components/Inquiry/Hooks/useUpdateMyUserProfile"
+import { logger } from "Components/Inquiry/util"
 import { compactObject } from "Utils/compactObject"
 import { useMode } from "Utils/Hooks/useMode"
 
 interface InquiryBasicInfoProps {
-  artwork: InquiryBasicInfo_artwork
-  me: InquiryBasicInfo_me | null
+  artwork: InquiryBasicInfo_artwork$data
+  me: InquiryBasicInfo_me$data | null
 }
 
 type Mode = "Pending" | "Loading" | "Success" | "Error"
@@ -59,11 +58,7 @@ const InquiryBasicInfo: React.FC<InquiryBasicInfoProps> = ({ artwork, me }) => {
     setState(prevState => ({ ...prevState, location: normalizePlace(place) }))
   }
 
-  const handleSelect = (value: boolean) => {
-    setState(prevState => ({ ...prevState, shareFollows: value }))
-  }
-
-  const handleInputChange = (name: "profession" | "phone") => (
+  const handleInputChange = (name: "profession" | "otherRelevantPositions") => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setState(prevState => ({ ...prevState, [name]: event.target.value }))
@@ -90,8 +85,13 @@ const InquiryBasicInfo: React.FC<InquiryBasicInfoProps> = ({ artwork, me }) => {
 
   return (
     <Box as="form" onSubmit={handleSubmit}>
-      <Text variant="lg-display" mb={2} pr={2}>
+      <Text variant="lg-display" pr={2}>
         Tell {artwork.partner?.name ?? "us"} a little bit about yourself.
+      </Text>
+
+      <Text variant="xs" mb={2} color="black60">
+        Galleries are more likely to respond to collectors who share their
+        profile.
       </Text>
 
       {mode === "Error" && (
@@ -110,7 +110,7 @@ const InquiryBasicInfo: React.FC<InquiryBasicInfoProps> = ({ artwork, me }) => {
       />
 
       <LocationAutocompleteInput
-        title="Location"
+        title="Primary Location"
         name="location"
         placeholder="Location"
         onChange={handleLocation}
@@ -119,18 +119,13 @@ const InquiryBasicInfo: React.FC<InquiryBasicInfoProps> = ({ artwork, me }) => {
       />
 
       <Input
-        title="Phone Number"
-        name="phone"
-        placeholder="Phone number"
-        type="tel"
-        onChange={handleInputChange("phone")}
-        defaultValue={me?.phone ?? undefined}
+        title="Other relevant positions"
+        name="otherRelevantPositions"
+        placeholder="Memberships, institutions, positions"
+        onChange={handleInputChange("otherRelevantPositions")}
+        defaultValue={me?.otherRelevantPositions ?? undefined}
         mb={2}
       />
-
-      <Checkbox onSelect={handleSelect} selected={state.shareFollows} mb={2}>
-        Share followed artists, categories, and galleries
-      </Checkbox>
 
       <Button
         type="submit"
@@ -147,8 +142,13 @@ const InquiryBasicInfo: React.FC<InquiryBasicInfoProps> = ({ artwork, me }) => {
 const InquiryBasicInfoPlaceholder: React.FC = () => {
   return (
     <Skeleton>
-      <SkeletonText variant="lg-display" mb={2}>
+      <SkeletonText variant="lg-display">
         Tell Example Partner a little bit about yourself.
+      </SkeletonText>
+
+      <SkeletonText variant="xs" mb={2}>
+        Galleries are more likely to respond to collectors who share their
+        profile.
       </SkeletonText>
 
       <SkeletonText variant="xs" mb={0.5}>
@@ -168,10 +168,6 @@ const InquiryBasicInfoPlaceholder: React.FC = () => {
       </SkeletonText>
 
       <SkeletonBox height={50} mb={2} />
-
-      <SkeletonText variant="sm" mb={2}>
-        Share followed artists, categories, and galleries
-      </SkeletonText>
 
       <SkeletonBox height={50} />
     </Skeleton>
@@ -193,7 +189,7 @@ export const InquiryBasicInfoFragmentContainer = createFragmentContainer(
         location {
           display
         }
-        phone
+        otherRelevantPositions
         profession
       }
     `,

@@ -1,80 +1,27 @@
+/**
+ * @generated SignedSource<<ebedae5fa9fcc89179fa9748b95b3fa1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderPartnerStoryQueryVariables = {
-    id: string;
+export type EntityHeaderPartnerStoryQuery$variables = {
+  id: string;
 };
-export type EntityHeaderPartnerStoryQueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityHeaderPartner_partner">;
-    } | null;
+export type EntityHeaderPartnerStoryQuery$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderPartner_partner">;
+  } | null;
 };
 export type EntityHeaderPartnerStoryQuery = {
-    readonly response: EntityHeaderPartnerStoryQueryResponse;
-    readonly variables: EntityHeaderPartnerStoryQueryVariables;
+  response: EntityHeaderPartnerStoryQuery$data;
+  variables: EntityHeaderPartnerStoryQuery$variables;
 };
-
-
-
-/*
-query EntityHeaderPartnerStoryQuery(
-  $id: String!
-) {
-  partner(id: $id) {
-    ...EntityHeaderPartner_partner
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -279,17 +226,7 @@ return {
             "name": "profile",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
               (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "isFollowed",
-                "storageKey": null
-              },
               {
                 "alias": "avatar",
                 "args": null,
@@ -346,7 +283,8 @@ return {
                   }
                 ],
                 "storageKey": null
-              }
+              },
+              (v5/*: any*/)
             ],
             "storageKey": null
           },
@@ -357,14 +295,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1cb52e7d6632ff31955c7cfdb6890da9",
+    "cacheID": "035b2855f3853fad8b4e866ba456120a",
     "id": null,
     "metadata": {},
     "name": "EntityHeaderPartnerStoryQuery",
     "operationKind": "query",
-    "text": "query EntityHeaderPartnerStoryQuery(\n  $id: String!\n) {\n  partner(id: $id) {\n    ...EntityHeaderPartner_partner\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n"
+    "text": "query EntityHeaderPartnerStoryQuery(\n  $id: String!\n) {\n  partner(id: $id) {\n    ...EntityHeaderPartner_partner\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b673831def60d8c87e59728eced8043f';
+
+(node as any).hash = "b673831def60d8c87e59728eced8043f";
+
 export default node;

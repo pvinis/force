@@ -1,79 +1,29 @@
+/**
+ * @generated SignedSource<<290241f2756e257b92a309b41a9fd877>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistsByLetter_test_QueryVariables = {
-    letter: string;
-    size?: number | null | undefined;
-    page?: number | null | undefined;
+export type ArtistsByLetter_test_Query$variables = {
+  letter: string;
+  page?: number | null;
+  size?: number | null;
 };
-export type ArtistsByLetter_test_QueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtistsByLetter_viewer">;
-    } | null;
+export type ArtistsByLetter_test_Query$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistsByLetter_viewer">;
+  } | null;
 };
 export type ArtistsByLetter_test_Query = {
-    readonly response: ArtistsByLetter_test_QueryResponse;
-    readonly variables: ArtistsByLetter_test_QueryVariables;
+  response: ArtistsByLetter_test_Query$data;
+  variables: ArtistsByLetter_test_Query$variables;
 };
-
-
-
-/*
-query ArtistsByLetter_test_Query(
-  $letter: String!
-  $size: Int
-  $page: Int
-) {
-  viewer {
-    ...ArtistsByLetter_viewer_qU0ud
-  }
-}
-
-fragment ArtistsByLetter_viewer_qU0ud on Viewer {
-  artistsConnection(letter: $letter, page: $page, size: $size) {
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
-    pageCursors {
-      ...Pagination_pageCursors
-    }
-    artists: edges {
-      artist: node {
-        internalID
-        name
-        href
-        id
-      }
-    }
-  }
-}
-
-fragment Pagination_pageCursors on PageCursors {
-  around {
-    cursor
-    page
-    isCurrent
-  }
-  first {
-    cursor
-    page
-    isCurrent
-  }
-  last {
-    cursor
-    page
-    isCurrent
-  }
-  previous {
-    cursor
-    page
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -337,5 +287,7 @@ return {
   }
 };
 })();
-(node as any).hash = '266dadc23f7c1759604b095a74052334';
+
+(node as any).hash = "266dadc23f7c1759604b095a74052334";
+
 export default node;

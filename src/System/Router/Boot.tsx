@@ -23,12 +23,14 @@ import {
   MediaContextProvider,
   ResponsiveProvider,
 } from "Utils/Responsive"
-import { AnalyticsContext } from "../Analytics/AnalyticsContext"
+import { AnalyticsContext } from "System/Analytics/AnalyticsContext"
 import { ClientContext } from "System/Router/buildClientAppContext"
 import { SiftContainer } from "Utils/SiftContainer"
-import { setupSentryClient } from "lib/setupSentryClient"
+import { setupSentryClient } from "Server/setupSentryClient"
 import "System/i18n/i18n"
 import track from "react-tracking"
+import { StickyProvider } from "Components/Sticky"
+import { AuthIntentProvider } from "Utils/Hooks/useAuthIntent"
 
 export interface BootProps {
   children: React.ReactNode
@@ -71,7 +73,7 @@ export const Boot = track(undefined, {
   }
 
   return (
-    <Theme>
+    <Theme theme="v3">
       <GlobalStyles />
 
       <HeadProvider headTags={headTags}>
@@ -85,9 +87,13 @@ export const Boot = track(undefined, {
                     initialMatchingMediaQueries={onlyMatchMediaQueries as any}
                   >
                     <ToastsProvider>
-                      <FocusVisible />
-                      <SiftContainer />
-                      {children}
+                      <StickyProvider>
+                        <AuthIntentProvider>
+                          <FocusVisible />
+                          <SiftContainer />
+                          {children}
+                        </AuthIntentProvider>
+                      </StickyProvider>
                     </ToastsProvider>
                   </ResponsiveProvider>
                 </MediaContextProvider>

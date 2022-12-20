@@ -1,42 +1,25 @@
+/**
+ * @generated SignedSource<<6f39d9df64ceb1fb8762c075a2339e7d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppSecondFactorRefetchQueryVariables = {};
-export type AppSecondFactorRefetchQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"AppSecondFactor_me">;
-    } | null;
+export type AppSecondFactorRefetchQuery$variables = {};
+export type AppSecondFactorRefetchQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"AppSecondFactor_me">;
+  } | null;
 };
 export type AppSecondFactorRefetchQuery = {
-    readonly response: AppSecondFactorRefetchQueryResponse;
-    readonly variables: AppSecondFactorRefetchQueryVariables;
+  response: AppSecondFactorRefetchQuery$data;
+  variables: AppSecondFactorRefetchQuery$variables;
 };
-
-
-
-/*
-query AppSecondFactorRefetchQuery {
-  me {
-    ...AppSecondFactor_me
-    id
-  }
-}
-
-fragment AppSecondFactor_me on Me {
-  hasSecondFactorEnabled
-  appSecondFactors: secondFactors(kinds: [app]) {
-    __typename
-    ... on AppSecondFactor {
-      __typename
-      internalID
-      name
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -154,5 +137,7 @@ const node: ConcreteRequest = {
     "text": "query AppSecondFactorRefetchQuery {\n  me {\n    ...AppSecondFactor_me\n    id\n  }\n}\n\nfragment AppSecondFactor_me on Me {\n  hasSecondFactorEnabled\n  appSecondFactors: secondFactors(kinds: [app]) {\n    __typename\n    ... on AppSecondFactor {\n      __typename\n      internalID\n      name\n    }\n  }\n}\n"
   }
 };
-(node as any).hash = '6fe77b566e0c28ba19ba5573a354fc5d';
+
+(node as any).hash = "6fe77b566e0c28ba19ba5573a354fc5d";
+
 export default node;

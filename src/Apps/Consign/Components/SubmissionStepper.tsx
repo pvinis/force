@@ -1,59 +1,48 @@
-import { Media } from "Utils/Responsive"
 import { Box, Step, Stepper } from "@artsy/palette"
+import { useSubmissionFlowSteps } from "Apps/Consign/Hooks/useSubmissionFlowSteps"
 import { FC } from "react"
+import { __internal__useMatchMedia } from "Utils/Hooks/useMatchMedia"
 
 interface SubmissionStepperProps {
-  currentStep: "Artwork Details" | "Upload Photos" | "Contact Information"
+  currentStep: ReturnType<typeof useSubmissionFlowSteps>["0"]
 }
 
-function typedArray<T extends string>(...elems: T[]): T[] {
-  return elems
+enum ALIAS {
+  "Artwork Details" = "Artwork",
+  Artwork = "Artwork Details",
+  "Contact Information" = "Contact",
+  Contact = "Contact Information",
+  "Upload Photos" = "Photos",
+  Photos = "Upload Photos",
 }
-
-export const submissionFlowSteps = typedArray(
-  "Artwork Details",
-  "Upload Photos",
-  "Contact Information"
-)
-
-export const submissionFlowStepsMobile = typedArray(
-  "Artwork",
-  "Photos",
-  "Contact"
-)
 
 export const SubmissionStepper: FC<SubmissionStepperProps> = ({
   currentStep,
 }) => {
-  const stepIndex = submissionFlowSteps.indexOf(currentStep)
+  const useSteps = useSubmissionFlowSteps()
+  const steps = [...useSteps]
+  let stepIndex = steps.indexOf(currentStep)
+  if (stepIndex === -1) {
+    stepIndex = steps.indexOf(ALIAS[currentStep])
+  }
+  if (stepIndex === -1) {
+    // this should never happen
+    return null
+  }
   return (
     <>
-      <Media at="xs">
-        <Box>
-          <Stepper
-            initialTabIndex={stepIndex}
-            currentStepIndex={stepIndex}
-            disableNavigation
-            autoScroll
-          >
-            {submissionFlowStepsMobile.map(step => (
-              <Step name={step} key={step} />
-            ))}
-          </Stepper>
-        </Box>
-      </Media>
-      <Media greaterThan="xs">
+      <Box>
         <Stepper
           initialTabIndex={stepIndex}
           currentStepIndex={stepIndex}
           disableNavigation
           autoScroll
         >
-          {submissionFlowSteps.map(step => (
+          {steps.map(step => (
             <Step name={step} key={step} />
           ))}
         </Stepper>
-      </Media>
+      </Box>
     </>
   )
 }

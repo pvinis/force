@@ -1,52 +1,55 @@
+/**
+ * @generated SignedSource<<c71ea50d3aad232599192ee81b9b0f26>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowBannersRail_partner = {
-    readonly slug: string;
-    readonly featuredShow: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly currentShows: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly upcomingShows: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly pastShows: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "ShowBannersRail_partner";
+export type ShowBannersRail_partner$data = {
+  readonly currentShows: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly featuredShow: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly pastShows: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly slug: string;
+  readonly upcomingShows: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly " $fragmentType": "ShowBannersRail_partner";
 };
-export type ShowBannersRail_partner$data = ShowBannersRail_partner;
 export type ShowBannersRail_partner$key = {
-    readonly " $data"?: ShowBannersRail_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ShowBannersRail_partner">;
+  readonly " $data"?: ShowBannersRail_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ShowBannersRail_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -213,5 +216,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ddf964e8e3581a95807af242947a9369';
+
+(node as any).hash = "ddf964e8e3581a95807af242947a9369";
+
 export default node;

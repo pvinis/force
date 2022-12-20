@@ -1,0 +1,95 @@
+import { ArtworkModel } from "Apps/MyCollection/Routes/EditArtwork/Utils/artworkModel"
+import { MyCollectionEditArtwork_artwork$data } from "__generated__/MyCollectionEditArtwork_artwork.graphql"
+import {
+  ArtworkAttributionClassType,
+  MyCollectionCreateArtworkInput,
+} from "__generated__/useCreateArtworkMutation.graphql"
+import { MyCollectionUpdateArtworkInput } from "__generated__/useUpdateArtworkMutation.graphql"
+import { useCreateArtwork } from "Apps/MyCollection/Routes/EditArtwork/Mutations/useCreateArtwork"
+import { useUpdateArtwork } from "Apps/MyCollection/Routes/EditArtwork/Mutations/useUpdateArtwork"
+
+export type ArtworkInput =
+  | MyCollectionCreateArtworkInput
+  | MyCollectionUpdateArtworkInput
+
+export const useCreateOrUpdateArtwork = () => {
+  const { submitMutation: createArtwork } = useCreateArtwork()
+  const { submitMutation: updateArtwork } = useUpdateArtwork()
+
+  const createOrUpdateArtwork = async (
+    values: ArtworkModel,
+    artwork?: MyCollectionEditArtwork_artwork$data
+  ) => {
+    const artworkInputValues = formValuesToMutationInput(values, artwork)
+
+    let artworkId: string | undefined
+
+    if ((artworkInputValues as MyCollectionUpdateArtworkInput).artworkId) {
+      const res = await updateArtwork({
+        variables: {
+          input: artworkInputValues as MyCollectionUpdateArtworkInput,
+        },
+        rejectIf: res => {
+          return res.myCollectionUpdateArtwork?.artworkOrError?.mutationError
+        },
+      })
+
+      artworkId =
+        res.myCollectionUpdateArtwork?.artworkOrError?.artwork?.internalID
+    } else {
+      const res = await createArtwork({
+        variables: {
+          input: artworkInputValues as MyCollectionCreateArtworkInput,
+        },
+      })
+
+      artworkId =
+        res.myCollectionCreateArtwork?.artworkOrError?.artworkEdge?.node
+          ?.internalID
+    }
+
+    return artworkId
+  }
+
+  return { createOrUpdateArtwork }
+}
+
+const formValuesToMutationInput = (
+  values: ArtworkModel,
+  artwork?: MyCollectionEditArtwork_artwork$data
+): ArtworkInput => {
+  // Set edition values for attribution class
+
+  if (values.attributionClass !== "LIMITED_EDITION") {
+    values.editionNumber = ""
+    values.editionSize = ""
+  }
+
+  const externalImageUrls = values.newPhotos.flatMap(photo => photo.url || null)
+
+  return {
+    artworkId: artwork?.internalID,
+    artistIds: [values.artistId],
+    category: values.category,
+    date: values.date,
+    title: values.title,
+    medium: values.medium,
+    attributionClass: values.attributionClass
+      ?.replace(" ", "_")
+      ?.toUpperCase() as ArtworkAttributionClassType,
+    editionNumber: String(values.editionNumber),
+    editionSize: String(values.editionSize),
+    height: String(values.height),
+    width: String(values.width),
+    depth: String(values.depth),
+    metric: values.metric,
+    externalImageUrls,
+    pricePaidCents:
+      !values.pricePaidDollars || isNaN(Number(values.pricePaidDollars))
+        ? undefined
+        : Number(values.pricePaidDollars) * 100,
+    pricePaidCurrency: values.pricePaidCurrency,
+    provenance: values.provenance,
+    artworkLocation: values.artworkLocation,
+  }
+}

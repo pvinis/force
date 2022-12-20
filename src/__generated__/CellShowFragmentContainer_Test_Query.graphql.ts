@@ -1,60 +1,25 @@
+/**
+ * @generated SignedSource<<ab1c08723bd02ccd2ca24d8a681d1696>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellShowFragmentContainer_Test_QueryVariables = {};
-export type CellShowFragmentContainer_Test_QueryResponse = {
-    readonly show: {
-        readonly " $fragmentRefs": FragmentRefs<"CellShow_show">;
-    } | null;
+export type CellShowFragmentContainer_Test_Query$variables = {};
+export type CellShowFragmentContainer_Test_Query$data = {
+  readonly show: {
+    readonly " $fragmentSpreads": FragmentRefs<"CellShow_show">;
+  } | null;
 };
 export type CellShowFragmentContainer_Test_Query = {
-    readonly response: CellShowFragmentContainer_Test_QueryResponse;
-    readonly variables: CellShowFragmentContainer_Test_QueryVariables;
+  response: CellShowFragmentContainer_Test_Query$data;
+  variables: CellShowFragmentContainer_Test_Query$variables;
 };
-
-
-
-/*
-query CellShowFragmentContainer_Test_Query {
-  show(id: "example") {
-    ...CellShow_show
-    id
-  }
-}
-
-fragment CellShow_show on Show {
-  internalID
-  slug
-  name
-  href
-  startAt
-  endAt
-  isFairBooth
-  exhibitionPeriod
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -248,7 +213,6 @@ return {
                     "kind": "Literal",
                     "name": "version",
                     "value": [
-                      "normalized",
                       "larger",
                       "large"
                     ]
@@ -279,7 +243,7 @@ return {
                     "storageKey": null
                   }
                 ],
-                "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
               }
             ],
             "storageKey": null
@@ -291,7 +255,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d9c7e390474763b187a8a74972c36aff",
+    "cacheID": "850aeb6c32072038fc88972e61a271ef",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -343,9 +307,11 @@ return {
     },
     "name": "CellShowFragmentContainer_Test_Query",
     "operationKind": "query",
-    "text": "query CellShowFragmentContainer_Test_Query {\n  show(id: \"example\") {\n    ...CellShow_show\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query CellShowFragmentContainer_Test_Query {\n  show(id: \"example\") {\n    ...CellShow_show\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8c07e918151b06ed8fbf9cf2e97a0818';
+
+(node as any).hash = "8c07e918151b06ed8fbf9cf2e97a0818";
+
 export default node;

@@ -1,58 +1,128 @@
-import { useState } from "react"
 import {
   Box,
+  Clickable,
   Column,
+  Flex,
   GridColumns,
   Input,
-  Text,
-  Select,
-  Flex,
-  RadioGroup,
-  Radio,
   LabeledInput,
-  Clickable,
-  Modal,
-  Button,
+  Radio,
+  RadioGroup,
+  Select,
+  Text,
   useToasts,
 } from "@artsy/palette"
-import { useFormikContext } from "formik"
-import { checkboxValues } from "Components/ArtworkFilter/ArtworkFilters/AttributionClassFilter"
-import { ArtistAutoComplete } from "./ArtistAutocomplete"
 import { ArtworkSidebarClassificationsModalQueryRenderer } from "Apps/Artwork/Components/ArtworkSidebarClassificationsModal"
-import { ArtworkDetails_submission } from "__generated__/ArtworkDetails_submission.graphql"
+import { ProvenanceModal } from "Apps/MyCollection/Routes/EditArtwork/Components/ProvenanceModal"
+import { checkboxValues } from "Components/ArtworkFilter/ArtworkFilters/AttributionClassFilter"
 import {
   Location,
   LocationAutocompleteInput,
   normalizePlace,
   Place,
 } from "Components/LocationAutocompleteInput"
+import { useFormikContext } from "formik"
 import { compact } from "lodash"
-import { postalCodeValidators } from "../../Utils/validation"
+import { useState } from "react"
+import { ArtworkDetails_myCollectionArtwork$data } from "__generated__/ArtworkDetails_myCollectionArtwork.graphql"
+import { ArtworkDetails_submission$data } from "__generated__/ArtworkDetails_submission.graphql"
+import { redirects_submission$data } from "__generated__/redirects_submission.graphql"
+import { postalCodeValidators } from "Apps/Consign/Routes/SubmissionFlow/Utils/validation"
+import { ArtistAutoComplete } from "./ArtistAutocomplete"
+
+export enum SubmissionType {
+  submission = "SUBMISSION",
+  myCollectionArtwork = "MY_COLLECTION_ARTWORK",
+  default = "DEFAULT",
+}
+
+export type getArtworkDetailsFormInitialValuesProps =
+  | {
+      values: ArtworkDetails_submission$data | redirects_submission$data
+      type: SubmissionType.submission
+    }
+  | {
+      values: ArtworkDetails_myCollectionArtwork$data
+      type: SubmissionType.myCollectionArtwork
+    }
+  | {
+      type: SubmissionType.default
+    }
 
 export const getArtworkDetailsFormInitialValues = (
-  submission?: ArtworkDetails_submission
-): ArtworkDetailsFormModel => ({
-  artistId: submission?.artist?.internalID ?? "",
-  artistName: submission?.artist?.name ?? "",
-  year: submission?.year ?? "",
-  title: submission?.title ?? "",
-  materials: submission?.medium ?? "",
-  rarity: submission?.attributionClass?.replace("_", " ").toLowerCase() ?? "",
-  editionNumber: submission?.editionNumber ?? "",
-  editionSize: submission?.editionSize ?? undefined,
-  height: submission?.height ?? "",
-  width: submission?.width ?? "",
-  depth: submission?.depth ?? "",
-  units: submission?.dimensionsMetric ?? "in",
-  provenance: submission?.provenance ?? "",
-  location: {
-    city: submission?.locationCity ?? "",
-    country: submission?.locationCountry ?? undefined,
-    state: submission?.locationState ?? undefined,
-    countryCode: submission?.locationCountryCode ?? undefined,
-  },
-  postalCode: submission?.locationPostalCode ?? undefined,
-})
+  props: getArtworkDetailsFormInitialValuesProps
+) => {
+  switch (props.type) {
+    case "SUBMISSION":
+      return {
+        artistId: props.values.artist?.internalID ?? "",
+        artistName: props.values.artist?.name ?? "",
+        year: props.values.year ?? "",
+        title: props.values.title ?? "",
+        materials: props.values.medium ?? "",
+        rarity:
+          props.values.attributionClass?.replace("_", " ").toLowerCase() ?? "",
+        editionNumber: props.values.editionNumber ?? "",
+        editionSize: props.values.editionSize ?? undefined,
+        height: props.values.height ?? "",
+        width: props.values.width ?? "",
+        depth: props.values.depth ?? "",
+        units: props.values.dimensionsMetric ?? "in",
+        provenance: props.values.provenance ?? "",
+        location: {
+          city: props.values.locationCity ?? "",
+          country: props.values.locationCountry ?? undefined,
+          state: props.values.locationState ?? undefined,
+          countryCode: props.values.locationCountryCode ?? undefined,
+        },
+        postalCode: props.values.locationPostalCode ?? undefined,
+      } as ArtworkDetailsFormModel
+
+    case "MY_COLLECTION_ARTWORK":
+      return {
+        artistId: props.values.artist?.internalID ?? "",
+        artistName: props.values.artist?.name ?? "",
+        year: props.values.date ?? "",
+        title: props.values.title ?? "",
+        materials: props.values.medium ?? "",
+        rarity:
+          props.values.attributionClass?.name
+            ?.replace("_", " ")
+            .toLowerCase() ?? "",
+        editionNumber: props.values.editionNumber ?? "",
+        editionSize: props.values.editionSize ?? undefined,
+        height: props.values.height ?? "",
+        width: props.values.width ?? "",
+        depth: props.values.depth ?? "",
+        units: props.values.metric ?? "in",
+        provenance: props.values.provenance ?? "",
+        location: {
+          city: "",
+        },
+        postalCode: undefined,
+      } as ArtworkDetailsFormModel
+    default:
+      return {
+        artistId: "",
+        artistName: "",
+        year: "",
+        title: "",
+        materials: "",
+        rarity: "",
+        editionNumber: "",
+        editionSize: undefined,
+        height: "",
+        width: "",
+        depth: "",
+        units: "in",
+        provenance: "",
+        location: {
+          city: "",
+        },
+        postalCode: undefined,
+      }
+  }
+}
 
 const rarityOptions = checkboxValues.map(({ name, value }) => ({
   text: name,
@@ -107,7 +177,7 @@ export const ArtworkDetailsForm: React.FC = () => {
       sendToast({
         variant: "error",
         message: "An error occurred",
-        description: "Please contact consign@artsymail.com",
+        description: "Please contact sell@artsy.net",
       })
 
       return
@@ -143,42 +213,21 @@ export const ArtworkDetailsForm: React.FC = () => {
         show={isRarityModalOpen}
         showDisclaimer={false}
       />
-      <Modal
+      <ProvenanceModal
         onClose={() => setIsProvenanceModalOpen(false)}
         show={isProvenanceModalOpen}
-        title="Artwork provenance"
-        FixedButton={
-          <Button onClick={() => setIsProvenanceModalOpen(false)} width="100%">
-            OK
-          </Button>
-        }
-      >
-        <Text variant="sm-display">
-          Provenance is the documented history of an artwork’s ownership and
-          authenticity.
-        </Text>
-        <Text variant="sm-display" mt={2}>
-          Please list any documentation you have that proves your artwork’s
-          provenance, such as:
-        </Text>
-        <Text as="li" variant="sm-display" mt={2}>
-          Invoices from previous owners
-        </Text>
-        <Text as="li" variant="sm-display" mt={1}>
-          Certificates of authenticity
-        </Text>
-        <Text as="li" variant="sm-display" mt={1}>
-          Gallery exhibition catalogues
-        </Text>
-      </Modal>
+      />
 
       <GridColumns>
         <Column span={6}>
-          <ArtistAutoComplete onError={() => handleAutosuggestError(true)} />
+          <ArtistAutoComplete
+            onSelect={({ artistId }) => setFieldValue("artistId", artistId)}
+            onError={() => handleAutosuggestError(true)}
+          />
         </Column>
-        <Column span={6} mt={[30, 0]}>
+        <Column span={6} mt={[4, 0]}>
           <Input
-            title="year"
+            title="Year"
             maxLength={256}
             placeholder="YYYY"
             name="year"
@@ -200,7 +249,7 @@ export const ArtworkDetailsForm: React.FC = () => {
             value={values.title}
           />
         </Column>
-        <Column span={6} mt={[30, 0]}>
+        <Column span={6} mt={[4, 0]}>
           <Input
             title="Materials"
             placeholder="Add materials"
@@ -248,7 +297,7 @@ export const ArtworkDetailsForm: React.FC = () => {
                 onChange={handleChange}
                 value={values.editionNumber}
               />
-              <Box paddingX={[0.5, 2]} mt={2}>
+              <Box px={[0.5, 2]} mt={2}>
                 /
               </Box>
               <Input
@@ -295,7 +344,7 @@ export const ArtworkDetailsForm: React.FC = () => {
             </Box>
           </Flex>
         </Column>
-        <Column span={6} mt={[30, 0]}>
+        <Column span={6} mt={[4, 0]}>
           <Flex height="100%">
             <Box pr={[0, 1]} width="50%" height="100%">
               <Flex>
@@ -355,7 +404,7 @@ export const ArtworkDetailsForm: React.FC = () => {
             value={values.provenance}
           />
         </Column>
-        <Column span={6} mt={[30, 0]}>
+        <Column span={6} mt={[4, 0]}>
           <LocationAutocompleteInput
             name="location"
             title="City"

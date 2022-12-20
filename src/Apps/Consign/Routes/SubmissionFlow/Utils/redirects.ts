@@ -1,8 +1,11 @@
 import { Match, Router } from "found"
 import { isFunction } from "lodash"
 import { graphql } from "react-relay"
-import { redirects_submission } from "__generated__/redirects_submission.graphql"
-import { getArtworkDetailsFormInitialValues } from "../ArtworkDetails/Components/ArtworkDetailsForm"
+import { redirects_submission$data } from "__generated__/redirects_submission.graphql"
+import {
+  getArtworkDetailsFormInitialValues,
+  SubmissionType,
+} from "../ArtworkDetails/Components/ArtworkDetailsForm"
 import { getUploadPhotosFormInitialValues } from "../UploadPhotos/UploadPhotos"
 import {
   artworkDetailsValidationSchema,
@@ -11,8 +14,8 @@ import {
 
 const redirectToIf = (
   to: ((id?: string) => string) | string,
-  predicate: (args: redirects_submission) => boolean
-) => (args: redirects_submission) => {
+  predicate: (args: redirects_submission$data) => boolean
+) => (args: redirects_submission$data) => {
   if (predicate(args)) {
     return isFunction(to) ? to(args?.externalId) : to
   }
@@ -27,7 +30,10 @@ const checkArtworkDetailsFormValid = redirectToIf(
   id => `/sell/submission/${id}/artwork-details`,
   submission =>
     !artworkDetailsValidationSchema.isValidSync(
-      getArtworkDetailsFormInitialValues(submission as any)
+      getArtworkDetailsFormInitialValues({
+        values: submission,
+        type: SubmissionType.submission,
+      })
     )
 )
 
@@ -35,7 +41,7 @@ const checkUploadPhotosFormValid = redirectToIf(
   id => `/sell/submission/${id}/upload-photos`,
   submission =>
     !uploadPhotosValidationSchema.isValidSync(
-      getUploadPhotosFormInitialValues(submission as any)
+      getUploadPhotosFormInitialValues(submission)
     )
 )
 
@@ -69,7 +75,7 @@ export const redirects = {
 export function getRedirect(
   router: Router,
   match: Match,
-  submission: redirects_submission
+  submission: redirects_submission$data
 ) {
   for (let [path, route] of getPaths(redirects, "")) {
     if (isActiveRoute(router, match, path)) {

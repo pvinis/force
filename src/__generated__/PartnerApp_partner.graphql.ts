@@ -1,31 +1,34 @@
+/**
+ * @generated SignedSource<<0acecd7ca27e37f9bf0a8d6ba93cd8a5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerApp_partner = {
-    readonly partnerType: string | null;
-    readonly displayFullPartnerPage: boolean | null;
-    readonly partnerPageEligible: boolean | null;
-    readonly isDefaultProfilePublic: boolean | null;
-    readonly categories: ReadonlyArray<{
-        readonly id: string;
-        readonly name: string | null;
-    } | null> | null;
-    readonly profile: {
-        readonly " $fragmentRefs": FragmentRefs<"PartnerHeaderImage_profile">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"PartnerMeta_partner" | "PartnerHeader_partner" | "NavigationTabs_partner">;
-    readonly " $refType": "PartnerApp_partner";
+export type PartnerApp_partner$data = {
+  readonly categories: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string | null;
+  } | null> | null;
+  readonly displayFullPartnerPage: boolean | null;
+  readonly isDefaultProfilePublic: boolean | null;
+  readonly partnerPageEligible: boolean | null;
+  readonly partnerType: string | null;
+  readonly profile: {
+    readonly " $fragmentSpreads": FragmentRefs<"PartnerHeaderImage_profile">;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"NavigationTabs_partner" | "PartnerHeader_partner" | "PartnerMeta_partner">;
+  readonly " $fragmentType": "PartnerApp_partner";
 };
-export type PartnerApp_partner$data = PartnerApp_partner;
 export type PartnerApp_partner$key = {
-    readonly " $data"?: PartnerApp_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnerApp_partner">;
+  readonly " $data"?: PartnerApp_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnerApp_partner">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -121,5 +124,7 @@ const node: ReaderFragment = {
   "type": "Partner",
   "abstractKey": null
 };
-(node as any).hash = '9ab19f514efb71031e2ccf955bc30515';
+
+(node as any).hash = "9ab19f514efb71031e2ccf955bc30515";
+
 export default node;

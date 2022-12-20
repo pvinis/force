@@ -1,29 +1,34 @@
+/**
+ * @generated SignedSource<<a1f51b84f07f7c7ab2057345a762118c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkVideoPlayer_artwork = {
-    readonly figures: ReadonlyArray<{
-        readonly type: "Video";
-        readonly url: string;
-        readonly height: number;
-        readonly width: number;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly type: "%other";
-    }>;
-    readonly " $refType": "ArtworkVideoPlayer_artwork";
+export type ArtworkVideoPlayer_artwork$data = {
+  readonly figures: ReadonlyArray<{
+    readonly __typename: "Video";
+    readonly playerUrl: string;
+    readonly videoHeight: number;
+    readonly videoWidth: number;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  }>;
+  readonly internalID: string;
+  readonly slug: string;
+  readonly " $fragmentType": "ArtworkVideoPlayer_artwork";
 };
-export type ArtworkVideoPlayer_artwork$data = ArtworkVideoPlayer_artwork;
 export type ArtworkVideoPlayer_artwork$key = {
-    readonly " $data"?: ArtworkVideoPlayer_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkVideoPlayer_artwork">;
+  readonly " $data"?: ArtworkVideoPlayer_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkVideoPlayer_artwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -31,6 +36,20 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "ArtworkVideoPlayer_artwork",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "internalID",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -43,7 +62,7 @@ const node: ReaderFragment = {
           "kind": "InlineFragment",
           "selections": [
             {
-              "alias": "type",
+              "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "__typename",
@@ -53,21 +72,21 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "url",
+              "name": "playerUrl",
               "storageKey": null
             },
             {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "height",
-              "storageKey": null
-            },
-            {
-              "alias": null,
+              "alias": "videoWidth",
               "args": null,
               "kind": "ScalarField",
               "name": "width",
+              "storageKey": null
+            },
+            {
+              "alias": "videoHeight",
+              "args": null,
+              "kind": "ScalarField",
+              "name": "height",
               "storageKey": null
             }
           ],
@@ -81,5 +100,7 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = '974a30d74f842d7276a8cb99153735a5';
+
+(node as any).hash = "8a5fdfc21456a80b8eab8068244edde0";
+
 export default node;

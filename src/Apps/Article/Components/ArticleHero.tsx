@@ -16,12 +16,12 @@ import {
   Spacer,
   Text,
 } from "@artsy/palette"
-import { ArticleHero_article } from "__generated__/ArticleHero_article.graphql"
+import { ArticleHero_article$data } from "__generated__/ArticleHero_article.graphql"
 import styled from "styled-components"
 import { CENTERED_LAYOUT_COLUMNS } from "./ArticleBody"
 
 interface ArticleHeroProps {
-  article: ArticleHero_article
+  article: ArticleHero_article$data
   fixed?: boolean
 }
 
@@ -126,7 +126,7 @@ const ArticleHero: FC<ArticleHeroProps> = ({ article, fixed = true }) => {
     case "BASIC": {
       return (
         <>
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           {article.hero.embed && (
             <ResponsiveBox
@@ -167,7 +167,7 @@ const ArticleHero: FC<ArticleHeroProps> = ({ article, fixed = true }) => {
 
       return (
         <>
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           <GridColumns>
             <Column {...CENTERED_LAYOUT_COLUMNS}>
@@ -187,7 +187,7 @@ const ArticleHero: FC<ArticleHeroProps> = ({ article, fixed = true }) => {
 
           {image && (
             <>
-              <Spacer mt={4} />
+              <Spacer y={4} />
 
               <FullBleed>
                 <Box mx={[2, 4]}>

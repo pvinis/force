@@ -1,80 +1,62 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import styled from "styled-components"
-import { Text, Flex, Swiper } from "@artsy/palette"
+import {
+  Text,
+  Flex,
+  HorizontalOverflow,
+  Clickable,
+  BoxProps,
+} from "@artsy/palette"
+import { ExhibitorsLetterNav_fair$data } from "__generated__/ExhibitorsLetterNav_fair.graphql"
+import { getExhibitorSectionId } from "Apps/Fair/Utils/getExhibitorSectionId"
+import { useJump } from "Utils/Hooks/useJump"
 import { Media } from "Utils/Responsive"
-import { scrollIntoView } from "Utils/scrollHelpers"
-import { ExhibitorsLetterNav_fair } from "__generated__/ExhibitorsLetterNav_fair.graphql"
-import { getExhibitorSectionId } from "../Utils/getExhibitorSectionId"
-import { useExhibitorsTabOffset } from "../Utils/useExhibitorsTabOffset"
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#".split("")
 
 interface ExhibitorsLetterNavProps {
-  fair: ExhibitorsLetterNav_fair
+  fair: ExhibitorsLetterNav_fair$data
 }
 
 export const ExhibitorsLetterNav: React.FC<ExhibitorsLetterNavProps> = ({
   fair,
 }) => {
   const letters = fair?.exhibitorsGroupedByName?.map(group => group?.letter)
-  const offset = useExhibitorsTabOffset()
-
-  const Letters = ({ withSwiper = false }) => {
-    return (
-      <Flex justifyContent="space-between" py={2} pl={withSwiper ? 2 : 0}>
-        {LETTERS.map((letter, i) => {
-          const isEnabled = letters?.includes(letter)
-          const isLast = i === LETTERS.length - 1
-          const sectionLabel =
-            letter === "#" ? "special character or number" : `“${letter}”`
-          return (
-            <Letter
-              key={letter}
-              color={isEnabled ? "black100" : "black10"}
-              title={
-                isEnabled ? `View exhibitors starting with ${sectionLabel}` : ""
-              }
-              mr={!withSwiper || isLast ? 0 : 4}
-              onClick={() => {
-                if (isEnabled) {
-                  scrollIntoView({
-                    selector: `#${getExhibitorSectionId(letter)}`,
-                    offset,
-                    behavior: "smooth",
-                  })
-                }
-              }}
-            >
-              {letter}
-            </Letter>
-          )
-        })}
-      </Flex>
-    )
-  }
 
   return (
     <>
       <Media lessThan="md">
-        <Swiper snap="start">
-          <Letters withSwiper />
-        </Swiper>
+        <HorizontalOverflow py={2}>
+          {LETTERS.map((letter, i) => {
+            return (
+              <Letter
+                key={letter}
+                letter={letter}
+                isEnabled={!!letters?.includes(letter)}
+                pl={i === 0 ? 0 : 1}
+                pr={i === LETTERS.length - 1 ? 0 : 1}
+              />
+            )
+          })}
+        </HorizontalOverflow>
       </Media>
 
       <Media greaterThanOrEqual="md">
-        <Letters />
+        <Flex justifyContent="space-between" py={2}>
+          {LETTERS.map(letter => {
+            return (
+              <Letter
+                key={letter}
+                letter={letter}
+                isEnabled={!!letters?.includes(letter)}
+              />
+            )
+          })}
+        </Flex>
       </Media>
     </>
   )
 }
-
-const Letter = styled(Text).attrs({ variant: "sm-display" })`
-  display: inline-block;
-  cursor: pointer;
-  white-space: nowrap;
-`
-Letter.displayName = "Letter"
 
 export const ExhibitorsLetterNavFragmentContainer = createFragmentContainer(
   ExhibitorsLetterNav,
@@ -88,3 +70,41 @@ export const ExhibitorsLetterNavFragmentContainer = createFragmentContainer(
     `,
   }
 )
+
+interface LetterProps extends BoxProps {
+  letter: string
+  isEnabled: boolean
+}
+
+const Letter: React.FC<LetterProps> = ({ letter, isEnabled, ...rest }) => {
+  const { jumpTo } = useJump({ offset: 10 })
+
+  const sectionLabel =
+    letter === "#" ? "special character or number" : `“${letter}”`
+
+  const handleClick = () => {
+    if (!isEnabled) return
+
+    jumpTo(getExhibitorSectionId(letter))
+  }
+
+  if (isEnabled) {
+    return (
+      <Clickable
+        onClick={handleClick}
+        title={`View exhibitors starting with ${sectionLabel}`}
+        {...rest}
+      >
+        <Text variant="sm-display">{letter}</Text>
+      </Clickable>
+    )
+  }
+
+  return (
+    <Text variant="sm-display" color="black10" {...rest}>
+      {letter}
+    </Text>
+  )
+}
+
+Letter.displayName = "Letter"

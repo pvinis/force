@@ -1,257 +1,133 @@
+/**
+ * @generated SignedSource<<0860f8c0871e5ba75f4cbf94d3f3f7b2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type RssArticlesQueryVariables = {
-    channelId: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type RssArticlesQuery$variables = {
+  channelId: string;
 };
-export type RssArticlesQueryResponse = {
-    readonly articlesConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly publishedAt: string | null;
-                readonly thumbnailTitle: string | null;
-                readonly thumbnailImage: {
-                    readonly resized: {
-                        readonly src: string;
-                    } | null;
-                } | null;
-                readonly href: string | null;
-                readonly byline: string | null;
-                readonly hero: {
-                    readonly embed?: string | null | undefined;
-                    readonly image?: {
-                        readonly resized: {
-                            readonly src: string;
-                        } | null;
-                    } | null | undefined;
-                } | null;
-                readonly sections: ReadonlyArray<{
-                    readonly __typename: "ArticleSectionText";
-                    readonly body: string | null;
-                } | {
-                    readonly __typename: "ArticleSectionEmbed";
-                    readonly url: string | null;
-                } | {
-                    readonly __typename: "ArticleSectionVideo";
-                    readonly embed: string | null;
-                } | {
-                    readonly __typename: "ArticleSectionImageCollection";
-                    readonly figures: ReadonlyArray<{
-                        readonly __typename: "Artwork";
-                        readonly title: string | null;
-                        readonly date: string | null;
-                        readonly artists: ReadonlyArray<{
-                            readonly name: string | null;
-                        } | null> | null;
-                        readonly partner: {
-                            readonly name: string | null;
-                        } | null;
-                        readonly image: {
-                            readonly resized: {
-                                readonly width: number | null;
-                                readonly height: number | null;
-                                readonly src: string;
-                                readonly srcSet: string;
-                            } | null;
-                        } | null;
-                    } | {
-                        readonly __typename: "ArticleImageSection";
-                        readonly image: {
-                            readonly caption: string | null;
-                            readonly resized: {
-                                readonly width: number | null;
-                                readonly height: number | null;
-                                readonly src: string;
-                                readonly srcSet: string;
-                            } | null;
-                        } | null;
-                    } | {
-                        /*This will never be '%other', but we need some
-                        value in case none of the concrete values match.*/
-                        readonly __typename: "%other";
-                    }>;
-                } | {
-                    readonly __typename: "ArticleSectionImageSet";
-                    readonly figures: ReadonlyArray<{
-                        readonly __typename: "Artwork";
-                        readonly title: string | null;
-                        readonly date: string | null;
-                        readonly artists: ReadonlyArray<{
-                            readonly name: string | null;
-                        } | null> | null;
-                        readonly partner: {
-                            readonly name: string | null;
-                        } | null;
-                        readonly image: {
-                            readonly resized: {
-                                readonly width: number | null;
-                                readonly height: number | null;
-                                readonly src: string;
-                                readonly srcSet: string;
-                            } | null;
-                        } | null;
-                    } | {
-                        readonly __typename: "ArticleImageSection";
-                        readonly image: {
-                            readonly caption: string | null;
-                            readonly resized: {
-                                readonly width: number | null;
-                                readonly height: number | null;
-                                readonly src: string;
-                                readonly srcSet: string;
-                            } | null;
-                        } | null;
-                    } | {
-                        /*This will never be '%other', but we need some
-                        value in case none of the concrete values match.*/
-                        readonly __typename: "%other";
-                    }>;
-                } | {
-                    /*This will never be '%other', but we need some
-                    value in case none of the concrete values match.*/
-                    readonly __typename: "%other";
-                }>;
+export type RssArticlesQuery$data = {
+  readonly articlesConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly byline: string | null;
+        readonly hero: {
+          readonly embed?: string | null;
+          readonly image?: {
+            readonly resized: {
+              readonly src: string;
             } | null;
-        } | null> | null;
-    } | null;
+          } | null;
+        } | null;
+        readonly href: string | null;
+        readonly id: string;
+        readonly publishedAt: string | null;
+        readonly sections: ReadonlyArray<{
+          readonly __typename: "ArticleSectionEmbed";
+          readonly url: string | null;
+        } | {
+          readonly __typename: "ArticleSectionImageCollection";
+          readonly figures: ReadonlyArray<{
+            readonly __typename: "ArticleImageSection";
+            readonly image: {
+              readonly caption: string | null;
+              readonly resized: {
+                readonly height: number | null;
+                readonly src: string;
+                readonly srcSet: string;
+                readonly width: number | null;
+              } | null;
+            } | null;
+          } | {
+            readonly __typename: "Artwork";
+            readonly artists: ReadonlyArray<{
+              readonly name: string | null;
+            } | null> | null;
+            readonly date: string | null;
+            readonly image: {
+              readonly resized: {
+                readonly height: number | null;
+                readonly src: string;
+                readonly srcSet: string;
+                readonly width: number | null;
+              } | null;
+            } | null;
+            readonly partner: {
+              readonly name: string | null;
+            } | null;
+            readonly title: string | null;
+          } | {
+            // This will never be '%other', but we need some
+            // value in case none of the concrete values match.
+            readonly __typename: "%other";
+          }>;
+        } | {
+          readonly __typename: "ArticleSectionImageSet";
+          readonly figures: ReadonlyArray<{
+            readonly __typename: "ArticleImageSection";
+            readonly image: {
+              readonly caption: string | null;
+              readonly resized: {
+                readonly height: number | null;
+                readonly src: string;
+                readonly srcSet: string;
+                readonly width: number | null;
+              } | null;
+            } | null;
+          } | {
+            readonly __typename: "Artwork";
+            readonly artists: ReadonlyArray<{
+              readonly name: string | null;
+            } | null> | null;
+            readonly date: string | null;
+            readonly image: {
+              readonly resized: {
+                readonly height: number | null;
+                readonly src: string;
+                readonly srcSet: string;
+                readonly width: number | null;
+              } | null;
+            } | null;
+            readonly partner: {
+              readonly name: string | null;
+            } | null;
+            readonly title: string | null;
+          } | {
+            // This will never be '%other', but we need some
+            // value in case none of the concrete values match.
+            readonly __typename: "%other";
+          }>;
+        } | {
+          readonly __typename: "ArticleSectionText";
+          readonly body: string | null;
+        } | {
+          readonly __typename: "ArticleSectionVideo";
+          readonly embed: string | null;
+        } | {
+          // This will never be '%other', but we need some
+          // value in case none of the concrete values match.
+          readonly __typename: "%other";
+        }>;
+        readonly thumbnailImage: {
+          readonly resized: {
+            readonly src: string;
+          } | null;
+        } | null;
+        readonly thumbnailTitle: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 export type RssArticlesQuery = {
-    readonly response: RssArticlesQueryResponse;
-    readonly variables: RssArticlesQueryVariables;
+  response: RssArticlesQuery$data;
+  variables: RssArticlesQuery$variables;
 };
-
-
-
-/*
-query RssArticlesQuery(
-  $channelId: String!
-) {
-  articlesConnection(channelId: $channelId, sort: PUBLISHED_AT_DESC, first: 50) {
-    edges {
-      node {
-        id
-        publishedAt
-        thumbnailTitle
-        thumbnailImage {
-          resized(width: 1100) {
-            src
-          }
-        }
-        href
-        byline
-        hero {
-          __typename
-          ... on ArticleFeatureSection {
-            embed
-            image {
-              resized(width: 1100) {
-                src
-              }
-            }
-          }
-        }
-        sections {
-          __typename
-          ... on ArticleSectionText {
-            body
-          }
-          ... on ArticleSectionEmbed {
-            url
-          }
-          ... on ArticleSectionVideo {
-            embed
-          }
-          ... on ArticleSectionImageCollection {
-            figures {
-              __typename
-              ... on Artwork {
-                title
-                date
-                artists {
-                  name
-                  id
-                }
-                partner {
-                  name
-                  id
-                }
-                image {
-                  resized(width: 500, version: ["normalized", "larger", "large"]) {
-                    width
-                    height
-                    src
-                    srcSet
-                  }
-                }
-              }
-              ... on ArticleImageSection {
-                image {
-                  caption
-                  resized(width: 500) {
-                    width
-                    height
-                    src
-                    srcSet
-                  }
-                }
-                id
-              }
-              ... on Node {
-                __isNode: __typename
-                id
-              }
-            }
-          }
-          ... on ArticleSectionImageSet {
-            figures {
-              __typename
-              ... on Artwork {
-                title
-                date
-                artists {
-                  name
-                  id
-                }
-                partner {
-                  name
-                  id
-                }
-                image {
-                  resized(width: 500, version: ["normalized", "larger", "large"]) {
-                    width
-                    height
-                    src
-                    srcSet
-                  }
-                }
-              }
-              ... on ArticleImageSection {
-                image {
-                  caption
-                  resized(width: 500) {
-                    width
-                    height
-                    src
-                    srcSet
-                  }
-                }
-                id
-              }
-              ... on Node {
-                __isNode: __typename
-                id
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -589,67 +465,54 @@ v25 = [
   (v18/*: any*/),
   (v2/*: any*/)
 ],
-v26 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": null,
-    "kind": "LinkedField",
-    "name": "figures",
-    "plural": true,
-    "selections": [
-      (v12/*: any*/),
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          (v16/*: any*/),
-          (v17/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Artist",
-            "kind": "LinkedField",
-            "name": "artists",
-            "plural": true,
-            "selections": (v25/*: any*/),
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Partner",
-            "kind": "LinkedField",
-            "name": "partner",
-            "plural": false,
-            "selections": (v25/*: any*/),
-            "storageKey": null
-          },
-          (v22/*: any*/)
-        ],
-        "type": "Artwork",
-        "abstractKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          (v23/*: any*/),
-          (v2/*: any*/)
-        ],
-        "type": "ArticleImageSection",
-        "abstractKey": null
-      },
-      {
-        "kind": "InlineFragment",
-        "selections": [
-          (v2/*: any*/)
-        ],
-        "type": "Node",
-        "abstractKey": "__isNode"
-      }
-    ],
-    "storageKey": null
-  }
-];
+v26 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v16/*: any*/),
+    (v17/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Artist",
+      "kind": "LinkedField",
+      "name": "artists",
+      "plural": true,
+      "selections": (v25/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Partner",
+      "kind": "LinkedField",
+      "name": "partner",
+      "plural": false,
+      "selections": (v25/*: any*/),
+      "storageKey": null
+    },
+    (v22/*: any*/)
+  ],
+  "type": "Artwork",
+  "abstractKey": null
+},
+v27 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v23/*: any*/),
+    (v2/*: any*/)
+  ],
+  "type": "ArticleImageSection",
+  "abstractKey": null
+},
+v28 = [
+  (v2/*: any*/)
+],
+v29 = {
+  "kind": "InlineFragment",
+  "selections": (v28/*: any*/),
+  "type": "Node",
+  "abstractKey": "__isNode"
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -802,13 +665,51 @@ return {
                       (v15/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v26/*: any*/),
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": null,
+                            "kind": "LinkedField",
+                            "name": "figures",
+                            "plural": true,
+                            "selections": [
+                              (v12/*: any*/),
+                              (v26/*: any*/),
+                              (v27/*: any*/),
+                              (v29/*: any*/),
+                              {
+                                "kind": "InlineFragment",
+                                "selections": (v28/*: any*/),
+                                "type": "ArticleUnpublishedArtwork",
+                                "abstractKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
                         "type": "ArticleSectionImageCollection",
                         "abstractKey": null
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v26/*: any*/),
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": null,
+                            "kind": "LinkedField",
+                            "name": "figures",
+                            "plural": true,
+                            "selections": [
+                              (v12/*: any*/),
+                              (v26/*: any*/),
+                              (v27/*: any*/),
+                              (v29/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
                         "type": "ArticleSectionImageSet",
                         "abstractKey": null
                       }
@@ -827,14 +728,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "96bb9d76e0196cdf81137c4570119ffe",
+    "cacheID": "9bb1d52c83c37b7e6489b09f60ededb4",
     "id": null,
     "metadata": {},
     "name": "RssArticlesQuery",
     "operationKind": "query",
-    "text": "query RssArticlesQuery(\n  $channelId: String!\n) {\n  articlesConnection(channelId: $channelId, sort: PUBLISHED_AT_DESC, first: 50) {\n    edges {\n      node {\n        id\n        publishedAt\n        thumbnailTitle\n        thumbnailImage {\n          resized(width: 1100) {\n            src\n          }\n        }\n        href\n        byline\n        hero {\n          __typename\n          ... on ArticleFeatureSection {\n            embed\n            image {\n              resized(width: 1100) {\n                src\n              }\n            }\n          }\n        }\n        sections {\n          __typename\n          ... on ArticleSectionText {\n            body\n          }\n          ... on ArticleSectionEmbed {\n            url\n          }\n          ... on ArticleSectionVideo {\n            embed\n          }\n          ... on ArticleSectionImageCollection {\n            figures {\n              __typename\n              ... on Artwork {\n                title\n                date\n                artists {\n                  name\n                  id\n                }\n                partner {\n                  name\n                  id\n                }\n                image {\n                  resized(width: 500, version: [\"normalized\", \"larger\", \"large\"]) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n              }\n              ... on ArticleImageSection {\n                image {\n                  caption\n                  resized(width: 500) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n                id\n              }\n              ... on Node {\n                __isNode: __typename\n                id\n              }\n            }\n          }\n          ... on ArticleSectionImageSet {\n            figures {\n              __typename\n              ... on Artwork {\n                title\n                date\n                artists {\n                  name\n                  id\n                }\n                partner {\n                  name\n                  id\n                }\n                image {\n                  resized(width: 500, version: [\"normalized\", \"larger\", \"large\"]) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n              }\n              ... on ArticleImageSection {\n                image {\n                  caption\n                  resized(width: 500) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n                id\n              }\n              ... on Node {\n                __isNode: __typename\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query RssArticlesQuery(\n  $channelId: String!\n) {\n  articlesConnection(channelId: $channelId, sort: PUBLISHED_AT_DESC, first: 50) {\n    edges {\n      node {\n        id\n        publishedAt\n        thumbnailTitle\n        thumbnailImage {\n          resized(width: 1100) {\n            src\n          }\n        }\n        href\n        byline\n        hero {\n          __typename\n          ... on ArticleFeatureSection {\n            embed\n            image {\n              resized(width: 1100) {\n                src\n              }\n            }\n          }\n        }\n        sections {\n          __typename\n          ... on ArticleSectionText {\n            body\n          }\n          ... on ArticleSectionEmbed {\n            url\n          }\n          ... on ArticleSectionVideo {\n            embed\n          }\n          ... on ArticleSectionImageCollection {\n            figures {\n              __typename\n              ... on Artwork {\n                title\n                date\n                artists {\n                  name\n                  id\n                }\n                partner {\n                  name\n                  id\n                }\n                image {\n                  resized(width: 500, version: [\"normalized\", \"larger\", \"large\"]) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n              }\n              ... on ArticleImageSection {\n                image {\n                  caption\n                  resized(width: 500) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n                id\n              }\n              ... on Node {\n                __isNode: __typename\n                id\n              }\n              ... on ArticleUnpublishedArtwork {\n                id\n              }\n            }\n          }\n          ... on ArticleSectionImageSet {\n            figures {\n              __typename\n              ... on Artwork {\n                title\n                date\n                artists {\n                  name\n                  id\n                }\n                partner {\n                  name\n                  id\n                }\n                image {\n                  resized(width: 500, version: [\"normalized\", \"larger\", \"large\"]) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n              }\n              ... on ArticleImageSection {\n                image {\n                  caption\n                  resized(width: 500) {\n                    width\n                    height\n                    src\n                    srcSet\n                  }\n                }\n                id\n              }\n              ... on Node {\n                __isNode: __typename\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'cd178caafd928c3c9a95c51b55b95e1c';
+
+(node as any).hash = "cd178caafd928c3c9a95c51b55b95e1c";
+
 export default node;

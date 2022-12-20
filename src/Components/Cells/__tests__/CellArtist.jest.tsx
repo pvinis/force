@@ -2,7 +2,7 @@ import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { CellArtistFragmentContainer_Test_Query } from "__generated__/CellArtistFragmentContainer_Test_Query.graphql"
 import { screen } from "@testing-library/react"
-import { CellArtistFragmentContainer } from "../CellArtist"
+import { CellArtistFragmentContainer } from "Components/Cells/CellArtist"
 
 jest.unmock("react-relay")
 

@@ -8,10 +8,10 @@ import {
 import { ArticleAd } from "Apps/Article/Components/ArticleAd"
 import { ArticleBodyFragmentContainer } from "Apps/Article/Components/ArticleBody"
 import { extractNodes } from "Utils/extractNodes"
-import { NewsIndexArticles_viewer } from "__generated__/NewsIndexArticles_viewer.graphql"
+import { NewsIndexArticles_viewer$data } from "__generated__/NewsIndexArticles_viewer.graphql"
 
 interface NewsIndexArticlesProps {
-  viewer: NewsIndexArticles_viewer
+  viewer: NewsIndexArticles_viewer$data
   relay: RelayPaginationProp
 }
 

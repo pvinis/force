@@ -1,5 +1,5 @@
 import { Join, Separator, Spacer, Text } from "@artsy/palette"
-import { FollowArtistPopover_artist } from "__generated__/FollowArtistPopover_artist.graphql"
+import { FollowArtistPopover_artist$data } from "__generated__/FollowArtistPopover_artist.graphql"
 import { FollowArtistPopoverQuery } from "__generated__/FollowArtistPopoverQuery.graphql"
 import { SystemContext, SystemContextProps } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
@@ -15,7 +15,7 @@ import { FollowArtistPopoverState } from "./state"
 import { extractNodes } from "Utils/extractNodes"
 
 interface FollowArtistPopoverProps extends SystemContextProps {
-  artist: FollowArtistPopover_artist
+  artist: FollowArtistPopover_artist$data
 }
 
 const FollowArtistPopover: React.FC<FollowArtistPopoverProps> = ({
@@ -35,7 +35,7 @@ const FollowArtistPopover: React.FC<FollowArtistPopoverProps> = ({
 
   return (
     <Provider inject={[new FollowArtistPopoverState({ excludeArtistIds })]}>
-      <Spacer mt={1} />
+      <Spacer y={1} />
 
       <Join separator={<Separator my={1} />}>
         {suggestedArtists.map(artist => {
@@ -115,7 +115,7 @@ export const FollowArtistPopoverQueryRenderer = ({
 export const FollowArtistPopoverPlaceholder: React.FC = () => {
   return (
     <>
-      <Spacer mt={1} />
+      <Spacer y={1} />
 
       <Join separator={<Separator my={1} />}>
         <FollowArtistPopoverRowPlaceholder />

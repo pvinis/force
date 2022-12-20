@@ -1,64 +1,27 @@
+/**
+ * @generated SignedSource<<6410bce13669e0f376157b5d8640c82c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerArtistsQueryVariables = {
-    partnerId: string;
+export type PartnerArtistsQuery$variables = {
+  partnerId: string;
 };
-export type PartnerArtistsQueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"PartnerArtists_partner">;
-    } | null;
+export type PartnerArtistsQuery$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"PartnerArtists_partner">;
+  } | null;
 };
 export type PartnerArtistsQuery = {
-    readonly response: PartnerArtistsQueryResponse;
-    readonly variables: PartnerArtistsQueryVariables;
+  response: PartnerArtistsQuery$data;
+  variables: PartnerArtistsQuery$variables;
 };
-
-
-
-/*
-query PartnerArtistsQuery(
-  $partnerId: String!
-) {
-  partner(id: $partnerId) @principalField {
-    ...PartnerArtists_partner
-    id
-  }
-}
-
-fragment PartnerArtistItem_artist on Artist {
-  name
-  slug
-  href
-}
-
-fragment PartnerArtistList_artists on ArtistPartnerEdge {
-  representedBy
-  counts {
-    artworks
-  }
-  node {
-    internalID
-    ...PartnerArtistItem_artist
-    id
-  }
-}
-
-fragment PartnerArtists_partner on Partner {
-  slug
-  distinguishRepresentedArtists
-  displayFullPartnerPage
-  allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {
-    edges {
-      ...PartnerArtistList_artists
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -79,10 +42,19 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "href",
   "storageKey": null
 },
-v3 = {
+v3 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "artworks",
+    "storageKey": null
+  }
+],
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -186,15 +158,7 @@ return {
                     "kind": "LinkedField",
                     "name": "counts",
                     "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "artworks",
-                        "storageKey": null
-                      }
-                    ],
+                    "selections": (v3/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -216,6 +180,13 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
+                        "name": "slug",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
                         "name": "name",
                         "storageKey": null
                       },
@@ -223,36 +194,41 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "kind": "ScalarField",
-                        "name": "href",
+                        "concreteType": "ArtistCounts",
+                        "kind": "LinkedField",
+                        "name": "counts",
+                        "plural": false,
+                        "selections": (v3/*: any*/),
                         "storageKey": null
                       },
-                      (v3/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": "allArtistsConnection(displayOnPartnerProfile:true,hasNotRepresentedArtistWithPublishedArtworks:true)"
           },
-          (v3/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ab6b4d6f1ef7c11f63b213f7c21e5c83",
+    "cacheID": "fb87dcce847bc17f63d1c64f1a15d87a",
     "id": null,
     "metadata": {},
     "name": "PartnerArtistsQuery",
     "operationKind": "query",
-    "text": "query PartnerArtistsQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...PartnerArtists_partner\n    id\n  }\n}\n\nfragment PartnerArtistItem_artist on Artist {\n  name\n  slug\n  href\n}\n\nfragment PartnerArtistList_artists on ArtistPartnerEdge {\n  representedBy\n  counts {\n    artworks\n  }\n  node {\n    internalID\n    ...PartnerArtistItem_artist\n    id\n  }\n}\n\nfragment PartnerArtists_partner on Partner {\n  slug\n  distinguishRepresentedArtists\n  displayFullPartnerPage\n  allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {\n    edges {\n      ...PartnerArtistList_artists\n      id\n    }\n  }\n}\n"
+    "text": "query PartnerArtistsQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...PartnerArtists_partner\n    id\n  }\n}\n\nfragment PartnerArtistList_partner on Partner {\n  href\n  distinguishRepresentedArtists\n  displayFullPartnerPage\n  allArtistsConnection(displayOnPartnerProfile: true, hasNotRepresentedArtistWithPublishedArtworks: true) {\n    edges {\n      representedBy\n      counts {\n        artworks\n      }\n      node {\n        internalID\n        slug\n        name\n        href\n        counts {\n          artworks\n        }\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment PartnerArtists_partner on Partner {\n  ...PartnerArtistList_partner\n}\n"
   }
 };
 })();
-(node as any).hash = '3dc0b320c725913caf67d58c3a19af9e';
+
+(node as any).hash = "3dc0b320c725913caf67d58c3a19af9e";
+
 export default node;

@@ -1,76 +1,55 @@
+/**
+ * @generated SignedSource<<aa07af4d1dde84a0c135bca9a00bc385>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SendConversationMessageMutationInput = {
-    bodyText: string;
-    clientMutationId?: string | null | undefined;
-    from: string;
-    id: string;
-    replyToMessageID: string;
+  attachments?: ReadonlyArray<ConversationMessageAttachmentInput> | null;
+  bodyHTML?: string | null;
+  bodyText: string;
+  clientMutationId?: string | null;
+  from: string;
+  fromId?: string | null;
+  id: string;
+  replyAll?: boolean | null;
+  replyToMessageID: string;
+  to?: ReadonlyArray<string | null> | null;
 };
-export type SendConversationMessageMutationVariables = {
-    input: SendConversationMessageMutationInput;
+export type ConversationMessageAttachmentInput = {
+  id?: string | null;
+  name: string;
+  size?: string | null;
+  type: string;
+  url: string;
 };
-export type SendConversationMessageMutationResponse = {
-    readonly sendConversationMessage: {
-        readonly messageEdge: {
-            readonly node: {
-                readonly impulseID: string;
-                readonly isFromUser: boolean | null;
-                readonly body: string | null;
-                readonly id: string;
-                readonly internalID: string;
-                readonly " $fragmentRefs": FragmentRefs<"Message_message">;
-            } | null;
-        } | null;
+export type SendConversationMessageMutation$variables = {
+  input: SendConversationMessageMutationInput;
+};
+export type SendConversationMessageMutation$data = {
+  readonly sendConversationMessage: {
+    readonly messageEdge: {
+      readonly node: {
+        readonly body: string | null;
+        readonly id: string;
+        readonly impulseID: string;
+        readonly internalID: string;
+        readonly isFromUser: boolean | null;
+        readonly " $fragmentSpreads": FragmentRefs<"Message_message">;
+      } | null;
     } | null;
+  } | null;
 };
 export type SendConversationMessageMutation = {
-    readonly response: SendConversationMessageMutationResponse;
-    readonly variables: SendConversationMessageMutationVariables;
+  response: SendConversationMessageMutation$data;
+  variables: SendConversationMessageMutation$variables;
 };
-
-
-
-/*
-mutation SendConversationMessageMutation(
-  $input: SendConversationMessageMutationInput!
-) {
-  sendConversationMessage(input: $input) {
-    messageEdge {
-      node {
-        impulseID
-        isFromUser
-        body
-        id
-        internalID
-        ...Message_message
-      }
-    }
-  }
-}
-
-fragment Message_message on Message {
-  __typename
-  internalID
-  body
-  createdAt
-  isFromUser
-  from {
-    name
-    email
-  }
-  attachments {
-    id
-    contentType
-    fileName
-    downloadURL
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -304,5 +283,7 @@ return {
   }
 };
 })();
-(node as any).hash = '408efad0649006188afa16adb1c45401';
+
+(node as any).hash = "408efad0649006188afa16adb1c45401";
+
 export default node;

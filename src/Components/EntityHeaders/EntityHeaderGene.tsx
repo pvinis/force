@@ -2,11 +2,11 @@ import { BoxProps, Flex, Text, Avatar } from "@artsy/palette"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink } from "System/Router/RouterLink"
-import { EntityHeaderGene_gene } from "__generated__/EntityHeaderGene_gene.graphql"
-import { FollowGeneButtonFragmentContainer } from "../FollowButton/FollowGeneButton"
+import { EntityHeaderGene_gene$data } from "__generated__/EntityHeaderGene_gene.graphql"
+import { FollowGeneButtonQueryRenderer } from "Components/FollowButton/FollowGeneButton"
 
 export interface EntityHeaderGeneProps extends BoxProps {
-  gene: EntityHeaderGene_gene
+  gene: EntityHeaderGene_gene$data
   displayAvatar?: boolean
   displayLink?: boolean
   FollowButton?: JSX.Element
@@ -58,7 +58,7 @@ const EntityHeaderGene: FC<EntityHeaderGeneProps> = ({
       </Flex>
 
       {FollowButton || (
-        <FollowGeneButtonFragmentContainer gene={gene} size="small" />
+        <FollowGeneButtonQueryRenderer id={gene.internalID} size="small" />
       )}
     </Flex>
   )
@@ -69,7 +69,6 @@ export const EntityHeaderGeneFragmentContainer = createFragmentContainer(
   {
     gene: graphql`
       fragment EntityHeaderGene_gene on Gene {
-        ...FollowGeneButton_gene
         internalID
         href
         name

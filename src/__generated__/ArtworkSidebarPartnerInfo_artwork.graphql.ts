@@ -1,32 +1,35 @@
+/**
+ * @generated SignedSource<<a8d31df13997b8660dcd7b0159910b47>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkSidebarPartnerInfo_artwork = {
-    readonly internalID: string;
-    readonly slug: string;
-    readonly isInquireable: boolean | null;
-    readonly is_in_auction: boolean | null;
-    readonly partner: {
-        readonly name: string | null;
-        readonly href: string | null;
-        readonly cities: ReadonlyArray<string | null> | null;
-    } | null;
-    readonly sale: {
-        readonly name: string | null;
-        readonly href: string | null;
-    } | null;
-    readonly " $refType": "ArtworkSidebarPartnerInfo_artwork";
+export type ArtworkSidebarPartnerInfo_artwork$data = {
+  readonly internalID: string;
+  readonly isInAuction: boolean | null;
+  readonly isInquireable: boolean | null;
+  readonly partner: {
+    readonly cities: ReadonlyArray<string | null> | null;
+    readonly href: string | null;
+    readonly name: string | null;
+  } | null;
+  readonly sale: {
+    readonly href: string | null;
+    readonly name: string | null;
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "ArtworkSidebarPartnerInfo_artwork";
 };
-export type ArtworkSidebarPartnerInfo_artwork$data = ArtworkSidebarPartnerInfo_artwork;
 export type ArtworkSidebarPartnerInfo_artwork$key = {
-    readonly " $data"?: ArtworkSidebarPartnerInfo_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkSidebarPartnerInfo_artwork">;
+  readonly " $data"?: ArtworkSidebarPartnerInfo_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkSidebarPartnerInfo_artwork">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -71,7 +74,7 @@ return {
       "storageKey": null
     },
     {
-      "alias": "is_in_auction",
+      "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "isInAuction",
@@ -115,5 +118,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '89e75b59fa3207f21b480085f4ec725f';
+
+(node as any).hash = "0922245b320fff3b6ddc0ace7f5b2f75";
+
 export default node;

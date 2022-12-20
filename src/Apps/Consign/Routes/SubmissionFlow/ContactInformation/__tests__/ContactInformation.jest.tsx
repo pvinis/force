@@ -1,12 +1,14 @@
-import { graphql } from "relay-runtime"
-import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { SystemContextProvider } from "System"
-import { createOrUpdateConsignSubmission } from "../../Utils/createOrUpdateConsignSubmission"
-import { getPhoneNumberInformation } from "../../Utils/phoneNumberUtils"
-import { ContactInformationFragmentContainer } from "../ContactInformation"
-import { fireEvent, screen, waitFor } from "@testing-library/react"
 import { ActionType } from "@artsy/cohesion"
+import { fireEvent, screen, waitFor } from "@testing-library/react"
+import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { useTracking } from "react-tracking"
+import { graphql } from "react-relay"
+import { SystemContextProvider } from "System"
+import { createOrUpdateConsignSubmission } from "Apps/Consign/Routes/SubmissionFlow/Utils/createOrUpdateConsignSubmission"
+import { ContactInformationFragmentContainer } from "Apps/Consign/Routes/SubmissionFlow/ContactInformation/ContactInformation"
+import { flushPromiseQueue } from "DevTools"
+import { useRouter } from "System/Router/useRouter"
+import { useSubmissionFlowSteps } from "Apps/Consign/Hooks/useSubmissionFlowSteps"
 
 jest.unmock("react-relay")
 jest.mock("react-tracking")
@@ -37,11 +39,21 @@ const mockSubmission = {
 }
 
 const mockRouterPush = jest.fn()
+const mockRouterReplace = jest.fn()
 
 jest.mock("System/Router/useRouter", () => ({
   useRouter: jest.fn(() => ({
-    router: { push: mockRouterPush },
+    router: { push: mockRouterPush, replace: mockRouterReplace },
+    match: { params: { artworkId: undefined } },
   })),
+}))
+
+jest.mock("Apps/Consign/Hooks/useSubmissionFlowSteps", () => ({
+  useSubmissionFlowSteps: jest.fn(() => [
+    "Artwork Details",
+    "Upload Photos",
+    "Contact Information",
+  ]),
 }))
 
 const mockSendToast = jest.fn()
@@ -62,13 +74,7 @@ jest.mock("../../Utils/createOrUpdateConsignSubmission", () => ({
   createOrUpdateConsignSubmission: jest.fn(),
 }))
 
-jest.mock("../../Utils/phoneNumberUtils", () => ({
-  ...jest.requireActual("../../Utils/phoneNumberUtils"),
-  getPhoneNumberInformation: jest.fn(),
-}))
-
 const mockCreateOrUpdateConsignSubmission = createOrUpdateConsignSubmission as jest.Mock
-const mockGetPhoneNumberInformation = getPhoneNumberInformation as jest.Mock
 const mockTracking = useTracking as jest.Mock
 const mockTrackEvent = jest.fn()
 
@@ -106,9 +112,100 @@ const getSubmitButton = () => screen.getByTestId("save-button")
 const getInput = name =>
   screen.getAllByRole("textbox").find(c => c.getAttribute("name") === name)
 
+describe("Save and Continue button", () => {
+  describe("with valid phone number", () => {
+    beforeAll(() => {
+      mockTracking.mockImplementation(() => ({
+        trackEvent: mockTrackEvent,
+      }))
+    })
+
+    it("is enabled if all fields are received valid", async () => {
+      getWrapper().renderWithRelay({
+        Me: () => mockMe,
+        ConsignmentSubmission: () => mockSubmission,
+      })
+
+      expect(getSubmitButton()).toBeEnabled()
+    })
+
+    it("is enabled if all fields are typed valid", async () => {
+      getWrapper().renderWithRelay({
+        Me: () => mockEmptyMe,
+        ConsignmentSubmission: () => mockSubmission,
+      })
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeDisabled()
+      })
+
+      simulateTyping("name", "Banksy")
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeDisabled()
+      })
+
+      simulateTyping("email", "banksy@test.test")
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeDisabled()
+      })
+
+      simulateTyping("phoneNumber", "(415) 555-0132")
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeEnabled()
+      })
+    })
+  })
+
+  describe("with an invalid phone number", () => {
+    beforeAll(() => {
+      mockTracking.mockImplementation(() => ({
+        trackEvent: mockTrackEvent,
+      }))
+    })
+
+    it("is disabled when number is not valid", async () => {
+      getWrapper().renderWithRelay({
+        Me: () => mockMe,
+        ConsignmentSubmission: () => mockSubmission,
+      })
+
+      simulateTyping("name", "Banksy")
+      simulateTyping("email", "banksy@test.test")
+      simulateTyping("phoneNumber", "123")
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeDisabled()
+      })
+    })
+
+    it("is disabled when a valid number is removed by user", async () => {
+      getWrapper().renderWithRelay({
+        Me: () => mockMe,
+        ConsignmentSubmission: () => mockSubmission,
+      })
+
+      simulateTyping("name", "Banksy")
+      simulateTyping("email", "banksy@test.test")
+      simulateTyping("phoneNumber", "415-555-0132")
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeEnabled()
+      })
+
+      simulateTyping("phoneNumber", "")
+
+      await waitFor(() => {
+        expect(getSubmitButton()).toBeDisabled()
+      })
+    })
+  })
+})
+
 describe("Contact Information step", () => {
   beforeAll(() => {
-    mockGetPhoneNumberInformation.mockResolvedValue(mockMe.phoneNumber)
     mockTracking.mockImplementation(() => ({
       trackEvent: mockTrackEvent,
     }))
@@ -145,79 +242,6 @@ describe("Contact Information step", () => {
     })
   })
 
-  describe("Save and Continue button", () => {
-    it("is disabled if at least one field is not valid", async () => {
-      getWrapper().renderWithRelay({
-        Me: () => mockEmptyMe,
-        ConsignmentSubmission: () => mockSubmission,
-      })
-
-      expect(getSubmitButton()).toBeDisabled()
-
-      simulateTyping("name", "Banksy")
-
-      await waitFor(() => {
-        expect(getSubmitButton()).toBeDisabled()
-      })
-
-      simulateTyping("email", "banksy@test.test")
-
-      await waitFor(() => {
-        expect(getSubmitButton()).toBeDisabled()
-      })
-
-      simulateTyping("phone", "(415) 555-0132")
-
-      await waitFor(() => {
-        expect(getSubmitButton()).toBeEnabled()
-      })
-    })
-
-    it("is enabled if  all fields is valid", async () => {
-      getWrapper().renderWithRelay({
-        Me: () => mockMe,
-        ConsignmentSubmission: () => mockSubmission,
-      })
-
-      expect(getSubmitButton()).toBeEnabled()
-    })
-
-    it("is disabled when number is removed by user", async () => {
-      getWrapper().renderWithRelay({
-        Me: () => mockEmptyMe,
-        ConsignmentSubmission: () => mockSubmission,
-      })
-
-      simulateTyping("name", "Banksy")
-      simulateTyping("email", "banksy@test.test")
-      simulateTyping("phone", "+1 415-555-0132")
-
-      await waitFor(() => {
-        expect(getSubmitButton()).toBeEnabled()
-      })
-
-      simulateTyping("phone", "")
-
-      await waitFor(() => {
-        expect(getSubmitButton()).toBeDisabled()
-      })
-    })
-
-    it("show error modal if consingment submission fails", async () => {
-      mockCreateOrUpdateConsignSubmission.mockRejectedValueOnce("rejected")
-      getWrapper().renderWithRelay({
-        Me: () => mockMe,
-        ConsignmentSubmission: () => mockSubmission,
-      })
-
-      fireEvent.click(getSubmitButton())
-
-      await waitFor(() => {
-        expect(mockSendToast).toBeCalled()
-      })
-    })
-  })
-
   describe("If not logged in", () => {
     it("fields are not pre-populating from user profile", async () => {
       getWrapper().renderWithRelay({
@@ -227,10 +251,10 @@ describe("Contact Information step", () => {
 
       expect(getInput("name")).not.toHaveValue()
       expect(getInput("email")).not.toHaveValue()
-      expect(getInput("phone")).not.toHaveValue()
+      expect(getInput("phoneNumber")).not.toHaveValue()
     })
 
-    it("submiting a valid form", async () => {
+    it("submitting a valid form", async () => {
       getWrapper().renderWithRelay({
         Me: () => mockMe,
         ConsignmentSubmission: () => mockSubmission,
@@ -238,7 +262,11 @@ describe("Contact Information step", () => {
 
       simulateTyping("name", "Banksy")
       simulateTyping("email", "banksy@test.test")
-      simulateTyping("phone", "333")
+      simulateTyping("phoneNumber", "415-555-0132")
+
+      mockCreateOrUpdateConsignSubmission.mockResolvedValueOnce(
+        mockSubmission.externalId
+      )
 
       fireEvent.click(getSubmitButton())
 
@@ -255,6 +283,7 @@ describe("Contact Information step", () => {
           state: "SUBMITTED",
           sessionID: "SessionID",
         })
+        expect(mockRouterReplace).toHaveBeenCalledWith("/sell")
         expect(mockRouterPush).toHaveBeenCalledWith(
           `/sell/submission/${mockSubmission.externalId}/thank-you`
         )
@@ -271,7 +300,7 @@ describe("Contact Information step", () => {
 
       expect(getInput("name")).toHaveValue(mockMe.name)
       expect(getInput("email")).toHaveValue(mockMe.email)
-      expect(getInput("phone")).toHaveValue(mockMe.phoneNumber.national)
+      expect(getInput("phoneNumber")).toHaveValue(mockMe.phoneNumber.national)
     })
 
     it("submiting a valid form", async () => {
@@ -279,6 +308,10 @@ describe("Contact Information step", () => {
         Me: () => mockMe,
         ConsignmentSubmission: () => mockSubmission,
       })
+
+      mockCreateOrUpdateConsignSubmission.mockResolvedValueOnce(
+        mockSubmission.externalId
+      )
 
       fireEvent.click(getSubmitButton())
 
@@ -291,14 +324,56 @@ describe("Contact Information step", () => {
           externalId: mockSubmission.externalId,
           userName: "Serge",
           userEmail: "serge@test.test",
-          userPhone: "+1 415-555-0132",
+          userPhone: "+1 (415) 555-0132",
           state: "SUBMITTED",
           sessionID: "SessionID",
         })
+        expect(mockRouterReplace).toHaveBeenCalledWith("/sell")
         expect(mockRouterPush).toHaveBeenCalledWith(
           `/sell/submission/${mockSubmission.externalId}/thank-you`
         )
       })
+    })
+  })
+
+  describe("When ContactInformation is the first step in MyCollection Submission", () => {
+    const mockUseRouter = useRouter as jest.Mock
+    const mockUseSubmissionFlowSteps = useSubmissionFlowSteps as jest.Mock
+    beforeEach(() => {
+      mockUseSubmissionFlowSteps.mockImplementationOnce(() => [
+        "Contact Information",
+        "Artwork Details",
+        "Upload Photos",
+      ])
+    })
+
+    it("includes myCollectionArtworkID and source in params", async () => {
+      mockUseRouter.mockImplementationOnce(() => ({
+        match: {
+          params: {
+            artworkId: "artwork-id-1234",
+          },
+        },
+        router: { push: mockRouterPush, replace: mockRouterReplace },
+      }))
+
+      getWrapper().renderWithRelay({
+        Me: () => mockMe,
+        ConsignmentSubmission: () => null,
+      })
+
+      await flushPromiseQueue()
+
+      fireEvent.click(getSubmitButton())
+
+      await flushPromiseQueue()
+
+      expect(mockCreateOrUpdateConsignSubmission.mock.calls[0][1]).toEqual(
+        expect.objectContaining({
+          myCollectionArtworkID: "artwork-id-1234",
+          source: "MY_COLLECTION",
+        })
+      )
     })
   })
 
@@ -310,7 +385,7 @@ describe("Contact Information step", () => {
 
     simulateTyping("name", " Banksy  ")
     simulateTyping("email", "  banksy@test.test  ")
-    simulateTyping("phone", "  +1 415-555-0132  ")
+    simulateTyping("phoneNumber", "  415-555-0132  ")
 
     await waitFor(() => {
       expect(getSubmitButton()).toBeEnabled()
@@ -328,6 +403,20 @@ describe("Contact Information step", () => {
         state: "SUBMITTED",
         sessionID: "SessionID",
       })
+    })
+  })
+
+  it("show error modal if consingment submission fails", async () => {
+    mockCreateOrUpdateConsignSubmission.mockRejectedValueOnce("rejected")
+    getWrapper().renderWithRelay({
+      Me: () => mockMe,
+      ConsignmentSubmission: () => mockSubmission,
+    })
+
+    fireEvent.click(getSubmitButton())
+
+    await waitFor(() => {
+      expect(mockSendToast).toBeCalled()
     })
   })
 
@@ -360,7 +449,7 @@ describe("Contact Information step", () => {
 
     simulateTyping("email", "banksy@test.test")
 
-    simulateTyping("phone", "(415) 555-0132")
+    simulateTyping("phoneNumber", "(415) 555-0132")
 
     await waitFor(() => {
       expect(getSubmitButton()).toBeEnabled()

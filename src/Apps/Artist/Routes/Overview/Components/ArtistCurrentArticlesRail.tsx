@@ -8,16 +8,18 @@ import { Rail } from "Components/Rail"
 import { useAnalyticsContext, useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { extractNodes } from "Utils/extractNodes"
-import { ArtistCurrentArticlesRail_artist } from "__generated__/ArtistCurrentArticlesRail_artist.graphql"
+import { ArtistCurrentArticlesRail_artist$data } from "__generated__/ArtistCurrentArticlesRail_artist.graphql"
 import { ArtistCurrentArticlesRailQuery } from "__generated__/ArtistCurrentArticlesRailQuery.graphql"
 import { CellArticleFragmentContainer } from "Components/Cells/CellArticle"
 
 interface ArtistCurrentArticlesRailProps {
-  artist: ArtistCurrentArticlesRail_artist
+  artist: ArtistCurrentArticlesRail_artist$data
+  artworkId?: string
 }
 
 const ArtistCurrentArticlesRail: React.FC<ArtistCurrentArticlesRailProps> = ({
   artist,
+  artworkId,
 }) => {
   const tracking = useTracking()
   const {
@@ -37,7 +39,11 @@ const ArtistCurrentArticlesRail: React.FC<ArtistCurrentArticlesRailProps> = ({
       title={`Articles Featuring ${artist.name}`}
       alignItems="flex-start"
       viewAllLabel="View All Articles"
-      viewAllHref={`/artist/${artist.slug}/articles`}
+      viewAllHref={
+        artworkId
+          ? `/artist/${artist.slug}/articles/${artworkId}`
+          : `/artist/${artist.slug}/articles`
+      }
       viewAllOnClick={() => {
         tracking.trackEvent(
           clickedEntityGroup({
@@ -131,7 +137,8 @@ const PLACEHOLDER = (
 
 export const ArtistCurrentArticlesRailQueryRenderer: React.FC<{
   slug: string
-}> = ({ slug }) => {
+  artworkId?: string
+}> = ({ slug, artworkId }) => {
   const { relayEnvironment } = useSystemContext()
 
   return (
@@ -160,6 +167,7 @@ export const ArtistCurrentArticlesRailQueryRenderer: React.FC<{
             return (
               <ArtistCurrentArticlesRailFragmentContainer
                 artist={props.artist}
+                artworkId={artworkId}
               />
             )
           }

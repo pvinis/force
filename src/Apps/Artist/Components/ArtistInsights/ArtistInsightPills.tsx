@@ -1,30 +1,27 @@
 import { Flex, Pill } from "@artsy/palette"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { extractNodes } from "Utils/extractNodes"
-import { ArtistInsightPills_artist } from "__generated__/ArtistInsightPills_artist.graphql"
-import { useScrollTo } from "Utils/Hooks/useScrollTo"
+import { ArtistInsightPills_artist$data } from "__generated__/ArtistInsightPills_artist.graphql"
+import { useJump } from "Utils/Hooks/useJump"
 
 interface ArtistInsightPillsProps {
-  artist: ArtistInsightPills_artist
+  artist: ArtistInsightPills_artist$data
 }
 
 export const ArtistInsightPills: FC<ArtistInsightPillsProps> = ({ artist }) => {
-  const { scrollTo } = useScrollTo({ behavior: "smooth" })
+  const { jumpTo } = useJump({ behavior: "smooth", offset: 10 })
+
   const handleClick = () => {
-    scrollTo("#jump--artistCareerHighlights")
+    jumpTo("ArtistCareerHighlights")
   }
 
-  // The first result is the highest auction result
-  const highAuctionResult = extractNodes(artist.auctionResultsConnection)[0]
-
-  if (artist.insightsList.length === 0 && !highAuctionResult) {
+  if (artist.insightPills.length === 0) {
     return null
   }
 
   return (
     <Flex flexDirection="row" flexWrap="wrap" mb={-1}>
-      {artist.insightsList.map(insight => {
+      {artist.insightPills.map(insight => {
         return (
           <Pill
             variant="badge"
@@ -37,12 +34,6 @@ export const ArtistInsightPills: FC<ArtistInsightPillsProps> = ({ artist }) => {
           </Pill>
         )
       })}
-
-      {highAuctionResult?.priceRealized?.display && (
-        <Pill variant="badge" mr={1} mb={1} onClick={handleClick}>
-          High Auction Record
-        </Pill>
-      )}
     </Flex>
   )
 }
@@ -52,25 +43,16 @@ export const ArtistInsightPillsFragmentContainer = createFragmentContainer(
   {
     artist: graphql`
       fragment ArtistInsightPills_artist on Artist {
-        insightsList: insights(kind: [ACTIVE_SECONDARY_MARKET]) {
+        insightPills: insights(
+          kind: [
+            ACTIVE_SECONDARY_MARKET
+            HIGH_AUCTION_RECORD
+            ARTSY_VANGUARD_YEAR
+            CRITICALLY_ACCLAIMED
+          ]
+        ) {
           kind
           label
-          entities
-        }
-        auctionResultsConnection(
-          recordsTrusted: true
-          first: 1
-          sort: PRICE_AND_DATE_DESC
-        ) {
-          edges {
-            node {
-              priceRealized {
-                display(format: "0.0a")
-              }
-              organization
-              sale_date: saleDate(format: "YYYY")
-            }
-          }
         }
       }
     `,

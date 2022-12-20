@@ -8,23 +8,25 @@ import {
 } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink, RouterLinkProps } from "System/Router/RouterLink"
-import { CellArtist_artist } from "__generated__/CellArtist_artist.graphql"
+import { CellArtist_artist$data } from "__generated__/CellArtist_artist.graphql"
 import { DEFAULT_CELL_WIDTH } from "./constants"
-import { EntityHeaderArtistFragmentContainer } from "../EntityHeaders/EntityHeaderArtist"
+import { EntityHeaderArtistFragmentContainer } from "Components/EntityHeaders/EntityHeaderArtist"
 import { FC } from "react"
-import { EntityHeaderPlaceholder } from "../EntityHeaders/EntityHeaderPlaceholder"
+import { EntityHeaderPlaceholder } from "Components/EntityHeaders/EntityHeaderPlaceholder"
 
-export interface CellArtistProps extends Omit<RouterLinkProps, "to"> {
-  artist: CellArtist_artist
+export interface CellArtistProps extends Partial<RouterLinkProps> {
+  artist: CellArtist_artist$data
   /** Defaults to `"RAIL"` */
   mode?: "GRID" | "RAIL"
   displayCounts?: boolean
+  FollowButton?: JSX.Element
 }
 
 const CellArtist: FC<CellArtistProps> = ({
   artist,
   mode = "RAIL",
   displayCounts,
+  FollowButton,
   ...rest
 }) => {
   const width = mode === "GRID" ? "100%" : DEFAULT_CELL_WIDTH
@@ -69,6 +71,7 @@ const CellArtist: FC<CellArtistProps> = ({
         displayAvatar={false}
         displayLink={false}
         displayCounts={displayCounts}
+        FollowButton={FollowButton}
         alignItems="flex-start"
         mt={1}
       />
@@ -112,11 +115,7 @@ export const CellArtistFragmentContainer = createFragmentContainer(CellArtist, {
       href
       initials
       image {
-        cropped(
-          width: 445
-          height: 334
-          version: ["normalized", "larger", "large"]
-        ) {
+        cropped(width: 445, height: 334, version: ["larger", "large"]) {
           src
           srcSet
         }

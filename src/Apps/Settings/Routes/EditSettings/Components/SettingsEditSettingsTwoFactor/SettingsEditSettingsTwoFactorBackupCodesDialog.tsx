@@ -1,4 +1,3 @@
-import { FC } from "react"
 import {
   Column,
   GridColumns,
@@ -6,14 +5,15 @@ import {
   SkeletonText,
   Text,
 } from "@artsy/palette"
+import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { SettingsEditSettingsTwoFactorBackupCodesDialog_me } from "__generated__/SettingsEditSettingsTwoFactorBackupCodesDialog_me.graphql"
 import { SettingsEditSettingsTwoFactorBackupCodesDialogQuery } from "__generated__/SettingsEditSettingsTwoFactorBackupCodesDialogQuery.graphql"
+import { SettingsEditSettingsTwoFactorBackupCodesDialog_me$data } from "__generated__/SettingsEditSettingsTwoFactorBackupCodesDialog_me.graphql"
 import { SettingsEditSettingsTwoFactorBackupCodesActions } from "./SettingsEditSettingsTwoFactorBackupCodesActions"
 
 interface SettingsEditSettingsTwoFactorBackupCodesDialogProps {
-  me?: SettingsEditSettingsTwoFactorBackupCodesDialog_me | null
+  me?: SettingsEditSettingsTwoFactorBackupCodesDialog_me$data | null
 }
 
 const SettingsEditSettingsTwoFactorBackupCodesDialog: FC<SettingsEditSettingsTwoFactorBackupCodesDialogProps> = ({
@@ -34,7 +34,7 @@ const SettingsEditSettingsTwoFactorBackupCodesDialog: FC<SettingsEditSettingsTwo
 
               return (
                 <Column span={6} key={factor.code}>
-                  <Text variant="lg-display" textAlign="center">
+                  <Text variant={["md", "lg"]} textAlign="center">
                     {factor.code}
                   </Text>
                 </Column>
@@ -54,7 +54,7 @@ const SettingsEditSettingsTwoFactorBackupCodesDialog: FC<SettingsEditSettingsTwo
           <GridColumns mt={2}>
             {[...Array(12)].map((_, i) => (
               <Column key={i} span={6}>
-                <SkeletonText variant="lg-display" textAlign="center">
+                <SkeletonText variant={["md", "lg"]} textAlign="center">
                   Pending Code
                 </SkeletonText>
               </Column>

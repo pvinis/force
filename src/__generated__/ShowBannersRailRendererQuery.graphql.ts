@@ -1,90 +1,27 @@
+/**
+ * @generated SignedSource<<444d5d35ba77bb992708bbb463d690c5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowBannersRailRendererQueryVariables = {
-    partnerId: string;
+export type ShowBannersRailRendererQuery$variables = {
+  partnerId: string;
 };
-export type ShowBannersRailRendererQueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"ShowBannersRail_partner">;
-    } | null;
+export type ShowBannersRailRendererQuery$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"ShowBannersRail_partner">;
+  } | null;
 };
 export type ShowBannersRailRendererQuery = {
-    readonly response: ShowBannersRailRendererQueryResponse;
-    readonly variables: ShowBannersRailRendererQueryVariables;
+  response: ShowBannersRailRendererQuery$data;
+  variables: ShowBannersRailRendererQuery$variables;
 };
-
-
-
-/*
-query ShowBannersRailRendererQuery(
-  $partnerId: String!
-) {
-  partner(id: $partnerId) @principalField {
-    ...ShowBannersRail_partner
-    id
-  }
-}
-
-fragment ShowBanner_show on Show {
-  slug
-  name
-  href
-  isFairBooth
-  exhibitionPeriod
-  status
-  description
-  location {
-    city
-    id
-  }
-  coverImage {
-    medium: cropped(width: 600, height: 480, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment ShowBannersRail_partner on Partner {
-  slug
-  featuredShow: showsConnection(first: 1, status: ALL, sort: FEATURED_DESC_END_AT_DESC, isDisplayable: true) {
-    edges {
-      node {
-        id
-        ...ShowBanner_show
-      }
-    }
-  }
-  currentShows: showsConnection(first: 10, status: CURRENT, sort: END_AT_ASC, isDisplayable: true) {
-    edges {
-      node {
-        id
-        ...ShowBanner_show
-      }
-    }
-  }
-  upcomingShows: showsConnection(first: 10, status: UPCOMING, sort: START_AT_ASC, isDisplayable: true) {
-    edges {
-      node {
-        id
-        ...ShowBanner_show
-      }
-    }
-  }
-  pastShows: showsConnection(first: 2, status: CLOSED, sort: END_AT_DESC, isDisplayable: true) {
-    edges {
-      node {
-        id
-        ...ShowBanner_show
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -228,7 +165,7 @@ v5 = [
                   {
                     "kind": "Literal",
                     "name": "width",
-                    "value": 600
+                    "value": 910
                   }
                 ],
                 "concreteType": "CroppedImageUrl",
@@ -251,7 +188,7 @@ v5 = [
                     "storageKey": null
                   }
                 ],
-                "storageKey": "cropped(height:480,version:[\"normalized\",\"larger\",\"large\"],width:600)"
+                "storageKey": "cropped(height:480,version:[\"normalized\",\"larger\",\"large\"],width:910)"
               }
             ],
             "storageKey": null
@@ -417,14 +354,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "da0c3f3a1c6b41a10c4a9a3ab8d20739",
+    "cacheID": "083410a8fc5629568c41e0ca81a1a63a",
     "id": null,
     "metadata": {},
     "name": "ShowBannersRailRendererQuery",
     "operationKind": "query",
-    "text": "query ShowBannersRailRendererQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...ShowBannersRail_partner\n    id\n  }\n}\n\nfragment ShowBanner_show on Show {\n  slug\n  name\n  href\n  isFairBooth\n  exhibitionPeriod\n  status\n  description\n  location {\n    city\n    id\n  }\n  coverImage {\n    medium: cropped(width: 600, height: 480, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment ShowBannersRail_partner on Partner {\n  slug\n  featuredShow: showsConnection(first: 1, status: ALL, sort: FEATURED_DESC_END_AT_DESC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n  currentShows: showsConnection(first: 10, status: CURRENT, sort: END_AT_ASC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n  upcomingShows: showsConnection(first: 10, status: UPCOMING, sort: START_AT_ASC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n  pastShows: showsConnection(first: 2, status: CLOSED, sort: END_AT_DESC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n}\n"
+    "text": "query ShowBannersRailRendererQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    ...ShowBannersRail_partner\n    id\n  }\n}\n\nfragment ShowBanner_show on Show {\n  slug\n  name\n  href\n  isFairBooth\n  exhibitionPeriod\n  status\n  description\n  location {\n    city\n    id\n  }\n  coverImage {\n    medium: cropped(width: 910, height: 480, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment ShowBannersRail_partner on Partner {\n  slug\n  featuredShow: showsConnection(first: 1, status: ALL, sort: FEATURED_DESC_END_AT_DESC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n  currentShows: showsConnection(first: 10, status: CURRENT, sort: END_AT_ASC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n  upcomingShows: showsConnection(first: 10, status: UPCOMING, sort: START_AT_ASC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n  pastShows: showsConnection(first: 2, status: CLOSED, sort: END_AT_DESC, isDisplayable: true) {\n    edges {\n      node {\n        id\n        ...ShowBanner_show\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ed78181254cd76899a10d28072a86119';
+
+(node as any).hash = "ed78181254cd76899a10d28072a86119";
+
 export default node;

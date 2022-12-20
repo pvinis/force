@@ -1,30 +1,33 @@
+/**
+ * @generated SignedSource<<476944d9eb851f6e15582f824ebbedfe>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnerContactMap_location = {
-    readonly city: string | null;
-    readonly phone: string | null;
-    readonly state: string | null;
-    readonly address: string | null;
-    readonly address2: string | null;
-    readonly postalCode: string | null;
-    readonly displayCountry: string | null;
-    readonly coordinates: {
-        readonly lat: number | null;
-        readonly lng: number | null;
-    } | null;
-    readonly " $refType": "PartnerContactMap_location";
+export type PartnerContactMap_location$data = {
+  readonly address: string | null;
+  readonly address2: string | null;
+  readonly city: string | null;
+  readonly coordinates: {
+    readonly lat: number | null;
+    readonly lng: number | null;
+  } | null;
+  readonly displayCountry: string | null;
+  readonly phone: string | null;
+  readonly postalCode: string | null;
+  readonly state: string | null;
+  readonly " $fragmentType": "PartnerContactMap_location";
 };
-export type PartnerContactMap_location$data = PartnerContactMap_location;
 export type PartnerContactMap_location$key = {
-    readonly " $data"?: PartnerContactMap_location$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnerContactMap_location">;
+  readonly " $data"?: PartnerContactMap_location$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnerContactMap_location">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -110,5 +113,7 @@ const node: ReaderFragment = {
   "type": "Location",
   "abstractKey": null
 };
-(node as any).hash = '2be6af5e124ca605f82560d8ffec41e7';
+
+(node as any).hash = "2be6af5e124ca605f82560d8ffec41e7";
+
 export default node;

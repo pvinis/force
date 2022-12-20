@@ -10,11 +10,11 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import styled from "styled-components"
 import { RouterLink } from "System/Router/RouterLink"
-import { ShowsFeaturedShow_show } from "__generated__/ShowsFeaturedShow_show.graphql"
+import { ShowsFeaturedShow_show$data } from "__generated__/ShowsFeaturedShow_show.graphql"
 import { ShowsShowDatesFragmentContainer } from "./ShowsShowDates"
 
 interface ShowsFeaturedShowProps {
-  show: ShowsFeaturedShow_show
+  show: ShowsFeaturedShow_show$data
   size: "large" | "small"
 }
 
@@ -55,7 +55,7 @@ const ShowsFeaturedShow: React.FC<ShowsFeaturedShowProps> = ({
         </ResponsiveBox>
       )}
 
-      <Spacer mt={2} />
+      <Spacer y={2} />
 
       {show.partner && (
         <Text variant={variants.primary}>{show.partner.name}</Text>
@@ -65,7 +65,7 @@ const ShowsFeaturedShow: React.FC<ShowsFeaturedShowProps> = ({
         {show.name}
       </Text>
 
-      <Spacer mt={1} />
+      <Spacer y={1} />
 
       <ShowsShowDatesFragmentContainer
         show={show}
@@ -86,13 +86,21 @@ export const ShowsFeaturedShowFragmentContainer = createFragmentContainer(
         href
         coverImage {
           title
-          large: cropped(width: 910, height: 683) {
+          large: cropped(
+            width: 910
+            height: 683
+            version: ["normalized", "larger", "large"]
+          ) {
             width
             height
             src
             srcSet
           }
-          small: cropped(width: 600, height: 450) {
+          small: cropped(
+            width: 600
+            height: 450
+            version: ["normalized", "larger", "large"]
+          ) {
             width
             height
             src

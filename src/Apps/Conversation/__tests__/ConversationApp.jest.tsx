@@ -1,6 +1,6 @@
 import {
   ConversationAppTestQuery,
-  ConversationAppTestQueryRawResponse,
+  ConversationAppTestQuery$rawResponse,
 } from "__generated__/ConversationAppTestQuery.graphql"
 import { screen } from "@testing-library/react"
 import { MockedConversation } from "Apps/__tests__/Fixtures/Conversation"
@@ -41,7 +41,7 @@ const { renderWithRelay } = setupTestWrapperTL<ConversationAppTestQuery>({
 
 const pageInfo: NonNullable<
   NonNullable<
-    ConversationAppTestQueryRawResponse["me"]
+    ConversationAppTestQuery$rawResponse["me"]
   >["conversationsConnection"]
 >["pageInfo"] = {
   startCursor: "NQ",
@@ -53,6 +53,16 @@ const pageInfo: NonNullable<
 describe("Conversation app", () => {
   beforeAll(() => {
     jest.resetAllMocks()
+  })
+  beforeEach(() => {
+    // IntersectionObserver isn't available in test environment
+    const mockIntersectionObserver = jest.fn()
+    mockIntersectionObserver.mockReturnValue({
+      observe: () => null,
+      unobserve: () => null,
+      disconnect: () => null,
+    })
+    window.IntersectionObserver = mockIntersectionObserver
   })
 
   describe("as non admin user", () => {

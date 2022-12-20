@@ -11,7 +11,7 @@ export const ContactApp: React.FC = () => {
         pathname="/contact"
       />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns gridRowGap={4}>
         <Column span={4}>
@@ -106,7 +106,7 @@ export const ContactApp: React.FC = () => {
         </Column>
       </GridColumns>
 
-      <Spacer mt={12} />
+      <Spacer y={12} />
 
       <GridColumns gridRowGap={4}>
         <Column span={4}>
@@ -125,7 +125,7 @@ export const ContactApp: React.FC = () => {
 
         <Column span={2}>
           <Text as="h3" variant="xs">
-            Production Editor
+            Contemporary Art Editor
           </Text>
 
           <Text variant="sm">Harley Wong</Text>
@@ -141,14 +141,14 @@ export const ContactApp: React.FC = () => {
 
         <Column span={2}>
           <Text as="h3" variant="xs">
-            Art Market Editor
+            Production Editor
           </Text>
 
-          <Text variant="sm">Brian P. Kelly</Text>
+          <Text variant="sm">Olivia Horn</Text>
         </Column>
       </GridColumns>
 
-      <Spacer mt={12} />
+      <Spacer y={12} />
 
       <GridColumns gridRowGap={4}>
         <Column span={4}>

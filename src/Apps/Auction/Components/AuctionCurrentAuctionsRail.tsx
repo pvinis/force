@@ -2,10 +2,10 @@ import { createFragmentContainer, graphql } from "react-relay"
 import { CellSaleFragmentContainer } from "Components/Cells/CellSale"
 import { Rail } from "Components/Rail"
 import { extractNodes } from "Utils/extractNodes"
-import { AuctionCurrentAuctionsRail_viewer } from "__generated__/AuctionCurrentAuctionsRail_viewer.graphql"
+import { AuctionCurrentAuctionsRail_viewer$data } from "__generated__/AuctionCurrentAuctionsRail_viewer.graphql"
 
 interface AuctionCurrentAuctionsRailProps {
-  viewer: AuctionCurrentAuctionsRail_viewer
+  viewer: AuctionCurrentAuctionsRail_viewer$data
 }
 
 const AuctionCurrentAuctionsRail: React.FC<AuctionCurrentAuctionsRailProps> = ({

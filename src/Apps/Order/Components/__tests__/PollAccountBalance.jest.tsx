@@ -1,7 +1,7 @@
 import { graphql } from "react-relay"
 import { screen } from "@testing-library/react"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { PollAccountBalanceRefetchContainer } from "../PollAccountBalance"
+import { PollAccountBalanceRefetchContainer } from "Apps/Order/Components/PollAccountBalance"
 import { PollAccountBalanceQuery_Test_Query } from "__generated__/PollAccountBalanceQuery_Test_Query.graphql"
 
 jest.unmock("react-relay")
@@ -16,6 +16,7 @@ const { renderWithRelay } = setupTestWrapperTL<
     return (
       <PollAccountBalanceRefetchContainer
         setupIntentId={"setupIntentId"}
+        bankAccountId={"bankAccountId"}
         commerceBankAccountBalance={commerceBankAccountBalance}
         onBalanceCheckComplete={mockBalanceCheckComplete}
         buyerTotalCents={100}
@@ -44,8 +45,6 @@ describe("Poll account balance", () => {
       }),
     })
 
-    expect(
-      screen.getByTestId("account-balance-placeholder")
-    ).toBeInTheDocument()
+    expect(screen.getByText("Saving payment preferences")).toBeInTheDocument()
   })
 })

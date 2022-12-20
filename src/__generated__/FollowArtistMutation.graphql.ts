@@ -1,43 +1,43 @@
+/**
+ * @generated SignedSource<<c64eb179754a7137aaa5792a57e9c115>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type FollowArtistInput = {
-    artistID: string;
-    clientMutationId?: string | null | undefined;
-    unfollow?: boolean | null | undefined;
+  artistID: string;
+  clientMutationId?: string | null;
+  unfollow?: boolean | null;
 };
-export type FollowArtistMutationVariables = {
-    input: FollowArtistInput;
+export type FollowArtistMutation$variables = {
+  input: FollowArtistInput;
 };
-export type FollowArtistMutationResponse = {
-    readonly followArtist: {
-        readonly artist: {
-            readonly id: string;
-            readonly isFollowed: boolean | null;
-        } | null;
+export type FollowArtistMutation$data = {
+  readonly followArtist: {
+    readonly artist: {
+      readonly id: string;
+      readonly isFollowed: boolean | null;
     } | null;
+  } | null;
+};
+export type FollowArtistMutation$rawResponse = {
+  readonly followArtist: {
+    readonly artist: {
+      readonly id: string;
+      readonly isFollowed: boolean | null;
+    } | null;
+  } | null;
 };
 export type FollowArtistMutation = {
-    readonly response: FollowArtistMutationResponse;
-    readonly variables: FollowArtistMutationVariables;
+  rawResponse: FollowArtistMutation$rawResponse;
+  response: FollowArtistMutation$data;
+  variables: FollowArtistMutation$variables;
 };
-
-
-
-/*
-mutation FollowArtistMutation(
-  $input: FollowArtistInput!
-) {
-  followArtist(input: $input) {
-    artist {
-      id
-      isFollowed
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -118,5 +118,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'd212512c55050fa743d8de631b026d0f';
+
+(node as any).hash = "9c0157d61c0f1b3a14cbdb8bbbf986a3";
+
 export default node;

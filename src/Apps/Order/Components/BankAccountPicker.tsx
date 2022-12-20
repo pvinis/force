@@ -1,81 +1,79 @@
+import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { FC, useState } from "react"
+import { StripeError } from "@stripe/stripe-js"
+
 import { BankDebitProvider } from "Components/BankDebitForm/BankDebitProvider"
-import { BankAccountPicker_me } from "__generated__/BankAccountPicker_me.graphql"
-import {
-  BorderedRadio,
-  RadioGroup,
-  Spacer,
-  Collapse,
-  Button,
-} from "@artsy/palette"
+import { BankAccountPicker_me$data } from "__generated__/BankAccountPicker_me.graphql"
+import { CommercePaymentMethodEnum } from "__generated__/Payment_order.graphql"
+import { BorderedRadio, RadioGroup, Collapse, Spacer } from "@artsy/palette"
+import { SaveAndContinueButton } from "Apps/Order/Components/SaveAndContinueButton"
 import { BankDebitDetails } from "./BankDebitDetails"
 import { InsufficientFundsError } from "./InsufficientFundsError"
-import { BankAccountPicker_order } from "__generated__/BankAccountPicker_order.graphql"
-import { useSetPayment } from "Apps/Order/Components/Mutations/useSetPayment"
+import { BankAccountPicker_order$data } from "__generated__/BankAccountPicker_order.graphql"
 import { extractNodes } from "Utils/extractNodes"
+import { useSetPayment } from "Apps/Order/Mutations/useSetPayment"
+import { camelCase, upperFirst } from "lodash"
+import { useOrderPaymentContext } from "Apps/Order/Routes/Payment/PaymentContext/OrderPaymentContext"
+
+interface BankAccountRecord {
+  internalID: string
+  last4: string
+}
 
 interface Props {
-  order: BankAccountPicker_order
-  me: BankAccountPicker_me
-  onSetPaymentSuccess: () => void
-  onSetPaymentError: (error: Error) => void
-  bankAccountHasInsufficientFunds: boolean
-  setBankAccountHasInsufficientFunds: (arg: boolean) => void
+  order: BankAccountPicker_order$data
+  me: BankAccountPicker_me$data
+  onError: (error: Error | StripeError) => void
 }
 
 export const BankAccountPicker: FC<Props> = props => {
   const {
     me: { bankAccounts },
     order,
-    onSetPaymentSuccess,
-    onSetPaymentError,
-    bankAccountHasInsufficientFunds,
-    setBankAccountHasInsufficientFunds,
   } = props
 
-  const bankAccountsArray = extractNodes(bankAccounts)
+  const {
+    bankAccountSelection,
+    selectedPaymentMethod,
+    setBalanceCheckComplete,
+    bankAccountHasInsufficientFunds,
+    setBankAccountSelection,
+    setSelectedBankAccountId,
+    setBankAccountHasInsufficientFunds,
+    setIsSavingPayment,
+  } = useOrderPaymentContext()
 
-  const userHasExistingBankAccounts = bankAccountsArray.length > 0
+  const bankAccountsArray: BankAccountRecord[] =
+    selectedPaymentMethod === "US_BANK_ACCOUNT"
+      ? extractNodes(bankAccounts)
+      : []
 
-  type BankAccountSelectionType = "existing" | "new"
+  if (order?.paymentMethodDetails?.internalID) {
+    // if account on order is not saved on user's profile
+    const isOrderBankSaved = bankAccountsArray.find(
+      bank => bank.internalID === order.paymentMethodDetails?.internalID
+    )
 
-  interface BankAccountSelection {
-    type: BankAccountSelectionType
-    id?: string
-  }
-
-  const getInitialBankAccountSelection = (): BankAccountSelection => {
-    if (props.order.bankAccountId) {
-      return {
-        type: "existing",
-        id: props.order.bankAccountId,
-      }
-    } else {
-      return userHasExistingBankAccounts
-        ? {
-            type: "existing",
-            id: order.bankAccountId || bankAccountsArray[0]?.internalID!,
-          }
-        : { type: "new" }
+    if (!isOrderBankSaved) {
+      // populate banks array with the account on order
+      bankAccountsArray.unshift(order.paymentMethodDetails as BankAccountRecord)
     }
   }
-
-  const [bankAccountSelection, setBankAccountSelection] = useState<
-    BankAccountSelection
-  >(getInitialBankAccountSelection())
 
   const { submitMutation: setPaymentMutation } = useSetPayment()
 
   const handleContinue = async () => {
+    setBalanceCheckComplete(false)
+    setIsSavingPayment(true)
+
     try {
       const orderOrError = (
         await setPaymentMutation({
           variables: {
             input: {
               id: order.internalID,
-              paymentMethod: "US_BANK_ACCOUNT",
-              paymentMethodId: bankAccountSelection.id,
+              paymentMethod: selectedPaymentMethod as CommercePaymentMethodEnum,
+              paymentMethodId: bankAccountSelection?.id,
             },
           },
         })
@@ -85,29 +83,35 @@ export const BankAccountPicker: FC<Props> = props => {
         throw orderOrError.error
       }
 
-      onSetPaymentSuccess()
+      setSelectedBankAccountId(bankAccountSelection?.id!)
     } catch (error) {
-      onSetPaymentError(error)
+      props.onError(error)
+    } finally {
+      setIsSavingPayment(false)
     }
   }
 
   return (
     <>
-      {userHasExistingBankAccounts && (
+      {bankAccountsArray?.length > 0 && (
         <RadioGroup
-          data-test="bank-accounts"
+          data-test="bankAccounts"
           onSelect={val => {
-            setBankAccountHasInsufficientFunds(false)
             if (val === "new") {
-              setBankAccountSelection({ type: "new", id: "" })
+              setBankAccountHasInsufficientFunds(false)
+              setBankAccountSelection({ type: "new" })
             } else {
+              if (val !== bankAccountSelection?.id) {
+                setBankAccountHasInsufficientFunds(false)
+              }
+
               setBankAccountSelection({ type: "existing", id: val })
             }
           }}
           defaultValue={
-            bankAccountSelection.type === "new"
+            bankAccountSelection?.type === "new"
               ? "new"
-              : bankAccountSelection.id
+              : bankAccountSelection?.id
           }
         >
           {bankAccountsArray
@@ -125,37 +129,32 @@ export const BankAccountPicker: FC<Props> = props => {
                 data-test="AddNewBankAccount"
                 value="new"
                 key="new"
-                selected={bankAccountSelection.type === "new"}
+                selected={bankAccountSelection?.type === "new"}
               >
                 Add another bank account.
               </BorderedRadio>,
             ])}
         </RadioGroup>
       )}
-      <Spacer mb={4} />
 
-      <Collapse open={bankAccountSelection.type === "new"}>
-        <BankDebitProvider
-          order={order}
-          bankAccountHasInsufficientFunds={bankAccountHasInsufficientFunds}
-        />
+      <Collapse open={bankAccountSelection?.type === "new"}>
+        {bankAccountSelection?.type === "new" && (
+          <BankDebitProvider order={order} onError={props.onError} />
+        )}
       </Collapse>
 
-      {bankAccountSelection.type === "existing" && (
+      {bankAccountSelection?.type === "existing" && (
         <>
           {bankAccountHasInsufficientFunds && <InsufficientFundsError />}
-          <Button
-            data-test="bank-transfer-save-existing"
+          <Spacer y={4} />
+          <SaveAndContinueButton
+            testId={`saveExisting${upperFirst(
+              camelCase(selectedPaymentMethod)
+            )}`}
             onClick={handleContinue}
-            disabled={
-              !bankAccountSelection.type || bankAccountHasInsufficientFunds
-            }
-            variant="primaryBlack"
-            width={["100%", "50%"]}
-          >
-            Save and Continue
-          </Button>
-          <Spacer mb={4} />
+            disabled={!bankAccountSelection?.type}
+          />
+          <Spacer y={2} />
         </>
       )}
     </>
@@ -182,6 +181,12 @@ export const BankAccountPickerFragmentContainer = createFragmentContainer(
         internalID
         mode
         bankAccountId
+        paymentMethodDetails {
+          ... on BankAccount {
+            internalID
+            last4
+          }
+        }
       }
     `,
   }

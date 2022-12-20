@@ -1,22 +1,22 @@
-import { useEffect, useMemo, useState } from "react"
-import { fetchQuery, graphql, Environment } from "react-relay"
-import { useSystemContext } from "System"
 import {
   AutocompleteInput,
   AutocompleteInputOptionType,
-  Flex,
-  Text,
   Box,
+  Flex,
   Image,
+  Text,
 } from "@artsy/palette"
-import {
-  ArtistAutocomplete_SearchConnection_Query,
-  ArtistAutocomplete_SearchConnection_QueryResponse,
-} from "__generated__/ArtistAutocomplete_SearchConnection_Query.graphql"
-import { extractNodes } from "Utils/extractNodes"
-import { ArtworkDetailsFormModel } from "./ArtworkDetailsForm"
 import { useFormikContext } from "formik"
 import { debounce } from "lodash"
+import { useEffect, useMemo, useState } from "react"
+import { Environment, fetchQuery, graphql } from "react-relay"
+import { useSystemContext } from "System"
+import { extractNodes } from "Utils/extractNodes"
+import {
+  ArtistAutocomplete_SearchConnection_Query,
+  ArtistAutocomplete_SearchConnection_Query$data,
+} from "__generated__/ArtistAutocomplete_SearchConnection_Query.graphql"
+import { ArtworkDetailsFormModel } from "./ArtworkDetailsForm"
 
 const DEBOUNCE_DELAY = 300
 
@@ -25,7 +25,7 @@ type SubmissionImage =
       NonNullable<
         NonNullable<
           NonNullable<
-            ArtistAutocomplete_SearchConnection_QueryResponse["searchConnection"]
+            ArtistAutocomplete_SearchConnection_Query$data["searchConnection"]
           >["edges"]
         >[number]
       >["node"]
@@ -37,9 +37,11 @@ interface ArtistAutocompleteOption extends AutocompleteInputOptionType {
   image: SubmissionImage
 }
 
-export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
-  onError,
-}) => {
+export const ArtistAutoComplete: React.FC<{
+  onError: () => void
+  onSelect: ({ artistId }) => void
+  required?: boolean
+}> = ({ onError, onSelect, required }) => {
   const [suggestions, setSuggestions] = useState<
     Array<ArtistAutocompleteOption>
   >([])
@@ -53,6 +55,8 @@ export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
     touched,
     setFieldTouched,
   } = useFormikContext<ArtworkDetailsFormModel>()
+
+  const [artistNotFoundMessage, setArtistNotFoundMessage] = useState<string>("")
 
   useEffect(() => {
     if (!isError) return
@@ -74,12 +78,15 @@ export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
         if (suggestions?.edges?.length) {
           const options = extractNodes(suggestions)
           setSuggestions(
-            options.map(option => ({
+            // RELAY_UPGRADE
+            options.map((option: any) => ({
               text: option.displayLabel!,
               value: option.internalID!,
               image: option?.image,
             }))
           )
+        } else {
+          setArtistNotFoundMessage(errors.artistId as string)
         }
       } catch {
         setIsLoading(false)
@@ -100,6 +107,7 @@ export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
     setFieldValue("artistId", "")
     setFieldValue("artistName", value)
     handleSuggestionsFetchRequested(value)
+    setArtistNotFoundMessage("")
   }
 
   const handleClick = () => {
@@ -110,11 +118,14 @@ export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
     setSuggestions([])
     setFieldValue("artistId", "")
     setFieldValue("artistName", "")
+    onSelect({ artistId: "" })
+    setArtistNotFoundMessage("")
   }
 
   const handleSelect = ({ text, value }: ArtistAutocompleteOption) => {
     setFieldValue("artistId", value)
     setFieldValue("artistName", text)
+    onSelect({ artistId: value })
   }
 
   const handleClose = () => {
@@ -148,7 +159,10 @@ export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
       spellCheck={false}
       loading={isLoading}
       defaultValue={values.artistName}
-      error={values.artistName.trim() && touched.artistName && errors.artistId}
+      error={
+        (values.artistName.trim() && touched.artistName && errors.artistId) ||
+        artistNotFoundMessage
+      }
       onChange={handleChange}
       onClick={handleClick}
       onClear={handleClear}
@@ -156,6 +170,7 @@ export const ArtistAutoComplete: React.FC<{ onError: () => void }> = ({
       onSelect={handleSelect}
       onClose={handleClose}
       renderOption={renderOption}
+      required={required}
     />
   )
 }
@@ -194,7 +209,7 @@ const fetchSuggestions = async (
       }
     `,
     { searchQuery }
-  )
+  ).toPromise()
 
-  return response.searchConnection
+  return response?.searchConnection
 }

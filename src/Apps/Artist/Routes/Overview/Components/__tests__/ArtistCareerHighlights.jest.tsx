@@ -40,7 +40,7 @@ describe("ArtistCareerHighlights", () => {
   it("renders Artist Badges correctly", () => {
     renderWithRelay({
       Artist: () => ({
-        insights: [
+        insightBadges: [
           {
             label: "Active Secondary Market",
             entities: [],
@@ -54,6 +54,33 @@ describe("ArtistCareerHighlights", () => {
     expect(screen.getByText("Active Secondary Market")).toBeInTheDocument()
     expect(
       screen.getByText("Recent auction results in the Artsy Price Database")
+    ).toBeInTheDocument()
+  })
+
+  it("renders partner bios", () => {
+    renderWithRelay({
+      Artist: () => ({
+        biographyBlurb: {
+          partner: {
+            profile: {
+              href: "/number-one-best-gallery",
+            },
+          },
+          credit: "Submitted by Number One Best Gallery",
+          text: "this artist rocks",
+        },
+      }),
+    })
+
+    expect(screen.getByText("Bio")).toBeInTheDocument()
+    const galleryLink = screen.getByText("Submitted by Number One Best Gallery")
+    expect(galleryLink).toHaveAttribute(
+      "href",
+      expect.stringContaining("partner/number-one-best-gallery")
+    )
+    expect(screen.getByText("this artist rocks")).toBeInTheDocument()
+    expect(
+      screen.queryByText("See all past shows and fair booths")
     ).toBeInTheDocument()
   })
 })

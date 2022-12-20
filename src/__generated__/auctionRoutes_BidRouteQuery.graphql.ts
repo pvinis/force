@@ -1,152 +1,34 @@
+/**
+ * @generated SignedSource<<7ca553def7efaa17dad3f32dce1ecce0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type auctionRoutes_BidRouteQueryVariables = {
-    slug: string;
-    artworkSlug: string;
+export type auctionRoutes_BidRouteQuery$variables = {
+  artworkSlug: string;
+  slug: string;
 };
-export type auctionRoutes_BidRouteQueryResponse = {
-    readonly sale: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionBidRoute_sale">;
-    } | null;
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionBidRoute_artwork">;
-    } | null;
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionBidRoute_me">;
-    } | null;
+export type auctionRoutes_BidRouteQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionBidRoute_artwork">;
+  } | null;
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionBidRoute_me">;
+  } | null;
+  readonly sale: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionBidRoute_sale">;
+  } | null;
 };
 export type auctionRoutes_BidRouteQuery = {
-    readonly response: auctionRoutes_BidRouteQueryResponse;
-    readonly variables: auctionRoutes_BidRouteQueryVariables;
+  response: auctionRoutes_BidRouteQuery$data;
+  variables: auctionRoutes_BidRouteQuery$variables;
 };
-
-
-
-/*
-query auctionRoutes_BidRouteQuery(
-  $slug: String!
-  $artworkSlug: String!
-) {
-  sale(id: $slug) @principalField {
-    ...AuctionBidRoute_sale
-    id
-  }
-  artwork(id: $artworkSlug) {
-    ...AuctionBidRoute_artwork
-    id
-  }
-  me {
-    ...AuctionBidRoute_me
-    id
-  }
-}
-
-fragment ArtworkSidebarAuctionTimer_artwork on Artwork {
-  internalID
-  sale {
-    cascadingEndTimeIntervalMinutes
-    isClosed
-    ...AuctionTimer_sale
-    startAt
-    id
-  }
-  saleArtwork {
-    ...LotTimer_saleArtwork
-    endAt
-    id
-  }
-}
-
-fragment AuctionBidRoute_artwork on Artwork {
-  slug
-  internalID
-  ...ArtworkSidebarAuctionTimer_artwork
-  saleArtwork {
-    ...AuctionLotInfo_saleArtwork_1WWOz5
-    minimumNextBid {
-      cents
-    }
-    increments(useMyMaxBid: true) {
-      cents
-      display
-    }
-    sale {
-      internalID
-      bidder {
-        id
-      }
-      slug
-      registrationStatus {
-        qualifiedForBidding
-        id
-      }
-      id
-    }
-    id
-  }
-}
-
-fragment AuctionBidRoute_me on Me {
-  internalID
-  hasQualifiedCreditCards
-}
-
-fragment AuctionBidRoute_sale on Sale {
-  internalID
-  slug
-}
-
-fragment AuctionLotInfo_saleArtwork_1WWOz5 on SaleArtwork {
-  counts {
-    bidderPositions
-  }
-  lotLabel
-  currentBid {
-    display
-  }
-  formattedEndDateTime
-  artwork {
-    internalID
-    date
-    title
-    image {
-      resized(width: 150, height: 150, version: "medium") {
-        src
-        srcSet
-        width
-        height
-      }
-    }
-    imageUrl
-    artistNames
-    slug
-    id
-  }
-}
-
-fragment AuctionTimer_sale on Sale {
-  liveStartAt
-  endAt
-}
-
-fragment LotTimer_saleArtwork on SaleArtwork {
-  endAt
-  formattedStartDateTime
-  extendedBiddingEndAt
-  lotID
-  sale {
-    startAt
-    extendedBiddingPeriodMinutes
-    extendedBiddingIntervalMinutes
-    internalID
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -665,5 +547,7 @@ return {
   }
 };
 })();
-(node as any).hash = '8a95737db97b5ff40cfb0ea9d1502ae7';
+
+(node as any).hash = "8a95737db97b5ff40cfb0ea9d1502ae7";
+
 export default node;

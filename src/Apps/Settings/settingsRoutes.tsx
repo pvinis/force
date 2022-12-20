@@ -1,5 +1,5 @@
 import loadable from "@loadable/component"
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
 import { AppRouteConfig } from "System/Router/Route"
 
 const SettingsApp = loadable(
@@ -67,6 +67,17 @@ const MyCollectionRoute = loadable(
     resolveComponent: component => component.MyCollectionRouteRefetchContainer,
   }
 )
+
+const InsightsRoute = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "settingsBundle" */ "./Routes/Insights/InsightsRoute"
+    ),
+  {
+    resolveComponent: component => component.InsightsRouteFragmentContainer,
+  }
+)
+
 const EditSettingsRoute = loadable(
   () =>
     import(
@@ -211,11 +222,26 @@ export const settingsRoutes: AppRouteConfig[] = [
         onClientSideRender: () => {
           MyCollectionRoute.preload()
         },
-        onServerSideRender: handleServerSideRender,
         query: graphql`
           query settingsRoutes_MyCollectionRouteQuery {
             me {
               ...MyCollectionRoute_me
+            }
+          }
+        `,
+        cacheConfig: { force: true },
+      },
+      {
+        path: "insights",
+        getComponent: () => InsightsRoute,
+        onClientSideRender: () => {
+          InsightsRoute.preload()
+        },
+        onServerSideRender: handleServerSideRender,
+        query: graphql`
+          query settingsRoutes_InsightsRouteQuery {
+            me {
+              ...InsightsRoute_me
             }
           }
         `,

@@ -1,54 +1,27 @@
+/**
+ * @generated SignedSource<<8eb30f15a10f30a92a72a4f905c8eea4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type fairRoutes_FairSubAppQueryVariables = {
-    slug: string;
+export type fairRoutes_FairSubAppQuery$variables = {
+  slug: string;
 };
-export type fairRoutes_FairSubAppQueryResponse = {
-    readonly fair: {
-        readonly " $fragmentRefs": FragmentRefs<"FairSubApp_fair">;
-    } | null;
+export type fairRoutes_FairSubAppQuery$data = {
+  readonly fair: {
+    readonly " $fragmentSpreads": FragmentRefs<"FairSubApp_fair">;
+  } | null;
 };
 export type fairRoutes_FairSubAppQuery = {
-    readonly response: fairRoutes_FairSubAppQueryResponse;
-    readonly variables: fairRoutes_FairSubAppQueryVariables;
+  response: fairRoutes_FairSubAppQuery$data;
+  variables: fairRoutes_FairSubAppQuery$variables;
 };
-
-
-
-/*
-query fairRoutes_FairSubAppQuery(
-  $slug: String!
-) {
-  fair(id: $slug) @principalField {
-    ...FairSubApp_fair
-    id
-  }
-}
-
-fragment FairMeta_fair on Fair {
-  name
-  slug
-  metaDescription: summary
-  metaImage: image {
-    src: url(version: "large_rectangle")
-  }
-}
-
-fragment FairSubApp_fair on Fair {
-  ...FairMeta_fair
-  id
-  name
-  slug
-  profile {
-    __typename
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -162,6 +135,13 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "href",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "Profile",
             "kind": "LinkedField",
             "name": "profile",
@@ -184,14 +164,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0242be2ecc4b45387e73bb12f0850028",
+    "cacheID": "c457febfab1d8f097ec58370683ef5b6",
     "id": null,
     "metadata": {},
     "name": "fairRoutes_FairSubAppQuery",
     "operationKind": "query",
-    "text": "query fairRoutes_FairSubAppQuery(\n  $slug: String!\n) {\n  fair(id: $slug) @principalField {\n    ...FairSubApp_fair\n    id\n  }\n}\n\nfragment FairMeta_fair on Fair {\n  name\n  slug\n  metaDescription: summary\n  metaImage: image {\n    src: url(version: \"large_rectangle\")\n  }\n}\n\nfragment FairSubApp_fair on Fair {\n  ...FairMeta_fair\n  id\n  name\n  slug\n  profile {\n    __typename\n    id\n  }\n}\n"
+    "text": "query fairRoutes_FairSubAppQuery(\n  $slug: String!\n) {\n  fair(id: $slug) @principalField {\n    ...FairSubApp_fair\n    id\n  }\n}\n\nfragment FairMeta_fair on Fair {\n  name\n  slug\n  metaDescription: summary\n  metaImage: image {\n    src: url(version: \"large_rectangle\")\n  }\n}\n\nfragment FairSubApp_fair on Fair {\n  ...FairMeta_fair\n  id\n  name\n  href\n  profile {\n    __typename\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '306d25f9ff50c67c37d0daced010a042';
+
+(node as any).hash = "306d25f9ff50c67c37d0daced010a042";
+
 export default node;

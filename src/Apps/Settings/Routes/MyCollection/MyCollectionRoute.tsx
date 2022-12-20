@@ -1,43 +1,98 @@
-import { FC, Fragment, useState } from "react"
-import { createRefetchContainer, graphql, RelayRefetchProp } from "react-relay"
-import { Spacer, Sup, Text } from "@artsy/palette"
-import { Masonry } from "Components/Masonry"
-import { extractNodes } from "Utils/extractNodes"
-import { PaginationFragmentContainer } from "Components/Pagination"
-import { useScrollToElement } from "Utils/Hooks/useScrollTo"
+import {
+  Box,
+  Button,
+  DROP_SHADOW,
+  Flex,
+  FullBleed,
+  Spacer,
+} from "@artsy/palette"
+import { AppContainer } from "Apps/Components/AppContainer"
+import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
+import { useMyCollectionTracking } from "Apps/MyCollection/Routes/Hooks/useMyCollectionTracking"
 import { ArtworkGridItemFragmentContainer } from "Components/Artwork/GridItem"
+import { Masonry } from "Components/Masonry"
 import { MetaTags } from "Components/MetaTags"
-import { MyCollectionRoute_me } from "__generated__/MyCollectionRoute_me.graphql"
+import { PaginationFragmentContainer } from "Components/Pagination"
+import { Sticky } from "Components/Sticky"
+import { FC, Fragment, useCallback, useEffect, useState } from "react"
+import { createRefetchContainer, graphql, RelayRefetchProp } from "react-relay"
+import { RouterLink } from "System/Router/RouterLink"
+import { useFeatureFlag } from "System/useFeatureFlag"
+import { extractNodes } from "Utils/extractNodes"
+import { Jump, useJump } from "Utils/Hooks/useJump"
+import {
+  cleanImagesLocalStore,
+  getAllLocalImagesByArtwork,
+  StoredArtworkWithImages,
+  StoredImage,
+} from "Utils/localImagesHelpers"
+import { MyCollectionRoute_me$data } from "__generated__/MyCollectionRoute_me.graphql"
+import { EmptyMyCollectionPage } from "./Components/EmptyMyCollectionPage"
 
-interface MyCollectionRouteProps {
-  me: MyCollectionRoute_me
+export interface MyCollectionRouteProps {
+  me: MyCollectionRoute_me$data
   relay: RelayRefetchProp
 }
 
 const MyCollectionRoute: FC<MyCollectionRouteProps> = ({ me, relay }) => {
+  const {
+    addCollectedArtwork: trackAddCollectedArtwork,
+  } = useMyCollectionTracking()
+
+  // TODO: Avoid using boolean state flags for UI modes
   const [loading, setLoading] = useState(false)
+  const [localArtworksImages, setLocalArtworksImages] = useState<
+    StoredArtworkWithImages[]
+  >([])
 
-  const { scrollTo } = useScrollToElement({
-    selectorOrRef: "#jump--MyCollectionArtworks",
-    behavior: "smooth",
-    offset: 20,
-  })
+  const enableMyCollectionPhase2 = useFeatureFlag("my-collection-web-phase-2")
+  const isCollectorProfileEnabled = useFeatureFlag("cx-collector-profile")
 
-  const connection = me.myCollectionConnection
+  const { jumpTo } = useJump()
 
-  if (!connection) {
+  useEffect(() => {
+    getAllLocalImagesByArtwork()
+      .then(localImagesByArtwork => {
+        setLocalArtworksImages(localImagesByArtwork)
+      })
+      .catch(error => {
+        console.error("Error getting local images by artwork", error)
+        return undefined
+      })
+  }, [])
+
+  useEffect(() => {
+    cleanImagesLocalStore()
+  }, [])
+
+  const { myCollectionConnection } = me
+
+  const getLocalImageSrcByArtworkID = useCallback(
+    (artworkID: string): StoredImage | null => {
+      const allArtworkImages = localArtworksImages.find(
+        localArtworkImagesObj => localArtworkImagesObj.artworkID === artworkID
+      )?.images
+      if (allArtworkImages?.length) {
+        return allArtworkImages[0]
+      }
+      return null
+    },
+    [localArtworksImages]
+  )
+
+  if (!myCollectionConnection) {
     return null
   }
 
-  const artworks = extractNodes(connection)
-  const total = connection.totalCount ?? 0
-  const hasNextPage = connection.pageInfo.hasNextPage ?? false
-  const endCursor = connection.pageInfo.endCursor
-  const pageCursors = connection.pageCursors!
+  const artworks = extractNodes(myCollectionConnection)
+  const total = myCollectionConnection.totalCount ?? 0
+  const hasNextPage = myCollectionConnection.pageInfo.hasNextPage ?? false
+  const endCursor = myCollectionConnection.pageInfo.endCursor
+  const pageCursors = myCollectionConnection.pageCursors!
 
-  const handleClick = (cursor: string, page: number) => {
+  const handleClick = (_: string, page: number) => {
     setLoading(true)
-    scrollTo()
+    jumpTo("MyCollectionArtworks")
 
     relay.refetch({ page }, null, error => {
       if (error) console.error(error)
@@ -52,33 +107,81 @@ const MyCollectionRoute: FC<MyCollectionRouteProps> = ({ me, relay }) => {
 
   return (
     <>
-      <MetaTags title="My Collection | Artsy" pathname="/my-collection" />
-
-      <Text variant="lg-display" mb={4}>
-        My Collection {total > 0 && <Sup color="brand">{total}</Sup>}
-      </Text>
+      <MetaTags
+        title="My Collection | Artsy"
+        pathname={
+          isCollectorProfileEnabled
+            ? "/collector-profile/my-collection"
+            : "/my-collection"
+        }
+      />
 
       {total > 0 ? (
         <>
-          <Masonry
-            id="jump--MyCollectionArtworks"
-            columnCount={[2, 3, 4]}
-            style={{ opacity: loading ? 0.5 : 1 }}
-          >
-            {artworks.map(artwork => {
-              return (
-                <Fragment key={artwork.internalID}>
-                  <ArtworkGridItemFragmentContainer
-                    artwork={artwork}
-                    hideSaleInfo
-                    showSaveButton={false}
-                  />
+          <Box mt={[-2, -4]}>
+            <Sticky>
+              {({ stuck }) => {
+                return (
+                  <FullBleed
+                    backgroundColor="white100"
+                    style={stuck ? { boxShadow: DROP_SHADOW } : undefined}
+                  >
+                    <AppContainer>
+                      <HorizontalPadding>
+                        <Flex
+                          backgroundColor="white100"
+                          justifyContent="flex-end"
+                          py={2}
+                        >
+                          <Button
+                            // @ts-ignore
+                            as={RouterLink}
+                            size={["small", "large"]}
+                            variant="primaryBlack"
+                            to={
+                              isCollectorProfileEnabled
+                                ? "/collector-profile/my-collection/artworks/new"
+                                : "/my-collection/artworks/new"
+                            }
+                            onClick={() => trackAddCollectedArtwork()}
+                          >
+                            Upload Artwork
+                          </Button>
+                        </Flex>
+                      </HorizontalPadding>
+                    </AppContainer>
+                  </FullBleed>
+                )
+              }}
+            </Sticky>
+          </Box>
 
-                  <Spacer mt={4} />
-                </Fragment>
-              )
-            })}
-          </Masonry>
+          <Jump id="MyCollectionArtworks">
+            <Masonry
+              columnCount={[2, 3, 4]}
+              style={{ opacity: loading ? 0.5 : 1 }}
+            >
+              {artworks.map(artwork => {
+                return (
+                  <Fragment key={artwork.internalID}>
+                    <ArtworkGridItemFragmentContainer
+                      artwork={artwork}
+                      localHeroImage={getLocalImageSrcByArtworkID(
+                        artwork.internalID
+                      )}
+                      hideSaleInfo
+                      showSaveButton={false}
+                      showHoverDetails={false}
+                      disableRouterLinking={!enableMyCollectionPhase2}
+                      isMyCollectionArtwork
+                    />
+
+                    <Spacer y={4} />
+                  </Fragment>
+                )
+              })}
+            </Masonry>
+          </Jump>
 
           <PaginationFragmentContainer
             hasNextPage={hasNextPage}
@@ -88,9 +191,7 @@ const MyCollectionRoute: FC<MyCollectionRouteProps> = ({ me, relay }) => {
           />
         </>
       ) : (
-        <Text variant="lg-display" color="black60">
-          Nothing yet.
-        </Text>
+        <EmptyMyCollectionPage />
       )}
     </>
   )

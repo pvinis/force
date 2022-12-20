@@ -1,43 +1,25 @@
+/**
+ * @generated SignedSource<<8c73e1caf3f5e1566782c085f6f6e06d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SmsSecondFactor_Test_QueryVariables = {};
-export type SmsSecondFactor_Test_QueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"SmsSecondFactor_me">;
-    } | null;
+export type SmsSecondFactor_Test_Query$variables = {};
+export type SmsSecondFactor_Test_Query$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"SmsSecondFactor_me">;
+  } | null;
 };
 export type SmsSecondFactor_Test_Query = {
-    readonly response: SmsSecondFactor_Test_QueryResponse;
-    readonly variables: SmsSecondFactor_Test_QueryVariables;
+  response: SmsSecondFactor_Test_Query$data;
+  variables: SmsSecondFactor_Test_Query$variables;
 };
-
-
-
-/*
-query SmsSecondFactor_Test_Query {
-  me {
-    ...SmsSecondFactor_me
-    id
-  }
-}
-
-fragment SmsSecondFactor_me on Me {
-  email
-  hasSecondFactorEnabled
-  smsSecondFactors: secondFactors(kinds: [sms]) {
-    __typename
-    ... on SmsSecondFactor {
-      __typename
-      internalID
-      formattedPhoneNumber
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -207,5 +189,7 @@ return {
   }
 };
 })();
-(node as any).hash = '6d42d89bbae259c4dba68b0b72d4603b';
+
+(node as any).hash = "6d42d89bbae259c4dba68b0b72d4603b";
+
 export default node;

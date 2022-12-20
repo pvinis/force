@@ -1,70 +1,46 @@
+/**
+ * @generated SignedSource<<a35ff3a5c5af22315e8874b1e5d1cf3b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type BidderPositionInput = {
-    artworkID: string;
-    clientMutationId?: string | null | undefined;
-    maxBidAmountCents: number;
-    saleID: string;
+  artworkID: string;
+  clientMutationId?: string | null;
+  maxBidAmountCents: number;
+  saleID: string;
 };
-export type useCreateBidderPositionMutationVariables = {
-    input: BidderPositionInput;
+export type useCreateBidderPositionMutation$variables = {
+  input: BidderPositionInput;
 };
-export type useCreateBidderPositionMutationResponse = {
-    readonly createBidderPosition: {
-        readonly result: {
-            readonly position: {
-                readonly internalID: string;
-                readonly saleArtwork: {
-                    readonly sale: {
-                        readonly registrationStatus: {
-                            readonly internalID: string;
-                            readonly qualifiedForBidding: boolean | null;
-                        } | null;
-                    } | null;
-                } | null;
+export type useCreateBidderPositionMutation$data = {
+  readonly createBidderPosition: {
+    readonly result: {
+      readonly messageHeader: string | null;
+      readonly position: {
+        readonly internalID: string;
+        readonly saleArtwork: {
+          readonly sale: {
+            readonly registrationStatus: {
+              readonly internalID: string;
+              readonly qualifiedForBidding: boolean | null;
             } | null;
-            readonly status: string;
-            readonly messageHeader: string | null;
+          } | null;
         } | null;
+      } | null;
+      readonly status: string;
     } | null;
+  } | null;
 };
 export type useCreateBidderPositionMutation = {
-    readonly response: useCreateBidderPositionMutationResponse;
-    readonly variables: useCreateBidderPositionMutationVariables;
+  response: useCreateBidderPositionMutation$data;
+  variables: useCreateBidderPositionMutation$variables;
 };
-
-
-
-/*
-mutation useCreateBidderPositionMutation(
-  $input: BidderPositionInput!
-) {
-  createBidderPosition(input: $input) {
-    result {
-      position {
-        internalID
-        saleArtwork {
-          sale {
-            registrationStatus {
-              internalID
-              qualifiedForBidding
-              id
-            }
-            id
-          }
-          id
-        }
-        id
-      }
-      status
-      messageHeader
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -291,5 +267,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2f0bf3c5b84808abb24c54fe8ca18e17';
+
+(node as any).hash = "2f0bf3c5b84808abb24c54fe8ca18e17";
+
 export default node;

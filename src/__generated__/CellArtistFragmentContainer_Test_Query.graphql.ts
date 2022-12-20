@@ -1,64 +1,25 @@
+/**
+ * @generated SignedSource<<3a9c186a1049075420aa82b36e64e8ed>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellArtistFragmentContainer_Test_QueryVariables = {};
-export type CellArtistFragmentContainer_Test_QueryResponse = {
-    readonly artist: {
-        readonly " $fragmentRefs": FragmentRefs<"CellArtist_artist">;
-    } | null;
+export type CellArtistFragmentContainer_Test_Query$variables = {};
+export type CellArtistFragmentContainer_Test_Query$data = {
+  readonly artist: {
+    readonly " $fragmentSpreads": FragmentRefs<"CellArtist_artist">;
+  } | null;
 };
 export type CellArtistFragmentContainer_Test_Query = {
-    readonly response: CellArtistFragmentContainer_Test_QueryResponse;
-    readonly variables: CellArtistFragmentContainer_Test_QueryVariables;
+  response: CellArtistFragmentContainer_Test_Query$data;
+  variables: CellArtistFragmentContainer_Test_Query$variables;
 };
-
-
-
-/*
-query CellArtistFragmentContainer_Test_Query {
-  artist(id: "example") {
-    ...CellArtist_artist
-    id
-  }
-}
-
-fragment CellArtist_artist on Artist {
-  ...EntityHeaderArtist_artist
-  internalID
-  slug
-  name
-  href
-  initials
-  image {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment EntityHeaderArtist_artist on Artist {
-  internalID
-  href
-  slug
-  name
-  initials
-  formattedNationalityAndBirthday
-  counts {
-    artworks
-    forSaleArtworks
-  }
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -280,7 +241,6 @@ return {
                     "kind": "Literal",
                     "name": "version",
                     "value": [
-                      "normalized",
                       "larger",
                       "large"
                     ]
@@ -296,7 +256,7 @@ return {
                 "name": "cropped",
                 "plural": false,
                 "selections": (v1/*: any*/),
-                "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
               }
             ],
             "storageKey": null
@@ -314,7 +274,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "219e4bab6929747a597f8c151166dc85",
+    "cacheID": "c478e863280192f70660311077998f16",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -351,9 +311,11 @@ return {
     },
     "name": "CellArtistFragmentContainer_Test_Query",
     "operationKind": "query",
-    "text": "query CellArtistFragmentContainer_Test_Query {\n  artist(id: \"example\") {\n    ...CellArtist_artist\n    id\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query CellArtistFragmentContainer_Test_Query {\n  artist(id: \"example\") {\n    ...CellArtist_artist\n    id\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f1015eb076de8a1636f140754e7f34ed';
+
+(node as any).hash = "f1015eb076de8a1636f140754e7f34ed";
+
 export default node;

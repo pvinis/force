@@ -1,45 +1,45 @@
+/**
+ * @generated SignedSource<<1fe74658dabd068ccc1bc7dae5d58043>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type SaveArtworkInput = {
-    artworkID?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
-    remove?: boolean | null | undefined;
+  artworkID?: string | null;
+  clientMutationId?: string | null;
+  remove?: boolean | null;
 };
-export type SaveArtworkMutationVariables = {
-    input: SaveArtworkInput;
+export type SaveArtworkMutation$variables = {
+  input: SaveArtworkInput;
 };
-export type SaveArtworkMutationResponse = {
-    readonly saveArtwork: {
-        readonly artwork: {
-            readonly id: string;
-            readonly slug: string;
-            readonly is_saved: boolean | null;
-        } | null;
+export type SaveArtworkMutation$data = {
+  readonly saveArtwork: {
+    readonly artwork: {
+      readonly id: string;
+      readonly is_saved: boolean | null;
+      readonly slug: string;
     } | null;
+  } | null;
+};
+export type SaveArtworkMutation$rawResponse = {
+  readonly saveArtwork: {
+    readonly artwork: {
+      readonly id: string;
+      readonly is_saved: boolean | null;
+      readonly slug: string;
+    } | null;
+  } | null;
 };
 export type SaveArtworkMutation = {
-    readonly response: SaveArtworkMutationResponse;
-    readonly variables: SaveArtworkMutationVariables;
+  rawResponse: SaveArtworkMutation$rawResponse;
+  response: SaveArtworkMutation$data;
+  variables: SaveArtworkMutation$variables;
 };
-
-
-
-/*
-mutation SaveArtworkMutation(
-  $input: SaveArtworkInput!
-) {
-  saveArtwork(input: $input) {
-    artwork {
-      id
-      slug
-      is_saved: isSaved
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -127,5 +127,7 @@ return {
   }
 };
 })();
-(node as any).hash = '0883343afdb4d2132f5b10a72c04d981';
+
+(node as any).hash = "baa8fea7bf140f998bd1d54038de283e";
+
 export default node;

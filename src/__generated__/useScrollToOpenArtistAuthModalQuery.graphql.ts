@@ -1,57 +1,37 @@
+/**
+ * @generated SignedSource<<023450cc01c2f353b7e34f211b14ef99>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type useScrollToOpenArtistAuthModalQueryVariables = {
-    id: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type useScrollToOpenArtistAuthModalQuery$variables = {
+  id: string;
 };
-export type useScrollToOpenArtistAuthModalQueryResponse = {
-    readonly artist: {
-        readonly name: string | null;
-        readonly filterArtworksConnection: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly image: {
-                        readonly cropped: {
-                            readonly src: string;
-                        } | null;
-                    } | null;
-                } | null;
-            } | null> | null;
+export type useScrollToOpenArtistAuthModalQuery$data = {
+  readonly artist: {
+    readonly filterArtworksConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly image: {
+            readonly cropped: {
+              readonly src: string;
+            } | null;
+          } | null;
         } | null;
+      } | null> | null;
     } | null;
+    readonly name: string | null;
+  } | null;
 };
 export type useScrollToOpenArtistAuthModalQuery = {
-    readonly response: useScrollToOpenArtistAuthModalQueryResponse;
-    readonly variables: useScrollToOpenArtistAuthModalQueryVariables;
+  response: useScrollToOpenArtistAuthModalQuery$data;
+  variables: useScrollToOpenArtistAuthModalQuery$variables;
 };
-
-
-
-/*
-query useScrollToOpenArtistAuthModalQuery(
-  $id: String!
-) {
-  artist(id: $id) {
-    name
-    filterArtworksConnection(first: 1, marketable: true, sort: "-decayed_merch") {
-      edges {
-        node {
-          image {
-            cropped(width: 450, height: 1075) {
-              src
-            }
-          }
-          id
-        }
-      }
-      id
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -263,5 +243,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c52b98d684e9d9bb5390e94822b63044';
+
+(node as any).hash = "c52b98d684e9d9bb5390e94822b63044";
+
 export default node;

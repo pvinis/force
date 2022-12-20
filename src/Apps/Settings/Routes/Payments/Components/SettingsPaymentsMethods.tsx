@@ -1,18 +1,18 @@
-import { Text, Button, Message, GridColumns, Column } from "@artsy/palette"
+import { Button, Column, GridColumns, Message, Text } from "@artsy/palette"
 import { themeGet } from "@styled-system/theme-get"
+import { CreditCardInputProvider } from "Components/CreditCardInput"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import styled from "styled-components"
-import { CreditCardInputProvider } from "Components/CreditCardInput"
 import { extractNodes } from "Utils/extractNodes"
 import { useMode } from "Utils/Hooks/useMode"
-import { SettingsPaymentsMethods_me } from "__generated__/SettingsPaymentsMethods_me.graphql"
+import { SettingsPaymentsMethods_me$data } from "__generated__/SettingsPaymentsMethods_me.graphql"
 import { SettingsBankAccountFragmentContainer } from "./SettingsBankAccount"
 import { SettingsCreditCardFragmentContainer } from "./SettingsCreditCard"
 import { SettingsPaymentsMethodForm } from "./SettingsPaymentsMethodForm"
 
 interface SettingsPaymentsMethodsProps {
-  me: SettingsPaymentsMethods_me
+  me: SettingsPaymentsMethods_me$data
 }
 
 type Mode = "Pending" | "Adding"
@@ -39,7 +39,7 @@ const SettingsPaymentsMethods: FC<SettingsPaymentsMethodsProps> = ({ me }) => {
         </CreditCardInputProvider>
       )}
 
-      <Text variant="lg-display" mb={2}>
+      <Text variant={["md", "lg"]} mb={2}>
         Saved Payment Details
       </Text>
 

@@ -2,7 +2,7 @@ import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
 import { EntityHeaderFairOrganizerFragmentContainer_Test_Query } from "__generated__/EntityHeaderFairOrganizerFragmentContainer_Test_Query.graphql"
 import { screen } from "@testing-library/react"
-import { EntityHeaderFairOrganizerFragmentContainer } from "../EntityHeaderFairOrganizer"
+import { EntityHeaderFairOrganizerFragmentContainer } from "Components/EntityHeaders/EntityHeaderFairOrganizer"
 
 jest.unmock("react-relay")
 

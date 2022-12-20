@@ -1,43 +1,32 @@
+/**
+ * @generated SignedSource<<fe8ed79c629ddf399cc18a9298aa9b80>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type DisableSavedSearchInput = {
-    clientMutationId?: string | null | undefined;
-    searchCriteriaID: string;
+  clientMutationId?: string | null;
+  searchCriteriaID: string;
 };
-export type useDeleteSavedSearchAlertMutationVariables = {
-    input: DisableSavedSearchInput;
+export type useDeleteSavedSearchAlertMutation$variables = {
+  input: DisableSavedSearchInput;
 };
-export type useDeleteSavedSearchAlertMutationResponse = {
-    readonly disableSavedSearch: {
-        readonly savedSearchOrErrors: {
-            readonly internalID?: string | undefined;
-        };
-    } | null;
+export type useDeleteSavedSearchAlertMutation$data = {
+  readonly disableSavedSearch: {
+    readonly savedSearchOrErrors: {
+      readonly internalID?: string;
+    };
+  } | null;
 };
 export type useDeleteSavedSearchAlertMutation = {
-    readonly response: useDeleteSavedSearchAlertMutationResponse;
-    readonly variables: useDeleteSavedSearchAlertMutationVariables;
+  response: useDeleteSavedSearchAlertMutation$data;
+  variables: useDeleteSavedSearchAlertMutation$variables;
 };
-
-
-
-/*
-mutation useDeleteSavedSearchAlertMutation(
-  $input: DisableSavedSearchInput!
-) {
-  disableSavedSearch(input: $input) {
-    savedSearchOrErrors {
-      __typename
-      ... on SearchCriteria {
-        internalID
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -150,5 +139,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a9069fb0ea011f52dcacb0c9abf658a2';
+
+(node as any).hash = "a9069fb0ea011f52dcacb0c9abf658a2";
+
 export default node;

@@ -1,76 +1,25 @@
+/**
+ * @generated SignedSource<<2703af23b89a14c14bf63aa5b4d1ba4d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderPartnerFragmentContainer_Test_QueryVariables = {};
-export type EntityHeaderPartnerFragmentContainer_Test_QueryResponse = {
-    readonly partner: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityHeaderPartner_partner">;
-    } | null;
+export type EntityHeaderPartnerFragmentContainer_Test_Query$variables = {};
+export type EntityHeaderPartnerFragmentContainer_Test_Query$data = {
+  readonly partner: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderPartner_partner">;
+  } | null;
 };
 export type EntityHeaderPartnerFragmentContainer_Test_Query = {
-    readonly response: EntityHeaderPartnerFragmentContainer_Test_QueryResponse;
-    readonly variables: EntityHeaderPartnerFragmentContainer_Test_QueryVariables;
+  response: EntityHeaderPartnerFragmentContainer_Test_Query$data;
+  variables: EntityHeaderPartnerFragmentContainer_Test_Query$variables;
 };
-
-
-
-/*
-query EntityHeaderPartnerFragmentContainer_Test_Query {
-  partner(id: "example") {
-    ...EntityHeaderPartner_partner
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -298,17 +247,7 @@ return {
             "name": "profile",
             "plural": false,
             "selections": [
-              (v4/*: any*/),
-              (v2/*: any*/),
-              (v3/*: any*/),
               (v1/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "isFollowed",
-                "storageKey": null
-              },
               {
                 "alias": "avatar",
                 "args": null,
@@ -365,7 +304,8 @@ return {
                   }
                 ],
                 "storageKey": null
-              }
+              },
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -376,7 +316,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "70ac7d1fcbece25a5872bea3f52fec2f",
+    "cacheID": "fb1497b8b7ff8b9706e9b1763404cde8",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -436,23 +376,17 @@ return {
         "partner.profile.icon.cropped.srcSet": (v12/*: any*/),
         "partner.profile.id": (v8/*: any*/),
         "partner.profile.internalID": (v8/*: any*/),
-        "partner.profile.isFollowed": {
-          "enumValues": null,
-          "nullable": true,
-          "plural": false,
-          "type": "Boolean"
-        },
-        "partner.profile.name": (v9/*: any*/),
-        "partner.profile.slug": (v8/*: any*/),
         "partner.slug": (v8/*: any*/),
         "partner.type": (v9/*: any*/)
       }
     },
     "name": "EntityHeaderPartnerFragmentContainer_Test_Query",
     "operationKind": "query",
-    "text": "query EntityHeaderPartnerFragmentContainer_Test_Query {\n  partner(id: \"example\") {\n    ...EntityHeaderPartner_partner\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n"
+    "text": "query EntityHeaderPartnerFragmentContainer_Test_Query {\n  partner(id: \"example\") {\n    ...EntityHeaderPartner_partner\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6e0673baeb7a307bc2dc1a21498bf171';
+
+(node as any).hash = "6e0673baeb7a307bc2dc1a21498bf171";
+
 export default node;

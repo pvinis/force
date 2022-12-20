@@ -1,8 +1,8 @@
 import { FC, useState } from "react"
+import { StripeError } from "@stripe/stripe-js"
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
+import { ActionType, OwnerType } from "@artsy/cohesion"
 import {
-  Box,
-  Button,
   Checkbox,
   Clickable,
   Flex,
@@ -13,39 +13,46 @@ import {
 } from "@artsy/palette"
 import { useSystemContext } from "System"
 import { useTracking } from "react-tracking"
-import { LoadingArea } from "../LoadingArea"
 import { InsufficientFundsError } from "Apps/Order/Components/InsufficientFundsError"
 import { preventHardReload } from "Apps/Order/OrderApp"
+import { SaveAndContinueButton } from "Apps/Order/Components/SaveAndContinueButton"
+import { getENV } from "Utils/getENV"
+import { camelCase, upperFirst } from "lodash"
+import { useOrderPaymentContext } from "Apps/Order/Routes/Payment/PaymentContext/OrderPaymentContext"
 
 interface Props {
   order: { mode: string | null; internalID: string }
-  returnURL: string
-  bankAccountHasInsufficientFunds: boolean
+  onError: (error: Error | StripeError) => void
 }
 
-export const BankDebitForm: FC<Props> = ({
-  order,
-  returnURL,
-  bankAccountHasInsufficientFunds,
-}) => {
+export const BankDebitForm: FC<Props> = ({ order, onError }) => {
+  const {
+    selectedPaymentMethod,
+    bankAccountHasInsufficientFunds,
+    setBankAccountHasInsufficientFunds,
+    setIsSavingPayment,
+    setIsStripePaymentElementLoading,
+  } = useOrderPaymentContext()
+
   const stripe = useStripe()
   const elements = useElements()
   const { user } = useSystemContext()
-  const [isPaymentElementLoading, setIsPaymentElementLoading] = useState(true)
-  const [isSaveAccountChecked, setIsSaveAccountChecked] = useState(true)
   const tracking = useTracking()
 
-  const trackPaymentElementEvent = event => {
-    const trackedEvents: any[] = []
+  const [isSaveAccountChecked, setIsSaveAccountChecked] = useState(true)
+
+  const handlePaymentElementChange = event => {
     if (event.complete) {
-      trackedEvents.push({
+      setBankAccountHasInsufficientFunds(false)
+
+      tracking.trackEvent({
         flow: order.mode,
         order_id: order.internalID,
-        subject: "bank_account_selected",
+        subject: "link_account",
+        context_page_owner_type: OwnerType.ordersPayment,
+        action: ActionType.clickedPaymentDetails,
       })
     }
-
-    trackedEvents.forEach(event => tracking.trackEvent(event))
   }
 
   const handleSubmit = async event => {
@@ -55,45 +62,53 @@ export const BankDebitForm: FC<Props> = ({
       return
     }
 
+    // save account only for US_BANK_ACCOUNT (ACH)
+    let saveAccount = isSaveAccountChecked
+    if (selectedPaymentMethod !== "US_BANK_ACCOUNT") {
+      saveAccount = false
+    }
+
+    const return_url = `${getENV("APP_URL")}/orders/${
+      order.internalID
+    }/payment?save_account=${saveAccount}`
+
     // Disable the "leave/reload site?" confirmation dialog as we're about to
     // confirm Stripe payment setup which leaves and redirects back.
     window.removeEventListener("beforeunload", preventHardReload)
 
+    setIsSavingPayment(true)
+
     const { error } = await stripe.confirmSetup({
       elements,
       confirmParams: {
-        return_url: `${returnURL}?save_account=${isSaveAccountChecked}`,
+        return_url,
       },
     })
 
     if (error) {
-      console.log("error", error)
+      setIsSavingPayment(false)
+      onError(error)
+      throw error
     }
   }
 
   return (
     <form onSubmit={handleSubmit} style={{ padding: "0px 4px" }}>
-      <LoadingArea isLoading={isPaymentElementLoading}>
-        {isPaymentElementLoading && <Box height={300}></Box>}
-        <PaymentElement
-          onReady={() => {
-            setIsPaymentElementLoading(false)
-          }}
-          onChange={event => {
-            trackPaymentElementEvent(event)
-          }}
-          options={{
-            // @ts-ignore TODO: remove when Stripe updates StripePaymentElementOptions
-            defaultValues: {
-              billingDetails: {
-                name: user?.name,
-                email: user?.email,
-              },
+      <PaymentElement
+        onReady={() => setIsStripePaymentElementLoading(false)}
+        onChange={event => handlePaymentElementChange(event)}
+        options={{
+          defaultValues: {
+            billingDetails: {
+              name: user?.name,
+              email: user?.email,
             },
-          }}
-        />
-
-        <Spacer mt={4} />
+          },
+        }}
+      />
+      <Spacer y={4} />
+      {/* Display checkbox for saving account only for ACH */}
+      {selectedPaymentMethod === "US_BANK_ACCOUNT" && (
         <Flex>
           <Checkbox
             selected={isSaveAccountChecked}
@@ -127,20 +142,15 @@ export const BankDebitForm: FC<Props> = ({
             </Tooltip>
           </Flex>
         </Flex>
-        <Spacer mt={4} />
+      )}
 
-        {bankAccountHasInsufficientFunds && <InsufficientFundsError />}
-
-        <Button
-          data-test="bank-transfer-save-new"
-          disabled={!stripe || bankAccountHasInsufficientFunds}
-          variant="primaryBlack"
-          width={["100%", "50%"]}
-        >
-          Save and Continue
-        </Button>
-        <Spacer mb={4} />
-      </LoadingArea>
+      {bankAccountHasInsufficientFunds && <InsufficientFundsError />}
+      <Spacer y={4} />
+      <SaveAndContinueButton
+        testId={`saveNew${upperFirst(camelCase(selectedPaymentMethod))}`}
+        disabled={!stripe || bankAccountHasInsufficientFunds}
+      />
+      <Spacer y={2} />
     </form>
   )
 }

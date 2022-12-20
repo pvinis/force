@@ -1,73 +1,46 @@
+/**
+ * @generated SignedSource<<da54d48e45d3f02e38d60bf0a2f3b0a9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type UpdateUserDefaultAddressInput = {
-    clientMutationId?: string | null | undefined;
-    userAddressID: string;
+  clientMutationId?: string | null;
+  userAddressID: string;
 };
-export type UpdateUserDefaultAddressMutationVariables = {
-    input: UpdateUserDefaultAddressInput;
+export type UpdateUserDefaultAddressMutation$variables = {
+  input: UpdateUserDefaultAddressInput;
 };
-export type UpdateUserDefaultAddressMutationResponse = {
-    readonly updateUserDefaultAddress: {
-        readonly userAddressOrErrors: {
-            readonly id?: string | undefined;
-            readonly internalID?: string | undefined;
-            readonly name?: string | null | undefined;
-            readonly addressLine1?: string | undefined;
-            readonly addressLine2?: string | null | undefined;
-            readonly isDefault?: boolean | undefined;
-            readonly phoneNumber?: string | null | undefined;
-            readonly city?: string | undefined;
-            readonly region?: string | null | undefined;
-            readonly postalCode?: string | null | undefined;
-            readonly country?: string | undefined;
-            readonly errors?: ReadonlyArray<{
-                readonly code: string;
-                readonly message: string;
-            }> | undefined;
-        };
-    } | null;
+export type UpdateUserDefaultAddressMutation$data = {
+  readonly updateUserDefaultAddress: {
+    readonly userAddressOrErrors: {
+      readonly addressLine1?: string;
+      readonly addressLine2?: string | null;
+      readonly city?: string;
+      readonly country?: string;
+      readonly errors?: ReadonlyArray<{
+        readonly code: string;
+        readonly message: string;
+      }>;
+      readonly id?: string;
+      readonly internalID?: string;
+      readonly isDefault?: boolean;
+      readonly name?: string | null;
+      readonly phoneNumber?: string | null;
+      readonly postalCode?: string | null;
+      readonly region?: string | null;
+    };
+  } | null;
 };
 export type UpdateUserDefaultAddressMutation = {
-    readonly response: UpdateUserDefaultAddressMutationResponse;
-    readonly variables: UpdateUserDefaultAddressMutationVariables;
+  response: UpdateUserDefaultAddressMutation$data;
+  variables: UpdateUserDefaultAddressMutation$variables;
 };
-
-
-
-/*
-mutation UpdateUserDefaultAddressMutation(
-  $input: UpdateUserDefaultAddressInput!
-) {
-  updateUserDefaultAddress(input: $input) {
-    userAddressOrErrors {
-      __typename
-      ... on UserAddress {
-        id
-        internalID
-        name
-        addressLine1
-        addressLine2
-        isDefault
-        phoneNumber
-        city
-        region
-        postalCode
-        country
-      }
-      ... on Errors {
-        errors {
-          code
-          message
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -284,5 +257,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a91243f6ed1da1e43502af686ebf3823';
+
+(node as any).hash = "a91243f6ed1da1e43502af686ebf3823";
+
 export default node;

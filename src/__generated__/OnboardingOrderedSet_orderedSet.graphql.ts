@@ -1,43 +1,46 @@
+/**
+ * @generated SignedSource<<bc0e4a3b31c89234adf98f752be16c35>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type OnboardingOrderedSet_orderedSet = {
-    readonly orderedItemsConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: ({
-                readonly __typename: "Artist";
-                readonly internalID: string;
-                readonly " $fragmentRefs": FragmentRefs<"EntityHeaderArtist_artist">;
-            } | {
-                readonly __typename: "Profile";
-                readonly internalID: string;
-                readonly owner: {
-                    readonly __typename: "Partner";
-                    readonly " $fragmentRefs": FragmentRefs<"EntityHeaderPartner_partner">;
-                } | {
-                    /*This will never be '%other', but we need some
-                    value in case none of the concrete values match.*/
-                    readonly __typename: "%other";
-                };
-            } | {
-                /*This will never be '%other', but we need some
-                value in case none of the concrete values match.*/
-                readonly __typename: "%other";
-            }) | null;
-        } | null> | null;
-    };
-    readonly " $refType": "OnboardingOrderedSet_orderedSet";
+export type OnboardingOrderedSet_orderedSet$data = {
+  readonly orderedItemsConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly __typename: "Artist";
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderArtist_artist">;
+      } | {
+        readonly __typename: "Profile";
+        readonly internalID: string;
+        readonly owner: {
+          readonly __typename: "Partner";
+          readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderPartner_partner">;
+        } | {
+          // This will never be '%other', but we need some
+          // value in case none of the concrete values match.
+          readonly __typename: "%other";
+        };
+      } | {
+        // This will never be '%other', but we need some
+        // value in case none of the concrete values match.
+        readonly __typename: "%other";
+      } | null;
+    } | null> | null;
+  };
+  readonly " $fragmentType": "OnboardingOrderedSet_orderedSet";
 };
-export type OnboardingOrderedSet_orderedSet$data = OnboardingOrderedSet_orderedSet;
 export type OnboardingOrderedSet_orderedSet$key = {
-    readonly " $data"?: OnboardingOrderedSet_orderedSet$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"OnboardingOrderedSet_orderedSet">;
+  readonly " $data"?: OnboardingOrderedSet_orderedSet$data;
+  readonly " $fragmentSpreads": FragmentRefs<"OnboardingOrderedSet_orderedSet">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -150,5 +153,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '833d51a13cbdbf0213aaaacea673e85a';
+
+(node as any).hash = "833d51a13cbdbf0213aaaacea673e85a";
+
 export default node;

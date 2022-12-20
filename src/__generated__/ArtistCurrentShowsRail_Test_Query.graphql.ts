@@ -1,77 +1,25 @@
+/**
+ * @generated SignedSource<<82ed087dd2ee69a1fb6dfa39b1601d76>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistCurrentShowsRail_Test_QueryVariables = {};
-export type ArtistCurrentShowsRail_Test_QueryResponse = {
-    readonly artist: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtistCurrentShowsRail_artist">;
-    } | null;
+export type ArtistCurrentShowsRail_Test_Query$variables = {};
+export type ArtistCurrentShowsRail_Test_Query$data = {
+  readonly artist: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistCurrentShowsRail_artist">;
+  } | null;
 };
 export type ArtistCurrentShowsRail_Test_Query = {
-    readonly response: ArtistCurrentShowsRail_Test_QueryResponse;
-    readonly variables: ArtistCurrentShowsRail_Test_QueryVariables;
+  response: ArtistCurrentShowsRail_Test_Query$data;
+  variables: ArtistCurrentShowsRail_Test_Query$variables;
 };
-
-
-
-/*
-query ArtistCurrentShowsRail_Test_Query {
-  artist(id: "test") {
-    ...ArtistCurrentShowsRail_artist
-    id
-  }
-}
-
-fragment ArtistCurrentShowsRail_artist on Artist {
-  internalID
-  name
-  slug
-  showsConnection(first: 5, sort: END_AT_ASC, status: "running") {
-    edges {
-      node {
-        ...CellShow_show
-        internalID
-        slug
-        href
-        id
-      }
-    }
-  }
-}
-
-fragment CellShow_show on Show {
-  internalID
-  slug
-  name
-  href
-  startAt
-  endAt
-  isFairBooth
-  exhibitionPeriod
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -310,7 +258,6 @@ return {
                                 "kind": "Literal",
                                 "name": "version",
                                 "value": [
-                                  "normalized",
                                   "larger",
                                   "large"
                                 ]
@@ -341,7 +288,7 @@ return {
                                 "storageKey": null
                               }
                             ],
-                            "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                            "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                           }
                         ],
                         "storageKey": null
@@ -363,7 +310,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6cac8403330c511b2ea4f031d41bec90",
+    "cacheID": "6ad00c81c7f180957386439f825e5849",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -437,9 +384,11 @@ return {
     },
     "name": "ArtistCurrentShowsRail_Test_Query",
     "operationKind": "query",
-    "text": "query ArtistCurrentShowsRail_Test_Query {\n  artist(id: \"test\") {\n    ...ArtistCurrentShowsRail_artist\n    id\n  }\n}\n\nfragment ArtistCurrentShowsRail_artist on Artist {\n  internalID\n  name\n  slug\n  showsConnection(first: 5, sort: END_AT_ASC, status: \"running\") {\n    edges {\n      node {\n        ...CellShow_show\n        internalID\n        slug\n        href\n        id\n      }\n    }\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query ArtistCurrentShowsRail_Test_Query {\n  artist(id: \"test\") {\n    ...ArtistCurrentShowsRail_artist\n    id\n  }\n}\n\nfragment ArtistCurrentShowsRail_artist on Artist {\n  internalID\n  name\n  slug\n  showsConnection(first: 5, sort: END_AT_ASC, status: \"running\") {\n    edges {\n      node {\n        ...CellShow_show\n        internalID\n        slug\n        href\n        id\n      }\n    }\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '71aa6c6728c5b37aa5e6ddcf67e50900';
+
+(node as any).hash = "71aa6c6728c5b37aa5e6ddcf67e50900";
+
 export default node;

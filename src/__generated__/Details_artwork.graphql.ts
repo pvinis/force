@@ -1,59 +1,70 @@
+/**
+ * @generated SignedSource<<b26ecad03a93f18ed609a96583735a76>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Details_artwork = {
+export type Details_artwork$data = {
+  readonly artist: {
+    readonly targetSupply: {
+      readonly isP1: boolean | null;
+    } | null;
+  } | null;
+  readonly artists: ReadonlyArray<{
     readonly href: string | null;
-    readonly title: string | null;
-    readonly date: string | null;
-    readonly sale_message: string | null;
-    readonly cultural_maker: string | null;
-    readonly artists: ReadonlyArray<{
-        readonly id: string;
-        readonly href: string | null;
-        readonly name: string | null;
-    } | null> | null;
-    readonly collecting_institution: string | null;
-    readonly partner: {
-        readonly name: string | null;
-        readonly href: string | null;
+    readonly id: string;
+    readonly name: string | null;
+  } | null> | null;
+  readonly collecting_institution: string | null;
+  readonly cultural_maker: string | null;
+  readonly date: string | null;
+  readonly href: string | null;
+  readonly marketPriceInsights: {
+    readonly demandRank: number | null;
+  } | null;
+  readonly partner: {
+    readonly href: string | null;
+    readonly name: string | null;
+  } | null;
+  readonly sale: {
+    readonly cascadingEndTimeIntervalMinutes: number | null;
+    readonly endAt: string | null;
+    readonly extendedBiddingIntervalMinutes: number | null;
+    readonly is_auction: boolean | null;
+    readonly is_closed: boolean | null;
+    readonly startAt: string | null;
+  } | null;
+  readonly sale_artwork: {
+    readonly counts: {
+      readonly bidder_positions: any | null;
     } | null;
-    readonly sale: {
-        readonly endAt: string | null;
-        readonly cascadingEndTimeIntervalMinutes: number | null;
-        readonly extendedBiddingIntervalMinutes: number | null;
-        readonly startAt: string | null;
-        readonly is_auction: boolean | null;
-        readonly is_closed: boolean | null;
+    readonly endAt: string | null;
+    readonly extendedBiddingEndAt: string | null;
+    readonly formattedEndDateTime: string | null;
+    readonly highest_bid: {
+      readonly display: string | null;
     } | null;
-    readonly sale_artwork: {
-        readonly lotID: string | null;
-        readonly lotLabel: string | null;
-        readonly endAt: string | null;
-        readonly extendedBiddingEndAt: string | null;
-        readonly formattedEndDateTime: string | null;
-        readonly counts: {
-            readonly bidder_positions: number | null;
-        } | null;
-        readonly highest_bid: {
-            readonly display: string | null;
-        } | null;
-        readonly opening_bid: {
-            readonly display: string | null;
-        } | null;
+    readonly lotID: string | null;
+    readonly lotLabel: string | null;
+    readonly opening_bid: {
+      readonly display: string | null;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"NewSaveButton_artwork" | "HoverDetails_artwork">;
-    readonly " $refType": "Details_artwork";
+  } | null;
+  readonly sale_message: string | null;
+  readonly title: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"HoverDetails_artwork" | "NewSaveButton_artwork">;
+  readonly " $fragmentType": "Details_artwork";
 };
-export type Details_artwork$data = Details_artwork;
 export type Details_artwork$key = {
-    readonly " $data"?: Details_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Details_artwork">;
+  readonly " $data"?: Details_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Details_artwork">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -126,6 +137,53 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "culturalMaker",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Artist",
+      "kind": "LinkedField",
+      "name": "artist",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ArtistTargetSupply",
+          "kind": "LinkedField",
+          "name": "targetSupply",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "isP1",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ArtworkPriceInsights",
+      "kind": "LinkedField",
+      "name": "marketPriceInsights",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "demandRank",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -308,5 +366,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'be3d2becf54d0dfa23d893950bb22d7d';
+
+(node as any).hash = "958f68c7156c0bb40d30f343ffa6db34";
+
 export default node;

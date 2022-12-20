@@ -22,8 +22,8 @@ export const SavedSearchAlertHeader: FC<SavedSearchAlertHeaderProps> = ({
       justifyContent="space-between"
       mb={4}
     >
-      <Text variant="lg-display" mb={[4, 0]} mr={[0, 2]}>
-        Your Alerts
+      <Text variant={["md", "lg"]} mb={[4, 0]} mr={[0, 2]}>
+        Alerts
       </Text>
 
       <Select

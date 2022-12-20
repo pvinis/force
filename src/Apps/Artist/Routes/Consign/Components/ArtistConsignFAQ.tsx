@@ -1,5 +1,5 @@
 import { Box, Text, Spacer, GridColumns, Column } from "@artsy/palette"
-import { ArtistConsignFAQ_artist } from "__generated__/ArtistConsignFAQ_artist.graphql"
+import { ArtistConsignFAQ_artist$data } from "__generated__/ArtistConsignFAQ_artist.graphql"
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { useTracking } from "react-tracking"
 import * as React from "react"
@@ -10,7 +10,7 @@ import { getConsignSubmissionUrl } from "./Utils/getConsignSubmissionUrl"
 import { Masonry } from "Components/Masonry"
 
 interface ArtistConsignFAQProps {
-  artist: ArtistConsignFAQ_artist
+  artist: ArtistConsignFAQ_artist$data
 }
 
 const ArtistConsignFAQ: React.FC<ArtistConsignFAQProps> = props => {
@@ -20,7 +20,7 @@ const ArtistConsignFAQ: React.FC<ArtistConsignFAQProps> = props => {
     <SectionContainer>
       <Subheader>Frequently asked questions</Subheader>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns>
         <Column span={[12, 12, 8]} start={[1, 1, 3]}>
@@ -126,9 +126,9 @@ const ArtistConsignFAQ: React.FC<ArtistConsignFAQProps> = props => {
                 <>
                   If you wish to edit your submission or update missing
                   information, please email us at{" "}
-                  <a href="mailto:consign@artsty.net">consign@artsty.net</a>{" "}
-                  with your submission ID number, and we will update the
-                  submission on your behalf.
+                  <a href="mailto:sell@artsty.net">sell@artsty.net</a> with your
+                  submission ID number, and we will update the submission on
+                  your behalf.
                 </>
               }
             />
@@ -138,7 +138,7 @@ const ArtistConsignFAQ: React.FC<ArtistConsignFAQProps> = props => {
               answer={
                 <>
                   Contact us at{" "}
-                  <a href="mailto:consign@artsty.net">consign@artsty.net</a>.
+                  <a href="mailto:sell@artsty.net">sell@artsty.net</a>.
                 </>
               }
             />

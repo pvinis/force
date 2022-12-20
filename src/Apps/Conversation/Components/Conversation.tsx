@@ -5,7 +5,9 @@ import {
   RelayRefetchProp,
   createPaginationContainer,
 } from "react-relay"
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
+// FIXME:
+// eslint-disable-next-line no-restricted-imports
 import Waypoint from "react-waypoint"
 import {
   Banner,
@@ -24,17 +26,17 @@ import { Reply } from "./Reply"
 import { ConversationMessagesFragmentContainer as ConversationMessages } from "./ConversationMessages"
 import { ConversationHeader } from "./ConversationHeader"
 import { ConfirmArtworkModalQueryRenderer } from "./ConfirmArtworkModal"
-import { returnOrderModalDetails } from "../Utils/returnOrderModalDetails"
+import { returnOrderModalDetails } from "Apps/Conversation/Utils/returnOrderModalDetails"
 import { OrderModal } from "./OrderModal"
 import { UnreadMessagesToastQueryRenderer } from "./UnreadMessagesToast"
-import useOnScreen from "../Utils/useOnScreen"
-import { UpdateConversation } from "../Mutation/UpdateConversationMutation"
+import useOnScreen from "Apps/Conversation/Utils/useOnScreen"
+import { UpdateConversation } from "Apps/Conversation/Mutation/UpdateConversationMutation"
 import { useFeatureFlag } from "System/useFeatureFlag"
 
-import { Conversation_conversation } from "__generated__/Conversation_conversation.graphql"
+import { Conversation_conversation$data } from "__generated__/Conversation_conversation.graphql"
 import { useRouter } from "System/Router/useRouter"
 export interface ConversationProps {
-  conversation: Conversation_conversation
+  conversation: Conversation_conversation$data
   showDetails: boolean
   setShowDetails: (showDetails: boolean) => void
   relay: RelayPaginationProp
@@ -64,8 +66,8 @@ const GuaranteeBanner: React.FC<{ conversationID: string }> = ({
   return showBanner ? (
     <Banner variant="brand">
       <GuaranteeIcon mr={1} fill="white100" />
-      To protect your payment, always communicate and pay through the Artsy
-      platform.
+      To be covered by the Artsy Guarantee, always communicate and pay through
+      the Artsy platform.
     </Banner>
   ) : null
 }
@@ -238,7 +240,7 @@ const Conversation: React.FC<ConversationProps> = props => {
       <NoScrollFlex flexDirection="column" width="100%">
         <MessageContainer ref={scrollContainer as any}>
           <Box pb={[6, 6, 6, 0]} pr={1}>
-            <Spacer mt={["75px", "75px", 2]} />
+            <Spacer y={["75px", "75px", 2]} />
             <Flex flexDirection="column" width="100%" px={1}>
               {inquiryItemBox}
               <Waypoint onEnter={loadMore} />

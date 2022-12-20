@@ -1,137 +1,31 @@
+/**
+ * @generated SignedSource<<e47e54e422f9686c1aa33b0df2f41f9f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type PartnerClassification = "AUCTION" | "BRAND" | "DEMO" | "GALLERY" | "INSTITUTION" | "INSTITUTIONAL_SELLER" | "PRIVATE_COLLECTOR" | "PRIVATE_DEALER" | "%future added value";
-export type PartnersFilteredCellsQueryVariables = {
-    after?: string | null | undefined;
-    near?: string | null | undefined;
-    category?: Array<string | null> | null | undefined;
-    type?: Array<PartnerClassification | null> | null | undefined;
+export type PartnersFilteredCellsQuery$variables = {
+  after?: string | null;
+  category?: ReadonlyArray<string | null> | null;
+  near?: string | null;
+  type?: ReadonlyArray<PartnerClassification | null> | null;
 };
-export type PartnersFilteredCellsQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"PartnersFilteredCells_viewer">;
-    } | null;
+export type PartnersFilteredCellsQuery$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"PartnersFilteredCells_viewer">;
+  } | null;
 };
 export type PartnersFilteredCellsQuery = {
-    readonly response: PartnersFilteredCellsQueryResponse;
-    readonly variables: PartnersFilteredCellsQueryVariables;
+  response: PartnersFilteredCellsQuery$data;
+  variables: PartnersFilteredCellsQuery$variables;
 };
-
-
-
-/*
-query PartnersFilteredCellsQuery(
-  $after: String
-  $near: String
-  $category: [String]
-  $type: [PartnerClassification]
-) {
-  viewer {
-    ...PartnersFilteredCells_viewer_iDCAR
-  }
-}
-
-fragment CellPartner_partner on Partner {
-  ...EntityHeaderPartner_partner
-  internalID
-  slug
-  name
-  href
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    image {
-      cropped(width: 445, height: 334, version: ["wide", "large", "featured", "larger"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment PartnersFilteredCells_viewer_iDCAR on Viewer {
-  partnersConnection(after: $after, defaultProfilePublic: true, eligibleForListing: true, first: 12, near: $near, partnerCategories: $category, sort: RANDOM_SCORE_DESC, type: $type) {
-    totalCount
-    edges {
-      node {
-        internalID
-        ...CellPartner_partner
-        id
-        __typename
-      }
-      cursor
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -437,17 +331,7 @@ return {
                         "name": "profile",
                         "plural": false,
                         "selections": [
-                          (v11/*: any*/),
-                          (v9/*: any*/),
-                          (v10/*: any*/),
                           (v8/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "isFollowed",
-                            "storageKey": null
-                          },
                           {
                             "alias": "avatar",
                             "args": null,
@@ -505,6 +389,7 @@ return {
                             ],
                             "storageKey": null
                           },
+                          (v11/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -621,14 +506,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ba3ca473b66fb072d3be548aff0368a3",
+    "cacheID": "7e96f55a971258cca1f88c32597e3316",
     "id": null,
     "metadata": {},
     "name": "PartnersFilteredCellsQuery",
     "operationKind": "query",
-    "text": "query PartnersFilteredCellsQuery(\n  $after: String\n  $near: String\n  $category: [String]\n  $type: [PartnerClassification]\n) {\n  viewer {\n    ...PartnersFilteredCells_viewer_iDCAR\n  }\n}\n\nfragment CellPartner_partner on Partner {\n  ...EntityHeaderPartner_partner\n  internalID\n  slug\n  name\n  href\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    image {\n      cropped(width: 445, height: 334, version: [\"wide\", \"large\", \"featured\", \"larger\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment PartnersFilteredCells_viewer_iDCAR on Viewer {\n  partnersConnection(after: $after, defaultProfilePublic: true, eligibleForListing: true, first: 12, near: $near, partnerCategories: $category, sort: RANDOM_SCORE_DESC, type: $type) {\n    totalCount\n    edges {\n      node {\n        internalID\n        ...CellPartner_partner\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query PartnersFilteredCellsQuery(\n  $after: String\n  $near: String\n  $category: [String]\n  $type: [PartnerClassification]\n) {\n  viewer {\n    ...PartnersFilteredCells_viewer_iDCAR\n  }\n}\n\nfragment CellPartner_partner on Partner {\n  ...EntityHeaderPartner_partner\n  internalID\n  slug\n  name\n  href\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    image {\n      cropped(width: 445, height: 334, version: [\"wide\", \"large\", \"featured\", \"larger\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment PartnersFilteredCells_viewer_iDCAR on Viewer {\n  partnersConnection(after: $after, defaultProfilePublic: true, eligibleForListing: true, first: 12, near: $near, partnerCategories: $category, sort: RANDOM_SCORE_DESC, type: $type) {\n    totalCount\n    edges {\n      node {\n        internalID\n        ...CellPartner_partner\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '40643de86cc477764755f3806a559c93';
+
+(node as any).hash = "40643de86cc477764755f3806a559c93";
+
 export default node;

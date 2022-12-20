@@ -9,12 +9,12 @@ import {
 } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink, RouterLinkProps } from "System/Router/RouterLink"
-import { CellSale_sale } from "__generated__/CellSale_sale.graphql"
+import { CellSale_sale$data } from "__generated__/CellSale_sale.graphql"
 import { DEFAULT_CELL_WIDTH } from "./constants"
 import { FC } from "react"
 
 export interface CellSaleProps extends Omit<RouterLinkProps, "to"> {
-  sale: CellSale_sale
+  sale: CellSale_sale$data
 }
 
 const CellSale: FC<CellSaleProps> = ({ sale, ...rest }) => {
@@ -51,7 +51,7 @@ const CellSale: FC<CellSaleProps> = ({ sale, ...rest }) => {
         )}
       </ResponsiveBox>
 
-      <Spacer my={0.5} />
+      <Spacer y={0.5} />
 
       <Text variant="sm-display">{sale.name}</Text>
       <Text variant="sm-display" color="black60">
@@ -68,7 +68,7 @@ export const CellSalePlaceholder: FC = () => {
         <SkeletonBox width="100%" height="100%" />
       </ResponsiveBox>
 
-      <Spacer my={0.5} />
+      <Spacer y={0.5} />
 
       <SkeletonText variant="sm-display">
         Impact: Artists in Support of Refugees from Ukraine
@@ -87,11 +87,7 @@ export const CellSaleFragmentContainer = createFragmentContainer(CellSale, {
       formattedStartDateTime
       href
       coverImage {
-        cropped(
-          width: 445
-          height: 334
-          version: ["normalized", "larger", "large"]
-        ) {
+        cropped(width: 445, height: 334, version: ["larger", "large"]) {
           src
           srcSet
         }

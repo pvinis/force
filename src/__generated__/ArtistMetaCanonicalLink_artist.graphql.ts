@@ -1,49 +1,52 @@
+/**
+ * @generated SignedSource<<1876ba7e1094581a7cb5b53816a7c8b3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistMetaCanonicalLink_artist = {
-    readonly slug: string;
-    readonly statuses: {
-        readonly shows: boolean | null;
-        readonly cv: boolean | null;
-        readonly articles: boolean | null;
-        readonly auctionLots: boolean | null;
-        readonly artworks: boolean | null;
+export type ArtistMetaCanonicalLink_artist$data = {
+  readonly biographyBlurb: {
+    readonly text: string | null;
+  } | null;
+  readonly highlights: {
+    readonly partnersConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly __typename: "PartnerArtistEdge";
+      } | null> | null;
     } | null;
-    readonly highlights: {
-        readonly partnersConnection: {
-            readonly edges: ReadonlyArray<{
-                readonly __typename: string;
-            } | null> | null;
+  } | null;
+  readonly insights: ReadonlyArray<{
+    readonly __typename: "ArtistInsight";
+  }>;
+  readonly related: {
+    readonly genes: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly __typename: "Gene";
         } | null;
+      } | null> | null;
     } | null;
-    readonly biographyBlurb: {
-        readonly text: string | null;
-    } | null;
-    readonly related: {
-        readonly genes: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly __typename: string;
-                } | null;
-            } | null> | null;
-        } | null;
-    } | null;
-    readonly insights: ReadonlyArray<{
-        readonly __typename: string;
-    }>;
-    readonly " $refType": "ArtistMetaCanonicalLink_artist";
+  } | null;
+  readonly slug: string;
+  readonly statuses: {
+    readonly articles: boolean | null;
+    readonly artworks: boolean | null;
+    readonly auctionLots: boolean | null;
+    readonly cv: boolean | null;
+    readonly shows: boolean | null;
+  } | null;
+  readonly " $fragmentType": "ArtistMetaCanonicalLink_artist";
 };
-export type ArtistMetaCanonicalLink_artist$data = ArtistMetaCanonicalLink_artist;
 export type ArtistMetaCanonicalLink_artist$key = {
-    readonly " $data"?: ArtistMetaCanonicalLink_artist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistMetaCanonicalLink_artist">;
+  readonly " $data"?: ArtistMetaCanonicalLink_artist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistMetaCanonicalLink_artist">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -270,5 +273,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ff3b180b4c038402a0c7b61507eea870';
+
+(node as any).hash = "ff3b180b4c038402a0c7b61507eea870";
+
 export default node;

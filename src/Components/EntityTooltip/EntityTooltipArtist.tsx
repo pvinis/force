@@ -13,15 +13,15 @@ import {
 import { createFragmentContainer, graphql } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { EntityTooltipArtistQuery } from "__generated__/EntityTooltipArtistQuery.graphql"
-import { EntityTooltipArtist_artist } from "__generated__/EntityTooltipArtist_artist.graphql"
+import { EntityTooltipArtist_artist$data } from "__generated__/EntityTooltipArtist_artist.graphql"
 import { RouterLink } from "System/Router/RouterLink"
-import { EntityHeaderArtistFragmentContainer } from "../EntityHeaders/EntityHeaderArtist"
+import { EntityHeaderArtistFragmentContainer } from "Components/EntityHeaders/EntityHeaderArtist"
 import { useTracking } from "react-tracking"
 import { ActionType, ClickedTooltip } from "@artsy/cohesion"
 import { useAnalyticsContext } from "System"
 
 interface EntityTooltipArtistProps {
-  artist: EntityTooltipArtist_artist
+  artist: EntityTooltipArtist_artist$data
 }
 
 const EntityTooltipArtist: FC<EntityTooltipArtistProps> = ({ artist }) => {
@@ -53,7 +53,7 @@ const EntityTooltipArtist: FC<EntityTooltipArtistProps> = ({ artist }) => {
       {images.length > 0 && (
         <RouterLink to={artist.href} display="block" onClick={handleClick}>
           <HorizontalOverflow mb={2}>
-            <Join separator={<Spacer ml={1} />}>
+            <Join separator={<Spacer x={1} />}>
               {images.map((image, i) => {
                 if (!image || !image.resized) return null
                 return (
@@ -124,7 +124,7 @@ const EntityTooltipArtistPlaceholder: FC = () => {
   return (
     <Skeleton p={2} width={300}>
       <HorizontalOverflow mb={2}>
-        <Join separator={<Spacer ml={1} />}>
+        <Join separator={<Spacer x={1} />}>
           {[...new Array(8)].map((_, i) => {
             return (
               <SkeletonBox

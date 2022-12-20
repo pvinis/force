@@ -8,8 +8,8 @@ import {
   Spacer,
   ReadMore,
 } from "@artsy/palette"
-import { Header_artworks } from "__generated__/Header_artworks.graphql"
-import { Header_collection } from "__generated__/Header_collection.graphql"
+import { Header_artworks$data } from "__generated__/Header_artworks.graphql"
+import { Header_collection$data } from "__generated__/Header_collection.graphql"
 import { CollectionDefaultHeaderFragmentContainer } from "Apps/Collect/Routes/Collection/Components/Header/DefaultHeader"
 import { Link } from "found"
 import { compact, filter, take } from "lodash"
@@ -20,8 +20,8 @@ import { slugify } from "underscore.string"
 import { EntityHeaderArtistFragmentContainer } from "Components/EntityHeaders/EntityHeaderArtist"
 
 export interface CollectionHeaderProps {
-  collection: Header_collection
-  artworks: Header_artworks
+  collection: Header_collection$data
+  artworks: Header_artworks$data
 }
 
 export const CollectionHeader: React.FC<CollectionHeaderProps> = ({
@@ -74,7 +74,7 @@ export const CollectionHeader: React.FC<CollectionHeaderProps> = ({
 
       {collection.showHeaderArtworksRail && !collection.headerImage && (
         <>
-          <Spacer mt={6} />
+          <Spacer y={6} />
 
           <CollectionDefaultHeaderFragmentContainer
             headerArtworks={artworks}
@@ -85,7 +85,7 @@ export const CollectionHeader: React.FC<CollectionHeaderProps> = ({
         </>
       )}
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       {collection.showFeaturedArtists && featuredArtists && hasMultipleArtists && (
         <>
@@ -144,7 +144,6 @@ export const CollectionFilterFragmentContainer = createFragmentContainer(
       fragment Header_artworks on FilterArtworksConnection {
         ...DefaultHeader_headerArtworks
         merchandisableArtists {
-          ...FollowArtistButton_artist
           ...EntityHeaderArtist_artist
           internalID
           name
@@ -156,8 +155,8 @@ export const CollectionFilterFragmentContainer = createFragmentContainer(
 
 export const getFeaturedArtists = (
   artistsCount: number,
-  collection: Header_collection,
-  merchandisableArtists: Header_artworks["merchandisableArtists"]
+  collection: Header_collection$data,
+  merchandisableArtists: Header_artworks$data["merchandisableArtists"]
 ) => {
   if ((collection?.query?.artistIDs?.length ?? 0) > 0) {
     return compact(

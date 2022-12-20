@@ -3,18 +3,18 @@ import { FormSwitcher } from "Components/Authentication/FormSwitcher"
 import { ModalOptions, ModalType } from "Components/Authentication/Types"
 import { ModalHeader } from "Components/Modal/ModalHeader"
 import { handleSubmit } from "Apps/Authentication/Utils/helpers"
-import { Flex, BoxProps } from "@artsy/palette"
+import { Flex, BoxProps, Text, Spacer } from "@artsy/palette"
 import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
 
 interface AuthStaticProps extends BoxProps {
   type: ModalType
-  meta: { title?: string }
+  meta: { description?: string; title?: string }
   options: ModalOptions
 }
 
 export const AuthStatic: React.FC<AuthStaticProps> = ({
   type,
-  meta: { title },
+  meta: { description, title },
   options,
   ...rest
 }) => {
@@ -30,7 +30,12 @@ export const AuthStatic: React.FC<AuthStaticProps> = ({
         maxWidth={440}
       >
         <ModalHeader title={title} hasLogo />
-
+        {description && (
+          <Text textAlign="center" variant="sm-display">
+            {description}
+          </Text>
+        )}
+        <Spacer y={0.5} />
         <FormSwitcher
           type={type}
           isStatic

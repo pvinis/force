@@ -1,85 +1,39 @@
+/**
+ * @generated SignedSource<<7ad6567256ccacb8d71cadbed4a60835>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DeleteUserAddressInput = {
-    clientMutationId?: string | null | undefined;
-    userAddressID: string;
+  clientMutationId?: string | null;
+  userAddressID: string;
 };
-export type useDeleteAddressMutationVariables = {
-    input: DeleteUserAddressInput;
+export type useDeleteAddressMutation$variables = {
+  input: DeleteUserAddressInput;
 };
-export type useDeleteAddressMutationResponse = {
-    readonly deleteUserAddress: {
-        readonly me: {
-            readonly " $fragmentRefs": FragmentRefs<"SettingsShippingAddresses_me">;
-        } | null;
-        readonly userAddressOrErrors: {
-            readonly errors?: ReadonlyArray<{
-                readonly message: string;
-            }> | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"SettingsShippingAddress_address">;
-        };
+export type useDeleteAddressMutation$data = {
+  readonly deleteUserAddress: {
+    readonly me: {
+      readonly " $fragmentSpreads": FragmentRefs<"SettingsShippingAddresses_me">;
     } | null;
+    readonly userAddressOrErrors: {
+      readonly errors?: ReadonlyArray<{
+        readonly message: string;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"SettingsShippingAddress_address">;
+    };
+  } | null;
 };
 export type useDeleteAddressMutation = {
-    readonly response: useDeleteAddressMutationResponse;
-    readonly variables: useDeleteAddressMutationVariables;
+  response: useDeleteAddressMutation$data;
+  variables: useDeleteAddressMutation$variables;
 };
-
-
-
-/*
-mutation useDeleteAddressMutation(
-  $input: DeleteUserAddressInput!
-) {
-  deleteUserAddress(input: $input) {
-    me {
-      ...SettingsShippingAddresses_me
-      id
-    }
-    userAddressOrErrors {
-      __typename
-      ... on UserAddress {
-        ...SettingsShippingAddress_address
-        id
-      }
-      ... on Errors {
-        errors {
-          message
-        }
-      }
-    }
-  }
-}
-
-fragment SettingsShippingAddress_address on UserAddress {
-  internalID
-  addressLine1
-  addressLine2
-  city
-  country
-  isDefault
-  name
-  phoneNumber
-  postalCode
-  region
-}
-
-fragment SettingsShippingAddresses_me on Me {
-  addresses: addressConnection {
-    edges {
-      node {
-        internalID
-        ...SettingsShippingAddress_address
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -183,6 +137,13 @@ v4 = [
     "args": null,
     "kind": "ScalarField",
     "name": "phoneNumber",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "phoneNumberCountryCode",
     "storageKey": null
   },
   {
@@ -352,14 +313,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ad2a73c3171eda7f4983bb8db99ceca9",
+    "cacheID": "11501358d443cae5078e9a503e6210c3",
     "id": null,
     "metadata": {},
     "name": "useDeleteAddressMutation",
     "operationKind": "mutation",
-    "text": "mutation useDeleteAddressMutation(\n  $input: DeleteUserAddressInput!\n) {\n  deleteUserAddress(input: $input) {\n    me {\n      ...SettingsShippingAddresses_me\n      id\n    }\n    userAddressOrErrors {\n      __typename\n      ... on UserAddress {\n        ...SettingsShippingAddress_address\n        id\n      }\n      ... on Errors {\n        errors {\n          message\n        }\n      }\n    }\n  }\n}\n\nfragment SettingsShippingAddress_address on UserAddress {\n  internalID\n  addressLine1\n  addressLine2\n  city\n  country\n  isDefault\n  name\n  phoneNumber\n  postalCode\n  region\n}\n\nfragment SettingsShippingAddresses_me on Me {\n  addresses: addressConnection {\n    edges {\n      node {\n        internalID\n        ...SettingsShippingAddress_address\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation useDeleteAddressMutation(\n  $input: DeleteUserAddressInput!\n) {\n  deleteUserAddress(input: $input) {\n    me {\n      ...SettingsShippingAddresses_me\n      id\n    }\n    userAddressOrErrors {\n      __typename\n      ... on UserAddress {\n        ...SettingsShippingAddress_address\n        id\n      }\n      ... on Errors {\n        errors {\n          message\n        }\n      }\n    }\n  }\n}\n\nfragment SettingsShippingAddress_address on UserAddress {\n  internalID\n  addressLine1\n  addressLine2\n  city\n  country\n  isDefault\n  name\n  phoneNumber\n  phoneNumberCountryCode\n  postalCode\n  region\n}\n\nfragment SettingsShippingAddresses_me on Me {\n  addresses: addressConnection {\n    edges {\n      node {\n        internalID\n        ...SettingsShippingAddress_address\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '30cd5ab1fde3cfa766e7168a5a5d5911';
+
+(node as any).hash = "30cd5ab1fde3cfa766e7168a5a5d5911";
+
 export default node;

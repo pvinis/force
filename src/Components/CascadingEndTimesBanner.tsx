@@ -1,10 +1,10 @@
 import { createFragmentContainer, graphql } from "react-relay"
 import { FullBleedBanner } from "Components/FullBleedBanner"
 import { getENV } from "Utils/getENV"
-import { CascadingEndTimesBanner_sale } from "__generated__/CascadingEndTimesBanner_sale.graphql"
+import { CascadingEndTimesBanner_sale$data } from "__generated__/CascadingEndTimesBanner_sale.graphql"
 
 interface CascadingEndTimesBannerProps {
-  sale: CascadingEndTimesBanner_sale
+  sale: CascadingEndTimesBanner_sale$data
 }
 
 const CascadingEndTimesBanner: React.FC<CascadingEndTimesBannerProps> = ({
@@ -19,7 +19,7 @@ const CascadingEndTimesBanner: React.FC<CascadingEndTimesBannerProps> = ({
   return (
     <FullBleedBanner variant="brand" dismissable>
       {sale.extendedBiddingIntervalMinutes
-        ? "Closing times may be extended due to last minute competitive bidding"
+        ? "Closing times may be extended due to last-minute competitive bidding"
         : `Lots close at ${sale.cascadingEndTimeIntervalMinutes}-minute intervals`}
       .
       {!!helpArticleLink && (

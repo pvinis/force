@@ -1,84 +1,51 @@
+/**
+ * @generated SignedSource<<f08565ef4b396e24c851d2999c987b0d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FollowArtistPopover_Test_QueryVariables = {
-    artistID: string;
+export type FollowArtistPopover_Test_Query$variables = {
+  artistID: string;
 };
-export type FollowArtistPopover_Test_QueryResponse = {
-    readonly artist: {
-        readonly " $fragmentRefs": FragmentRefs<"FollowArtistPopover_artist">;
+export type FollowArtistPopover_Test_Query$data = {
+  readonly artist: {
+    readonly " $fragmentSpreads": FragmentRefs<"FollowArtistPopover_artist">;
+  } | null;
+};
+export type FollowArtistPopover_Test_Query$rawResponse = {
+  readonly artist: {
+    readonly id: string;
+    readonly related: {
+      readonly suggestedConnection: {
+        readonly edges: ReadonlyArray<{
+          readonly node: {
+            readonly formattedNationalityAndBirthday: string | null;
+            readonly id: string;
+            readonly image: {
+              readonly cropped: {
+                readonly url: string;
+              } | null;
+            } | null;
+            readonly internalID: string;
+            readonly name: string | null;
+            readonly slug: string;
+          } | null;
+        } | null> | null;
+      } | null;
     } | null;
-};
-export type FollowArtistPopover_Test_QueryRawResponse = {
-    readonly artist: ({
-        readonly related: ({
-            readonly suggestedConnection: ({
-                readonly edges: ReadonlyArray<({
-                    readonly node: ({
-                        readonly id: string;
-                        readonly internalID: string;
-                        readonly slug: string;
-                        readonly name: string | null;
-                        readonly formattedNationalityAndBirthday: string | null;
-                        readonly image: ({
-                            readonly cropped: ({
-                                readonly url: string;
-                            }) | null;
-                        }) | null;
-                    }) | null;
-                }) | null> | null;
-            }) | null;
-        }) | null;
-        readonly id: string;
-    }) | null;
+  } | null;
 };
 export type FollowArtistPopover_Test_Query = {
-    readonly response: FollowArtistPopover_Test_QueryResponse;
-    readonly variables: FollowArtistPopover_Test_QueryVariables;
-    readonly rawResponse: FollowArtistPopover_Test_QueryRawResponse;
+  rawResponse: FollowArtistPopover_Test_Query$rawResponse;
+  response: FollowArtistPopover_Test_Query$data;
+  variables: FollowArtistPopover_Test_Query$variables;
 };
-
-
-
-/*
-query FollowArtistPopover_Test_Query(
-  $artistID: String!
-) {
-  artist(id: $artistID) {
-    ...FollowArtistPopover_artist
-    id
-  }
-}
-
-fragment FollowArtistPopoverRow_artist on Artist {
-  slug
-  internalID
-  name
-  formattedNationalityAndBirthday
-  image {
-    cropped(width: 45, height: 45) {
-      url
-    }
-  }
-}
-
-fragment FollowArtistPopover_artist on Artist {
-  related {
-    suggestedConnection(first: 3, excludeFollowedArtists: true, includeFallbackArtists: true) {
-      edges {
-        node {
-          id
-          internalID
-          ...FollowArtistPopoverRow_artist
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -353,5 +320,7 @@ return {
   }
 };
 })();
-(node as any).hash = '70db3c337bc950f984734cba24990a60';
+
+(node as any).hash = "70db3c337bc950f984734cba24990a60";
+
 export default node;

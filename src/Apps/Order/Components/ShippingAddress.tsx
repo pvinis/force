@@ -1,11 +1,11 @@
 import { Text } from "@artsy/palette"
 
-import { ShippingAddress_ship } from "__generated__/ShippingAddress_ship.graphql"
+import { ShippingAddress_ship$data } from "__generated__/ShippingAddress_ship.graphql"
 import { COUNTRY_CODE_TO_COUNTRY_NAME } from "Components/CountrySelect"
 import { createFragmentContainer, graphql } from "react-relay"
 
 export interface ShippingAddressProps {
-  ship: ShippingAddress_ship
+  ship: ShippingAddress_ship$data
   textColor?: string
 }
 
@@ -23,20 +23,20 @@ export const ShippingAddress = ({
   textColor = "black100",
 }: ShippingAddressProps) => (
   <>
-    <Text color={textColor} variant={["xs", "sm"]}>
+    <Text color={textColor} variant="sm">
       {name}
     </Text>
-    <Text color={textColor} variant={["xs", "sm"]}>
+    <Text color={textColor} variant="sm">
       {[addressLine1, (addressLine2 || "").trim()].filter(Boolean).join(", ")}
     </Text>
-    <Text color={textColor} variant={["xs", "sm"]}>
+    <Text color={textColor} variant="sm">
       {city}, {region} {postalCode}
     </Text>
-    <Text color={textColor} variant={["xs", "sm"]}>
+    <Text color={textColor} variant="sm">
       {country && (COUNTRY_CODE_TO_COUNTRY_NAME[country] || country)}
     </Text>
     {phoneNumber && (
-      <Text color={textColor} variant={["xs", "sm"]}>
+      <Text color={textColor} variant="sm">
         {phoneNumber}
       </Text>
     )}

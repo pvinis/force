@@ -1,35 +1,25 @@
+/**
+ * @generated SignedSource<<4b6be75e76e2da7d40e0a551bac592af>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CascadingEndTimesBanner_Test_QueryVariables = {};
-export type CascadingEndTimesBanner_Test_QueryResponse = {
-    readonly sale: {
-        readonly " $fragmentRefs": FragmentRefs<"CascadingEndTimesBanner_sale">;
-    } | null;
+export type CascadingEndTimesBanner_Test_Query$variables = {};
+export type CascadingEndTimesBanner_Test_Query$data = {
+  readonly sale: {
+    readonly " $fragmentSpreads": FragmentRefs<"CascadingEndTimesBanner_sale">;
+  } | null;
 };
 export type CascadingEndTimesBanner_Test_Query = {
-    readonly response: CascadingEndTimesBanner_Test_QueryResponse;
-    readonly variables: CascadingEndTimesBanner_Test_QueryVariables;
+  response: CascadingEndTimesBanner_Test_Query$data;
+  variables: CascadingEndTimesBanner_Test_Query$variables;
 };
-
-
-
-/*
-query CascadingEndTimesBanner_Test_Query {
-  sale(id: "example") {
-    ...CascadingEndTimesBanner_sale
-    id
-  }
-}
-
-fragment CascadingEndTimesBanner_sale on Sale {
-  cascadingEndTimeIntervalMinutes
-  extendedBiddingIntervalMinutes
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -139,5 +129,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b360f718b6b9e0a8aa5cff8fed562039';
+
+(node as any).hash = "b360f718b6b9e0a8aa5cff8fed562039";
+
 export default node;

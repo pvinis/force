@@ -8,6 +8,7 @@ import { useTracking } from "react-tracking"
 
 const logger = createLogger("Components/FlashBanner/EmailConfirmationCTA")
 
+// TODO: Rewrite
 export const EmailConfirmationCTA: React.FC = () => {
   const [afterSubmitContent, setAfterSubmitContent] = React.useState<
     string | null
@@ -53,7 +54,7 @@ export const EmailConfirmationCTA: React.FC = () => {
       <>
         Please verify your email address
         <Button
-          variant="primaryWhite"
+          variant="secondaryWhite"
           onClick={handleSubmit}
           size="small"
           ml={1}

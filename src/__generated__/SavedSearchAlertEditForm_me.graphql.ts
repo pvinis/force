@@ -1,49 +1,54 @@
+/**
+ * @generated SignedSource<<8493abe6b1fa317ea8e5383208800a26>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
+export type UserSearchCriteriaFrequency = "daily" | "instant" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type SavedSearchAlertEditForm_me = {
-    readonly savedSearch: {
-        readonly internalID: string;
-        readonly acquireable: boolean | null;
-        readonly additionalGeneIDs: ReadonlyArray<string>;
-        readonly artistIDs: ReadonlyArray<string> | null;
-        readonly atAuction: boolean | null;
-        readonly attributionClass: ReadonlyArray<string>;
-        readonly colors: ReadonlyArray<string>;
-        readonly dimensionRange: string | null;
-        readonly sizes: ReadonlyArray<string>;
-        readonly width: string | null;
-        readonly height: string | null;
-        readonly inquireableOnly: boolean | null;
-        readonly locationCities: ReadonlyArray<string>;
-        readonly majorPeriods: ReadonlyArray<string>;
-        readonly materialsTerms: ReadonlyArray<string>;
-        readonly offerable: boolean | null;
-        readonly partnerIDs: ReadonlyArray<string>;
-        readonly priceRange: string | null;
-        readonly userAlertSettings: {
-            readonly name: string | null;
-            readonly email: boolean;
-            readonly push: boolean;
-        };
-        readonly labels?: ReadonlyArray<{
-            readonly field: string;
-            readonly value: string;
-            readonly displayValue: string;
-        }> | undefined;
-    } | null;
-    readonly " $refType": "SavedSearchAlertEditForm_me";
+export type SavedSearchAlertEditForm_me$data = {
+  readonly savedSearch: {
+    readonly acquireable: boolean | null;
+    readonly additionalGeneIDs: ReadonlyArray<string>;
+    readonly artistIDs: ReadonlyArray<string> | null;
+    readonly atAuction: boolean | null;
+    readonly attributionClass: ReadonlyArray<string>;
+    readonly colors: ReadonlyArray<string>;
+    readonly dimensionRange: string | null;
+    readonly height: string | null;
+    readonly inquireableOnly: boolean | null;
+    readonly internalID: string;
+    readonly labels?: ReadonlyArray<{
+      readonly displayValue: string;
+      readonly field: string;
+      readonly value: string;
+    }>;
+    readonly locationCities: ReadonlyArray<string>;
+    readonly majorPeriods: ReadonlyArray<string>;
+    readonly materialsTerms: ReadonlyArray<string>;
+    readonly offerable: boolean | null;
+    readonly partnerIDs: ReadonlyArray<string>;
+    readonly priceRange: string | null;
+    readonly sizes: ReadonlyArray<string>;
+    readonly userAlertSettings: {
+      readonly email: boolean;
+      readonly frequency: UserSearchCriteriaFrequency;
+      readonly name: string | null;
+      readonly push: boolean;
+    };
+    readonly width: string | null;
+  } | null;
+  readonly " $fragmentType": "SavedSearchAlertEditForm_me";
 };
-export type SavedSearchAlertEditForm_me$data = SavedSearchAlertEditForm_me;
 export type SavedSearchAlertEditForm_me$key = {
-    readonly " $data"?: SavedSearchAlertEditForm_me$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SavedSearchAlertEditForm_me">;
+  readonly " $data"?: SavedSearchAlertEditForm_me$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SavedSearchAlertEditForm_me">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -230,6 +235,13 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "push",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "frequency",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -280,5 +292,7 @@ const node: ReaderFragment = {
   "type": "Me",
   "abstractKey": null
 };
-(node as any).hash = '1f8ca40d6ff77c4fb56b84763c946395';
+
+(node as any).hash = "cdf4ed6880ed831b6be810a1b79b767a";
+
 export default node;

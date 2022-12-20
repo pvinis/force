@@ -1,41 +1,44 @@
+/**
+ * @generated SignedSource<<7740891ddd1a340047ca117110c40c0a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowsFeaturedShow_show = {
-    readonly id: string;
-    readonly name: string | null;
-    readonly href: string | null;
-    readonly coverImage: {
-        readonly title: string | null;
-        readonly large: {
-            readonly width: number;
-            readonly height: number;
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
-        readonly small: {
-            readonly width: number;
-            readonly height: number;
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type ShowsFeaturedShow_show$data = {
+  readonly coverImage: {
+    readonly large: {
+      readonly height: number;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number;
     } | null;
-    readonly partner: {
-        readonly name?: string | null | undefined;
+    readonly small: {
+      readonly height: number;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"ShowsShowDates_show">;
-    readonly " $refType": "ShowsFeaturedShow_show";
+    readonly title: string | null;
+  } | null;
+  readonly href: string | null;
+  readonly id: string;
+  readonly name: string | null;
+  readonly partner: {
+    readonly name?: string | null;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ShowsShowDates_show">;
+  readonly " $fragmentType": "ShowsFeaturedShow_show";
 };
-export type ShowsFeaturedShow_show$data = ShowsFeaturedShow_show;
 export type ShowsFeaturedShow_show$key = {
-    readonly " $data"?: ShowsFeaturedShow_show$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ShowsFeaturedShow_show">;
+  readonly " $data"?: ShowsFeaturedShow_show$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ShowsFeaturedShow_show">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -45,7 +48,16 @@ var v0 = {
   "name": "name",
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "kind": "Literal",
+  "name": "version",
+  "value": [
+    "normalized",
+    "larger",
+    "large"
+  ]
+},
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -75,7 +87,7 @@ v1 = [
     "storageKey": null
   }
 ],
-v2 = [
+v3 = [
   (v0/*: any*/)
 ];
 return {
@@ -84,6 +96,11 @@ return {
   "metadata": null,
   "name": "ShowsFeaturedShow_show",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ShowsShowDates_show"
+    },
     {
       "alias": null,
       "args": null,
@@ -122,6 +139,7 @@ return {
               "name": "height",
               "value": 683
             },
+            (v1/*: any*/),
             {
               "kind": "Literal",
               "name": "width",
@@ -132,8 +150,8 @@ return {
           "kind": "LinkedField",
           "name": "cropped",
           "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": "cropped(height:683,width:910)"
+          "selections": (v2/*: any*/),
+          "storageKey": "cropped(height:683,version:[\"normalized\",\"larger\",\"large\"],width:910)"
         },
         {
           "alias": "small",
@@ -143,6 +161,7 @@ return {
               "name": "height",
               "value": 450
             },
+            (v1/*: any*/),
             {
               "kind": "Literal",
               "name": "width",
@@ -153,8 +172,8 @@ return {
           "kind": "LinkedField",
           "name": "cropped",
           "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": "cropped(height:450,width:600)"
+          "selections": (v2/*: any*/),
+          "storageKey": "cropped(height:450,version:[\"normalized\",\"larger\",\"large\"],width:600)"
         }
       ],
       "storageKey": null
@@ -169,28 +188,25 @@ return {
       "selections": [
         {
           "kind": "InlineFragment",
-          "selections": (v2/*: any*/),
+          "selections": (v3/*: any*/),
           "type": "Partner",
           "abstractKey": null
         },
         {
           "kind": "InlineFragment",
-          "selections": (v2/*: any*/),
+          "selections": (v3/*: any*/),
           "type": "ExternalPartner",
           "abstractKey": null
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ShowsShowDates_show"
     }
   ],
   "type": "Show",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'd1d89a35176a8f420cb68c7a2e5289c4';
+
+(node as any).hash = "4bd9cd78adb854970d61abc9a9850747";
+
 export default node;

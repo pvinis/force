@@ -1,128 +1,25 @@
+/**
+ * @generated SignedSource<<1ac76c610b66e56bdd11327d36413314>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserBidHistory_Test_QueryVariables = {};
-export type UserBidHistory_Test_QueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"UserBidHistory_me">;
-    } | null;
+export type UserBidHistory_Test_Query$variables = {};
+export type UserBidHistory_Test_Query$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"UserBidHistory_me">;
+  } | null;
 };
 export type UserBidHistory_Test_Query = {
-    readonly response: UserBidHistory_Test_QueryResponse;
-    readonly variables: UserBidHistory_Test_QueryVariables;
+  response: UserBidHistory_Test_Query$data;
+  variables: UserBidHistory_Test_Query$variables;
 };
-
-
-
-/*
-query UserBidHistory_Test_Query {
-  me {
-    ...UserBidHistory_me
-    id
-  }
-}
-
-fragment Details_artwork on Artwork {
-  href
-  title
-  date
-  sale_message: saleMessage
-  cultural_maker: culturalMaker
-  artists(shallow: true) {
-    id
-    href
-    name
-  }
-  collecting_institution: collectingInstitution
-  partner(shallow: true) {
-    name
-    href
-    id
-  }
-  sale {
-    endAt
-    cascadingEndTimeIntervalMinutes
-    extendedBiddingIntervalMinutes
-    startAt
-    is_auction: isAuction
-    is_closed: isClosed
-    id
-  }
-  sale_artwork: saleArtwork {
-    lotID
-    lotLabel
-    endAt
-    extendedBiddingEndAt
-    formattedEndDateTime
-    counts {
-      bidder_positions: bidderPositions
-    }
-    highest_bid: highestBid {
-      display
-    }
-    opening_bid: openingBid {
-      display
-    }
-    id
-  }
-  ...NewSaveButton_artwork
-  ...HoverDetails_artwork
-}
-
-fragment HoverDetails_artwork on Artwork {
-  internalID
-  attributionClass {
-    name
-    id
-  }
-  mediumType {
-    filterGene {
-      name
-      id
-    }
-  }
-}
-
-fragment NewSaveButton_artwork on Artwork {
-  id
-  internalID
-  slug
-  is_saved: isSaved
-  title
-}
-
-fragment SettingsAuctionsLotStanding_lotStanding on LotStanding {
-  isLeadingBidder
-  saleArtwork {
-    lotLabel
-    sale {
-      isClosed
-      id
-    }
-    artwork {
-      ...Details_artwork
-      href
-      image {
-        cropped(height: 100, width: 100) {
-          src
-          srcSet
-        }
-      }
-      id
-    }
-    id
-  }
-}
-
-fragment UserBidHistory_me on Me {
-  inactiveLotStandings: lotStandings(live: false) {
-    ...SettingsAuctionsLotStanding_lotStanding
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -347,6 +244,54 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "culturalMaker",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Artist",
+                        "kind": "LinkedField",
+                        "name": "artist",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ArtistTargetSupply",
+                            "kind": "LinkedField",
+                            "name": "targetSupply",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "isP1",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          (v1/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ArtworkPriceInsights",
+                        "kind": "LinkedField",
+                        "name": "marketPriceInsights",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "demandRank",
+                            "storageKey": null
+                          }
+                        ],
                         "storageKey": null
                       },
                       {
@@ -622,7 +567,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1da3f47c2b383eaf6b9a230574c9ac90",
+    "cacheID": "30cf8eedabb3d7803f4394698627c9ea",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -647,6 +592,20 @@ return {
           "plural": false,
           "type": "Artwork"
         },
+        "me.inactiveLotStandings.saleArtwork.artwork.artist": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "Artist"
+        },
+        "me.inactiveLotStandings.saleArtwork.artwork.artist.id": (v8/*: any*/),
+        "me.inactiveLotStandings.saleArtwork.artwork.artist.targetSupply": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "ArtistTargetSupply"
+        },
+        "me.inactiveLotStandings.saleArtwork.artwork.artist.targetSupply.isP1": (v9/*: any*/),
         "me.inactiveLotStandings.saleArtwork.artwork.artists": {
           "enumValues": null,
           "nullable": true,
@@ -685,6 +644,18 @@ return {
         "me.inactiveLotStandings.saleArtwork.artwork.image.cropped.srcSet": (v12/*: any*/),
         "me.inactiveLotStandings.saleArtwork.artwork.internalID": (v8/*: any*/),
         "me.inactiveLotStandings.saleArtwork.artwork.is_saved": (v9/*: any*/),
+        "me.inactiveLotStandings.saleArtwork.artwork.marketPriceInsights": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "ArtworkPriceInsights"
+        },
+        "me.inactiveLotStandings.saleArtwork.artwork.marketPriceInsights.demandRank": {
+          "enumValues": null,
+          "nullable": true,
+          "plural": false,
+          "type": "Float"
+        },
         "me.inactiveLotStandings.saleArtwork.artwork.mediumType": {
           "enumValues": null,
           "nullable": true,
@@ -761,9 +732,11 @@ return {
     },
     "name": "UserBidHistory_Test_Query",
     "operationKind": "query",
-    "text": "query UserBidHistory_Test_Query {\n  me {\n    ...UserBidHistory_me\n    id\n  }\n}\n\nfragment Details_artwork on Artwork {\n  href\n  title\n  date\n  sale_message: saleMessage\n  cultural_maker: culturalMaker\n  artists(shallow: true) {\n    id\n    href\n    name\n  }\n  collecting_institution: collectingInstitution\n  partner(shallow: true) {\n    name\n    href\n    id\n  }\n  sale {\n    endAt\n    cascadingEndTimeIntervalMinutes\n    extendedBiddingIntervalMinutes\n    startAt\n    is_auction: isAuction\n    is_closed: isClosed\n    id\n  }\n  sale_artwork: saleArtwork {\n    lotID\n    lotLabel\n    endAt\n    extendedBiddingEndAt\n    formattedEndDateTime\n    counts {\n      bidder_positions: bidderPositions\n    }\n    highest_bid: highestBid {\n      display\n    }\n    opening_bid: openingBid {\n      display\n    }\n    id\n  }\n  ...NewSaveButton_artwork\n  ...HoverDetails_artwork\n}\n\nfragment HoverDetails_artwork on Artwork {\n  internalID\n  attributionClass {\n    name\n    id\n  }\n  mediumType {\n    filterGene {\n      name\n      id\n    }\n  }\n}\n\nfragment NewSaveButton_artwork on Artwork {\n  id\n  internalID\n  slug\n  is_saved: isSaved\n  title\n}\n\nfragment SettingsAuctionsLotStanding_lotStanding on LotStanding {\n  isLeadingBidder\n  saleArtwork {\n    lotLabel\n    sale {\n      isClosed\n      id\n    }\n    artwork {\n      ...Details_artwork\n      href\n      image {\n        cropped(height: 100, width: 100) {\n          src\n          srcSet\n        }\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment UserBidHistory_me on Me {\n  inactiveLotStandings: lotStandings(live: false) {\n    ...SettingsAuctionsLotStanding_lotStanding\n  }\n}\n"
+    "text": "query UserBidHistory_Test_Query {\n  me {\n    ...UserBidHistory_me\n    id\n  }\n}\n\nfragment Details_artwork on Artwork {\n  href\n  title\n  date\n  sale_message: saleMessage\n  cultural_maker: culturalMaker\n  artist {\n    targetSupply {\n      isP1\n    }\n    id\n  }\n  marketPriceInsights {\n    demandRank\n  }\n  artists(shallow: true) {\n    id\n    href\n    name\n  }\n  collecting_institution: collectingInstitution\n  partner(shallow: true) {\n    name\n    href\n    id\n  }\n  sale {\n    endAt\n    cascadingEndTimeIntervalMinutes\n    extendedBiddingIntervalMinutes\n    startAt\n    is_auction: isAuction\n    is_closed: isClosed\n    id\n  }\n  sale_artwork: saleArtwork {\n    lotID\n    lotLabel\n    endAt\n    extendedBiddingEndAt\n    formattedEndDateTime\n    counts {\n      bidder_positions: bidderPositions\n    }\n    highest_bid: highestBid {\n      display\n    }\n    opening_bid: openingBid {\n      display\n    }\n    id\n  }\n  ...NewSaveButton_artwork\n  ...HoverDetails_artwork\n}\n\nfragment HoverDetails_artwork on Artwork {\n  internalID\n  attributionClass {\n    name\n    id\n  }\n  mediumType {\n    filterGene {\n      name\n      id\n    }\n  }\n}\n\nfragment NewSaveButton_artwork on Artwork {\n  id\n  internalID\n  slug\n  is_saved: isSaved\n  title\n}\n\nfragment SettingsAuctionsLotStanding_lotStanding on LotStanding {\n  isLeadingBidder\n  saleArtwork {\n    lotLabel\n    sale {\n      isClosed\n      id\n    }\n    artwork {\n      ...Details_artwork\n      href\n      image {\n        cropped(height: 100, width: 100) {\n          src\n          srcSet\n        }\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment UserBidHistory_me on Me {\n  inactiveLotStandings: lotStandings(live: false) {\n    ...SettingsAuctionsLotStanding_lotStanding\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'aab7c7a1013e923a09c9119116d89fa3';
+
+(node as any).hash = "aab7c7a1013e923a09c9119116d89fa3";
+
 export default node;

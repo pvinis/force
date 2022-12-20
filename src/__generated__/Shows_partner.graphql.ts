@@ -1,45 +1,48 @@
+/**
+ * @generated SignedSource<<f9cee07a9797357a38ca32d9ee6a6601>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Shows_partner = {
-    readonly slug: string;
-    readonly featuredEvents: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly isFeatured: boolean | null;
-                readonly internalID: string;
-                readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly currentEvents: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-            } | null;
-            readonly " $fragmentRefs": FragmentRefs<"ShowEvents_edges">;
-        } | null> | null;
-    } | null;
-    readonly upcomingEvents: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-            } | null;
-            readonly " $fragmentRefs": FragmentRefs<"ShowEvents_edges">;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "Shows_partner";
+export type Shows_partner$data = {
+  readonly currentEvents: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CellShow_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly featuredEvents: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly isFeatured: boolean | null;
+        readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly slug: string;
+  readonly upcomingEvents: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CellShow_show">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly " $fragmentType": "Shows_partner";
 };
-export type Shows_partner$data = Shows_partner;
 export type Shows_partner$key = {
-    readonly " $data"?: Shows_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Shows_partner">;
+  readonly " $data"?: Shows_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Shows_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -76,14 +79,14 @@ v3 = [
         "name": "node",
         "plural": false,
         "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CellShow_show"
+          },
           (v1/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "ShowEvents_edges"
       }
     ],
     "storageKey": null
@@ -206,5 +209,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '0cd7aab15e111539c7884ec4b671d784';
+
+(node as any).hash = "a8a169083bf31768bbec1a51531ed995";
+
 export default node;

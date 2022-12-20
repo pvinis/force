@@ -1,34 +1,25 @@
+/**
+ * @generated SignedSource<<92c2441035dfd577adef6b27d537bcf9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type settingsRoutes_SettingsQueryVariables = {};
-export type settingsRoutes_SettingsQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"SettingsApp_me">;
-    } | null;
+export type settingsRoutes_SettingsQuery$variables = {};
+export type settingsRoutes_SettingsQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"SettingsApp_me">;
+  } | null;
 };
 export type settingsRoutes_SettingsQuery = {
-    readonly response: settingsRoutes_SettingsQueryResponse;
-    readonly variables: settingsRoutes_SettingsQueryVariables;
+  response: settingsRoutes_SettingsQuery$data;
+  variables: settingsRoutes_SettingsQuery$variables;
 };
-
-
-
-/*
-query settingsRoutes_SettingsQuery {
-  me @principalField {
-    ...SettingsApp_me
-    id
-  }
-}
-
-fragment SettingsApp_me on Me {
-  name
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -99,5 +90,7 @@ const node: ConcreteRequest = {
     "text": "query settingsRoutes_SettingsQuery {\n  me @principalField {\n    ...SettingsApp_me\n    id\n  }\n}\n\nfragment SettingsApp_me on Me {\n  name\n}\n"
   }
 };
-(node as any).hash = '2110a4436f8f780bd8c2218f9081f92f';
+
+(node as any).hash = "2110a4436f8f780bd8c2218f9081f92f";
+
 export default node;

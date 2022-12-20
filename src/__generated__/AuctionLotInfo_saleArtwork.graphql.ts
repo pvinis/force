@@ -1,43 +1,46 @@
+/**
+ * @generated SignedSource<<24731c3050ebebcc6c486319fd2c1473>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AuctionLotInfo_saleArtwork = {
-    readonly counts: {
-        readonly bidderPositions: number | null;
+export type AuctionLotInfo_saleArtwork$data = {
+  readonly artwork: {
+    readonly artistNames: string | null;
+    readonly date: string | null;
+    readonly image: {
+      readonly resized: {
+        readonly height: number | null;
+        readonly src: string;
+        readonly srcSet: string;
+        readonly width: number | null;
+      } | null;
     } | null;
-    readonly lotLabel: string | null;
-    readonly currentBid: {
-        readonly display: string | null;
-    } | null;
-    readonly formattedEndDateTime: string | null;
-    readonly artwork: {
-        readonly internalID: string;
-        readonly date: string | null;
-        readonly title: string | null;
-        readonly image: {
-            readonly resized: {
-                readonly src: string;
-                readonly srcSet: string;
-                readonly width: number | null;
-                readonly height: number | null;
-            } | null;
-        } | null;
-        readonly imageUrl: string | null;
-        readonly artistNames: string | null;
-        readonly slug: string;
-    } | null;
-    readonly " $refType": "AuctionLotInfo_saleArtwork";
+    readonly imageUrl: string | null;
+    readonly internalID: string;
+    readonly slug: string;
+    readonly title: string | null;
+  } | null;
+  readonly counts: {
+    readonly bidderPositions: any | null;
+  } | null;
+  readonly currentBid: {
+    readonly display: string | null;
+  } | null;
+  readonly formattedEndDateTime: string | null;
+  readonly lotLabel: string | null;
+  readonly " $fragmentType": "AuctionLotInfo_saleArtwork";
 };
-export type AuctionLotInfo_saleArtwork$data = AuctionLotInfo_saleArtwork;
 export type AuctionLotInfo_saleArtwork$key = {
-    readonly " $data"?: AuctionLotInfo_saleArtwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AuctionLotInfo_saleArtwork">;
+  readonly " $data"?: AuctionLotInfo_saleArtwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AuctionLotInfo_saleArtwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -229,5 +232,7 @@ const node: ReaderFragment = {
   "type": "SaleArtwork",
   "abstractKey": null
 };
-(node as any).hash = '013371f8cc17dd7db45b7a1d66c61f11';
+
+(node as any).hash = "013371f8cc17dd7db45b7a1d66c61f11";
+
 export default node;

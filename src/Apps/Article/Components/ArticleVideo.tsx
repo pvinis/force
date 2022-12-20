@@ -22,16 +22,16 @@ import { HorizontalPadding } from "Apps/Components/HorizontalPadding"
 import { ArticleAd } from "./ArticleAd"
 import { ArticleShare } from "Components/ArticleShare"
 import { useMode } from "Utils/Hooks/useMode"
-import { ArticleVideo_article } from "__generated__/ArticleVideo_article.graphql"
+import { ArticleVideo_article$data } from "__generated__/ArticleVideo_article.graphql"
 import { ArticleSponsorFragmentContainer } from "./ArticleSponsor"
 import { RouterLink } from "System/Router/RouterLink"
 import { ArticleSeriesItemFragmentContainer } from "./ArticleSeriesItem"
 import { ArticleHTML } from "./ArticleHTML"
-import { useArticleTracking } from "../useArticleTracking"
+import { useArticleTracking } from "Apps/Article/useArticleTracking"
 import { useFullBleedHeaderHeight } from "Components/FullBleedHeader"
 
 interface ArticleVideoProps {
-  article: ArticleVideo_article
+  article: ArticleVideo_article$data
 }
 
 const ArticleVideo: FC<ArticleVideoProps> = ({ article }) => {
@@ -219,7 +219,7 @@ const ArticleVideo: FC<ArticleVideoProps> = ({ article }) => {
         )}
       </GridColumns>
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <FullBleed bg="black5" p={1}>
         <ArticleAd unit="Desktop_InContentLB2" size="970x250" />

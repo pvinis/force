@@ -1,7 +1,6 @@
-import { FC, Fragment } from "react"
+import { FC } from "react"
 import {
   Box,
-  EntityHeader,
   Flex,
   Shelf,
   Skeleton,
@@ -13,37 +12,25 @@ import { graphql, createFragmentContainer } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { extractNodes } from "Utils/extractNodes"
 import { CategoryRailQuery } from "__generated__/CategoryRailQuery.graphql"
-import { CategoryRail_category } from "__generated__/CategoryRail_category.graphql"
-import { ShelfArtworkFragmentContainer } from "./Artwork/ShelfArtwork"
-import { FollowGeneButtonFragmentContainer } from "./FollowButton/FollowGeneButton"
+import { CategoryRail_category$data } from "__generated__/CategoryRail_category.graphql"
+import {
+  ShelfArtworkFragmentContainer,
+  ShelfArtworkPlaceholder,
+} from "./Artwork/ShelfArtwork"
+import { EntityHeaderGeneFragmentContainer } from "./EntityHeaders/EntityHeaderGene"
 
 interface CategoryRailProps {
-  category: CategoryRail_category
+  category: CategoryRail_category$data
 }
 
 const CategoryRail: FC<CategoryRailProps> = ({ category }) => {
   if (!category || !category.name) return null
 
-  const artworks = extractNodes(category.filterArtworksConnection)
+  const artworks = extractNodes(category.filterArtworks)
 
   return (
     <>
-      <EntityHeader
-        name={category.name}
-        initials={category.name[0]}
-        href={category.href!}
-        image={{
-          src: category.avatar?.cropped?.src,
-          srcSet: category.avatar?.cropped?.srcSet,
-        }}
-        FollowButton={
-          <FollowGeneButtonFragmentContainer gene={category} size="small">
-            Follow
-          </FollowGeneButtonFragmentContainer>
-        }
-        mb={2}
-      />
-
+      <EntityHeaderGeneFragmentContainer gene={category} />
       {artworks.length > 0 ? (
         <Shelf>
           {artworks.map(artwork => {
@@ -78,23 +65,7 @@ export const CATEGORY_RAIL_PLACEHOLDER = (
 
     <Shelf>
       {[...new Array(10)].map((_, i) => {
-        return (
-          <Fragment key={i}>
-            <SkeletonBox
-              width={200}
-              height={[
-                [100, 150, 200, 250][i % 4],
-                [100, 320, 200, 250][i % 4],
-              ]}
-              mb={1}
-            />
-
-            <SkeletonText variant="sm-display">Category Name</SkeletonText>
-            <SkeletonText variant="sm-display">Artwork Title</SkeletonText>
-            <SkeletonText variant="xs">Partner</SkeletonText>
-            <SkeletonText variant="xs">US$0,000</SkeletonText>
-          </Fragment>
-        )
+        return <ShelfArtworkPlaceholder key={i} index={i} />
       })}
     </Shelf>
   </Skeleton>
@@ -105,16 +76,10 @@ export const CategoryRailFragmentContainer = createFragmentContainer(
   {
     category: graphql`
       fragment CategoryRail_category on Gene {
+        ...EntityHeaderGene_gene
         name
         href
-        avatar: image {
-          cropped(width: 45, height: 45) {
-            src
-            srcSet
-          }
-        }
-        ...FollowGeneButton_gene
-        filterArtworksConnection(first: 10) {
+        filterArtworks: filterArtworksConnection(first: 10) {
           edges {
             node {
               internalID

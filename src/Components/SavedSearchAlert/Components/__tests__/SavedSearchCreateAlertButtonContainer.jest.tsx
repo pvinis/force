@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react"
 import { useSystemContext } from "System/useSystemContext"
 import { useTracking } from "react-tracking"
 import { openAuthToSatisfyIntent, AuthModalOptions } from "Utils/openAuthModal"
-import { mediator } from "lib/mediator"
+import { mediator } from "Server/mediator"
 import { SavedSearchEntity } from "../../types"
 import { OwnerType } from "@artsy/cohesion"
 import { SavedSearchCreateAlertButtonContainer } from "../SavedSearchCreateAlertButtonContainer"
@@ -42,6 +42,7 @@ const getAuthModalOptions = () => {
       objectId: "owner-slug",
     },
     contextModule: "artworkGrid",
+    copy: "Sign up to create an alert",
     intent: "createAlert",
     redirectTo: "http://localhost/",
   } as AuthModalOptions
@@ -148,6 +149,7 @@ describe("SavedSearchCreateAlertButtonContainer", () => {
           objectId: "owner-slug",
         },
         contextModule: "artworkGrid",
+        copy: "Sign up to create an alert",
         intent: "createAlert",
         redirectTo: "http://localhost/",
       })

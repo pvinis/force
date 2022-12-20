@@ -1,26 +1,29 @@
+/**
+ * @generated SignedSource<<c06a3a8869bbb60e1e3fd128fbd4ba5a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairCard_fair = {
-    readonly name: string | null;
-    readonly image: {
-        readonly cropped: {
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type FairCard_fair$data = {
+  readonly image: {
+    readonly cropped: {
+      readonly src: string;
+      readonly srcSet: string;
     } | null;
-    readonly " $refType": "FairCard_fair";
+  } | null;
+  readonly name: string | null;
+  readonly " $fragmentType": "FairCard_fair";
 };
-export type FairCard_fair$data = FairCard_fair;
 export type FairCard_fair$key = {
-    readonly " $data"?: FairCard_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairCard_fair">;
+  readonly " $data"?: FairCard_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairCard_fair">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -91,5 +94,7 @@ const node: ReaderFragment = {
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = 'd8b252f0329c98b0410991b54b861208';
+
+(node as any).hash = "d8b252f0329c98b0410991b54b861208";
+
 export default node;

@@ -1,28 +1,31 @@
+/**
+ * @generated SignedSource<<90f9bd8276f692ea20f05f2d776fc495>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RssArticlesQuery_image = {
-    readonly image: {
-        readonly caption: string | null;
-        readonly resized: {
-            readonly width: number | null;
-            readonly height: number | null;
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type RssArticlesQuery_image$data = {
+  readonly image: {
+    readonly caption: string | null;
+    readonly resized: {
+      readonly height: number | null;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number | null;
     } | null;
-    readonly " $refType": "RssArticlesQuery_image";
+  } | null;
+  readonly " $fragmentType": "RssArticlesQuery_image";
 };
-export type RssArticlesQuery_image$data = RssArticlesQuery_image;
 export type RssArticlesQuery_image$key = {
-    readonly " $data"?: RssArticlesQuery_image$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RssArticlesQuery_image">;
+  readonly " $data"?: RssArticlesQuery_image$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RssArticlesQuery_image">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -97,5 +100,7 @@ const node: ReaderFragment = {
   "type": "ArticleImageSection",
   "abstractKey": null
 };
-(node as any).hash = '7cb5893d8865f5400a25e45f85de1556';
+
+(node as any).hash = "7cb5893d8865f5400a25e45f85de1556";
+
 export default node;

@@ -1,32 +1,38 @@
+/**
+ * @generated SignedSource<<e3d5d1b6661a51a4a2cd997269e7d378>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowPaginatedEvents_partner = {
-    readonly slug: string;
-    readonly showsList: {
-        readonly pageInfo: {
-            readonly hasNextPage: boolean;
-            readonly endCursor: string | null;
-        };
-        readonly pageCursors: {
-            readonly " $fragmentRefs": FragmentRefs<"Pagination_pageCursors">;
-        };
-        readonly edges: ReadonlyArray<{
-            readonly " $fragmentRefs": FragmentRefs<"ShowEvents_edges">;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "ShowPaginatedEvents_partner";
+export type ShowPaginatedEvents_partner$data = {
+  readonly showsConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CellShow_show">;
+      } | null;
+    } | null> | null;
+    readonly pageCursors: {
+      readonly " $fragmentSpreads": FragmentRefs<"Pagination_pageCursors">;
+    };
+    readonly pageInfo: {
+      readonly endCursor: string | null;
+      readonly hasNextPage: boolean;
+    };
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "ShowPaginatedEvents_partner";
 };
-export type ShowPaginatedEvents_partner$data = ShowPaginatedEvents_partner;
 export type ShowPaginatedEvents_partner$key = {
-    readonly " $data"?: ShowPaginatedEvents_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ShowPaginatedEvents_partner">;
+  readonly " $data"?: ShowPaginatedEvents_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ShowPaginatedEvents_partner">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -78,7 +84,7 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": "showsList",
+      "alias": null,
       "args": [
         {
           "kind": "Variable",
@@ -171,9 +177,27 @@ const node: ReaderFragment = {
           "plural": true,
           "selections": [
             {
+              "alias": null,
               "args": null,
-              "kind": "FragmentSpread",
-              "name": "ShowEvents_edges"
+              "concreteType": "Show",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "CellShow_show"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "internalID",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -185,5 +209,7 @@ const node: ReaderFragment = {
   "type": "Partner",
   "abstractKey": null
 };
-(node as any).hash = '0af75016e048646a50556989af3d7c4e';
+
+(node as any).hash = "0a1bf8bd7ffdc937a5586d78cd6b7a1b";
+
 export default node;

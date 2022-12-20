@@ -1,49 +1,36 @@
+/**
+ * @generated SignedSource<<7775561abde35d27b0bef4f78597cc85>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type UploadPhotos_ImageRefetch_QueryVariables = {
-    id: string;
-    sessionID?: string | null | undefined;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type UploadPhotos_ImageRefetch_Query$variables = {
+  id: string;
+  sessionID?: string | null;
 };
-export type UploadPhotos_ImageRefetch_QueryResponse = {
-    readonly submission: {
-        readonly externalId: string;
-        readonly assets: ReadonlyArray<{
-            readonly id: string;
-            readonly imageUrls: unknown | null;
-            readonly geminiToken: string | null;
-            readonly size: string | null;
-            readonly filename: string | null;
-        } | null> | null;
-    } | null;
+export type UploadPhotos_ImageRefetch_Query$data = {
+  readonly submission: {
+    readonly assets: ReadonlyArray<{
+      readonly filename: string | null;
+      readonly geminiToken: string | null;
+      readonly id: string;
+      readonly imageUrls: any | null;
+      readonly size: string | null;
+    } | null> | null;
+    readonly externalId: string;
+    readonly userEmail: string | null;
+    readonly userId: string;
+  } | null;
 };
 export type UploadPhotos_ImageRefetch_Query = {
-    readonly response: UploadPhotos_ImageRefetch_QueryResponse;
-    readonly variables: UploadPhotos_ImageRefetch_QueryVariables;
+  response: UploadPhotos_ImageRefetch_Query$data;
+  variables: UploadPhotos_ImageRefetch_Query$variables;
 };
-
-
-
-/*
-query UploadPhotos_ImageRefetch_Query(
-  $id: ID!
-  $sessionID: String
-) {
-  submission(externalId: $id, sessionID: $sessionID) {
-    externalId
-    assets {
-      id
-      imageUrls
-      geminiToken
-      size
-      filename
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -81,10 +68,24 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "userId",
   "storageKey": null
 },
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "userEmail",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "ConsignmentSubmissionCategoryAsset",
@@ -92,7 +93,7 @@ v4 = {
   "name": "assets",
   "plural": true,
   "selections": [
-    (v3/*: any*/),
+    (v5/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -140,7 +141,9 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v4/*: any*/)
+          (v3/*: any*/),
+          (v4/*: any*/),
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
@@ -163,22 +166,26 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           (v4/*: any*/),
-          (v3/*: any*/)
+          (v6/*: any*/),
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f813b36dce7c3d23e2dca6faf1f7aacb",
+    "cacheID": "0818a08f95bb5e0cfdb2491b06b10213",
     "id": null,
     "metadata": {},
     "name": "UploadPhotos_ImageRefetch_Query",
     "operationKind": "query",
-    "text": "query UploadPhotos_ImageRefetch_Query(\n  $id: ID!\n  $sessionID: String\n) {\n  submission(externalId: $id, sessionID: $sessionID) {\n    externalId\n    assets {\n      id\n      imageUrls\n      geminiToken\n      size\n      filename\n    }\n    id\n  }\n}\n"
+    "text": "query UploadPhotos_ImageRefetch_Query(\n  $id: ID!\n  $sessionID: String\n) {\n  submission(externalId: $id, sessionID: $sessionID) {\n    externalId\n    userId\n    userEmail\n    assets {\n      id\n      imageUrls\n      geminiToken\n      size\n      filename\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2f7b3686a145a8ea1a718ae0baf9bac3';
+
+(node as any).hash = "2f7b3686a145a8ea1a718ae0baf9bac3";
+
 export default node;

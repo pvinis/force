@@ -1,63 +1,31 @@
+/**
+ * @generated SignedSource<<7be6339356175e78f429391269bc1abd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowBanner_Test_QueryVariables = {};
-export type ShowBanner_Test_QueryResponse = {
-    readonly partner: {
-        readonly showsConnection: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
-                } | null;
-            } | null> | null;
+export type ShowBanner_Test_Query$variables = {};
+export type ShowBanner_Test_Query$data = {
+  readonly partner: {
+    readonly showsConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
         } | null;
+      } | null> | null;
     } | null;
+  } | null;
 };
 export type ShowBanner_Test_Query = {
-    readonly response: ShowBanner_Test_QueryResponse;
-    readonly variables: ShowBanner_Test_QueryVariables;
+  response: ShowBanner_Test_Query$data;
+  variables: ShowBanner_Test_Query$variables;
 };
-
-
-
-/*
-query ShowBanner_Test_Query {
-  partner(id: "white-cube") @principalField {
-    showsConnection(first: 1) {
-      edges {
-        node {
-          ...ShowBanner_show
-          id
-        }
-      }
-    }
-    id
-  }
-}
-
-fragment ShowBanner_show on Show {
-  slug
-  name
-  href
-  isFairBooth
-  exhibitionPeriod
-  status
-  description
-  location {
-    city
-    id
-  }
-  coverImage {
-    medium: cropped(width: 600, height: 480, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -293,7 +261,7 @@ return {
                               {
                                 "kind": "Literal",
                                 "name": "width",
-                                "value": 600
+                                "value": 910
                               }
                             ],
                             "concreteType": "CroppedImageUrl",
@@ -316,7 +284,7 @@ return {
                                 "storageKey": null
                               }
                             ],
-                            "storageKey": "cropped(height:480,version:[\"normalized\",\"larger\",\"large\"],width:600)"
+                            "storageKey": "cropped(height:480,version:[\"normalized\",\"larger\",\"large\"],width:910)"
                           }
                         ],
                         "storageKey": null
@@ -338,7 +306,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b341d9493a617df6dabcc29ca7521c68",
+    "cacheID": "a07d89381589fae43dac97a130582b6d",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -406,9 +374,11 @@ return {
     },
     "name": "ShowBanner_Test_Query",
     "operationKind": "query",
-    "text": "query ShowBanner_Test_Query {\n  partner(id: \"white-cube\") @principalField {\n    showsConnection(first: 1) {\n      edges {\n        node {\n          ...ShowBanner_show\n          id\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ShowBanner_show on Show {\n  slug\n  name\n  href\n  isFairBooth\n  exhibitionPeriod\n  status\n  description\n  location {\n    city\n    id\n  }\n  coverImage {\n    medium: cropped(width: 600, height: 480, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
+    "text": "query ShowBanner_Test_Query {\n  partner(id: \"white-cube\") @principalField {\n    showsConnection(first: 1) {\n      edges {\n        node {\n          ...ShowBanner_show\n          id\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ShowBanner_show on Show {\n  slug\n  name\n  href\n  isFairBooth\n  exhibitionPeriod\n  status\n  description\n  location {\n    city\n    id\n  }\n  coverImage {\n    medium: cropped(width: 910, height: 480, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '115546c798271ef60e1a328d523c1665';
+
+(node as any).hash = "115546c798271ef60e1a328d523c1665";
+
 export default node;

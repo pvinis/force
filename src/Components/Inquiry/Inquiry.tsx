@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 import {
   InquiryContextContextQueryRenderer,
   InquiryProvider,
@@ -34,38 +34,31 @@ export const Inquiry: React.FC<InquiryProps> = ({
 }
 
 const InquiryDialog: React.FC = () => {
-  const { onClose, current, View } = useInquiryContext()
+  const { onClose, next, current, View } = useInquiryContext()
 
-  switch (current) {
-    case "Confirmation":
-    case "Done":
-      return <View />
+  return (
+    <Box
+      position="relative"
+      bg="white100"
+      width={["100vw", current === "Confirmation" ? 450 : 550]}
+      height={["100vh", "100%"]}
+      p={2}
+      style={{ boxShadow: DROP_SHADOW }}
+    >
+      <Clickable
+        position="absolute"
+        right={0}
+        top={0}
+        pt={2}
+        px={1}
+        mx={0.5}
+        onClick={current === "BasicInfo" ? next : onClose}
+        aria-label={current === "BasicInfo" ? "Skip" : "Close"}
+      >
+        <CloseIcon fill="black100" display="block" />
+      </Clickable>
 
-    default:
-      return (
-        <Box
-          position="relative"
-          bg="white100"
-          width={["100vw", 550]}
-          height={["100vh", "100%"]}
-          p={2}
-          style={{ boxShadow: DROP_SHADOW }}
-        >
-          <Clickable
-            position="absolute"
-            right={0}
-            top={0}
-            pt={2}
-            px={1}
-            mx={0.5}
-            onClick={onClose}
-            aria-label="Close"
-          >
-            <CloseIcon fill="black100" display="block" />
-          </Clickable>
-
-          <View />
-        </Box>
-      )
-  }
+      <View />
+    </Box>
+  )
 }

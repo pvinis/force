@@ -17,7 +17,7 @@ import { themeGet } from "@styled-system/theme-get"
 
 import ArtworkDetails from "Components/Artwork/Metadata"
 import { DetailsHeader } from "./DetailsHeader"
-import { DetailsSidebar_conversation } from "__generated__/DetailsSidebar_conversation.graphql"
+import { DetailsSidebar_conversation$data } from "__generated__/DetailsSidebar_conversation.graphql"
 import { extractNodes } from "Utils/extractNodes"
 import { TransactionDetailsSummaryItemFragmentContainer } from "Apps/Order/Components/TransactionDetailsSummaryItem"
 import { RouterLink } from "System/Router/RouterLink"
@@ -74,7 +74,7 @@ const TruncatedLine = styled(Text)`
 `
 
 interface DetailsProps extends FlexProps {
-  conversation: DetailsSidebar_conversation
+  conversation: DetailsSidebar_conversation$data
   showDetails: boolean
   setShowDetails: (showDetails: boolean) => void
 }
@@ -189,7 +189,7 @@ export const DetailsSidebar: FC<DetailsProps> = ({
             <Text variant="sm-display" mb={2} fontWeight="bold">
               Attachments
             </Text>
-            <Join separator={<Spacer mb={1} />}>{attachmentItems}</Join>
+            <Join separator={<Spacer y={1} />}>{attachmentItems}</Join>
           </Box>
         </StackableBorderBox>
       )}

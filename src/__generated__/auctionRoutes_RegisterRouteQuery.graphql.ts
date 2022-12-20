@@ -1,61 +1,30 @@
+/**
+ * @generated SignedSource<<3384a3ab7df79911d192fdcbe1530d12>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type auctionRoutes_RegisterRouteQueryVariables = {
-    slug: string;
+export type auctionRoutes_RegisterRouteQuery$variables = {
+  slug: string;
 };
-export type auctionRoutes_RegisterRouteQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionRegistrationRoute_me">;
-    } | null;
-    readonly sale: {
-        readonly " $fragmentRefs": FragmentRefs<"AuctionRegistrationRoute_sale">;
-    } | null;
+export type auctionRoutes_RegisterRouteQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionRegistrationRoute_me">;
+  } | null;
+  readonly sale: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionRegistrationRoute_sale">;
+  } | null;
 };
 export type auctionRoutes_RegisterRouteQuery = {
-    readonly response: auctionRoutes_RegisterRouteQueryResponse;
-    readonly variables: auctionRoutes_RegisterRouteQueryVariables;
+  response: auctionRoutes_RegisterRouteQuery$data;
+  variables: auctionRoutes_RegisterRouteQuery$variables;
 };
-
-
-
-/*
-query auctionRoutes_RegisterRouteQuery(
-  $slug: String!
-) {
-  me {
-    ...AuctionRegistrationRoute_me
-    id
-  }
-  sale(id: $slug) @principalField {
-    ...AuctionRegistrationRoute_sale
-    id
-  }
-}
-
-fragment AuctionRegistrationRoute_me on Me {
-  internalID
-  identityVerified
-  hasQualifiedCreditCards
-}
-
-fragment AuctionRegistrationRoute_sale on Sale {
-  slug
-  name
-  internalID
-  status
-  requireIdentityVerification
-  isClosed
-  isLiveOpen
-  bidder {
-    qualifiedForBidding
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -248,5 +217,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'f45c56e22e4f94984b01ca7d156bc67d';
+
+(node as any).hash = "f45c56e22e4f94984b01ca7d156bc67d";
+
 export default node;

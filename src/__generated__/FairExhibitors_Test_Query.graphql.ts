@@ -1,119 +1,27 @@
+/**
+ * @generated SignedSource<<0e53e8787800b0990e9b4f00bf4aae6d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairExhibitors_Test_QueryVariables = {
-    id: string;
+export type FairExhibitors_Test_Query$variables = {
+  id: string;
 };
-export type FairExhibitors_Test_QueryResponse = {
-    readonly fair: {
-        readonly " $fragmentRefs": FragmentRefs<"FairExhibitors_fair">;
-    } | null;
+export type FairExhibitors_Test_Query$data = {
+  readonly fair: {
+    readonly " $fragmentSpreads": FragmentRefs<"FairExhibitors_fair">;
+  } | null;
 };
 export type FairExhibitors_Test_Query = {
-    readonly response: FairExhibitors_Test_QueryResponse;
-    readonly variables: FairExhibitors_Test_QueryVariables;
+  response: FairExhibitors_Test_Query$data;
+  variables: FairExhibitors_Test_Query$variables;
 };
-
-
-
-/*
-query FairExhibitors_Test_Query(
-  $id: String!
-) {
-  fair(id: $id) @principalField {
-    ...FairExhibitors_fair
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FairExhibitorCard_exhibitor on FairExhibitor {
-  profileID
-  partner {
-    ...EntityHeaderPartner_partner
-    internalID
-    slug
-    id
-  }
-}
-
-fragment FairExhibitorCard_fair on Fair {
-  href
-}
-
-fragment FairExhibitorsGroup_exhibitorsGroup on FairExhibitorsGroup {
-  exhibitors {
-    ...FairExhibitorCard_exhibitor
-    partner {
-      internalID
-      id
-    }
-  }
-}
-
-fragment FairExhibitorsGroup_fair on Fair {
-  ...FairExhibitorCard_fair
-}
-
-fragment FairExhibitors_fair on Fair {
-  ...FairExhibitorsGroup_fair
-  exhibitorsGroupedByName {
-    letter
-    exhibitors {
-      partnerID
-    }
-    ...FairExhibitorsGroup_exhibitorsGroup
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -274,25 +182,11 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "letter",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
                 "concreteType": "FairExhibitor",
                 "kind": "LinkedField",
                 "name": "exhibitors",
                 "plural": true,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "partnerID",
-                    "storageKey": null
-                  },
                   {
                     "alias": null,
                     "args": null,
@@ -395,17 +289,7 @@ return {
                         "name": "profile",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
-                          (v4/*: any*/),
-                          (v5/*: any*/),
                           (v3/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "isFollowed",
-                            "storageKey": null
-                          },
                           {
                             "alias": "avatar",
                             "args": null,
@@ -462,15 +346,30 @@ return {
                               }
                             ],
                             "storageKey": null
-                          }
+                          },
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       },
                       (v6/*: any*/)
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "partnerID",
+                    "storageKey": null
                   }
                 ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "letter",
                 "storageKey": null
               }
             ],
@@ -483,7 +382,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "781d78c6067386580f3ea9d974163cf2",
+    "cacheID": "ae57cbff98aec95c4098652aa062a0de",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -561,14 +460,6 @@ return {
         "fair.exhibitorsGroupedByName.exhibitors.partner.profile.icon.cropped.srcSet": (v14/*: any*/),
         "fair.exhibitorsGroupedByName.exhibitors.partner.profile.id": (v10/*: any*/),
         "fair.exhibitorsGroupedByName.exhibitors.partner.profile.internalID": (v10/*: any*/),
-        "fair.exhibitorsGroupedByName.exhibitors.partner.profile.isFollowed": {
-          "enumValues": null,
-          "nullable": true,
-          "plural": false,
-          "type": "Boolean"
-        },
-        "fair.exhibitorsGroupedByName.exhibitors.partner.profile.name": (v11/*: any*/),
-        "fair.exhibitorsGroupedByName.exhibitors.partner.profile.slug": (v10/*: any*/),
         "fair.exhibitorsGroupedByName.exhibitors.partner.slug": (v10/*: any*/),
         "fair.exhibitorsGroupedByName.exhibitors.partner.type": (v11/*: any*/),
         "fair.exhibitorsGroupedByName.exhibitors.partnerID": (v11/*: any*/),
@@ -580,9 +471,11 @@ return {
     },
     "name": "FairExhibitors_Test_Query",
     "operationKind": "query",
-    "text": "query FairExhibitors_Test_Query(\n  $id: String!\n) {\n  fair(id: $id) @principalField {\n    ...FairExhibitors_fair\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FairExhibitorCard_exhibitor on FairExhibitor {\n  profileID\n  partner {\n    ...EntityHeaderPartner_partner\n    internalID\n    slug\n    id\n  }\n}\n\nfragment FairExhibitorCard_fair on Fair {\n  href\n}\n\nfragment FairExhibitorsGroup_exhibitorsGroup on FairExhibitorsGroup {\n  exhibitors {\n    ...FairExhibitorCard_exhibitor\n    partner {\n      internalID\n      id\n    }\n  }\n}\n\nfragment FairExhibitorsGroup_fair on Fair {\n  ...FairExhibitorCard_fair\n}\n\nfragment FairExhibitors_fair on Fair {\n  ...FairExhibitorsGroup_fair\n  exhibitorsGroupedByName {\n    letter\n    exhibitors {\n      partnerID\n    }\n    ...FairExhibitorsGroup_exhibitorsGroup\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n"
+    "text": "query FairExhibitors_Test_Query(\n  $id: String!\n) {\n  fair(id: $id) @principalField {\n    ...FairExhibitors_fair\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FairExhibitorCard_exhibitor on FairExhibitor {\n  profileID\n  partner {\n    ...EntityHeaderPartner_partner\n    internalID\n    slug\n    id\n  }\n}\n\nfragment FairExhibitorCard_fair on Fair {\n  href\n}\n\nfragment FairExhibitorsGroup_exhibitorsGroup on FairExhibitorsGroup {\n  exhibitors {\n    ...FairExhibitorCard_exhibitor\n    partner {\n      internalID\n      id\n    }\n  }\n}\n\nfragment FairExhibitorsGroup_fair on Fair {\n  ...FairExhibitorCard_fair\n}\n\nfragment FairExhibitors_fair on Fair {\n  ...FairExhibitorsGroup_fair\n  exhibitorsGroupedByName {\n    ...FairExhibitorsGroup_exhibitorsGroup\n    letter\n    exhibitors {\n      partnerID\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6b38f9188e36328f5a3fe8bb93b56862';
+
+(node as any).hash = "6b38f9188e36328f5a3fe8bb93b56862";
+
 export default node;

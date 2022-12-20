@@ -1,42 +1,44 @@
+/**
+ * @generated SignedSource<<f2175bf388e79affb38a5ac8568558af>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistSeriesHeader_artistSeries = {
-    readonly title: string;
-    readonly slug: string;
-    readonly internalID: string;
-    readonly artworksCountMessage: string | null;
-    readonly descriptionFormatted: string | null;
+export type ArtistSeriesHeader_artistSeries$data = {
+  readonly artists: ReadonlyArray<{
+    readonly href: string | null;
     readonly image: {
-        readonly cropped: {
-            readonly src: string;
-            readonly srcSet: string;
-            readonly width: number;
-            readonly height: number;
-        } | null;
+      readonly url: string | null;
     } | null;
-    readonly artists: ReadonlyArray<{
-        readonly name: string | null;
-        readonly image: {
-            readonly url: string | null;
-        } | null;
-        readonly href: string | null;
-        readonly slug: string;
-        readonly internalID: string;
-        readonly " $fragmentRefs": FragmentRefs<"FollowArtistButton_artist">;
-    } | null> | null;
-    readonly " $refType": "ArtistSeriesHeader_artistSeries";
+    readonly internalID: string;
+    readonly name: string | null;
+    readonly slug: string;
+  } | null> | null;
+  readonly artworksCountMessage: string | null;
+  readonly descriptionFormatted: string | null;
+  readonly image: {
+    readonly cropped: {
+      readonly height: number;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number;
+    } | null;
+  } | null;
+  readonly internalID: string;
+  readonly slug: string;
+  readonly title: string;
+  readonly " $fragmentType": "ArtistSeriesHeader_artistSeries";
 };
-export type ArtistSeriesHeader_artistSeries$data = ArtistSeriesHeader_artistSeries;
 export type ArtistSeriesHeader_artistSeries$key = {
-    readonly " $data"?: ArtistSeriesHeader_artistSeries$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistSeriesHeader_artistSeries">;
+  readonly " $data"?: ArtistSeriesHeader_artistSeries$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistSeriesHeader_artistSeries">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -201,12 +203,7 @@ return {
           "storageKey": null
         },
         (v0/*: any*/),
-        (v1/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowArtistButton_artist"
-        }
+        (v1/*: any*/)
       ],
       "storageKey": "artists(size:1)"
     }
@@ -215,5 +212,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '68596204c6cde0509a32283681e33a4d';
+
+(node as any).hash = "1e87201a3cb974b9625f5b9b327b00e4";
+
 export default node;

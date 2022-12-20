@@ -2,15 +2,15 @@ import { Image, ResponsiveBox, Text } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer } from "react-relay"
 import { useTracking } from "react-tracking"
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
 import * as DeprecatedAnalyticsSchema from "@artsy/cohesion/dist/DeprecatedSchema"
 import { RouterLink } from "System/Router/RouterLink"
-import { useScrollToElement } from "Utils/Hooks/useScrollTo"
-import { ViewingRoomWorksArtwork_artwork } from "__generated__/ViewingRoomWorksArtwork_artwork.graphql"
+import { ViewingRoomWorksArtwork_artwork$data } from "__generated__/ViewingRoomWorksArtwork_artwork.graphql"
+import { useJump } from "Utils/Hooks/useJump"
 
 interface ViewingRoomWorksArtworkProps {
   to: string
-  artwork: ViewingRoomWorksArtwork_artwork
+  artwork: ViewingRoomWorksArtwork_artwork$data
 }
 
 const ViewingRoomWorksArtwork: React.FC<ViewingRoomWorksArtworkProps> = ({
@@ -19,11 +19,7 @@ const ViewingRoomWorksArtwork: React.FC<ViewingRoomWorksArtworkProps> = ({
 }) => {
   const tracking = useTracking()
 
-  const { scrollTo } = useScrollToElement({
-    selectorOrRef: "#scrollTo--ViewingRoomTabBar",
-    offset: 20,
-    behavior: "smooth",
-  })
+  const { jumpTo } = useJump({ offset: 20 })
 
   const image = artwork.image?.resized
 
@@ -34,7 +30,7 @@ const ViewingRoomWorksArtwork: React.FC<ViewingRoomWorksArtworkProps> = ({
       display="block"
       width="100%"
       onClick={() => {
-        scrollTo()
+        jumpTo("ViewingRoomTabBar")
 
         tracking.trackEvent({
           action_type: DeprecatedAnalyticsSchema.ActionType.ClickedArtworkGroup,
@@ -47,8 +43,8 @@ const ViewingRoomWorksArtwork: React.FC<ViewingRoomWorksArtworkProps> = ({
     >
       {image && (
         <ResponsiveBox
-          aspectWidth={image.width ?? 1}
-          aspectHeight={image.height ?? 1}
+          aspectWidth={image.width || 1}
+          aspectHeight={image.height || 1}
           maxWidth="100%"
         >
           <Image
@@ -90,7 +86,7 @@ export const ViewingRoomWorksArtworkFragmentContainer = createFragmentContainer(
         saleMessage
         title
         image {
-          resized(width: 445) {
+          resized(width: 445, version: ["normalized", "larger", "large"]) {
             src
             srcSet
             width

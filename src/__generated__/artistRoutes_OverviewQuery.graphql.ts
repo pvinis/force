@@ -1,43 +1,27 @@
+/**
+ * @generated SignedSource<<9b9d89c6bc2396b7326dcc420f6e52aa>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type artistRoutes_OverviewQueryVariables = {
-    artistID: string;
+export type artistRoutes_OverviewQuery$variables = {
+  artistID: string;
 };
-export type artistRoutes_OverviewQueryResponse = {
-    readonly artist: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtistOverviewRoute_artist">;
-    } | null;
+export type artistRoutes_OverviewQuery$data = {
+  readonly artist: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtistOverviewRoute_artist">;
+  } | null;
 };
 export type artistRoutes_OverviewQuery = {
-    readonly response: artistRoutes_OverviewQueryResponse;
-    readonly variables: artistRoutes_OverviewQueryVariables;
+  response: artistRoutes_OverviewQuery$data;
+  variables: artistRoutes_OverviewQuery$variables;
 };
-
-
-
-/*
-query artistRoutes_OverviewQuery(
-  $artistID: String!
-) {
-  artist(id: $artistID) {
-    ...ArtistOverviewRoute_artist
-    id
-  }
-}
-
-fragment ArtistOverviewRoute_artist on Artist {
-  slug
-  name
-  counts {
-    artworks
-  }
-  internalID
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -156,5 +140,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'f2a3f47e12d676a81af105092a6c94cf';
+
+(node as any).hash = "f2a3f47e12d676a81af105092a6c94cf";
+
 export default node;

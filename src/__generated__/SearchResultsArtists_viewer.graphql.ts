@@ -1,36 +1,39 @@
+/**
+ * @generated SignedSource<<5e33b0cd9d2f9fac894262c8570dbe23>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchResultsArtists_viewer = {
-    readonly searchConnection: {
-        readonly pageInfo: {
-            readonly hasNextPage: boolean;
-        };
-        readonly pageCursors: {
-            readonly " $fragmentRefs": FragmentRefs<"Pagination_pageCursors">;
-        };
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly name?: string | null | undefined;
-                readonly internalID?: string | undefined;
-                readonly href?: string | null | undefined;
-                readonly imageUrl?: string | null | undefined;
-                readonly bio?: string | null | undefined;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "SearchResultsArtists_viewer";
+export type SearchResultsArtists_viewer$data = {
+  readonly searchConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly bio?: string | null;
+        readonly href?: string | null;
+        readonly imageUrl?: string | null;
+        readonly internalID?: string;
+        readonly name?: string | null;
+      } | null;
+    } | null> | null;
+    readonly pageCursors: {
+      readonly " $fragmentSpreads": FragmentRefs<"Pagination_pageCursors">;
+    };
+    readonly pageInfo: {
+      readonly hasNextPage: boolean;
+    };
+  } | null;
+  readonly " $fragmentType": "SearchResultsArtists_viewer";
 };
-export type SearchResultsArtists_viewer$data = SearchResultsArtists_viewer;
 export type SearchResultsArtists_viewer$key = {
-    readonly " $data"?: SearchResultsArtists_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchResultsArtists_viewer">;
+  readonly " $data"?: SearchResultsArtists_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchResultsArtists_viewer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -190,5 +193,7 @@ const node: ReaderFragment = {
   "type": "Viewer",
   "abstractKey": null
 };
-(node as any).hash = 'e56ba60404a845353821326cf3f1a678';
+
+(node as any).hash = "e56ba60404a845353821326cf3f1a678";
+
 export default node;

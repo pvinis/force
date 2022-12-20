@@ -1,30 +1,33 @@
+/**
+ * @generated SignedSource<<b34becb5ca41cf0e730b9d2d9e19cffd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type GridItem_artwork = {
-    readonly internalID: string;
-    readonly title: string | null;
-    readonly image_title: string | null;
-    readonly image: {
-        readonly placeholder: string | null;
-        readonly url: string | null;
-        readonly aspect_ratio: number;
-    } | null;
-    readonly artistNames: string | null;
-    readonly href: string | null;
-    readonly " $fragmentRefs": FragmentRefs<"Metadata_artwork" | "SaveButton_artwork" | "Badge_artwork">;
-    readonly " $refType": "GridItem_artwork";
+export type GridItem_artwork$data = {
+  readonly artistNames: string | null;
+  readonly href: string | null;
+  readonly image: {
+    readonly aspectRatio: number;
+    readonly placeholder: string | null;
+    readonly url: string | null;
+  } | null;
+  readonly imageTitle: string | null;
+  readonly internalID: string;
+  readonly title: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"Badge_artwork" | "Metadata_artwork" | "SaveButton_artwork">;
+  readonly " $fragmentType": "GridItem_artwork";
 };
-export type GridItem_artwork$data = GridItem_artwork;
 export type GridItem_artwork$key = {
-    readonly " $data"?: GridItem_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"GridItem_artwork">;
+  readonly " $data"?: GridItem_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"GridItem_artwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -47,7 +50,7 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": "image_title",
+      "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "imageTitle",
@@ -74,15 +77,18 @@ const node: ReaderFragment = {
             {
               "kind": "Literal",
               "name": "version",
-              "value": "large"
+              "value": [
+                "larger",
+                "large"
+              ]
             }
           ],
           "kind": "ScalarField",
           "name": "url",
-          "storageKey": "url(version:\"large\")"
+          "storageKey": "url(version:[\"larger\",\"large\"])"
         },
         {
-          "alias": "aspect_ratio",
+          "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "aspectRatio",
@@ -124,5 +130,7 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = 'a93086728692841831fb5b17dd14dd06';
+
+(node as any).hash = "0b26613b9883aff1017f6893d8745140";
+
 export default node;

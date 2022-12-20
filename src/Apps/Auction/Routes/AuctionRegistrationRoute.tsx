@@ -1,7 +1,7 @@
 import { Button, Join, ModalDialog, Spacer } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { AuctionRegistrationRoute_me } from "__generated__/AuctionRegistrationRoute_me.graphql"
-import { AuctionRegistrationRoute_sale } from "__generated__/AuctionRegistrationRoute_sale.graphql"
+import { AuctionRegistrationRoute_me$data } from "__generated__/AuctionRegistrationRoute_me.graphql"
+import { AuctionRegistrationRoute_sale$data } from "__generated__/AuctionRegistrationRoute_sale.graphql"
 import { Form, Formik } from "formik"
 import { CreditCardInputProvider } from "Components/CreditCardInput"
 import { useRouter } from "System/Router/useRouter"
@@ -16,12 +16,12 @@ import { ConditionsOfSaleCheckbox } from "Apps/Auction/Components/Form/Condition
 import { AddressFormWithCreditCard } from "Apps/Auction/Components/Form/AddressFormWithCreditCard"
 import { IdentityVerificationWarning } from "Apps/Auction/Components/Form/IdentityVerificationWarning"
 import { useAuctionTracking } from "Apps/Auction/Hooks/useAuctionTracking"
-import { ErrorStatus } from "../Components/Form/ErrorStatus"
-import { AuctionConfirmRegistrationRoute_sale } from "__generated__/AuctionConfirmRegistrationRoute_sale.graphql"
+import { ErrorStatus } from "Apps/Auction/Components/Form/ErrorStatus"
+import { AuctionConfirmRegistrationRoute_sale$data } from "__generated__/AuctionConfirmRegistrationRoute_sale.graphql"
 
 export interface AuctionRegistrationRouteProps {
-  me: AuctionRegistrationRoute_me
-  sale: AuctionRegistrationRoute_sale
+  me: AuctionRegistrationRoute_me$data
+  sale: AuctionRegistrationRoute_sale$data
 }
 
 const AuctionRegistrationRoute: React.FC<AuctionRegistrationRouteProps> = ({
@@ -75,7 +75,7 @@ const AuctionRegistrationRoute: React.FC<AuctionRegistrationRouteProps> = ({
         {({ isSubmitting, isValid }) => {
           return (
             <Form>
-              <Join separator={<Spacer my={2} />}>
+              <Join separator={<Spacer y={2} />}>
                 <AddressFormWithCreditCard />
 
                 {needsIdentityVerification && <IdentityVerificationWarning />}
@@ -148,7 +148,9 @@ const computeProps = ({ sale, me }: AuctionRegistrationRouteProps) => {
 }
 
 export const redirectToSaleHome = (
-  sale: AuctionRegistrationRoute_sale | AuctionConfirmRegistrationRoute_sale
+  sale:
+    | AuctionRegistrationRoute_sale$data
+    | AuctionConfirmRegistrationRoute_sale$data
 ) => {
   const redirectToSaleHome =
     sale?.bidder?.qualifiedForBidding || sale.isClosed || sale.isLiveOpen

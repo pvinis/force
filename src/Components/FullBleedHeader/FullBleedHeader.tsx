@@ -2,7 +2,7 @@ import { BoxProps, Flex, HTML, FullBleed, Box } from "@artsy/palette"
 import { FC, HTMLAttributes, MutableRefObject, ReactNode, useRef } from "react"
 import styled from "styled-components"
 import { useSizeAndPosition } from "Utils/Hooks/useSizeAndPosition"
-import { useNavBarHeight } from "../NavBar/useNavBarHeight"
+import { useNavBarHeight } from "Components/NavBar/useNavBarHeight"
 import { FullBleedHeaderPicture } from "./FullBleedHeaderPicture"
 
 export type FullBleedHeaderProps = BoxProps &
@@ -109,6 +109,12 @@ export const FullBleedHeaderOverlay = styled(Flex)`
     rgba(0, 0, 0, 0),
     rgba(0, 0, 0, 0.25)
   );
+
+  /**
+   * Promotes element to composite layer to prevent disappearing content on
+   * scroll in mobile Webkit browsers. Bug apparently caused by interaction with clip-path.
+   **/
+  transform: translateZ(0);
 `
 
 FullBleedHeaderOverlay.defaultProps = {

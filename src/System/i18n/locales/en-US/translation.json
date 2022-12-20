@@ -1,24 +1,158 @@
 {
-  "navbar":{
-    "show":"Show",
-    "shows":"Shows",
-    "buy":"Buy",
-    "artists":"Artists",
-    "artworks":"Artworks",
-    "galleries":"Galleries",
-    "auctions":"Auctions",
-    "fairs":"Fairs",
-    "museums":"Museums",
-    "viewingRooms":"Viewing Rooms",
-    "nfts":"NFTs",
-    "signup":"Sign Up",
-    "login":"Log In",
-    "sell":"Sell",
-    "priceDatabase":"Price Database",
-    "editorial":"Editorial",
-    "downloadApp":"Download Apps",
+  "activityPanel": {
+    "noNewNotifications": "No new notifications",
+    "newNotifications": "New notifications",
+    "markAllAsRead": "Mark all as read"
+  },
+  "artistPage": {
+    "cv": {
+      "emptyState": "This artist has no {{groupName}} yet.",
+      "fairTitle": "Fair booths",
+      "groupTitle": "Group shows",
+      "soloTitle": "Solo shows"
+    },
+    "overview": {
+      "cvLink": "See all past shows and fair booths"
+    }
+  },
+  "artQuizPage": {
+    "loadingScreen": {
+      "calculatingResults": "Calculating Results…",
+      "resultsComplete": "Results Complete"
+    },
+    "title": "Art Taste Quiz",
+    "results": {
+      "emailSuccess": "Results sent to {{email}}",
+      "emailButton": "Email My Results",
+      "empty": {
+        "title": "Explore Trending Collections and Artists",
+        "subtitle": "There are almost 2 million artworks on Artsy—keep exploring to find something you love."
+      },
+      "title": "Explore Your Quiz Results",
+      "subtitle": "Explore these collections and artists recommended for you based on your saved works. Follow them to see their latest works on your Artsy home.",
+      "tabs": {
+        "worksYouLiked": "Works You Liked",
+        "recommendedCollections": "Recommended Collections",
+        "recommendedArtworks": "Recommended Artworks",
+        "recommendedArtists": "Recommended Artists"
+      }
+    },
+    "welcomeScreen": {
+      "subtitle1": "See more of what you love.",
+      "subtitle2": "Rate artworks and get recommendations tailored to your art taste.",
+      "getStartedButton": "Start the Quiz",
+      "skipButton": "Skip"
+    }
+  },
+  "artworkPage": {
+    "sidebar": {
+      "details": {
+        "expandableLabel": "Details",
+        "frame": "Frame",
+        "AuthenticityCertificate": {
+          "includes": "Includes a ",
+          "certificateOfAuthenticity": "Certificate of Authenticity"
+        },
+        "AuthenticityCertificateModal": {
+          "close": "OK",
+          "title": "Certificate of Authenticity",
+          "description1": "A certificate of authenticity (COA) is a document from an authoritative source that verifies the artwork’s authenticity. While many COAs are signed by the artist, others will be signed by the representing gallery or the printmaker who collaborated with the artist on the work. For secondary market works, authorized estates or foundations are often the issuing party.",
+          "description2": "COAs typically include the name of the artist, the details (title, date, medium, dimensions) of the work in question, and whenever possible an image of the work.",
+          "readMore": "Read more about artwork authenticity in our ",
+          "helpCenterLink": "Help Center"
+        }
+      },
+      "shippingAndTaxes": {
+        "expandableLabel": "Shipping and Taxes",
+        "taxInformation": "Taxes may apply at checkout.",
+        "taxInformationLearnMore": "Learn more",
+        "shipsFrom": "Ships from"
+      },
+      "artsyGuarantee": {
+        "expandableLabel": "Be covered by the Artsy Guarantee when you checkout with Artsy",
+        "secureCheckout": "Secure Checkout",
+        "moneyBack": "Money-Back Guarantee",
+        "authenticity": "Authenticity Guarantee",
+        "learnMore": "Learn more"
+      },
+      "partner": {
+        "contactGalleryCta": "Contact Gallery"
+      },
+      "createAlert": {
+        "description": "Get notifications for similar works"
+      },
+      "sellWithArtsy": "Want to sell a work by this artist?",
+      "sellWithArtsyLink": "Sell with Artsy",
+      "conditionsOfSale": "By placing your bid you agree to Artsy's",
+      "conditionsOfSaleLink": "Conditions of Sale",
+      "auction": {
+        "biddingClosed": "Bidding closed",
+        "estimatedValue": "Estimated value: {{value}}"
+      },
+      "commercialButtons": {
+        "buyNow": "Purchase",
+        "makeOffer": "Make an Offer",
+        "contactGallery": "Contact Gallery"
+      }
+    },
+    "actions": {
+      "save": {
+        "registerToBidWithDeadline": "Register ahead of time to bid in this auction and get notifications for this lot.",
+        "registerToBidWithoutDeadline": "Register to bid in this auction and get notifications for this lot."
+      }
+    }
+  },
+  "navbar": {
+    "show": "Show",
+    "shows": "Shows",
+    "buy": "Buy",
+    "artists": "Artists",
+    "artworks": "Artworks",
+    "galleries": "Galleries",
+    "auctions": "Auctions",
+    "fairs": "Fairs",
+    "museums": "Museums",
+    "viewingRooms": "Viewing Rooms",
+    "nfts": "NFTs",
+    "signup": "Sign Up",
+    "login": "Log In",
+    "sell": "Sell",
+    "priceDatabase": "Price Database",
+    "editorial": "Editorial",
+    "downloadApp": "Download App",
     "searchBy": "Search by artist, gallery, style, theme, tag, etc.",
     "searchArtsy": "Search Artsy"
+  },
+  "onboarding": {
+    "follows": {
+      "description": "You’ll see their latest works and get better recommendations (for art you’ll love).",
+      "artists": {
+        "title": "Follow artists to see more of their work",
+        "placeholder": "Search Artists"
+      },
+      "galleries": {
+        "title": "Follow galleries you love to see events and news",
+        "placeholder": "Search Galleries"
+      }
+    }
+  },
+  "rails": {
+    "artistFeaturedWorks": {
+      "title": "Featured Works",
+      "viewAllWorks": "View All Works"
+    }
+  },
+  "specialists": {
+    "auctions": "Auctions",
+    "collectorServices": "Collector Services",
+    "meetTheSpecialists": "Meet the Specialists",
+    "ourTeamIsReady": "Whether you’re seeking a specific work for your growing collection or wish to sell, our globe-spanning team is ready to source, sell, advise, and research on your behalf.",
+    "privateSales": "Private Sales & Advisory"
+  }, 
+  "searchApp": {
+    "noResultsFound": "No results found.",
+    "resultsCount_zero": "No results found for",
+    "resultsCount_one": "1 result for",
+    "resultsCount_other": "{{count}} results for"
   }
 }
-

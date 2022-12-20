@@ -1,53 +1,56 @@
+/**
+ * @generated SignedSource<<68327cc2919148a2ae3f946c4cb572f8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ArticleLayout = "CLASSIC" | "FEATURE" | "NEWS" | "SERIES" | "STANDARD" | "VIDEO" | "%future added value";
-export type ArticleBody_article = {
-    readonly hero: {
-        readonly __typename: string;
-    } | null;
-    readonly seriesArticle: {
-        readonly thumbnailTitle: string | null;
-        readonly href: string | null;
-    } | null;
-    readonly vertical: string | null;
+import { FragmentRefs } from "relay-runtime";
+export type ArticleBody_article$data = {
+  readonly byline: string | null;
+  readonly hero: {
+    readonly __typename: string;
+  } | null;
+  readonly href: string | null;
+  readonly internalID: string;
+  readonly layout: ArticleLayout;
+  readonly leadParagraph: string | null;
+  readonly postscript: string | null;
+  readonly publishedAt: string | null;
+  readonly relatedArticles: ReadonlyArray<{
     readonly byline: string | null;
-    readonly internalID: string;
-    readonly slug: string | null;
-    readonly layout: ArticleLayout;
-    readonly leadParagraph: string | null;
-    readonly title: string | null;
     readonly href: string | null;
-    readonly publishedAt: string | null;
-    readonly sections: ReadonlyArray<{
-        readonly " $fragmentRefs": FragmentRefs<"ArticleSection_section">;
-    }>;
-    readonly postscript: string | null;
-    readonly relatedArticles: ReadonlyArray<{
-        readonly internalID: string;
-        readonly title: string | null;
-        readonly href: string | null;
-        readonly byline: string | null;
-        readonly thumbnailImage: {
-            readonly cropped: {
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleHero_article" | "ArticleByline_article" | "ArticleSectionAd_article" | "ArticleNewsSource_article">;
-    readonly " $refType": "ArticleBody_article";
+    readonly internalID: string;
+    readonly thumbnailImage: {
+      readonly cropped: {
+        readonly src: string;
+        readonly srcSet: string;
+      } | null;
+    } | null;
+    readonly title: string | null;
+  }>;
+  readonly sections: ReadonlyArray<{
+    readonly " $fragmentSpreads": FragmentRefs<"ArticleSection_section">;
+  }>;
+  readonly seriesArticle: {
+    readonly href: string | null;
+    readonly thumbnailTitle: string | null;
+  } | null;
+  readonly slug: string | null;
+  readonly title: string | null;
+  readonly vertical: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleByline_article" | "ArticleHero_article" | "ArticleNewsSource_article" | "ArticleSectionAd_article">;
+  readonly " $fragmentType": "ArticleBody_article";
 };
-export type ArticleBody_article$data = ArticleBody_article;
 export type ArticleBody_article$key = {
-    readonly " $data"?: ArticleBody_article$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleBody_article">;
+  readonly " $data"?: ArticleBody_article$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleBody_article">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -84,6 +87,26 @@ return {
   "metadata": null,
   "name": "ArticleBody_article",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArticleHero_article"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArticleByline_article"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArticleSectionAd_article"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArticleNewsSource_article"
+    },
     {
       "alias": null,
       "args": null,
@@ -244,31 +267,13 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleHero_article"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleByline_article"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleSectionAd_article"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleNewsSource_article"
     }
   ],
   "type": "Article",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'fd9c26b60c08d0ed7a2088d777fbbeba';
+
+(node as any).hash = "fd9c26b60c08d0ed7a2088d777fbbeba";
+
 export default node;

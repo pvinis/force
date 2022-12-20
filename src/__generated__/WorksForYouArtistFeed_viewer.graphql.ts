@@ -1,46 +1,49 @@
+/**
+ * @generated SignedSource<<8f9734aac6d66823966cd899abb73d11>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type WorksForYouArtistFeed_viewer = {
-    readonly artist: {
-        readonly internalID: string;
-        readonly name: string | null;
-        readonly href: string | null;
-        readonly counts: {
-            readonly artworks: number | null;
-            readonly forSaleArtworks: number | null;
+export type WorksForYouArtistFeed_viewer$data = {
+  readonly artist: {
+    readonly artworksConnection: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
         } | null;
-        readonly image: {
-            readonly resized: {
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
-        readonly artworksConnection: {
-            readonly pageInfo: {
-                readonly hasNextPage: boolean;
-                readonly endCursor: string | null;
-            };
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly id: string;
-                } | null;
-            } | null> | null;
-            readonly " $fragmentRefs": FragmentRefs<"ArtworkGrid_artworks">;
-        } | null;
+      } | null> | null;
+      readonly pageInfo: {
+        readonly endCursor: string | null;
+        readonly hasNextPage: boolean;
+      };
+      readonly " $fragmentSpreads": FragmentRefs<"ArtworkGrid_artworks">;
     } | null;
-    readonly " $refType": "WorksForYouArtistFeed_viewer";
+    readonly counts: {
+      readonly artworks: any | null;
+      readonly forSaleArtworks: any | null;
+    } | null;
+    readonly href: string | null;
+    readonly image: {
+      readonly resized: {
+        readonly src: string;
+        readonly srcSet: string;
+      } | null;
+    } | null;
+    readonly internalID: string;
+    readonly name: string | null;
+  } | null;
+  readonly " $fragmentType": "WorksForYouArtistFeed_viewer";
 };
-export type WorksForYouArtistFeed_viewer$data = WorksForYouArtistFeed_viewer;
 export type WorksForYouArtistFeed_viewer$key = {
-    readonly " $data"?: WorksForYouArtistFeed_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"WorksForYouArtistFeed_viewer">;
+  readonly " $data"?: WorksForYouArtistFeed_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"WorksForYouArtistFeed_viewer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -210,6 +213,11 @@ const node: ReaderFragment = {
           "plural": false,
           "selections": [
             {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ArtworkGrid_artworks"
+            },
+            {
               "alias": null,
               "args": null,
               "concreteType": "PageInfo",
@@ -276,11 +284,6 @@ const node: ReaderFragment = {
                 }
               ],
               "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "ArtworkGrid_artworks"
             }
           ],
           "storageKey": null
@@ -292,5 +295,7 @@ const node: ReaderFragment = {
   "type": "Viewer",
   "abstractKey": null
 };
-(node as any).hash = 'a86b452e78e54f9c19a3008ae780ae74';
+
+(node as any).hash = "a86b452e78e54f9c19a3008ae780ae74";
+
 export default node;

@@ -1,12 +1,11 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { FairCollections_fair } from "__generated__/FairCollections_fair.graphql"
-import { Box, BoxProps } from "@artsy/palette"
-import { Carousel } from "Components/Carousel"
+import { FairCollections_fair$data } from "__generated__/FairCollections_fair.graphql"
+import { Box, BoxProps, Shelf, Spacer, Text } from "@artsy/palette"
 import { FairCollectionFragmentContainer as FairCollection } from "./FairCollection"
 
 interface FairCollectionsProps extends BoxProps {
-  fair: FairCollections_fair
+  fair: FairCollections_fair$data
 }
 
 export const FairCollections: React.FC<FairCollectionsProps> = ({
@@ -15,19 +14,23 @@ export const FairCollections: React.FC<FairCollectionsProps> = ({
 }) => {
   return (
     <Box {...rest}>
-      <Carousel>
+      <Text variant="lg">Curated Highlights</Text>
+
+      <Spacer y={4} />
+
+      <Shelf>
         {fair.marketingCollections.map((collection, index) => {
+          if (!collection) return <></>
+
           return (
             <FairCollection
-              // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
               key={collection.id}
-              // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
               collection={collection}
               carouselIndex={index}
             />
           )
         })}
-      </Carousel>
+      </Shelf>
     </Box>
   )
 }

@@ -1,80 +1,25 @@
+/**
+ * @generated SignedSource<<41a8a68ded5e944476bb6693709016b4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InstitutionPartnershipsShowsQueryVariables = {};
-export type InstitutionPartnershipsShowsQueryResponse = {
-    readonly orderedSet: {
-        readonly " $fragmentRefs": FragmentRefs<"InstitutionPartnershipsShows_orderedSet">;
-    } | null;
+export type InstitutionPartnershipsShowsQuery$variables = {};
+export type InstitutionPartnershipsShowsQuery$data = {
+  readonly orderedSet: {
+    readonly " $fragmentSpreads": FragmentRefs<"InstitutionPartnershipsShows_orderedSet">;
+  } | null;
 };
 export type InstitutionPartnershipsShowsQuery = {
-    readonly response: InstitutionPartnershipsShowsQueryResponse;
-    readonly variables: InstitutionPartnershipsShowsQueryVariables;
+  response: InstitutionPartnershipsShowsQuery$data;
+  variables: InstitutionPartnershipsShowsQuery$variables;
 };
-
-
-
-/*
-query InstitutionPartnershipsShowsQuery {
-  orderedSet(id: "62acd180259556000cd9991f") {
-    ...InstitutionPartnershipsShows_orderedSet
-    id
-  }
-}
-
-fragment CellShow_show on Show {
-  internalID
-  slug
-  name
-  href
-  startAt
-  endAt
-  isFairBooth
-  exhibitionPeriod
-  partner {
-    __typename
-    ... on Partner {
-      name
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-  coverImage {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment InstitutionPartnershipsShows_orderedSet on OrderedSet {
-  items {
-    __typename
-    ... on Show {
-      internalID
-      ...CellShow_show
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on FeaturedLink {
-      id
-    }
-    ... on Profile {
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -264,7 +209,6 @@ return {
                             "kind": "Literal",
                             "name": "version",
                             "value": [
-                              "normalized",
                               "larger",
                               "large"
                             ]
@@ -295,7 +239,7 @@ return {
                             "storageKey": null
                           }
                         ],
-                        "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                        "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                       }
                     ],
                     "storageKey": null
@@ -327,14 +271,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1491bbd64b0b288ba50a1da1e64bf892",
+    "cacheID": "e72caa7af7d6de95ece6249a273e52cd",
     "id": null,
     "metadata": {},
     "name": "InstitutionPartnershipsShowsQuery",
     "operationKind": "query",
-    "text": "query InstitutionPartnershipsShowsQuery {\n  orderedSet(id: \"62acd180259556000cd9991f\") {\n    ...InstitutionPartnershipsShows_orderedSet\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment InstitutionPartnershipsShows_orderedSet on OrderedSet {\n  items {\n    __typename\n    ... on Show {\n      internalID\n      ...CellShow_show\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n"
+    "text": "query InstitutionPartnershipsShowsQuery {\n  orderedSet(id: \"62acd180259556000cd9991f\") {\n    ...InstitutionPartnershipsShows_orderedSet\n    id\n  }\n}\n\nfragment CellShow_show on Show {\n  internalID\n  slug\n  name\n  href\n  startAt\n  endAt\n  isFairBooth\n  exhibitionPeriod\n  partner {\n    __typename\n    ... on Partner {\n      name\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n  coverImage {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment InstitutionPartnershipsShows_orderedSet on OrderedSet {\n  items {\n    __typename\n    ... on Show {\n      internalID\n      ...CellShow_show\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on FeaturedLink {\n      id\n    }\n    ... on Profile {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6ec5446829adc63cecfdf0ac25f09b06';
+
+(node as any).hash = "6ec5446829adc63cecfdf0ac25f09b06";
+
 export default node;

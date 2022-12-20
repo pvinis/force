@@ -1,55 +1,30 @@
+/**
+ * @generated SignedSource<<ebe4d8e7789e333418d98e0bee08709f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RequestConditionReportQueryVariables = {
-    artworkID: string;
+export type RequestConditionReportQuery$variables = {
+  artworkID: string;
 };
-export type RequestConditionReportQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"RequestConditionReport_me">;
-    } | null;
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"RequestConditionReport_artwork">;
-    } | null;
+export type RequestConditionReportQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"RequestConditionReport_artwork">;
+  } | null;
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"RequestConditionReport_me">;
+  } | null;
 };
 export type RequestConditionReportQuery = {
-    readonly response: RequestConditionReportQueryResponse;
-    readonly variables: RequestConditionReportQueryVariables;
+  response: RequestConditionReportQuery$data;
+  variables: RequestConditionReportQuery$variables;
 };
-
-
-
-/*
-query RequestConditionReportQuery(
-  $artworkID: String!
-) {
-  me {
-    ...RequestConditionReport_me
-    id
-  }
-  artwork(id: $artworkID) {
-    ...RequestConditionReport_artwork
-    id
-  }
-}
-
-fragment RequestConditionReport_artwork on Artwork {
-  internalID
-  slug
-  saleArtwork {
-    internalID
-    id
-  }
-}
-
-fragment RequestConditionReport_me on Me {
-  email
-  internalID
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -194,5 +169,7 @@ return {
   }
 };
 })();
-(node as any).hash = '0d2ee5d88aac80c1d2e6a2b1fd592924';
+
+(node as any).hash = "0d2ee5d88aac80c1d2e6a2b1fd592924";
+
 export default node;

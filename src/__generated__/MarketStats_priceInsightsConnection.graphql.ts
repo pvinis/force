@@ -1,28 +1,31 @@
+/**
+ * @generated SignedSource<<72c6f9677f31844b081252aeb94b8d81>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MarketStats_priceInsightsConnection = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly medium: string | null;
-            readonly annualLotsSold: number | null;
-            readonly annualValueSoldCents: unknown | null;
-            readonly sellThroughRate: number | null;
-            readonly medianSaleOverEstimatePercentage: number | null;
-        } | null;
-    } | null> | null;
-    readonly " $refType": "MarketStats_priceInsightsConnection";
+export type MarketStats_priceInsightsConnection$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly annualLotsSold: number | null;
+      readonly annualValueSoldCents: any | null;
+      readonly medianSaleOverEstimatePercentage: number | null;
+      readonly medium: string | null;
+      readonly sellThroughRate: number | null;
+    } | null;
+  } | null> | null;
+  readonly " $fragmentType": "MarketStats_priceInsightsConnection";
 };
-export type MarketStats_priceInsightsConnection$data = MarketStats_priceInsightsConnection;
 export type MarketStats_priceInsightsConnection$key = {
-    readonly " $data"?: MarketStats_priceInsightsConnection$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"MarketStats_priceInsightsConnection">;
+  readonly " $data"?: MarketStats_priceInsightsConnection$data;
+  readonly " $fragmentSpreads": FragmentRefs<"MarketStats_priceInsightsConnection">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -91,5 +94,7 @@ const node: ReaderFragment = {
   "type": "PriceInsightConnection",
   "abstractKey": null
 };
-(node as any).hash = '9e1f547f87d91ca18d49af81b3c8d5d7';
+
+(node as any).hash = "9e1f547f87d91ca18d49af81b3c8d5d7";
+
 export default node;

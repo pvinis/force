@@ -3,18 +3,18 @@ import { graphql } from "react-relay"
 import { get } from "Utils/get"
 import { RedirectPredicate, RedirectRecord } from "./getRedirect"
 
-import { redirects_order } from "__generated__/redirects_order.graphql"
+import { redirects_order$data } from "__generated__/redirects_order.graphql"
 import { extractNodes } from "Utils/extractNodes"
 import { isPaymentSet } from "./Utils/orderUtils"
 
 interface OrderQuery {
-  order: redirects_order
+  order: redirects_order$data
 }
 
 type OrderPredicate = RedirectPredicate<OrderQuery>
 
 const goToStatusIf = (
-  pred: (order: redirects_order) => boolean,
+  pred: (order: redirects_order$data) => boolean,
   reason
 ): OrderPredicate => ({ order }) => {
   if (pred(order)) {
@@ -111,6 +111,15 @@ const goToStatusIfNotLastTransactionFailed = goToStatusIf(
   "Order's lastTransactionFailed must be true"
 )
 
+const goToNewPaymentIfOfferLastTransactionFailed = ({ order }) => {
+  if (order.mode === "OFFER" && order.lastTransactionFailed) {
+    return {
+      path: `/orders/${order.internalID}/payment/new`,
+      reason: "No payment has been successfully made",
+    }
+  }
+}
+
 const goToReviewIfOrderIsPending: OrderPredicate = ({ order }) => {
   if (order.state === "PENDING") {
     return {
@@ -156,6 +165,7 @@ export const redirects: RedirectRecord<OrderQuery> = {
         goToStatusIfNotOfferOrder,
         goToStatusIfNotAwaitingBuyerResponse,
         goToStatusIfOrderIsNotSubmitted,
+        goToNewPaymentIfOfferLastTransactionFailed,
       ],
     },
     {

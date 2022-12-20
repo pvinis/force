@@ -2,7 +2,6 @@ import { Spacer, Text, Join, Box, Pill } from "@artsy/palette"
 import { FC, useMemo } from "react"
 import { OnboardingFigure } from "../Components/OnboardingFigure"
 import { OnboardingQuestionPanel } from "../Components/OnboardingQuestionPanel"
-import { OnboardingSplitLayout } from "../Components/OnboardingSplitLayout"
 import {
   OPTION_ARTISTS_ON_THE_RISE,
   OPTION_A_CURATED_SELECTION_OF_ARTWORKS,
@@ -16,12 +15,16 @@ import {
 } from "../config"
 import { useOnboardingFadeTransition } from "../Hooks/useOnboardingFadeTransition"
 import { useOnboardingContext } from "../Hooks/useOnboardingContext"
+import { useOnboardingTracking } from "../Hooks/useOnboardingTracking"
+import { SplitLayout } from "Components/SplitLayout"
 
 export const OnboardingQuestionThree: FC = () => {
   const { state, dispatch, next } = useOnboardingContext()
   const { register, loading, handleNext } = useOnboardingFadeTransition({
     next,
   })
+
+  const tracking = useOnboardingTracking()
 
   const options = useMemo(() => {
     switch (true) {
@@ -60,7 +63,7 @@ export const OnboardingQuestionThree: FC = () => {
   }, [state.questionTwo])
 
   return (
-    <OnboardingSplitLayout
+    <SplitLayout
       left={
         <OnboardingFigure
           ref={register(0)}
@@ -74,20 +77,23 @@ export const OnboardingQuestionThree: FC = () => {
         <OnboardingQuestionPanel
           disabled={state.questionThree === null || loading}
           loading={loading}
-          onNext={handleNext}
+          onNext={() => {
+            tracking.trackQuestionThree(state.questionThree)
+            handleNext()
+          }}
         >
           <Text variant="lg-display" ref={register(1)}>
             Almost done! What would you like to see first?
           </Text>
 
-          <Spacer mt={1} />
+          <Spacer y={1} />
 
           <Text variant="sm-display" ref={register(2)}>
             Choose one to start exploring.
           </Text>
 
           <Box ref={register(3)} mt={4}>
-            <Join separator={<Spacer mt={2} />}>
+            <Join separator={<Spacer y={2} />}>
               {options.map(option => {
                 return (
                   <Pill

@@ -1,3 +1,17 @@
+import {
+  Box,
+  Button,
+  Join,
+  Skeleton,
+  SkeletonText,
+  Spacer,
+  Sup,
+  Text,
+} from "@artsy/palette"
+import {
+  ArtistRailFragmentContainer,
+  ARTIST_RAIL_PLACEHOLDER,
+} from "Components/ArtistRail"
 import { FC, Fragment, useState } from "react"
 import {
   createPaginationContainer,
@@ -5,26 +19,12 @@ import {
   RelayPaginationProp,
 } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { SettingsSavesArtists_me } from "__generated__/SettingsSavesArtists_me.graphql"
-import { SettingsSavesArtistsQuery } from "__generated__/SettingsSavesArtistsQuery.graphql"
-import {
-  Box,
-  Button,
-  Join,
-  Spacer,
-  Sup,
-  Text,
-  SkeletonText,
-  Skeleton,
-} from "@artsy/palette"
 import { extractNodes } from "Utils/extractNodes"
-import {
-  ArtistRailFragmentContainer,
-  ARTIST_RAIL_PLACEHOLDER,
-} from "Components/ArtistRail"
+import { SettingsSavesArtistsQuery } from "__generated__/SettingsSavesArtistsQuery.graphql"
+import { SettingsSavesArtists_me$data } from "__generated__/SettingsSavesArtists_me.graphql"
 
 interface SettingsSavesArtistsProps {
-  me: SettingsSavesArtists_me
+  me: SettingsSavesArtists_me$data
   relay: RelayPaginationProp
 }
 
@@ -48,13 +48,13 @@ const SettingsSavesArtists: FC<SettingsSavesArtistsProps> = ({ me, relay }) => {
 
   return (
     <>
-      <Text variant="lg-display" mb={4}>
+      <Text variant={["md", "lg"]} mb={4}>
         Followed Artists {total > 0 && <Sup color="brand">{total}</Sup>}
       </Text>
 
       {followedArtists.length > 0 ? (
         <>
-          <Join separator={<Spacer mt={4} />}>
+          <Join separator={<Spacer y={4} />}>
             {followedArtists.map(({ internalID, artist }) => {
               if (!artist) return null
 
@@ -73,7 +73,7 @@ const SettingsSavesArtists: FC<SettingsSavesArtistsProps> = ({ me, relay }) => {
           )}
         </>
       ) : (
-        <Text variant="lg-display" color="black60">
+        <Text variant={["md", "lg"]} color="black60">
           Nothing yet.
         </Text>
       )}
@@ -127,12 +127,12 @@ export const SettingsSavesArtistsPaginationContainer = createPaginationContainer
 const SETTINGS_SAVES_ARTISTS_PLACEHOLDER = (
   <>
     <Skeleton>
-      <SkeletonText variant="lg-display" mb={4}>
+      <SkeletonText variant={["md", "lg"]} mb={4}>
         Followed Artists
       </SkeletonText>
     </Skeleton>
 
-    <Join separator={<Spacer mt={4} />}>
+    <Join separator={<Spacer y={4} />}>
       {[...new Array(4)].map((_, i) => {
         return <Fragment key={i}>{ARTIST_RAIL_PLACEHOLDER}</Fragment>
       })}

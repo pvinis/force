@@ -1,48 +1,53 @@
+/**
+ * @generated SignedSource<<0f2ca578b456ab7d90f65862ddb78a47>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityHeaderFair_fair = {
+export type EntityHeaderFair_fair$data = {
+  readonly avatar: {
+    readonly cropped: {
+      readonly src: string;
+      readonly srcSet: string;
+    } | null;
+  } | null;
+  readonly endAt: string | null;
+  readonly href: string | null;
+  readonly internalID: string;
+  readonly name: string | null;
+  readonly profile: {
+    readonly initials: string | null;
     readonly internalID: string;
-    readonly href: string | null;
-    readonly name: string | null;
-    readonly startAt: string | null;
-    readonly endAt: string | null;
-    readonly avatar: {
-        readonly cropped: {
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
-    } | null;
-    readonly profile: {
-        readonly initials: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"FollowProfileButton_profile">;
-    } | null;
-    readonly " $refType": "EntityHeaderFair_fair";
+  } | null;
+  readonly startAt: string | null;
+  readonly " $fragmentType": "EntityHeaderFair_fair";
 };
-export type EntityHeaderFair_fair$data = EntityHeaderFair_fair;
 export type EntityHeaderFair_fair$key = {
-    readonly " $data"?: EntityHeaderFair_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHeaderFair_fair">;
+  readonly " $data"?: EntityHeaderFair_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderFair_fair">;
 };
 
-
-
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "internalID",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "EntityHeaderFair_fair",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "internalID",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -138,17 +143,13 @@ const node: ReaderFragment = {
       "name": "profile",
       "plural": false,
       "selections": [
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "initials",
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowProfileButton_profile"
         }
       ],
       "storageKey": null
@@ -157,5 +158,8 @@ const node: ReaderFragment = {
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = 'e4e1a33d028f86d9efa0f3b80e0458cc';
+})();
+
+(node as any).hash = "28c79791eea6f388f69c43205edd6f93";
+
 export default node;

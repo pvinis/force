@@ -1,31 +1,34 @@
+/**
+ * @generated SignedSource<<7bd6f3b8b95c26f701721a10a6071d6f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellArtist_artist = {
-    readonly internalID: string;
-    readonly slug: string;
-    readonly name: string | null;
-    readonly href: string | null;
-    readonly initials: string | null;
-    readonly image: {
-        readonly cropped: {
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type CellArtist_artist$data = {
+  readonly href: string | null;
+  readonly image: {
+    readonly cropped: {
+      readonly src: string;
+      readonly srcSet: string;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHeaderArtist_artist">;
-    readonly " $refType": "CellArtist_artist";
+  } | null;
+  readonly initials: string | null;
+  readonly internalID: string;
+  readonly name: string | null;
+  readonly slug: string;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHeaderArtist_artist">;
+  readonly " $fragmentType": "CellArtist_artist";
 };
-export type CellArtist_artist$data = CellArtist_artist;
 export type CellArtist_artist$key = {
-    readonly " $data"?: CellArtist_artist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CellArtist_artist">;
+  readonly " $data"?: CellArtist_artist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CellArtist_artist">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -33,6 +36,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "CellArtist_artist",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "EntityHeaderArtist_artist"
+    },
     {
       "alias": null,
       "args": null,
@@ -88,7 +96,6 @@ const node: ReaderFragment = {
               "kind": "Literal",
               "name": "version",
               "value": [
-                "normalized",
                 "larger",
                 "large"
               ]
@@ -119,19 +126,16 @@ const node: ReaderFragment = {
               "storageKey": null
             }
           ],
-          "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+          "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntityHeaderArtist_artist"
     }
   ],
   "type": "Artist",
   "abstractKey": null
 };
-(node as any).hash = '883c585cb325cbaa008a980afdc40f0c';
+
+(node as any).hash = "a634b853c479acee4d8244440229e4d1";
+
 export default node;

@@ -1,12 +1,11 @@
-import { Box, Button, Flex, Join, Message, Spacer } from "@artsy/palette"
-import { Review_order } from "__generated__/Review_order.graphql"
+import { Box, Button, Flex, Join, Spacer } from "@artsy/palette"
+import { Review_order$data } from "__generated__/Review_order.graphql"
 import { ReviewSubmitOfferOrderWithConversationMutation } from "__generated__/ReviewSubmitOfferOrderWithConversationMutation.graphql"
 import { ReviewSubmitOrderMutation } from "__generated__/ReviewSubmitOrderMutation.graphql"
 import { ArtworkSummaryItemFragmentContainer as ArtworkSummaryItem } from "Apps/Order/Components/ArtworkSummaryItem"
 import { ConditionsOfSaleDisclaimer } from "Apps/Order/Components/ConditionsOfSaleDisclaimer"
 import { ItemReviewFragmentContainer as ItemReview } from "Apps/Order/Components/ItemReview"
 import {
-  OrderStepper,
   buyNowFlowSteps,
   offerFlowSteps,
 } from "Apps/Order/Components/OrderStepper"
@@ -24,21 +23,21 @@ import { RelayProp, createFragmentContainer, graphql } from "react-relay"
 import { get } from "Utils/get"
 import createLogger from "Utils/logger"
 import { Media } from "Utils/Responsive"
-import { PaymentMethodSummaryItemFragmentContainer as PaymentMethodSummaryItem } from "../../Components/PaymentMethodSummaryItem"
-import { OfferSummaryItemFragmentContainer as OfferSummaryItem } from "../../Components/OfferSummaryItem"
-import { TwoColumnLayout } from "../../Components/TwoColumnLayout"
-import { BuyerGuarantee } from "../../Components/BuyerGuarantee"
+import { PaymentMethodSummaryItemFragmentContainer as PaymentMethodSummaryItem } from "Apps/Order/Components/PaymentMethodSummaryItem"
+import { OfferSummaryItemFragmentContainer as OfferSummaryItem } from "Apps/Order/Components/OfferSummaryItem"
+import { BuyerGuarantee } from "Apps/Order/Components/BuyerGuarantee"
 import { createStripeWrapper } from "Utils/createStripeWrapper"
 import type { Stripe, StripeElements } from "@stripe/stripe-js"
 import { SystemContextProps, withSystemContext } from "System"
-import { ShippingArtaSummaryItemFragmentContainer } from "../../Components/ShippingArtaSummaryItem"
+import { ShippingArtaSummaryItemFragmentContainer } from "Apps/Order/Components/ShippingArtaSummaryItem"
 import { ActionType, ContextModule, OwnerType } from "@artsy/cohesion"
 import { extractNodes } from "Utils/extractNodes"
 import { useTracking } from "react-tracking"
+import { OrderRouteContainer } from "Apps/Order/Components/OrderRouteContainer"
 export interface ReviewProps extends SystemContextProps {
   stripe: Stripe
   elements: StripeElements
-  order: Review_order
+  order: Review_order$data
   relay?: RelayProp
   router: Router
   route: RouteConfig
@@ -130,24 +129,28 @@ export const ReviewRoute: FC<ReviewProps> = props => {
           o => o.lineItems?.edges?.[0]?.node?.artwork?.slug
         )
 
-        if (
-          order.mode === "OFFER" &&
-          isEigen &&
-          order.source === "artwork_page"
-        ) {
-          window?.ReactNativeWebView?.postMessage(
-            JSON.stringify({
-              key: "goToInboxOnMakeOfferSubmission",
-              orderCode: order.code,
-              message: `The seller will respond to your offer by ${order.stateExpiresAt}. Keep in mind making an offer doesn’t guarantee you the work.`,
-            })
-          )
-          // We cannot expect Eigen to respond all the time to messages sent from the webview
-          // a default fallback page is safer for old/broken Eigen versions
-          setTimeout(() => {
-            router.push(`/orders/${order.internalID}/status`)
-          }, 500)
-          return
+        if (isEigen) {
+          if (order.mode === "OFFER" && order.source === "artwork_page") {
+            window?.ReactNativeWebView?.postMessage(
+              JSON.stringify({
+                key: "goToInboxOnMakeOfferSubmission",
+                orderCode: order.code,
+                message: `The seller will respond to your offer by ${order.stateExpiresAt}. Keep in mind making an offer doesn’t guarantee you the work.`,
+              })
+            )
+            // We cannot expect Eigen to respond all the time to messages sent from the webview
+            // a default fallback page is safer for old/broken Eigen versions
+            setTimeout(() => {
+              router.push(`/orders/${order.internalID}/status`)
+            }, 500)
+            return
+          }
+
+          if (order.mode === "BUY") {
+            window?.ReactNativeWebView?.postMessage(
+              JSON.stringify({ key: "orderSuccessful", orderCode: order.code })
+            )
+          }
         }
 
         // Eigen redirects to the status page for non-Offer orders (must keep the user inside the webview)
@@ -169,8 +172,7 @@ export const ReviewRoute: FC<ReviewProps> = props => {
         }
       }
     } catch (error) {
-      logger.error(error)
-      props.dialog.showErrorDialog()
+      handleSubmitError(error)
     }
   }
 
@@ -229,7 +231,13 @@ export const ReviewRoute: FC<ReviewProps> = props => {
     code: string
     data: string | null
   }) => {
-    logger.error(error)
+    logger.error({
+      ...error,
+      orderId: props.order.internalID!,
+      paymentMethod: props.order?.paymentMethod,
+      shouldLogErrorToSentry: true,
+    })
+
     switch (error.code) {
       case "missing_required_info": {
         props.dialog.showErrorDialog({
@@ -297,7 +305,6 @@ export const ReviewRoute: FC<ReviewProps> = props => {
         break
       }
       default: {
-        logger.error(error)
         props.dialog.showErrorDialog()
         break
       }
@@ -341,6 +348,7 @@ export const ReviewRoute: FC<ReviewProps> = props => {
     })
     props.router.push(`/orders/${props.order.internalID}/payment`)
   }
+
   const onChangeShippingAddress = () => {
     trackEvent({
       action: ActionType.clickedChangeShippingAddress,
@@ -359,32 +367,32 @@ export const ReviewRoute: FC<ReviewProps> = props => {
     props.router.push(`/orders/${props.order.internalID}/shipping`)
   }
 
-  const { order, isCommittingMutation, isEigen } = props
+  const { order, isCommittingMutation, isEigen, stripe } = props
+  const submittable = !!stripe
+
+  const SubmitButton: FC = () => (
+    <Button
+      variant="primaryBlack"
+      width={["100%", "50%"]}
+      loading={isCommittingMutation}
+      disabled={!submittable}
+      onClick={() => onSubmit()}
+    >
+      Submit
+    </Button>
+  )
 
   return (
     <Box data-test="orderReview">
-      <OrderStepper
+      <OrderRouteContainer
         currentStep="Review"
         steps={order.mode === "OFFER" ? offerFlowSteps : buyNowFlowSteps}
-      />
-      <TwoColumnLayout
-        Content={
-          <Join separator={<Spacer mb={4} />}>
+        content={
+          <Join separator={<Spacer y={4} />}>
             <Flex flexDirection="column" mb={[2, 4]}>
-              <Message mb={[2, 4]}>
-                Disruptions caused by COVID-19 may cause delays — we appreciate
-                your understanding.
-              </Message>
               {isEigen && (
                 <>
-                  <Button
-                    variant="primaryBlack"
-                    width="100%"
-                    loading={isCommittingMutation}
-                    onClick={() => onSubmit()}
-                  >
-                    Submit
-                  </Button>
+                  <SubmitButton />
                   <ConditionsOfSaleDisclaimer paddingY={2} textAlign="start" />
                 </>
               )}
@@ -395,34 +403,27 @@ export const ReviewRoute: FC<ReviewProps> = props => {
                 order={order}
                 onChange={onChangeShippingAddress}
               />
-              <PaymentMethodSummaryItem
-                order={order}
-                onChange={onChangePayment}
-                title="Payment method"
-              />
               <ShippingArtaSummaryItemFragmentContainer
                 order={order}
                 onChange={onChangeShippingMethod}
                 title="Shipping"
               />
+              <PaymentMethodSummaryItem
+                order={order}
+                onChange={onChangePayment}
+                title="Payment method"
+              />
             </Flex>
             <Media greaterThan="xs">
               <ItemReview lineItem={order?.lineItems?.edges?.[0]?.node!} />
-              <Spacer mb={2} />
-              <Button
-                variant="primaryBlack"
-                width="50%"
-                loading={isCommittingMutation}
-                onClick={() => onSubmit()}
-              >
-                Submit
-              </Button>
-              <Spacer mb={2} />
+              <Spacer y={4} />
+              <SubmitButton />
+              <Spacer y={2} />
               <ConditionsOfSaleDisclaimer />
             </Media>
           </Join>
         }
-        Sidebar={
+        sidebar={
           <Flex flexDirection="column">
             <Flex flexDirection="column">
               <ArtworkSummaryItem order={order} />
@@ -435,17 +436,10 @@ export const ReviewRoute: FC<ReviewProps> = props => {
               contextModule={ContextModule.ordersReview}
               contextPageOwnerType={OwnerType.ordersReview}
             />
-            <Spacer mb={[2, 4]} />
+            <Spacer y={[2, 4]} />
             <Media at="xs">
-              <Button
-                variant="primaryBlack"
-                width="100%"
-                loading={isCommittingMutation}
-                onClick={() => onSubmit()}
-              >
-                Submit
-              </Button>
-              <Spacer mb={2} />
+              <SubmitButton />
+              <Spacer y={2} />
               <ConditionsOfSaleDisclaimer />
             </Media>
           </Flex>
@@ -463,6 +457,7 @@ export const ReviewFragmentContainer = createFragmentContainer(
     order: graphql`
       fragment Review_order on CommerceOrder {
         internalID
+        paymentMethod
         mode
         code
         source

@@ -1,50 +1,32 @@
+/**
+ * @generated SignedSource<<fe98e077aa1cf0ff2a48df87dca0062e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AuctionDetailsStartTimeQueryVariables = {
-    id: string;
+export type AuctionDetailsStartTimeQuery$variables = {
+  id: string;
 };
-export type AuctionDetailsStartTimeQueryResponse = {
-    readonly sale: {
-        readonly cascadingEndTimeIntervalMinutes: number | null;
-        readonly formattedStartDateTime: string | null;
-        readonly cascadingEndTime: {
-            readonly formattedStartDateTime: string | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"AuctionDetailsStartTime_sale">;
+export type AuctionDetailsStartTimeQuery$data = {
+  readonly sale: {
+    readonly cascadingEndTime: {
+      readonly formattedStartDateTime: string | null;
     } | null;
+    readonly cascadingEndTimeIntervalMinutes: number | null;
+    readonly formattedStartDateTime: string | null;
+    readonly " $fragmentSpreads": FragmentRefs<"AuctionDetailsStartTime_sale">;
+  } | null;
 };
 export type AuctionDetailsStartTimeQuery = {
-    readonly response: AuctionDetailsStartTimeQueryResponse;
-    readonly variables: AuctionDetailsStartTimeQueryVariables;
+  response: AuctionDetailsStartTimeQuery$data;
+  variables: AuctionDetailsStartTimeQuery$variables;
 };
-
-
-
-/*
-query AuctionDetailsStartTimeQuery(
-  $id: String!
-) {
-  sale(id: $id) {
-    ...AuctionDetailsStartTime_sale
-    cascadingEndTimeIntervalMinutes
-    formattedStartDateTime
-    cascadingEndTime {
-      formattedStartDateTime
-    }
-    id
-  }
-}
-
-fragment AuctionDetailsStartTime_sale on Sale {
-  cascadingEndTime {
-    formattedStartDateTime
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -102,14 +84,14 @@ return {
         "name": "sale",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
-          (v4/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
             "name": "AuctionDetailsStartTime_sale"
-          }
+          },
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
@@ -156,5 +138,7 @@ return {
   }
 };
 })();
-(node as any).hash = '531fbde1ac6c06cfbf4d7e24a4bff263';
+
+(node as any).hash = "531fbde1ac6c06cfbf4d7e24a4bff263";
+
 export default node;

@@ -1,9 +1,12 @@
-import { Spacer } from "@artsy/palette"
+import { Spacer, Text } from "@artsy/palette"
 import { RouterLink } from "System/Router/RouterLink"
 
 interface StatusPageConfig {
   title?: React.ReactNode
   description?: React.ReactNode
+  alertMessageTitle?: string | null
+  alertMessage?: React.ReactNode
+  content?: React.ReactNode
   // default showTransactionSummary is true
   showTransactionSummary?: boolean
 }
@@ -14,6 +17,7 @@ export const getStatusCopy = (order, logger?): StatusPageConfig => {
   }
 
   const {
+    paymentMethod,
     displayState,
     state,
     requestedFulfillment,
@@ -25,12 +29,13 @@ export const getStatusCopy = (order, logger?): StatusPageConfig => {
   const isPickup = requestedFulfillment?.__typename === "CommercePickup"
   const isArtaShipped: boolean =
     requestedFulfillment?.__typename === "CommerceShipArta"
+  const isWireTransfer = paymentMethod === "WIRE_TRANSFER"
 
   switch (displayState) {
     case "SUBMITTED":
       return isOfferFlow
         ? {
-            title: "Your offer has been submitted",
+            title: "Thank you, your offer has been submitted",
             description: (
               <>
                 The seller will respond to your offer by {stateExpiresAt}. Keep
@@ -39,12 +44,9 @@ export const getStatusCopy = (order, logger?): StatusPageConfig => {
             ),
           }
         : {
-            title: "Your order has been submitted",
+            title: "Thank you, your order has been submitted",
             description: (
-              <>
-                Thank you for your purchase. You will receive a confirmation
-                email by {stateExpiresAt}.{covidNote()}
-              </>
+              <>You will receive a confirmation email by {stateExpiresAt}.</>
             ),
           }
     case "APPROVED":
@@ -54,13 +56,11 @@ export const getStatusCopy = (order, logger?): StatusPageConfig => {
           <>
             Thank you for your purchase. A specialist will contact you within 2
             business days to coordinate pickup.
-            {covidNote()}
           </>
         ) : (
           <>
             Thank you for your purchase. You will be notified when the work has
             shipped, typically within 5–7 business days.
-            {covidNote()}
           </>
         ),
       }
@@ -71,9 +71,75 @@ export const getStatusCopy = (order, logger?): StatusPageConfig => {
           <>
             Thank you for your purchase. {deliverText(order)}More delivery
             information will be available once your order ships.
-            {covidNote()}
           </>
         ),
+      }
+    case "PROCESSING_APPROVAL":
+      return {
+        title: `${processingApprovalTitle(isOfferFlow, isWireTransfer)}`,
+        description: isWireTransfer ? null : (
+          <>
+            Thank you for your purchase. {deliverText(order)}More delivery
+            information will be available once your order ships.
+          </>
+        ),
+        alertMessageTitle: isWireTransfer
+          ? "Please proceed with the wire transfer to complete your purchase"
+          : null,
+        alertMessage: isWireTransfer ? (
+          <>
+            <Text>
+              Please provide your proof of payment within 7 days. After this
+              period, your order will be eligible for cancellation by the
+              gallery.
+            </Text>
+            <Spacer y={2} />
+            <Text>
+              1. &nbsp; Find the order total and Artsy’s banking details below.
+            </Text>
+            <Text>
+              2. &nbsp;Please inform your bank that you will be responsible for
+              all wire transfer fees.
+            </Text>
+            <Text>
+              3. &nbsp;Once you have made the transfer, please email
+              orders@artsy.net with your proof of payment.
+            </Text>
+          </>
+        ) : null,
+        content: isWireTransfer ? (
+          <>
+            <Text
+              variant={["xs", "sm-display"]}
+              fontWeight="bold"
+              color="black100"
+            >
+              Send wire transfer to
+            </Text>
+            <Spacer y={1} />
+            <Text>Account name: Art.sy Inc.</Text>
+            <Text>Account number: 4243851425</Text>
+            <Text>Routing number: 121000248</Text>
+            <Text>International SWIFT: WFBIUS6S</Text>
+            <Spacer y={2} />
+            <Text
+              variant={["xs", "sm-display"]}
+              fontWeight="bold"
+              color="black100"
+            >
+              Bank address
+            </Text>
+            <Spacer y={1} />
+            <Text>Wells Fargo Bank, N.A.</Text>
+            <Text>420 Montgomery Street</Text>
+            <Text>San Francisco, CA 9410</Text>
+            <Spacer y={2} />
+            <Text fontStyle="italic">
+              Add order number #{order.code} to the notes section in your wire
+              transfer.
+            </Text>
+          </>
+        ) : null,
       }
     case "IN_TRANSIT":
       return {
@@ -138,7 +204,7 @@ export const canceledOfferOrderCopy = (order, logger?): StatusPageConfig => {
           <>
             Thank you for your response. The seller will be informed of your
             decision to end the negotiation process.
-            <Spacer mb={2} />
+            <Spacer y={2} />
             We’d love to get your feedback. Contact{" "}
             <a href="mailto:orders@artsy.net">orders@artsy.net</a> with any
             comments you have.
@@ -245,11 +311,11 @@ export const shipmentDescription = (
         !isDelivered &&
         " " +
           "Our delivery provider will call you to provide a delivery window when it arrives in your area."}
-      <Spacer mb={2} />
+      <Spacer y={2} />
       {shipmentData.shipperName && (
         <>
           Shipper: {shipmentData.shipperName}
-          <Spacer mb={1} />
+          <Spacer y={1} />
         </>
       )}
       {hasTrackingInfo &&
@@ -266,21 +332,26 @@ export const shipmentDescription = (
   )
 }
 
-export const covidNote = (): React.ReactNode => {
-  return (
-    <>
-      <Spacer mb={1} />
-      Disruptions caused by COVID-19 may cause delays — we appreciate your
-      understanding.
-    </>
-  )
-}
-
 export const continueToInboxText =
   "Negotiation with the gallery will continue in the Inbox."
 
 export const approvedTitle = (isOfferFlow): string => {
   return isOfferFlow ? "Offer accepted" : "Your order is confirmed"
+}
+
+export const processingApprovalTitle = (
+  isOfferFlow,
+  isWireTransfer
+): string => {
+  if (isWireTransfer) {
+    return isOfferFlow
+      ? "Thank you, your offer has been accepted"
+      : "Thank you, your order has been accepted"
+  }
+
+  return isOfferFlow
+    ? "Offer accepted. Payment processing."
+    : "Your order is confirmed. Payment processing."
 }
 
 export const deliverText = (order): React.ReactNode => {
@@ -325,7 +396,7 @@ export const trackingInfo = (
   return (
     <>
       Tracking: {node}
-      <Spacer mb={1} />
+      <Spacer y={1} />
     </>
   )
 }

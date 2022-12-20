@@ -1,6 +1,6 @@
 import { graphql } from "react-relay"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
-import { ArtistCVRouteFragmentContainer } from "../ArtistCVRoute"
+import { ArtistCVRouteFragmentContainer } from "Apps/Artist/Routes/CV/ArtistCVRoute"
 import { ArtistCVRoute_Test_Query } from "__generated__/ArtistCVRoute_Test_Query.graphql"
 
 jest.unmock("react-relay")
@@ -23,13 +23,13 @@ describe("ArtistCVRoute", () => {
     },
   })
 
-  it("does not render rail if no shows", () => {
+  it("renders a message with no show info", () => {
     const wrapper = getWrapper({
       Artist: () => ({
         showsConnection: { edges: null },
       }),
     })
-    expect(wrapper.find('[data-test="artistCVGroup"]').length).toBe(0)
+    expect(wrapper.text()).toMatch(/This artist has no/)
   })
 
   it("renders correctly", () => {

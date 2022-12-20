@@ -7,17 +7,17 @@ import {
   Text,
   Spacer,
 } from "@artsy/palette"
-import { CreateAppSecondFactorMutationResponse } from "__generated__/CreateAppSecondFactorMutation.graphql"
+import { CreateAppSecondFactorMutation$data } from "__generated__/CreateAppSecondFactorMutation.graphql"
 import { useSystemContext } from "System"
 import { Formik, FormikHelpers as FormikActions, FormikProps } from "formik"
 import QRCode from "qrcode.react"
 import { useState } from "react"
 import * as React from "react"
 import * as Yup from "yup"
-import { ApiError } from "../../ApiError"
-import { EnableSecondFactor } from "../Mutation/EnableSecondFactor"
+import { ApiError } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/ApiError"
+import { EnableSecondFactor } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/Components/Mutation/EnableSecondFactor"
 import { UpdateAppSecondFactor } from "./Mutation/UpdateAppSecondFactor"
-import { BackupSecondFactorReminder } from "../BackupSecondFactorReminder"
+import { BackupSecondFactorReminder } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/Components/BackupSecondFactorReminder"
 import { redirectMessage } from "Apps/Settings/Routes/EditSettings/Components/SettingsEditSettingsTwoFactor/TwoFactorAuthentication/helpers"
 
 export interface FormValues {
@@ -41,7 +41,7 @@ interface AppSecondFactorModalProps {
   show?: boolean
   onComplete: () => void
   // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-  secondFactor: CreateAppSecondFactorMutationResponse["createAppSecondFactor"]["secondFactorOrErrors"]
+  secondFactor: CreateAppSecondFactorMutation$data["createAppSecondFactor"]["secondFactorOrErrors"]
   password: string
 }
 
@@ -51,7 +51,7 @@ export const AppSecondFactorModal: React.FC<AppSecondFactorModalProps> = props =
 
   const [showForm, setShowForm] = useState(true)
   const [showRecoveryCodes, setShowRecoveryCodes] = useState(false)
-  const [recoveryCodes, setRecoveryCodes] = useState(null)
+  const [recoveryCodes, setRecoveryCodes] = useState<any>(null)
 
   if (!secondFactor || secondFactor.__typename !== "AppSecondFactor") {
     return null
@@ -93,15 +93,13 @@ export const AppSecondFactorModal: React.FC<AppSecondFactorModalProps> = props =
         },
       })
 
-      // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-      const response = await EnableSecondFactor(relayEnvironment, {
+      const response = await EnableSecondFactor(relayEnvironment!, {
         secondFactorID: secondFactor.internalID,
         code: values.code,
         password: password,
       })
 
-      // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-      setRecoveryCodes(response.enableSecondFactor.recoveryCodes)
+      setRecoveryCodes(response?.enableSecondFactor?.recoveryCodes)
 
       actions.setSubmitting(false)
 
@@ -145,7 +143,6 @@ export const AppSecondFactorModal: React.FC<AppSecondFactorModalProps> = props =
           }
         >
           <BackupSecondFactorReminder
-            // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
             backupSecondFactors={recoveryCodes}
             factorTypeName={secondFactor.__typename}
           />
@@ -177,7 +174,7 @@ const InnerForm: React.FC<InnerFormProps> = ({
   }
 
   return (
-    <Join separator={<Spacer mt={2} />}>
+    <Join separator={<Spacer y={2} />}>
       <Text variant="sm" color="black60">
         An authenticator app lets you generate security codes.
       </Text>

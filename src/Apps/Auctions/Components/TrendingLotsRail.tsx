@@ -4,14 +4,14 @@ import { useTracking } from "react-tracking"
 import { AuthContextModule } from "@artsy/cohesion"
 import { extractNodes } from "Utils/extractNodes"
 import { ShelfArtworkFragmentContainer } from "Components/Artwork/ShelfArtwork"
-import { tabTypeToContextModuleMap } from "../Utils/tabTypeToContextModuleMap"
-import { TrendingLotsRail_viewer } from "__generated__/TrendingLotsRail_viewer.graphql"
+import { tabTypeToContextModuleMap } from "Apps/Auctions/Utils/tabTypeToContextModuleMap"
+import { TrendingLotsRail_viewer$data } from "__generated__/TrendingLotsRail_viewer.graphql"
 import { useAnalyticsContext } from "System"
 import { trackHelpers } from "Utils/cohesionHelpers"
 import { CuratorialRailsZeroState } from "./CuritorialRailsTabBar"
 import { Rail } from "Components/Rail"
 export interface TrendingLotsRailProps {
-  viewer: TrendingLotsRail_viewer
+  viewer: TrendingLotsRail_viewer$data
 }
 
 const TrendingLotsRail: React.FC<TrendingLotsRailProps> = ({ viewer }) => {
@@ -78,7 +78,7 @@ export const TrendingLotsRailFragmentContainer = createFragmentContainer(
               sale {
                 isClosed
               }
-              ...ShelfArtwork_artwork @arguments(width: 325)
+              ...ShelfArtwork_artwork
             }
           }
         }

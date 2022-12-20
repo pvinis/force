@@ -1,38 +1,41 @@
+/**
+ * @generated SignedSource<<b1e41dddb1408c76678dd0cf7e262f17>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnersSpecialtyAutocomplete_viewer = {
-    readonly allOptions: {
-        readonly aggregations: ReadonlyArray<{
-            readonly counts: ReadonlyArray<{
-                readonly text: string;
-                readonly value: string;
-                readonly count: number;
-            } | null> | null;
-        } | null> | null;
-    } | null;
-    readonly filterPartners: {
-        readonly total: number | null;
-        readonly aggregations: ReadonlyArray<{
-            readonly counts: ReadonlyArray<{
-                readonly text: string;
-                readonly value: string;
-                readonly count: number;
-            } | null> | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "PartnersSpecialtyAutocomplete_viewer";
+export type PartnersSpecialtyAutocomplete_viewer$data = {
+  readonly allOptions: {
+    readonly aggregations: ReadonlyArray<{
+      readonly counts: ReadonlyArray<{
+        readonly count: number;
+        readonly text: string;
+        readonly value: string;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+  readonly filterPartners: {
+    readonly aggregations: ReadonlyArray<{
+      readonly counts: ReadonlyArray<{
+        readonly count: number;
+        readonly text: string;
+        readonly value: string;
+      } | null> | null;
+    } | null> | null;
+    readonly total: number | null;
+  } | null;
+  readonly " $fragmentType": "PartnersSpecialtyAutocomplete_viewer";
 };
-export type PartnersSpecialtyAutocomplete_viewer$data = PartnersSpecialtyAutocomplete_viewer;
 export type PartnersSpecialtyAutocomplete_viewer$key = {
-    readonly " $data"?: PartnersSpecialtyAutocomplete_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnersSpecialtyAutocomplete_viewer">;
+  readonly " $data"?: PartnersSpecialtyAutocomplete_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnersSpecialtyAutocomplete_viewer">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -179,5 +182,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '83cb0f39611ce708c38a10346c4abe4b';
+
+(node as any).hash = "83cb0f39611ce708c38a10346c4abe4b";
+
 export default node;

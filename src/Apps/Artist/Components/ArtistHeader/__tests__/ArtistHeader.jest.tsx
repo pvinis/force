@@ -55,9 +55,14 @@ describe("ArtistHeader", () => {
     expect(screen.getByText("USA, Jan 1 1980")).toBeInTheDocument()
     expect(screen.getByText("111 Followers")).toBeInTheDocument()
     expect(screen.getByText("biographyBlurbText")).toBeInTheDocument()
+    const cvLink = screen.getByText("See all past shows and fair booths")
+    expect(cvLink).toHaveAttribute(
+      "href",
+      expect.stringContaining("/artist/artistSlug/cv")
+    )
   })
 
-  it("hides bio section if partner supplied bio", () => {
+  it("hides bio section and cv link if partner supplied bio", () => {
     renderWithRelay({
       Artist: () => ({
         biographyBlurb: { text: "biographyBlurbText", credit: true },
@@ -65,6 +70,9 @@ describe("ArtistHeader", () => {
     })
 
     expect(screen.queryByText("biographyBlurbText")).not.toBeInTheDocument()
+    expect(
+      screen.queryByText("See all past shows and fair booths")
+    ).not.toBeInTheDocument()
   })
 
   it("hides follows if count is zero", () => {

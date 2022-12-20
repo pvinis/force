@@ -1,50 +1,25 @@
+/**
+ * @generated SignedSource<<a16fb234d9b992da07dfd439861d7593>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkLightboxTestQueryVariables = {};
-export type ArtworkLightboxTestQueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkLightbox_artwork">;
-    } | null;
+export type ArtworkLightboxTestQuery$variables = {};
+export type ArtworkLightboxTestQuery$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkLightbox_artwork">;
+  } | null;
 };
 export type ArtworkLightboxTestQuery = {
-    readonly response: ArtworkLightboxTestQueryResponse;
-    readonly variables: ArtworkLightboxTestQueryVariables;
+  response: ArtworkLightboxTestQuery$data;
+  variables: ArtworkLightboxTestQuery$variables;
 };
-
-
-
-/*
-query ArtworkLightboxTestQuery {
-  artwork(id: "foo") {
-    ...ArtworkLightbox_artwork
-    id
-  }
-}
-
-fragment ArtworkLightbox_artwork on Artwork {
-  formattedMetadata
-  images {
-    isDefault
-    placeholder: url(version: ["small", "medium"])
-    fallback: cropped(width: 800, height: 800, version: ["normalized", "larger", "large"]) {
-      width
-      height
-      src
-      srcSet
-    }
-    resized(width: 800, height: 800, version: ["normalized", "larger", "large"]) {
-      width
-      height
-      src
-      srcSet
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -229,5 +204,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'd89c107ad8a376c89f12778bd9f949f3';
+
+(node as any).hash = "d89c107ad8a376c89f12778bd9f949f3";
+
 export default node;

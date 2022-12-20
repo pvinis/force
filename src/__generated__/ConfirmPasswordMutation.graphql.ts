@@ -1,42 +1,36 @@
+/**
+ * @generated SignedSource<<08e835aef40ecbe7024102c4ba1853ac>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ConfirmPasswordInput = {
-    clientMutationId?: string | null | undefined;
-    password: string;
+  clientMutationId?: string | null;
+  password: string;
 };
-export type ConfirmPasswordMutationVariables = {
-    input: ConfirmPasswordInput;
+export type ConfirmPasswordMutation$variables = {
+  input: ConfirmPasswordInput;
 };
-export type ConfirmPasswordMutationResponse = {
-    readonly confirmPassword: {
-        readonly valid: boolean;
-    } | null;
+export type ConfirmPasswordMutation$data = {
+  readonly confirmPassword: {
+    readonly valid: boolean;
+  } | null;
 };
-export type ConfirmPasswordMutationRawResponse = {
-    readonly confirmPassword: ({
-        readonly valid: boolean;
-    }) | null;
+export type ConfirmPasswordMutation$rawResponse = {
+  readonly confirmPassword: {
+    readonly valid: boolean;
+  } | null;
 };
 export type ConfirmPasswordMutation = {
-    readonly response: ConfirmPasswordMutationResponse;
-    readonly variables: ConfirmPasswordMutationVariables;
-    readonly rawResponse: ConfirmPasswordMutationRawResponse;
+  rawResponse: ConfirmPasswordMutation$rawResponse;
+  response: ConfirmPasswordMutation$data;
+  variables: ConfirmPasswordMutation$variables;
 };
-
-
-
-/*
-mutation ConfirmPasswordMutation(
-  $input: ConfirmPasswordInput!
-) {
-  confirmPassword(input: $input) {
-    valid
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -99,5 +93,7 @@ return {
   }
 };
 })();
-(node as any).hash = '46d7950299cac02f7f6c0044677b485d';
+
+(node as any).hash = "46d7950299cac02f7f6c0044677b485d";
+
 export default node;

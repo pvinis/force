@@ -11,15 +11,15 @@ import {
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { MetaTags } from "Components/MetaTags"
-import { GalleriesRoute_viewer } from "__generated__/GalleriesRoute_viewer.graphql"
-import { PartnersFilters } from "../Components/PartnersFilters"
-import { PartnersFeaturedCarouselFragmentContainer } from "../Components/PartnersFeaturedCarousel"
-import { PartnersFilteredCellsQueryRenderer } from "../Components/PartnersFilteredCells"
-import { PartnersRailsQueryRenderer } from "../Components/PartnersRails"
+import { GalleriesRoute_viewer$data } from "__generated__/GalleriesRoute_viewer.graphql"
+import { PartnersFilters } from "Apps/Partners/Components/PartnersFilters"
+import { PartnersFeaturedCarouselFragmentContainer } from "Apps/Partners/Components/PartnersFeaturedCarousel"
+import { PartnersFilteredCellsQueryRenderer } from "Apps/Partners/Components/PartnersFilteredCells"
+import { PartnersRailsQueryRenderer } from "Apps/Partners/Components/PartnersRails"
 import { useRouter } from "System/Router/useRouter"
 
 interface GalleriesRouteProps {
-  viewer: GalleriesRoute_viewer
+  viewer: GalleriesRoute_viewer$data
 }
 
 const GalleriesRoute: React.FC<GalleriesRouteProps> = ({ viewer }) => {
@@ -37,7 +37,7 @@ const GalleriesRoute: React.FC<GalleriesRouteProps> = ({ viewer }) => {
         pathname="galleries"
       />
 
-      <Join separator={<Spacer mt={4} />}>
+      <Join separator={<Spacer y={4} />}>
         <PartnersFeaturedCarouselFragmentContainer viewer={viewer} />
 
         <Flex

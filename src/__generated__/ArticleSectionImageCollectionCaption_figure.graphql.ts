@@ -1,24 +1,45 @@
+/**
+ * @generated SignedSource<<bdef699ea354df94e7453e09a8ef174d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleSectionImageCollectionCaption_figure = {
-    readonly __typename: string;
-    readonly caption?: string | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Metadata_artwork">;
-    readonly " $refType": "ArticleSectionImageCollectionCaption_figure";
+export type ArticleSectionImageCollectionCaption_figure$data = {
+  readonly __typename: string;
+  readonly artist?: {
+    readonly name: string | null;
+  } | null;
+  readonly caption?: string | null;
+  readonly date?: string | null;
+  readonly partner?: {
+    readonly name: string | null;
+  } | null;
+  readonly title?: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"Metadata_artwork">;
+  readonly " $fragmentType": "ArticleSectionImageCollectionCaption_figure";
 };
-export type ArticleSectionImageCollectionCaption_figure$data = ArticleSectionImageCollectionCaption_figure;
 export type ArticleSectionImageCollectionCaption_figure$key = {
-    readonly " $data"?: ArticleSectionImageCollectionCaption_figure$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleSectionImageCollectionCaption_figure">;
+  readonly " $data"?: ArticleSectionImageCollectionCaption_figure$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleSectionImageCollectionCaption_figure">;
 };
 
-
-
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "name",
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -49,10 +70,54 @@ const node: ReaderFragment = {
       ],
       "type": "ArticleImageSection",
       "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "title",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "date",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ArticleUnpublishedArtworkArtist",
+          "kind": "LinkedField",
+          "name": "artist",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ArticleUnpublishedArtworkPartner",
+          "kind": "LinkedField",
+          "name": "partner",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "type": "ArticleUnpublishedArtwork",
+      "abstractKey": null
     }
   ],
   "type": "ArticleSectionImageCollectionFigure",
   "abstractKey": "__isArticleSectionImageCollectionFigure"
 };
-(node as any).hash = '446271f2fd3efad0800c1e6260f3fd5b';
+})();
+
+(node as any).hash = "69dca86fbddcfacf903b09514bf640fc";
+
 export default node;

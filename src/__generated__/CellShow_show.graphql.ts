@@ -1,36 +1,39 @@
+/**
+ * @generated SignedSource<<791011c304aa61beb3d86378bb9e7d35>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CellShow_show = {
-    readonly internalID: string;
-    readonly slug: string;
-    readonly name: string | null;
-    readonly href: string | null;
-    readonly startAt: string | null;
-    readonly endAt: string | null;
-    readonly isFairBooth: boolean | null;
-    readonly exhibitionPeriod: string | null;
-    readonly partner: {
-        readonly name?: string | null | undefined;
+export type CellShow_show$data = {
+  readonly coverImage: {
+    readonly cropped: {
+      readonly src: string;
+      readonly srcSet: string;
     } | null;
-    readonly coverImage: {
-        readonly cropped: {
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
-    } | null;
-    readonly " $refType": "CellShow_show";
+  } | null;
+  readonly endAt: string | null;
+  readonly exhibitionPeriod: string | null;
+  readonly href: string | null;
+  readonly internalID: string;
+  readonly isFairBooth: boolean | null;
+  readonly name: string | null;
+  readonly partner: {
+    readonly name?: string | null;
+  } | null;
+  readonly slug: string;
+  readonly startAt: string | null;
+  readonly " $fragmentType": "CellShow_show";
 };
-export type CellShow_show$data = CellShow_show;
 export type CellShow_show$key = {
-    readonly " $data"?: CellShow_show$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CellShow_show">;
+  readonly " $data"?: CellShow_show$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CellShow_show">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -135,7 +138,6 @@ return {
               "kind": "Literal",
               "name": "version",
               "value": [
-                "normalized",
                 "larger",
                 "large"
               ]
@@ -166,7 +168,7 @@ return {
               "storageKey": null
             }
           ],
-          "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+          "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
         }
       ],
       "storageKey": null
@@ -176,5 +178,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '9baaf250a0d4304282eae2fc6f46c848';
+
+(node as any).hash = "8ef91d4835303d527e1ef98587a91733";
+
 export default node;

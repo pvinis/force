@@ -1,38 +1,41 @@
+/**
+ * @generated SignedSource<<90697f1e00e6bd68516d321c446097ae>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairsFairRow_fair = {
-    readonly href: string | null;
-    readonly name: string | null;
-    readonly isoStartAt: string | null;
-    readonly exhibitionPeriod: string | null;
+export type FairsFairRow_fair$data = {
+  readonly exhibitionPeriod: string | null;
+  readonly href: string | null;
+  readonly isoStartAt: string | null;
+  readonly name: string | null;
+  readonly organizer: {
     readonly profile: {
-        readonly icon: {
-            readonly resized: {
-                readonly width: number | null;
-                readonly height: number | null;
-                readonly src: string;
-                readonly srcSet: string;
-            } | null;
-        } | null;
+      readonly href: string | null;
     } | null;
-    readonly organizer: {
-        readonly profile: {
-            readonly href: string | null;
-        } | null;
+  } | null;
+  readonly profile: {
+    readonly icon: {
+      readonly resized: {
+        readonly height: number | null;
+        readonly src: string;
+        readonly srcSet: string;
+        readonly width: number | null;
+      } | null;
     } | null;
-    readonly " $refType": "FairsFairRow_fair";
+  } | null;
+  readonly " $fragmentType": "FairsFairRow_fair";
 };
-export type FairsFairRow_fair$data = FairsFairRow_fair;
 export type FairsFairRow_fair$key = {
-    readonly " $data"?: FairsFairRow_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairsFairRow_fair">;
+  readonly " $data"?: FairsFairRow_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairsFairRow_fair">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -175,5 +178,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '18bcad7870e32664847bf5de2aa4b757';
+
+(node as any).hash = "18bcad7870e32664847bf5de2aa4b757";
+
 export default node;

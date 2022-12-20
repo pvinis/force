@@ -1,20 +1,20 @@
 import { Button, Flex, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { RegisterButton_sale } from "__generated__/RegisterButton_sale.graphql"
-import { RegisterButton_me } from "__generated__/RegisterButton_me.graphql"
+import { RegisterButton_sale$data } from "__generated__/RegisterButton_sale.graphql"
+import { RegisterButton_me$data } from "__generated__/RegisterButton_me.graphql"
 import { RouterLink } from "System/Router/RouterLink"
 import createLogger from "Utils/logger"
 import { ContextModule, Intent } from "@artsy/cohesion"
 import { useRouter } from "System/Router/useRouter"
-import { openAuthModal } from "lib/openAuthModal"
+import { openAuthModal } from "Server/openAuthModal"
 import { ModalType } from "Components/Authentication/Types"
 import { useAuctionTracking } from "../Hooks/useAuctionTracking"
 
 const logger = createLogger("RegisterButton")
 
 export interface RegisterButtonProps {
-  me: RegisterButton_me
-  sale: RegisterButton_sale
+  me: RegisterButton_me$data
+  sale: RegisterButton_sale$data
 }
 
 export const RegisterButton: React.FC<RegisterButtonProps> = ({ me, sale }) => {
@@ -155,8 +155,8 @@ export const computeConditions = ({
   me,
   sale,
 }: {
-  me: RegisterButton_me
-  sale: RegisterButton_sale
+  me: RegisterButton_me$data
+  sale: RegisterButton_sale$data
 }) => {
   const registrationAttempted = Boolean(sale.bidder)
   const qualifiedForBidding =

@@ -6,10 +6,10 @@ import { ArticleSectionImageSetFragmentContainer } from "./Sections/ArticleSecti
 import { ArticleSectionSocialEmbedFragmentContainer } from "./Sections/ArticleSectionSocialEmbed"
 import { ArticleSectionTextFragmentContainer } from "./Sections/ArticleSectionText"
 import { ArticleSectionVideoFragmentContainer } from "./Sections/ArticleSectionVideo"
-import { ArticleSection_section } from "__generated__/ArticleSection_section.graphql"
+import { ArticleSection_section$data } from "__generated__/ArticleSection_section.graphql"
 
 interface ArticleSectionProps {
-  section: ArticleSection_section
+  section: ArticleSection_section$data
   isFirst: boolean
   isLast: boolean
 }

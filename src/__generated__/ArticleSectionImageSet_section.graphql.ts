@@ -1,64 +1,67 @@
+/**
+ * @generated SignedSource<<de3742ac5170164a3a0d6e2e8183e308>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ArticleSectionImageSetLayout = "FULL" | "MINI" | "%future added value";
-export type ArticleSectionImageSet_section = {
-    readonly setLayout: ArticleSectionImageSetLayout;
-    readonly title: string | null;
-    readonly counts: {
-        readonly figures: number;
-    };
-    readonly cover: ({
-        readonly __typename: "ArticleImageSection";
-        readonly id: string;
-        readonly image: {
-            readonly small: {
-                readonly src: string;
-                readonly srcSet: string;
-                readonly height: number;
-                readonly width: number;
-            } | null;
-            readonly large: {
-                readonly src: string;
-                readonly srcSet: string;
-                readonly height: number | null;
-                readonly width: number | null;
-            } | null;
-        } | null;
-    } | {
-        readonly __typename: "Artwork";
-        readonly id: string;
-        readonly image: {
-            readonly small: {
-                readonly src: string;
-                readonly srcSet: string;
-                readonly height: number;
-                readonly width: number;
-            } | null;
-            readonly large: {
-                readonly src: string;
-                readonly srcSet: string;
-                readonly height: number | null;
-                readonly width: number | null;
-            } | null;
-        } | null;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    }) | null;
-    readonly " $refType": "ArticleSectionImageSet_section";
+import { FragmentRefs } from "relay-runtime";
+export type ArticleSectionImageSet_section$data = {
+  readonly counts: {
+    readonly figures: number;
+  };
+  readonly cover: {
+    readonly __typename: "ArticleImageSection";
+    readonly id: string;
+    readonly image: {
+      readonly large: {
+        readonly height: number | null;
+        readonly src: string;
+        readonly srcSet: string;
+        readonly width: number | null;
+      } | null;
+      readonly small: {
+        readonly height: number;
+        readonly src: string;
+        readonly srcSet: string;
+        readonly width: number;
+      } | null;
+    } | null;
+  } | {
+    readonly __typename: "Artwork";
+    readonly id: string;
+    readonly image: {
+      readonly large: {
+        readonly height: number | null;
+        readonly src: string;
+        readonly srcSet: string;
+        readonly width: number | null;
+      } | null;
+      readonly small: {
+        readonly height: number;
+        readonly src: string;
+        readonly srcSet: string;
+        readonly width: number;
+      } | null;
+    } | null;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  } | null;
+  readonly setLayout: ArticleSectionImageSetLayout;
+  readonly title: string | null;
+  readonly " $fragmentType": "ArticleSectionImageSet_section";
 };
-export type ArticleSectionImageSet_section$data = ArticleSectionImageSet_section;
 export type ArticleSectionImageSet_section$key = {
-    readonly " $data"?: ArticleSectionImageSet_section$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleSectionImageSet_section">;
+  readonly " $data"?: ArticleSectionImageSet_section$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleSectionImageSet_section">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -232,5 +235,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '754c1ebca79c6e90ed16f13e38231dde';
+
+(node as any).hash = "754c1ebca79c6e90ed16f13e38231dde";
+
 export default node;

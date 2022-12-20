@@ -1,48 +1,79 @@
-import { ArtworkImageBrowser_artwork } from "__generated__/ArtworkImageBrowser_artwork.graphql"
-import * as React from "react"
-import { createFragmentContainer, graphql } from "react-relay"
-import { ArtworkActionsFragmentContainer as ArtworkActions } from "./ArtworkActions"
-import { Box, Spacer } from "@artsy/palette"
 import { ContextModule } from "@artsy/cohesion"
+import { Box, Spacer } from "@artsy/palette"
+import { scale } from "proportional-scale"
+import * as React from "react"
+import { useMemo } from "react"
+import { createFragmentContainer, graphql } from "react-relay"
+import { useCursor } from "use-cursor"
+import { Media } from "Utils/Responsive"
+import { ArtworkImageBrowser_artwork$data } from "__generated__/ArtworkImageBrowser_artwork.graphql"
+import { ArtworkActionsFragmentContainer as ArtworkActions } from "./ArtworkActions"
 import { ArtworkImageBrowserLargeFragmentContainer } from "./ArtworkImageBrowserLarge"
 import { ArtworkImageBrowserSmallFragmentContainer } from "./ArtworkImageBrowserSmall"
-import { Media } from "Utils/Responsive"
-import { useCursor } from "use-cursor"
-import { compact } from "lodash"
-import { scale } from "proportional-scale"
 
-const MAX_DIMENSION = 800
+// Dimension used to scale both images and videos
+export const MAX_DIMENSION = 800
 
 export interface ArtworkImageBrowserProps {
-  artwork: ArtworkImageBrowser_artwork
+  artwork: ArtworkImageBrowser_artwork$data
+  isMyCollectionArtwork?: boolean
 }
 
 export const ArtworkImageBrowser: React.FC<ArtworkImageBrowserProps> = ({
   artwork,
+  isMyCollectionArtwork,
 }) => {
   const { figures } = artwork
 
-  const { index, handleNext, handlePrev, setCursor } = useCursor({
+  const { index: activeIndex, handleNext, handlePrev, setCursor } = useCursor({
     max: figures.length,
   })
 
-  const images = compact(artwork.images)
-  const hasGeometry = !!images[0]?.width
-  const maxHeight = Math.max(
-    ...images.map(image => {
-      const scaled = scale({
-        width: image.width!,
-        height: image.height!,
-        maxWidth: MAX_DIMENSION,
-        maxHeight: MAX_DIMENSION,
+  // Here we pre-emptively scale the figures to figure out which is going
+  // to have the largest height. We use this to set a fixed height on the container
+  // so that the UI doesn't shift around.
+  const maxHeight = useMemo(() => {
+    return Math.max(
+      ...figures.map(figure => {
+        switch (figure.__typename) {
+          case "Image": {
+            if (!figure.width || !figure.height) return MAX_DIMENSION
+
+            return scale({
+              width: figure.width,
+              height: figure.height,
+              maxWidth: MAX_DIMENSION,
+              maxHeight: MAX_DIMENSION,
+            }).height
+          }
+
+          case "Video": {
+            return scale({
+              width: figure.videoWidth,
+              height: figure.videoHeight,
+              maxWidth: MAX_DIMENSION,
+              maxHeight: MAX_DIMENSION,
+            }).height
+          }
+
+          default: {
+            return MAX_DIMENSION
+          }
+        }
       })
+    )
+  }, [figures])
 
-      return hasGeometry ? scaled.height : MAX_DIMENSION
-    })
-  )
+  const defaultIndex = useMemo(() => {
+    return (
+      figures.findIndex(figure => {
+        if (!("isDefault" in figure)) return false
+        return !!figure.isDefault
+      }) ?? 0
+    )
+  }, [figures])
 
-  const handleSelectDefaultSlide = () => {
-    const defaultIndex = figures?.findIndex(image => !!image?.isDefault) ?? 0
+  const handleSelectRoomViewableFigure = () => {
     setCursor(defaultIndex)
   }
 
@@ -59,8 +90,8 @@ export const ArtworkImageBrowser: React.FC<ArtworkImageBrowserProps> = ({
       <Media at="xs">
         <ArtworkImageBrowserSmallFragmentContainer
           artwork={artwork}
-          index={index}
-          setIndex={setCursor}
+          activeIndex={activeIndex}
+          setActiveIndex={setCursor}
           maxHeight={maxHeight}
         />
       </Media>
@@ -68,45 +99,51 @@ export const ArtworkImageBrowser: React.FC<ArtworkImageBrowserProps> = ({
       <Media greaterThan="xs">
         <ArtworkImageBrowserLargeFragmentContainer
           artwork={artwork}
-          index={index}
+          activeIndex={activeIndex}
           onNext={handleNext}
           onPrev={handlePrev}
+          onChange={setCursor}
           maxHeight={maxHeight}
         />
       </Media>
 
-      <Spacer mt={2} />
+      {!isMyCollectionArtwork && (
+        <>
+          <Spacer y={2} />
 
-      <ArtworkActions
-        artwork={artwork}
-        selectDefaultSlide={handleSelectDefaultSlide}
-      />
+          <ArtworkActions
+            artwork={artwork}
+            selectRoomViewableFigure={handleSelectRoomViewableFigure}
+          />
+        </>
+      )}
     </Box>
   )
 }
 
-export const ArtworkImageBrowserFragmentContainer = createFragmentContainer<
-  ArtworkImageBrowserProps
->(ArtworkImageBrowser, {
-  artwork: graphql`
-    fragment ArtworkImageBrowser_artwork on Artwork {
-      ...ArtworkActions_artwork
-      ...ArtworkImageBrowserSmall_artwork
-      ...ArtworkImageBrowserLarge_artwork
-      internalID
-      images {
-        width
-        height
-      }
-      figures {
-        ... on Image {
-          internalID
-          isDefault
+export const ArtworkImageBrowserFragmentContainer = createFragmentContainer(
+  ArtworkImageBrowser,
+  {
+    artwork: graphql`
+      fragment ArtworkImageBrowser_artwork on Artwork {
+        ...ArtworkActions_artwork
+        ...ArtworkImageBrowserSmall_artwork
+        ...ArtworkImageBrowserLarge_artwork
+        internalID
+        figures {
+          __typename
+          ... on Image {
+            isDefault
+            width
+            height
+          }
+          ... on Video {
+            # Fields need to be aliased to prevent conflicting types
+            videoWidth: width
+            videoHeight: height
+          }
         }
-        ... on Video {
-          type: __typename
-        }
       }
-    }
-  `,
-})
+    `,
+  }
+)

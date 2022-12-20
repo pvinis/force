@@ -1,32 +1,35 @@
+/**
+ * @generated SignedSource<<1722ebd250db46f72cbadffc11277b3d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtistSeriesItem_artistSeries = {
-    readonly title: string;
-    readonly slug: string;
-    readonly featured: boolean;
-    readonly internalID: string;
-    readonly artworksCountMessage: string | null;
-    readonly image: {
-        readonly cropped: {
-            readonly width: number;
-            readonly height: number;
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
+export type ArtistSeriesItem_artistSeries$data = {
+  readonly artworksCountMessage: string | null;
+  readonly featured: boolean;
+  readonly image: {
+    readonly cropped: {
+      readonly height: number;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number;
     } | null;
-    readonly " $refType": "ArtistSeriesItem_artistSeries";
+  } | null;
+  readonly internalID: string;
+  readonly slug: string;
+  readonly title: string;
+  readonly " $fragmentType": "ArtistSeriesItem_artistSeries";
 };
-export type ArtistSeriesItem_artistSeries$data = ArtistSeriesItem_artistSeries;
 export type ArtistSeriesItem_artistSeries$key = {
-    readonly " $data"?: ArtistSeriesItem_artistSeries$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtistSeriesItem_artistSeries">;
+  readonly " $data"?: ArtistSeriesItem_artistSeries$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtistSeriesItem_artistSeries">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -134,5 +137,7 @@ const node: ReaderFragment = {
   "type": "ArtistSeries",
   "abstractKey": null
 };
-(node as any).hash = 'bde51d361add8c28c10076a613811f96';
+
+(node as any).hash = "bde51d361add8c28c10076a613811f96";
+
 export default node;

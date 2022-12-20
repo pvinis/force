@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtistConsignRoute_artist } from "__generated__/ArtistConsignRoute_artist.graphql"
+import { ArtistConsignRoute_artist$data } from "__generated__/ArtistConsignRoute_artist.graphql"
 import { ArtistConsignFAQFragmentContainer } from "./Components/ArtistConsignFAQ"
 import { ArtistConsignHeaderFragmentContainer } from "./Components/ArtistConsignHeader"
 import { ArtistConsignHowtoSellFragmentContainer } from "./Components/ArtistConsignHowToSell"
@@ -13,22 +13,29 @@ import { Spacer } from "@artsy/palette"
 import track from "react-tracking"
 
 export interface ConsignRouteProps {
-  artist: ArtistConsignRoute_artist
+  artist: ArtistConsignRoute_artist$data
 }
 
 const ArtistConsignRoute: React.FC<ConsignRouteProps> = ({ artist }) => {
   return (
     <>
       {/* Offset needed to combat the spacer that exists in the Artist page layout */}
-      <Spacer mt={[-2, -4]} />
+      <Spacer y={[-2, -4]} />
 
       <ArtistConsignMetaFragmentContainer artist={artist} />
+
       <ArtistConsignHeaderFragmentContainer artist={artist} />
+
       <ArtistConsignRecentlySoldFragmentContainer artist={artist} />
+
       <ArtistConsignPageViewsFragmentContainer artist={artist} />
+
       <ArtistConsignMarketTrendsFragmentContainer artist={artist} />
+
       <ArtistConsignHowtoSellFragmentContainer artist={artist} />
+
       <ArtistConsignFAQFragmentContainer artist={artist} />
+
       <ArtistConsignSellArtFragmentContainer artist={artist} />
     </>
   )

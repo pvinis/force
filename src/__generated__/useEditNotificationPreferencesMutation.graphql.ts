@@ -1,42 +1,36 @@
+/**
+ * @generated SignedSource<<51127039bd04f1f357acf8111f2ecda0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type SubGroupInputStatus = "SUBSCRIBED" | "UNSUBSCRIBED" | "%future added value";
 export type updateNotificationPreferencesMutationInput = {
-    authenticationToken?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
-    subscriptionGroups: Array<NotificationPreferenceInput>;
+  authenticationToken?: string | null;
+  clientMutationId?: string | null;
+  subscriptionGroups: ReadonlyArray<NotificationPreferenceInput>;
 };
 export type NotificationPreferenceInput = {
-    name: string;
-    status: SubGroupInputStatus;
+  name: string;
+  status: SubGroupInputStatus;
 };
-export type useEditNotificationPreferencesMutationVariables = {
-    input: updateNotificationPreferencesMutationInput;
+export type useEditNotificationPreferencesMutation$variables = {
+  input: updateNotificationPreferencesMutationInput;
 };
-export type useEditNotificationPreferencesMutationResponse = {
-    readonly updateNotificationPreferences: {
-        readonly clientMutationId: string | null;
-    } | null;
+export type useEditNotificationPreferencesMutation$data = {
+  readonly updateNotificationPreferences: {
+    readonly clientMutationId: string | null;
+  } | null;
 };
 export type useEditNotificationPreferencesMutation = {
-    readonly response: useEditNotificationPreferencesMutationResponse;
-    readonly variables: useEditNotificationPreferencesMutationVariables;
+  response: useEditNotificationPreferencesMutation$data;
+  variables: useEditNotificationPreferencesMutation$variables;
 };
-
-
-
-/*
-mutation useEditNotificationPreferencesMutation(
-  $input: updateNotificationPreferencesMutationInput!
-) {
-  updateNotificationPreferences(input: $input) {
-    clientMutationId
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -99,5 +93,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4796a39f28e7655ed5eeaabfa43b012c';
+
+(node as any).hash = "4796a39f28e7655ed5eeaabfa43b012c";
+
 export default node;

@@ -1,12 +1,12 @@
 import { BorderBox, Box, Join, Spacer } from "@artsy/palette"
-import { ArtistMarketInsights_artist } from "__generated__/ArtistMarketInsights_artist.graphql"
+import { ArtistMarketInsights_artist$data } from "__generated__/ArtistMarketInsights_artist.graphql"
 import { Component } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { ArtworkDefinitionList } from "Apps/Artwork/Components/ArtworkDefinitionList"
 import { groupBy } from "lodash"
 
 export interface MarketInsightsProps {
-  artist: ArtistMarketInsights_artist
+  artist: ArtistMarketInsights_artist$data
   border?: boolean
   Container?: (props: { children: JSX.Element }) => JSX.Element
 }
@@ -107,7 +107,7 @@ export class MarketInsights extends Component<MarketInsightsProps> {
       <>
         <Container flexDirection="column">
           <div>
-            <Join separator={<Spacer mt={1} />}>
+            <Join separator={<Spacer y={1} />}>
               {this.renderAuctionHighlight()}
               {this.renderGalleryRepresentation()}
               {this.renderPermanentCollection()}

@@ -1,32 +1,35 @@
+/**
+ * @generated SignedSource<<d8ef6b25892ad727e514dff2cae61bff>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworksRoute_viewer = {
-    readonly salesConnection: {
-        readonly totalCount: number | null;
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly slug: string;
-                readonly name: string | null;
-                readonly href: string | null;
-                readonly liveStartAt: string | null;
-                readonly isLiveOpen: boolean | null;
-                readonly " $fragmentRefs": FragmentRefs<"AuctionArtworksRail_sale">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "ArtworksRoute_viewer";
+export type ArtworksRoute_viewer$data = {
+  readonly salesConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly href: string | null;
+        readonly isLiveOpen: boolean | null;
+        readonly liveStartAt: string | null;
+        readonly name: string | null;
+        readonly slug: string;
+        readonly " $fragmentSpreads": FragmentRefs<"AuctionArtworksRail_sale">;
+      } | null;
+    } | null> | null;
+    readonly totalCount: number | null;
+  } | null;
+  readonly " $fragmentType": "ArtworksRoute_viewer";
 };
-export type ArtworksRoute_viewer$data = ArtworksRoute_viewer;
 export type ArtworksRoute_viewer$key = {
-    readonly " $data"?: ArtworksRoute_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworksRoute_viewer">;
+  readonly " $data"?: ArtworksRoute_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworksRoute_viewer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -144,5 +147,7 @@ const node: ReaderFragment = {
   "type": "Viewer",
   "abstractKey": null
 };
-(node as any).hash = 'ff933db329ce15d5bac98f4831d16480';
+
+(node as any).hash = "ff933db329ce15d5bac98f4831d16480";
+
 export default node;

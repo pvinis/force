@@ -2,7 +2,7 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { truncate } from "lodash"
 import { Spacer } from "@artsy/palette"
-import { FairOrganizerApp_fairOrganizer } from "__generated__/FairOrganizerApp_fairOrganizer.graphql"
+import { FairOrganizerApp_fairOrganizer$data } from "__generated__/FairOrganizerApp_fairOrganizer.graphql"
 import { FairOrganizerHeaderImageFragmentContainer as FairOrganizerHeaderImage } from "./Components/FairOrganizerHeaderImage"
 import { FairOrganizerHeaderFragmentContainer as FairOrganizerHeader } from "./Components/FairOrganizerHeader/FairOrganizerHeader"
 import { FairOrganizerPastEventsRailFragmentContainer as FairOrganizerPastEventsRail } from "./Components/FairOrganizerPastEventsRail"
@@ -10,7 +10,7 @@ import { FairOrganizerLatestArticlesFragmentContainer as FairOrganizerLatestArti
 import { MetaTags } from "Components/MetaTags"
 
 interface FairOrganizerAppProps {
-  fairOrganizer: FairOrganizerApp_fairOrganizer
+  fairOrganizer: FairOrganizerApp_fairOrganizer$data
 }
 
 const FairOrganizerApp: React.FC<FairOrganizerAppProps> = ({
@@ -31,15 +31,15 @@ const FairOrganizerApp: React.FC<FairOrganizerAppProps> = ({
 
       <FairOrganizerHeaderImage fairOrganizer={fairOrganizer} />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <FairOrganizerHeader fairOrganizer={fairOrganizer} />
 
-      <Spacer mt={6} />
+      <Spacer y={6} />
 
       <FairOrganizerPastEventsRail fairOrganizer={fairOrganizer} />
 
-      <Spacer mt={12} />
+      <Spacer y={12} />
 
       <FairOrganizerLatestArticles fairOrganizer={fairOrganizer} />
     </>

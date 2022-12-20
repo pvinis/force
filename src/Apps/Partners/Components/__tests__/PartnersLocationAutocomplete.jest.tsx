@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react"
 import { graphql } from "react-relay"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { PartnersLocationAutocompleteFragmentContainer } from "../PartnersLocationAutocomplete"
+import { PartnersLocationAutocompleteFragmentContainer } from "Apps/Partners/Components/PartnersLocationAutocomplete"
 import { PartnersLocationAutocomplete_Test_Query } from "__generated__/PartnersLocationAutocomplete_Test_Query.graphql"
 import { useRouter } from "System/Router/useRouter"
 

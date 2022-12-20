@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react"
 import { setupTestWrapperTL } from "DevTools/setupTestWrapper"
-import { graphql } from "relay-runtime"
-import { NewForYouAppFragmentContainer } from "../NewForYouApp"
+import { graphql } from "react-relay"
+import { NewForYouAppFragmentContainer } from "Apps/NewForYou/NewForYouApp"
 import { useSystemContext } from "System"
 
 jest.unmock("react-relay")
@@ -38,16 +38,13 @@ describe("NewForYouApp", () => {
     renderWithRelay()
 
     expect(screen.getByText("MetaTags")).toBeInTheDocument()
-    expect(screen.getByText("New Works For You")).toBeInTheDocument()
+    expect(screen.getByText("New Works for You")).toBeInTheDocument()
   })
 
   it("displays expected messaging for logged out users", () => {
     ;(useSystemContext as jest.Mock).mockReturnValue({ isLoggedIn: false })
     renderWithRelay()
 
-    expect(
-      screen.getByText(/(^Already have an account\?)/g)
-    ).toBeInTheDocument()
     expect(screen.getByText(/(^Log in)/g)).toBeInTheDocument()
     expect(
       screen.getByText(/(to see your personalized recommendations\.$)/g)

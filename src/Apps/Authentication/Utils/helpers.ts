@@ -1,5 +1,9 @@
 import Cookies from "cookies-js"
-import { ModalOptions, ModalType } from "Components/Authentication/Types"
+import {
+  COMMERCIAL_AUTH_INTENTS,
+  ModalOptions,
+  ModalType,
+} from "Components/Authentication/Types"
 // eslint-disable-next-line no-restricted-imports
 import { data as sd } from "sharify"
 import qs from "qs"
@@ -13,12 +17,14 @@ import {
   AuthModalType,
   AuthTrigger,
   AuthContextModule,
+  AuthIntent,
 } from "@artsy/cohesion"
 import { pick } from "lodash"
-import { mediator } from "lib/mediator"
+import { mediator } from "Server/mediator"
 import { reportError } from "Utils/errors"
-import { trackEvent } from "lib/analytics/helpers"
+import { trackEvent } from "Server/analytics/helpers"
 import { getENV } from "Utils/getENV"
+import { AFTER_AUTH_ACTION_KEY } from "Utils/Hooks/useAuthIntent"
 
 interface AnalyticsOptions {
   auth_redirect: string
@@ -39,7 +45,6 @@ export const handleSubmit = async (
   const {
     contextModule,
     copy,
-    destination,
     redirectTo,
     intent,
     signupReferer,
@@ -65,7 +70,7 @@ export const handleSubmit = async (
 
       if (analytics) {
         const options: AnalyticsOptions = {
-          auth_redirect: redirectTo || destination!,
+          auth_redirect: redirectTo!,
           context_module: contextModule!,
           modal_copy: copy,
           intent,
@@ -86,7 +91,7 @@ export const handleSubmit = async (
             analyticsOptions = tracks.createdAccount(
               options,
               res?.user?.id,
-              !redirectTo
+              isAbleToTriggerOnboarding({ type, intent })
             )
             break
           case ModalType.forgot:
@@ -98,7 +103,13 @@ export const handleSubmit = async (
 
       let afterAuthURL: URL
       if (modalOptions.redirectTo) {
-        afterAuthURL = new URL(modalOptions.redirectTo, sd.APP_URL)
+        // This will potentially update the URL with an onboarding=true query
+        // param which will trigger the onboarding flow
+        // TODO: Move this prop to something more formal, like afterSignupAction
+        afterAuthURL = new URL(
+          maybeUpdateRedirectTo(type, modalOptions.redirectTo, intent!),
+          sd.APP_URL
+        )
       } else {
         afterAuthURL = getRedirect(type)
       }
@@ -133,23 +144,52 @@ export const handleSubmit = async (
   }
 }
 
+export const updateURLWithOnboardingParam = (url: string) => {
+  const [redirectToWithoutParams, params] = url.split("?")
+
+  // For all non-commercial intents, update the redirectTo url with an
+  // onboarding query param flag.
+  const updatedParams = qs.stringify({
+    ...qs.parse(params),
+    onboarding: true,
+  })
+
+  const updatedRedirectTo = redirectToWithoutParams + "?" + updatedParams
+  return updatedRedirectTo
+}
+
+export const isAbleToTriggerOnboarding = ({
+  type,
+  intent,
+}: {
+  type: ModalType
+  intent?: AuthIntent
+}) => {
+  return (
+    // Only trigger onboarding for sign ups...
+    type === ModalType.signup &&
+    // ...without a commercial intent
+    !(intent && COMMERCIAL_AUTH_INTENTS.includes(intent))
+  )
+}
+
+export const maybeUpdateRedirectTo = (
+  type: ModalType,
+  redirectTo: string = "/",
+  intent: AuthIntent
+): string | URL => {
+  if (isAbleToTriggerOnboarding({ type, intent })) {
+    return updateURLWithOnboardingParam(redirectTo)
+  }
+
+  return redirectTo
+}
+
 export const setCookies = options => {
-  const { afterSignUpAction, destination, submissionId } = options
+  const { afterSignUpAction } = options
 
   if (afterSignUpAction) {
-    Cookies.set("afterSignUpAction", JSON.stringify(afterSignUpAction))
-  }
-
-  if (destination) {
-    Cookies.set("destination", destination, {
-      expires: 60 * 60 * 24,
-    })
-  }
-
-  if (submissionId) {
-    Cookies.set("submissionId", submissionId, {
-      expires: 60 * 60 * 24,
-    })
+    Cookies.set(AFTER_AUTH_ACTION_KEY, JSON.stringify(afterSignUpAction))
   }
 }
 
@@ -202,7 +242,8 @@ export function getRedirect(type): URL {
         return new URL(location.href, appBaseURL)
       }
     case "signup":
-      return new URL("/", appBaseURL)
+      const url = new URL(updateURLWithOnboardingParam("/"), appBaseURL)
+      return url
     default:
       return new URL(window.location.href, appBaseURL)
   }

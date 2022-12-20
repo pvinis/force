@@ -1,5 +1,5 @@
 import { AppRouteConfig } from "System/Router/Route"
-import { graphql } from "relay-runtime"
+import { graphql } from "react-relay"
 import loadable from "@loadable/component"
 
 const NewForYouApp = loadable(() => import("./NewForYouApp"), {
@@ -14,9 +14,10 @@ export const newForYouRoutes: AppRouteConfig[] = [
       NewForYouApp.preload()
     },
     prepareVariables: (params, props) => {
-      const first = parseInt(props.location.query.first, 10) || 20
+      const first = parseInt(props.location.query.first, 10) || 40
       const includeBackfill = props.location.query.includeBackfill ?? true
-      const version = props.location.query.version
+      const version = props.location.query.version?.toUpperCase()
+      const maxWorksPerArtist = props.location.query.maxWorksPerArtist ?? 3
 
       return {
         ...params,
@@ -24,6 +25,7 @@ export const newForYouRoutes: AppRouteConfig[] = [
         first,
         includeBackfill,
         version,
+        maxWorksPerArtist,
       }
     },
     query: graphql`
@@ -31,6 +33,7 @@ export const newForYouRoutes: AppRouteConfig[] = [
         $first: Int
         $includeBackfill: Boolean!
         $version: String
+        $maxWorksPerArtist: Int
       ) {
         viewer {
           ...NewForYouApp_viewer
@@ -38,6 +41,7 @@ export const newForYouRoutes: AppRouteConfig[] = [
               first: $first
               includeBackfill: $includeBackfill
               version: $version
+              maxWorksPerArtist: $maxWorksPerArtist
             )
         }
       }

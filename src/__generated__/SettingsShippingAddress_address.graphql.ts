@@ -1,29 +1,33 @@
+/**
+ * @generated SignedSource<<80e46bcde3a4d8119042d14d41cb6509>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SettingsShippingAddress_address = {
-    readonly internalID: string;
-    readonly addressLine1: string;
-    readonly addressLine2: string | null;
-    readonly city: string;
-    readonly country: string;
-    readonly isDefault: boolean;
-    readonly name: string | null;
-    readonly phoneNumber: string | null;
-    readonly postalCode: string | null;
-    readonly region: string | null;
-    readonly " $refType": "SettingsShippingAddress_address";
+export type SettingsShippingAddress_address$data = {
+  readonly addressLine1: string;
+  readonly addressLine2: string | null;
+  readonly city: string;
+  readonly country: string;
+  readonly internalID: string;
+  readonly isDefault: boolean;
+  readonly name: string | null;
+  readonly phoneNumber: string | null;
+  readonly phoneNumberCountryCode: string | null;
+  readonly postalCode: string | null;
+  readonly region: string | null;
+  readonly " $fragmentType": "SettingsShippingAddress_address";
 };
-export type SettingsShippingAddress_address$data = SettingsShippingAddress_address;
 export type SettingsShippingAddress_address$key = {
-    readonly " $data"?: SettingsShippingAddress_address$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SettingsShippingAddress_address">;
+  readonly " $data"?: SettingsShippingAddress_address$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SettingsShippingAddress_address">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -91,6 +95,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "phoneNumberCountryCode",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "postalCode",
       "storageKey": null
     },
@@ -105,5 +116,7 @@ const node: ReaderFragment = {
   "type": "UserAddress",
   "abstractKey": null
 };
-(node as any).hash = '5ddaa74cd5bb1ba03f7cb48fa204cffe';
+
+(node as any).hash = "8fed58260fe2f239eeb73dee64288d40";
+
 export default node;

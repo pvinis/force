@@ -6,10 +6,10 @@ import {
   continueToInboxText,
 } from "Apps/Order/Utils/getStatusCopy"
 import { RouterLink } from "System/Router/RouterLink"
-import { SubmittedOrderModal_me } from "__generated__/SubmittedOrderModal_me.graphql"
+import { SubmittedOrderModal_me$data } from "__generated__/SubmittedOrderModal_me.graphql"
 
 interface SubmittedOrderModalProps {
-  me: SubmittedOrderModal_me
+  me: SubmittedOrderModal_me$data
   slug: string
 }
 
@@ -32,7 +32,7 @@ const SubmittedOrderModal: FC<SubmittedOrderModalProps> = ({ slug, me }) => {
   return (
     <ModalDialog title={title as string} onClose={handleClose}>
       <Message>{description}</Message>
-      <Spacer mb={2} />
+      <Spacer y={2} />
       <Text>{continueToInboxText}</Text>
       <RouterLink to="/user/conversations" onClick={handleClose}>
         <Button mt={2} width="100%">
@@ -43,25 +43,26 @@ const SubmittedOrderModal: FC<SubmittedOrderModalProps> = ({ slug, me }) => {
   )
 }
 
-export const SubmittedOrderModalFragmentContainer = createFragmentContainer<
-  SubmittedOrderModalProps
->(SubmittedOrderModal, {
-  me: graphql`
-    fragment SubmittedOrderModal_me on Me {
-      orders(
-        states: [SUBMITTED]
-        mode: OFFER
-        first: 1
-        sort: UPDATED_AT_DESC
-      ) {
-        edges {
-          node {
-            stateExpiresAt(format: "MMM D")
-            lineItems {
-              edges {
-                node {
-                  artwork {
-                    slug
+export const SubmittedOrderModalFragmentContainer = createFragmentContainer(
+  SubmittedOrderModal,
+  {
+    me: graphql`
+      fragment SubmittedOrderModal_me on Me {
+        orders(
+          states: [SUBMITTED]
+          mode: OFFER
+          first: 1
+          sort: UPDATED_AT_DESC
+        ) {
+          edges {
+            node {
+              stateExpiresAt(format: "MMM D")
+              lineItems {
+                edges {
+                  node {
+                    artwork {
+                      slug
+                    }
                   }
                 }
               }
@@ -69,6 +70,6 @@ export const SubmittedOrderModalFragmentContainer = createFragmentContainer<
           }
         }
       }
-    }
-  `,
-})
+    `,
+  }
+)

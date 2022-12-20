@@ -2,7 +2,7 @@ import { Box, BoxProps, Spacer } from "@artsy/palette"
 import { Match } from "found"
 import { createFragmentContainer, graphql } from "react-relay"
 import { findCurrentRoute } from "System/Router/Utils/findCurrentRoute"
-import { ArtistApp_artist } from "__generated__/ArtistApp_artist.graphql"
+import { ArtistApp_artist$data } from "__generated__/ArtistApp_artist.graphql"
 import { AnalyticsContext, useAnalyticsContext, useSystemContext } from "System"
 import { BackLinkFragmentContainer } from "./Components/BackLink"
 import { ArtistHeaderFragmentContainer } from "./Components/ArtistHeader/ArtistHeader"
@@ -10,6 +10,7 @@ import { RouteTab, RouteTabs } from "Components/RouteTabs"
 import { ArtistMetaFragmentContainer } from "./Components/ArtistMeta"
 import { hasOverviewContent } from "./Routes/Overview/Utils/hasOverviewContent"
 import { useScrollToOpenArtistAuthModal } from "Utils/Hooks/useScrollToOpenArtistAuthModal"
+import { Jump } from "Utils/Hooks/useJump"
 
 /**
  * For logged-out users, the sign-up modal is triggered via a global listener.
@@ -18,12 +19,13 @@ import { useScrollToOpenArtistAuthModal } from "Utils/Hooks/useScrollToOpenArtis
  */
 
 interface ArtistAppProps {
-  artist: ArtistApp_artist
+  artist: ArtistApp_artist$data
   match: Match
 }
 
 const ArtistApp: React.FC<ArtistAppProps> = ({ artist, children, match }) => {
   const route = findCurrentRoute(match)!
+  const artworkId = match.params.artworkId
   const { isEigen } = useSystemContext()
 
   useScrollToOpenArtistAuthModal()
@@ -37,7 +39,9 @@ const ArtistApp: React.FC<ArtistAppProps> = ({ artist, children, match }) => {
   if (route.hideNavigationTabs) {
     return (
       <>
-        {!isEigen && <BackLinkFragmentContainer artist={artist} />}
+        {!isEigen && (
+          <BackLinkFragmentContainer artist={artist} artworkId={artworkId} />
+        )}
 
         <PageWrapper artist={artist}>{children}</PageWrapper>
       </>
@@ -53,7 +57,9 @@ const ArtistApp: React.FC<ArtistAppProps> = ({ artist, children, match }) => {
     <PageWrapper artist={artist}>
       <ArtistHeaderFragmentContainer artist={artist} />
 
-      <Spacer my={[4, 12]} id="scrollTo--artistContentArea" />
+      <Spacer y={[4, 12]} />
+
+      <Jump id="artistContentArea" />
 
       <RouteTabs mb={2} fill data-test="navigationTabs">
         {showOverviewTab && (

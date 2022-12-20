@@ -9,18 +9,18 @@ import {
   TextArea,
   useToasts,
 } from "@artsy/palette"
-import * as Yup from "yup"
 import { password } from "Components/Authentication/Validators"
+import { Form, Formik } from "formik"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { DeleteAccountRoute_me } from "__generated__/DeleteAccountRoute_me.graphql"
-import { useDeleteAccount } from "./useDeleteAccount"
 import { RouterLink } from "System/Router/RouterLink"
-import { Formik, Form } from "formik"
 import { logout } from "Utils/auth"
+import * as Yup from "yup"
+import { DeleteAccountRoute_me$data } from "__generated__/DeleteAccountRoute_me.graphql"
+import { useDeleteAccount } from "./useDeleteAccount"
 
 interface DeleteAccountRouteProps {
-  me: DeleteAccountRoute_me
+  me: DeleteAccountRoute_me$data
 }
 
 export const DeleteAccountRoute: FC<DeleteAccountRouteProps> = ({
@@ -32,7 +32,7 @@ export const DeleteAccountRoute: FC<DeleteAccountRouteProps> = ({
   return (
     <GridColumns>
       <Column span={8}>
-        <Text variant="lg-display" mb={4}>
+        <Text variant={["md", "lg"]} mb={4}>
           Delete My Account
         </Text>
 

@@ -1,29 +1,32 @@
+/**
+ * @generated SignedSource<<0f3a80d630a04c51cf9ecb7d7de0cb72>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AuctionRegistrationRoute_sale = {
-    readonly slug: string;
-    readonly name: string | null;
-    readonly internalID: string;
-    readonly status: string | null;
-    readonly requireIdentityVerification: boolean | null;
-    readonly isClosed: boolean | null;
-    readonly isLiveOpen: boolean | null;
-    readonly bidder: {
-        readonly qualifiedForBidding: boolean | null;
-    } | null;
-    readonly " $refType": "AuctionRegistrationRoute_sale";
+export type AuctionRegistrationRoute_sale$data = {
+  readonly bidder: {
+    readonly qualifiedForBidding: boolean | null;
+  } | null;
+  readonly internalID: string;
+  readonly isClosed: boolean | null;
+  readonly isLiveOpen: boolean | null;
+  readonly name: string | null;
+  readonly requireIdentityVerification: boolean | null;
+  readonly slug: string;
+  readonly status: string | null;
+  readonly " $fragmentType": "AuctionRegistrationRoute_sale";
 };
-export type AuctionRegistrationRoute_sale$data = AuctionRegistrationRoute_sale;
 export type AuctionRegistrationRoute_sale$key = {
-    readonly " $data"?: AuctionRegistrationRoute_sale$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AuctionRegistrationRoute_sale">;
+  readonly " $data"?: AuctionRegistrationRoute_sale$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AuctionRegistrationRoute_sale">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -102,5 +105,7 @@ const node: ReaderFragment = {
   "type": "Sale",
   "abstractKey": null
 };
-(node as any).hash = '4b6760df4a32b0e3781d5a66eb3a9ba2';
+
+(node as any).hash = "4b6760df4a32b0e3781d5a66eb3a9ba2";
+
 export default node;

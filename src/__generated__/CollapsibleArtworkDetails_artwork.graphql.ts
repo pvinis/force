@@ -1,55 +1,58 @@
+/**
+ * @generated SignedSource<<169e1f6ba83d1ae672b1cceb875366ff>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollapsibleArtworkDetails_artwork = {
-    readonly image: {
-        readonly resized: {
-            readonly src: string;
-            readonly srcSet: string;
-            readonly width: number | null;
-            readonly height: number | null;
-        } | null;
+export type CollapsibleArtworkDetails_artwork$data = {
+  readonly artistNames: string | null;
+  readonly attributionClass: {
+    readonly name: string | null;
+  } | null;
+  readonly category: string | null;
+  readonly certificateOfAuthenticity: {
+    readonly details: string | null;
+  } | null;
+  readonly conditionDescription: {
+    readonly details: string | null;
+  } | null;
+  readonly date: string | null;
+  readonly dimensions: {
+    readonly cm: string | null;
+    readonly in: string | null;
+  } | null;
+  readonly framed: {
+    readonly details: string | null;
+  } | null;
+  readonly image: {
+    readonly resized: {
+      readonly height: number | null;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number | null;
     } | null;
-    readonly internalID: string;
-    readonly title: string | null;
-    readonly date: string | null;
-    readonly saleMessage: string | null;
-    readonly attributionClass: {
-        readonly name: string | null;
-    } | null;
-    readonly category: string | null;
-    readonly manufacturer: string | null;
-    readonly publisher: string | null;
-    readonly medium: string | null;
-    readonly conditionDescription: {
-        readonly details: string | null;
-    } | null;
-    readonly certificateOfAuthenticity: {
-        readonly details: string | null;
-    } | null;
-    readonly framed: {
-        readonly details: string | null;
-    } | null;
-    readonly dimensions: {
-        readonly in: string | null;
-        readonly cm: string | null;
-    } | null;
-    readonly signatureInfo: {
-        readonly details: string | null;
-    } | null;
-    readonly artistNames: string | null;
-    readonly " $refType": "CollapsibleArtworkDetails_artwork";
+  } | null;
+  readonly internalID: string;
+  readonly manufacturer: string | null;
+  readonly medium: string | null;
+  readonly publisher: string | null;
+  readonly saleMessage: string | null;
+  readonly signatureInfo: {
+    readonly details: string | null;
+  } | null;
+  readonly title: string | null;
+  readonly " $fragmentType": "CollapsibleArtworkDetails_artwork";
 };
-export type CollapsibleArtworkDetails_artwork$data = CollapsibleArtworkDetails_artwork;
 export type CollapsibleArtworkDetails_artwork$key = {
-    readonly " $data"?: CollapsibleArtworkDetails_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollapsibleArtworkDetails_artwork">;
+  readonly " $data"?: CollapsibleArtworkDetails_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollapsibleArtworkDetails_artwork">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -279,5 +282,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1e50c5c5828d6d03bdfe23e8d4a7a18c';
+
+(node as any).hash = "1e50c5c5828d6d03bdfe23e8d4a7a18c";
+
 export default node;

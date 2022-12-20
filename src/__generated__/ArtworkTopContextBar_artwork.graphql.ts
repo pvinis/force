@@ -1,56 +1,60 @@
+/**
+ * @generated SignedSource<<bde4b7c5b219d6b48084722e5040ace5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkTopContextBar_artwork = {
-    readonly partner: {
-        readonly name: string | null;
+export type ArtworkTopContextBar_artwork$data = {
+  readonly context: {
+    readonly __typename: "Fair";
+    readonly href: string | null;
+    readonly name: string | null;
+    readonly profile: {
+      readonly icon: {
+        readonly url: string | null;
+      } | null;
     } | null;
-    readonly sale: {
-        readonly isAuction: boolean | null;
-        readonly isBenefit: boolean | null;
-        readonly isGalleryAuction: boolean | null;
-        readonly coverImage: {
-            readonly url: string | null;
-        } | null;
+  } | {
+    readonly __typename: "Sale";
+    readonly href: string | null;
+    readonly name: string | null;
+  } | {
+    readonly __typename: "Show";
+    readonly href: string | null;
+    readonly name: string | null;
+    readonly status: string | null;
+    readonly thumbnail: {
+      readonly url: string | null;
     } | null;
-    readonly context: ({
-        readonly __typename: "Sale";
-        readonly name: string | null;
-        readonly href: string | null;
-    } | {
-        readonly __typename: "Fair";
-        readonly name: string | null;
-        readonly href: string | null;
-        readonly profile: {
-            readonly icon: {
-                readonly url: string | null;
-            } | null;
-        } | null;
-    } | {
-        readonly __typename: "Show";
-        readonly name: string | null;
-        readonly href: string | null;
-        readonly status: string | null;
-        readonly thumbnail: {
-            readonly url: string | null;
-        } | null;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    }) | null;
-    readonly " $refType": "ArtworkTopContextBar_artwork";
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  } | null;
+  readonly partner: {
+    readonly name: string | null;
+  } | null;
+  readonly sale: {
+    readonly coverImage: {
+      readonly url: string | null;
+    } | null;
+    readonly isAuction: boolean | null;
+    readonly isBenefit: boolean | null;
+    readonly isGalleryAuction: boolean | null;
+    readonly " $fragmentSpreads": FragmentRefs<"RegistrationAuctionTimer_sale">;
+  } | null;
+  readonly " $fragmentType": "ArtworkTopContextBar_artwork";
 };
-export type ArtworkTopContextBar_artwork$data = ArtworkTopContextBar_artwork;
 export type ArtworkTopContextBar_artwork$key = {
-    readonly " $data"?: ArtworkTopContextBar_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkTopContextBar_artwork">;
+  readonly " $data"?: ArtworkTopContextBar_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkTopContextBar_artwork">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -132,6 +136,11 @@ return {
           "plural": false,
           "selections": (v1/*: any*/),
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "RegistrationAuctionTimer_sale"
         }
       ],
       "storageKey": null
@@ -224,5 +233,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4d4d3a7f46336ef25e1b852a0ca5d892';
+
+(node as any).hash = "b7a3b152d9e93a73ee7d0f513bf48c6f";
+
 export default node;

@@ -1,21 +1,17 @@
 import { Box, Spacer, Text } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { GeneFamily_geneFamily } from "__generated__/GeneFamily_geneFamily.graphql"
+import { GeneFamily_geneFamily$data } from "__generated__/GeneFamily_geneFamily.graphql"
 import { sortBy } from "lodash"
 import { Masonry } from "Components/Masonry"
 import { RouterLink } from "System/Router/RouterLink"
+import { Jump } from "Utils/Hooks/useJump"
+
 interface GeneFamilyProps {
-  geneFamily: GeneFamily_geneFamily
+  geneFamily: GeneFamily_geneFamily$data
 }
 
-type Genes = GeneFamily_geneFamily["genes"]
-
-const alphabetizeGenes = (genes: Genes): Genes =>
-  sortBy(genes, gene => gene?.displayName || gene?.name)
-
-export const GeneFamily: React.FC<GeneFamilyProps> = props => {
-  const { geneFamily } = props
+export const GeneFamily: React.FC<GeneFamilyProps> = ({ geneFamily }) => {
   const { name, genes } = geneFamily
 
   if (!genes) {
@@ -23,14 +19,19 @@ export const GeneFamily: React.FC<GeneFamilyProps> = props => {
   }
 
   const publishedGenes = genes.filter(g => !!g && g.isPublished)
-  const sortedGenes = alphabetizeGenes(publishedGenes)
+  const sortedGenes = sortBy(
+    publishedGenes,
+    gene => gene?.displayName || gene?.name
+  )
 
   return (
-    <Box id={`jump--${geneFamily.slug}`}>
+    <Jump id={geneFamily.slug}>
       <Text as="h2" variant="xl">
         {name}
       </Text>
-      <Spacer mt={4} />
+
+      <Spacer y={4} />
+
       <Masonry columnCount={[1, 3]}>
         {sortedGenes?.map(gene => {
           return (
@@ -40,12 +41,12 @@ export const GeneFamily: React.FC<GeneFamilyProps> = props => {
                   {gene?.displayName || gene?.name}
                 </Text>
               </RouterLink>
-              <Spacer mb={1} />
+              <Spacer y={1} />
             </Box>
           )
         })}
       </Masonry>
-    </Box>
+    </Jump>
   )
 }
 

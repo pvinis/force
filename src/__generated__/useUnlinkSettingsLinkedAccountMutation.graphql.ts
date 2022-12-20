@@ -1,50 +1,34 @@
+/**
+ * @generated SignedSource<<f2c39e28f4cc6273b1d04b7804333485>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AuthenticationProvider = "APPLE" | "FACEBOOK" | "GOOGLE" | "%future added value";
 export type UnlinkAuthenticationMutationInput = {
-    clientMutationId?: string | null | undefined;
-    provider: AuthenticationProvider;
+  clientMutationId?: string | null;
+  provider: AuthenticationProvider;
 };
-export type useUnlinkSettingsLinkedAccountMutationVariables = {
-    input: UnlinkAuthenticationMutationInput;
+export type useUnlinkSettingsLinkedAccountMutation$variables = {
+  input: UnlinkAuthenticationMutationInput;
 };
-export type useUnlinkSettingsLinkedAccountMutationResponse = {
-    readonly unlinkAuthentication: {
-        readonly me: {
-            readonly " $fragmentRefs": FragmentRefs<"SettingsEditSettingsLinkedAccounts_me">;
-        };
-    } | null;
+export type useUnlinkSettingsLinkedAccountMutation$data = {
+  readonly unlinkAuthentication: {
+    readonly me: {
+      readonly " $fragmentSpreads": FragmentRefs<"SettingsEditSettingsLinkedAccounts_me">;
+    };
+  } | null;
 };
 export type useUnlinkSettingsLinkedAccountMutation = {
-    readonly response: useUnlinkSettingsLinkedAccountMutationResponse;
-    readonly variables: useUnlinkSettingsLinkedAccountMutationVariables;
+  response: useUnlinkSettingsLinkedAccountMutation$data;
+  variables: useUnlinkSettingsLinkedAccountMutation$variables;
 };
-
-
-
-/*
-mutation useUnlinkSettingsLinkedAccountMutation(
-  $input: UnlinkAuthenticationMutationInput!
-) {
-  unlinkAuthentication(input: $input) {
-    me {
-      ...SettingsEditSettingsLinkedAccounts_me
-      id
-    }
-  }
-}
-
-fragment SettingsEditSettingsLinkedAccounts_me on Me {
-  authentications {
-    provider
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -166,5 +150,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2d4d6f192a2ea7f57809f354ba7fd0fb';
+
+(node as any).hash = "2d4d6f192a2ea7f57809f354ba7fd0fb";
+
 export default node;

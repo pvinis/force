@@ -1,37 +1,25 @@
+/**
+ * @generated SignedSource<<9919127eb654fd54c55aa03cc2c9f6e5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkDetailsMediumModal_Test_QueryVariables = {};
-export type ArtworkDetailsMediumModal_Test_QueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"ArtworkDetailsMediumModal_artwork">;
-    } | null;
+export type ArtworkDetailsMediumModal_Test_Query$variables = {};
+export type ArtworkDetailsMediumModal_Test_Query$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArtworkDetailsMediumModal_artwork">;
+  } | null;
 };
 export type ArtworkDetailsMediumModal_Test_Query = {
-    readonly response: ArtworkDetailsMediumModal_Test_QueryResponse;
-    readonly variables: ArtworkDetailsMediumModal_Test_QueryVariables;
+  response: ArtworkDetailsMediumModal_Test_Query$data;
+  variables: ArtworkDetailsMediumModal_Test_Query$variables;
 };
-
-
-
-/*
-query ArtworkDetailsMediumModal_Test_Query {
-  artwork(id: "xxx") {
-    ...ArtworkDetailsMediumModal_artwork
-    id
-  }
-}
-
-fragment ArtworkDetailsMediumModal_artwork on Artwork {
-  mediumType {
-    name
-    longDescription
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -158,5 +146,7 @@ return {
   }
 };
 })();
-(node as any).hash = '43f502d0f85ba901ddd85297e7eba546';
+
+(node as any).hash = "43f502d0f85ba901ddd85297e7eba546";
+
 export default node;

@@ -1,37 +1,33 @@
+/**
+ * @generated SignedSource<<3a423efb0764b61f4a5894049adc0a90>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FollowArtistButton_artist = {
-    readonly id: string;
-    readonly slug: string;
-    readonly name: string | null;
-    readonly internalID: string;
-    readonly isFollowed: boolean | null;
-    readonly counts: {
-        readonly follows: number | null;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"FollowArtistPopover_artist">;
-    readonly " $refType": "FollowArtistButton_artist";
+export type FollowArtistButton_artist$data = {
+  readonly counts: {
+    readonly follows: any | null;
+  } | null;
+  readonly id: string;
+  readonly internalID: string;
+  readonly isFollowed: boolean | null;
+  readonly name: string | null;
+  readonly slug: string;
+  readonly " $fragmentType": "FollowArtistButton_artist";
 };
-export type FollowArtistButton_artist$data = FollowArtistButton_artist;
 export type FollowArtistButton_artist$key = {
-    readonly " $data"?: FollowArtistButton_artist$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FollowArtistButton_artist">;
+  readonly " $data"?: FollowArtistButton_artist$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FollowArtistButton_artist">;
 };
-
-
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "defaultValue": false,
-      "kind": "LocalArgument",
-      "name": "showFollowSuggestions"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "FollowArtistButton_artist",
@@ -88,22 +84,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "condition": "showFollowSuggestions",
-      "kind": "Condition",
-      "passingValue": true,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FollowArtistPopover_artist"
-        }
-      ]
     }
   ],
   "type": "Artist",
   "abstractKey": null
 };
-(node as any).hash = 'a7288a928f5654f43e9b7643dd70ea12';
+
+(node as any).hash = "c88c1bc198c4a5e092eb861fbb8b55eb";
+
 export default node;

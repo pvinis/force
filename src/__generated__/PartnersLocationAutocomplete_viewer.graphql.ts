@@ -1,38 +1,50 @@
+/**
+ * @generated SignedSource<<05ac89c9280b75c9116a6fb41368fd1b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PartnersLocationAutocomplete_viewer = {
-    readonly featuredCities: ReadonlyArray<{
-        readonly text: string;
-        readonly value: string;
-        readonly coordinates: {
-            readonly lat: number | null;
-            readonly lng: number | null;
-        } | null;
-    }>;
-    readonly allCities: ReadonlyArray<{
-        readonly text: string;
-        readonly value: string;
-        readonly coordinates: {
-            readonly lat: number | null;
-            readonly lng: number | null;
-        } | null;
-    }>;
-    readonly " $refType": "PartnersLocationAutocomplete_viewer";
+export type PartnersLocationAutocomplete_viewer$data = {
+  readonly allCities: ReadonlyArray<{
+    readonly coordinates: {
+      readonly lat: number | null;
+      readonly lng: number | null;
+    } | null;
+    readonly fullName: string;
+    readonly text: string;
+    readonly value: string;
+  }>;
+  readonly featuredCities: ReadonlyArray<{
+    readonly coordinates: {
+      readonly lat: number | null;
+      readonly lng: number | null;
+    } | null;
+    readonly fullName: string;
+    readonly text: string;
+    readonly value: string;
+  }>;
+  readonly " $fragmentType": "PartnersLocationAutocomplete_viewer";
 };
-export type PartnersLocationAutocomplete_viewer$data = PartnersLocationAutocomplete_viewer;
 export type PartnersLocationAutocomplete_viewer$key = {
-    readonly " $data"?: PartnersLocationAutocomplete_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PartnersLocationAutocomplete_viewer">;
+  readonly " $data"?: PartnersLocationAutocomplete_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PartnersLocationAutocomplete_viewer">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "fullName",
+    "storageKey": null
+  },
   {
     "alias": "text",
     "args": null,
@@ -110,5 +122,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '41d52d035e41c3b3153e08652a283937';
+
+(node as any).hash = "776615c6d6f326015b1e7fb8fa406b8a";
+
 export default node;

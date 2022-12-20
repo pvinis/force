@@ -1,5 +1,5 @@
-import { CreditCardPicker_me } from "__generated__/CreditCardPicker_me.graphql"
-import { CreditCardPicker_order } from "__generated__/CreditCardPicker_order.graphql"
+import { CreditCardPicker_me$data } from "__generated__/CreditCardPicker_me.graphql"
+import { CreditCardPicker_order$data } from "__generated__/CreditCardPicker_order.graphql"
 import { CreditCardPickerCreateCreditCardMutation } from "__generated__/CreditCardPickerCreateCreditCardMutation.graphql"
 import {
   Address,
@@ -46,8 +46,8 @@ export interface StripeProps {
 }
 
 export interface CreditCardPickerProps {
-  order: CreditCardPicker_order
-  me: CreditCardPicker_me
+  order: CreditCardPicker_order$data
+  me: CreditCardPicker_me$data
   commitMutation: CommitMutation
   innerRef: React.RefObject<CreditCardPicker>
 }
@@ -286,10 +286,7 @@ export class CreditCardPicker extends React.Component<
                   const { internalID, ...creditCardProps } = e
                   return (
                     <BorderedRadio value={internalID} key={internalID}>
-                      <CreditCardDetails
-                        responsive={false}
-                        {...creditCardProps}
-                      />
+                      <CreditCardDetails {...creditCardProps} />
                     </BorderedRadio>
                   )
                 })
@@ -304,7 +301,7 @@ export class CreditCardPicker extends React.Component<
                   </BorderedRadio>,
                 ])}
             </RadioGroup>
-            <Spacer mb={1} />
+            <Spacer y={1} />
             {!isEigen && (
               <Text variant="xs">
                 <Link href="/user/payments" target="_blank">
@@ -316,7 +313,7 @@ export class CreditCardPicker extends React.Component<
         )}
 
         <Collapse open={this.state.creditCardSelection.type === "new"}>
-          {userHasExistingCards && <Spacer mb={2} />}
+          {userHasExistingCards && <Spacer y={2} />}
           <Flex flexDirection="column">
             <CreditCardInput
               title="Credit card"
@@ -329,7 +326,7 @@ export class CreditCardPicker extends React.Component<
 
             {!this.isPickup() && (
               <>
-                <Spacer mb={2} />
+                <Spacer y={2} />
                 <Checkbox
                   selected={hideBillingAddress}
                   onSelect={this.handleChangeHideBillingAddress.bind(this)}
@@ -340,7 +337,7 @@ export class CreditCardPicker extends React.Component<
               </>
             )}
             <Collapse open={this.needsAddress()}>
-              <Spacer mb={2} />
+              <Spacer y={2} />
               <AddressForm
                 value={address}
                 errors={addressErrors}
@@ -349,9 +346,9 @@ export class CreditCardPicker extends React.Component<
                 isCollapsed={hideBillingAddress}
                 billing
               />
-              <Spacer mb={2} />
+              <Spacer y={2} />
             </Collapse>
-            <Spacer mb={1} />
+            <Spacer y={1} />
             <Checkbox
               data-test="SaveNewCreditCard"
               selected={this.state.saveNewCreditCard}

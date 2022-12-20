@@ -1,30 +1,33 @@
+/**
+ * @generated SignedSource<<4236ed51d83fba1a9ba6cbee56b6c84a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairFollowedArtists_fair = {
-    readonly internalID: string;
-    readonly slug: string;
-    readonly followedArtistArtworks: {
-        readonly edges: ReadonlyArray<{
-            readonly artwork: {
-                readonly internalID: string;
-                readonly slug: string;
-                readonly " $fragmentRefs": FragmentRefs<"FillwidthItem_artwork">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "FairFollowedArtists_fair";
+export type FairFollowedArtists_fair$data = {
+  readonly followedArtistArtworks: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly slug: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShelfArtwork_artwork">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly internalID: string;
+  readonly slug: string;
+  readonly " $fragmentType": "FairFollowedArtists_fair";
 };
-export type FairFollowedArtists_fair$data = FairFollowedArtists_fair;
 export type FairFollowedArtists_fair$key = {
-    readonly " $data"?: FairFollowedArtists_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairFollowedArtists_fair">;
+  readonly " $data"?: FairFollowedArtists_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairFollowedArtists_fair">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -77,20 +80,20 @@ return {
           "plural": true,
           "selections": [
             {
-              "alias": "artwork",
+              "alias": null,
               "args": null,
               "concreteType": "Artwork",
               "kind": "LinkedField",
               "name": "node",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
-                (v1/*: any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "FillwidthItem_artwork"
-                }
+                  "name": "ShelfArtwork_artwork"
+                },
+                (v0/*: any*/),
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
@@ -105,5 +108,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7ae10ce6625902d40dcc690d39252781';
+
+(node as any).hash = "e6f2019d1199cc4b9c488adf91d25f8a";
+
 export default node;

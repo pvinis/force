@@ -1,10 +1,15 @@
-import { AuthContextModule, Intent, ContextModule } from "@artsy/cohesion"
+import {
+  AuthContextModule,
+  Intent,
+  ContextModule,
+  OwnerType,
+} from "@artsy/cohesion"
 import { ButtonProps, Popover } from "@artsy/palette"
 import { FollowArtistButtonMutation } from "__generated__/FollowArtistButtonMutation.graphql"
 import { FollowArtistPopoverQueryRenderer } from "Components/FollowArtistPopover"
 import * as React from "react"
-import { FollowArtistButton_artist } from "../../__generated__/FollowArtistButton_artist.graphql"
-import { FollowArtistButtonQuery } from "../../__generated__/FollowArtistButtonQuery.graphql"
+import { FollowArtistButton_artist$data } from "__generated__/FollowArtistButton_artist.graphql"
+import { FollowArtistButtonQuery } from "__generated__/FollowArtistButtonQuery.graphql"
 import { FollowButton } from "./Button"
 import { createFragmentContainer, graphql } from "react-relay"
 import { openAuthToSatisfyIntent } from "Utils/openAuthModal"
@@ -14,7 +19,7 @@ import { useFollowButtonTracking } from "./useFollowButtonTracking"
 import { useMutation } from "Utils/Hooks/useMutation"
 
 interface FollowArtistButtonProps extends Omit<ButtonProps, "variant"> {
-  artist: FollowArtistButton_artist
+  artist: FollowArtistButton_artist$data
   contextModule?: AuthContextModule
   triggerSuggestions?: boolean
   onFollow?: (followed: boolean) => void
@@ -30,6 +35,7 @@ const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
   const { isLoggedIn, mediator } = useSystemContext()
 
   const { trackFollow } = useFollowButtonTracking({
+    ownerType: OwnerType.artist,
     ownerId: artist.internalID,
     ownerSlug: artist.slug,
     contextModule,
@@ -139,6 +145,11 @@ const FollowArtistButton: React.FC<FollowArtistButtonProps> = ({
               handleClick(event)
               openSuggestions()
             }}
+            aria-label={
+              artist.isFollowed
+                ? `Unfollow ${artist.name}`
+                : `Follow ${artist.name}`
+            }
             {...rest}
           />
         )
@@ -151,11 +162,7 @@ export const FollowArtistButtonFragmentContainer = createFragmentContainer(
   FollowArtistButton,
   {
     artist: graphql`
-      fragment FollowArtistButton_artist on Artist
-        @argumentDefinitions(
-          showFollowSuggestions: { type: "Boolean", defaultValue: false }
-        ) {
-        ...FollowArtistPopover_artist @include(if: $showFollowSuggestions)
+      fragment FollowArtistButton_artist on Artist {
         id
         slug
         name

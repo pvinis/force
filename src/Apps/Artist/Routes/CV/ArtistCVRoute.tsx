@@ -2,32 +2,35 @@ import { Join, Spacer } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { ArtistCVGroupRefetchContainer } from "./Components/ArtistCVGroup"
-import { ArtistCVRoute_viewer } from "__generated__/ArtistCVRoute_viewer.graphql"
+import { ArtistCVRoute_viewer$data } from "__generated__/ArtistCVRoute_viewer.graphql"
 import { MetaTags } from "Components/MetaTags"
+import { useTranslation } from "react-i18next"
 
 interface ArtistCVRouteProps {
-  viewer: ArtistCVRoute_viewer
+  viewer: ArtistCVRoute_viewer$data
 }
 
 const ArtistCVRoute: React.FC<ArtistCVRouteProps> = ({ viewer }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <MetaTags title={`${viewer?.soloShows?.name} - CV | Artsy`} />
 
-      <Join separator={<Spacer mb={4} />}>
+      <Join separator={<Spacer y={4} />}>
         <ArtistCVGroupRefetchContainer
           artist={viewer.soloShows!}
-          title="Solo shows"
+          title={t("artistPage.cv.soloTitle")}
         />
 
         <ArtistCVGroupRefetchContainer
           artist={viewer.groupShows!}
-          title="Group shows"
+          title={t("artistPage.cv.groupTitle")}
         />
 
         <ArtistCVGroupRefetchContainer
           artist={viewer.fairBooths!}
-          title="Fair booths"
+          title={t("artistPage.cv.fairTitle")}
         />
       </Join>
     </>

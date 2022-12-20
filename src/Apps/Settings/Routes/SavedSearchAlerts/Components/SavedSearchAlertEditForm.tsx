@@ -14,12 +14,12 @@ import { createFragmentContainer, graphql } from "react-relay"
 import { Aggregations } from "Components/ArtworkFilter/ArtworkFilterContext"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { SavedSearchAlertEditFormQuery } from "__generated__/SavedSearchAlertEditFormQuery.graphql"
-import { SavedSearchAlertEditForm_me } from "__generated__/SavedSearchAlertEditForm_me.graphql"
-import { SavedSearchAlertEditForm_artistsConnection } from "__generated__/SavedSearchAlertEditForm_artistsConnection.graphql"
-import { SavedSearchAlertEditForm_viewer } from "__generated__/SavedSearchAlertEditForm_viewer.graphql"
-import { EditAlertEntity } from "../types"
-import { SavedSearchAlertEditForm_artworksConnection } from "__generated__/SavedSearchAlertEditForm_artworksConnection.graphql"
-import { useEditSavedSearchAlert } from "../useEditSavedSearchAlert"
+import { SavedSearchAlertEditForm_me$data } from "__generated__/SavedSearchAlertEditForm_me.graphql"
+import { SavedSearchAlertEditForm_artistsConnection$data } from "__generated__/SavedSearchAlertEditForm_artistsConnection.graphql"
+import { SavedSearchAlertEditForm_viewer$data } from "__generated__/SavedSearchAlertEditForm_viewer.graphql"
+import { EditAlertEntity } from "Apps/Settings/Routes/SavedSearchAlerts/types"
+import { SavedSearchAlertEditForm_artworksConnection$data } from "__generated__/SavedSearchAlertEditForm_artworksConnection.graphql"
+import { useEditSavedSearchAlert } from "Apps/Settings/Routes/SavedSearchAlerts/useEditSavedSearchAlert"
 import createLogger from "Utils/logger"
 import { Media } from "Utils/Responsive"
 import { SavedSearchAlertEditFormPlaceholder } from "./SavedSearchAlertEditFormPlaceholder"
@@ -33,6 +33,7 @@ import {
   SavedSearchAleftFormValues,
   SavedSearchEntity,
   SavedSearchEntityCriteria,
+  SavedSearchFrequency,
   SearchCriteriaAttributeKeys,
 } from "Components/SavedSearchAlert/types"
 import { getAllowedSearchCriteria } from "Components/SavedSearchAlert/Utils/savedSearchCriteria"
@@ -46,6 +47,8 @@ import {
 import { useFeatureFlag } from "System/useFeatureFlag"
 import { extractNodes } from "Utils/extractNodes"
 import { RouterLink } from "System/Router/RouterLink"
+import { DEFAULT_FREQUENCY } from "Components/SavedSearchAlert/constants"
+import { FrequenceRadioButtons } from "Components/SavedSearchAlert/Components/FrequencyRadioButtons"
 
 const logger = createLogger(
   "Apps/SavedSearchAlerts/Components/SavedSearchAlertEditForm"
@@ -58,10 +61,10 @@ interface SavedSearchAlertEditFormQueryRendererProps {
 }
 
 interface SavedSearchAlertEditFormProps {
-  me: SavedSearchAlertEditForm_me
-  viewer: SavedSearchAlertEditForm_viewer
-  artistsConnection: SavedSearchAlertEditForm_artistsConnection
-  artworksConnection?: SavedSearchAlertEditForm_artworksConnection | null
+  me: SavedSearchAlertEditForm_me$data
+  viewer: SavedSearchAlertEditForm_viewer$data
+  artistsConnection: SavedSearchAlertEditForm_artistsConnection$data
+  artworksConnection?: SavedSearchAlertEditForm_artworksConnection$data | null
   editAlertEntity: EditAlertEntity
   shouldFetchLabelsFromMetaphysics?: boolean
   onDeleteClick: () => void
@@ -93,6 +96,7 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
     name: userAlertSettings.name ?? "",
     push: userAlertSettings.push,
     email: userAlertSettings.email,
+    frequency: userAlertSettings.frequency as SavedSearchFrequency,
   }
   const isCustomAlertsNotificationsEnabled = viewer.notificationPreferences.some(
     preference => {
@@ -120,9 +124,10 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
 
   const handleSubmit = async (values: SavedSearchAleftFormValues) => {
     try {
-      const updatedAlertSettings = {
+      const updatedAlertSettings: SavedSearchAleftFormValues = {
         ...values,
         name: values.name || entity.placeholder,
+        frequency: values.push ? values.frequency : DEFAULT_FREQUENCY,
       }
 
       await submitEditAlert({
@@ -171,7 +176,7 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
 
         return (
           <Box>
-            <Join separator={<Spacer mt={[4, 6]} />}>
+            <Join separator={<Spacer y={[4, 6]} />}>
               <Input
                 title="Alert Name"
                 name="name"
@@ -185,7 +190,7 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
 
               <Box>
                 <Text variant="xs">Filters</Text>
-                <Spacer mt={2} />
+                <Spacer y={2} />
                 <Flex flexWrap="wrap" mx={-0.5}>
                   <SavedSearchAlertPills
                     items={pills}
@@ -215,18 +220,36 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
                   </Message>
                 )}
 
-                <Spacer mt={4} />
+                <Spacer y={4} />
 
                 <Checkbox
-                  onSelect={selected => setFieldValue("push", selected)}
+                  onSelect={selected => {
+                    setFieldValue("push", selected)
+
+                    // Restore initial frequency when "Mobile Alerts" is unselected
+                    if (!selected) {
+                      setFieldValue("frequency", initialValues.frequency)
+                    }
+                  }}
                   selected={values.push}
                 >
                   Mobile Alerts
                 </Checkbox>
+
+                <Spacer y={4} />
+
+                {values.push && (
+                  <FrequenceRadioButtons
+                    defaultFrequence={values.frequency}
+                    onSelect={selectedOption =>
+                      setFieldValue("frequency", selectedOption)
+                    }
+                  />
+                )}
               </Box>
 
               <Media greaterThanOrEqual="md">
-                <Spacer mt={6} />
+                <Spacer y={6} />
 
                 <Flex>
                   <Button
@@ -236,7 +259,7 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
                   >
                     Delete Alert
                   </Button>
-                  <Spacer ml={2} />
+                  <Spacer x={2} />
                   <Button
                     flex={1}
                     loading={isSubmitting}
@@ -249,7 +272,7 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
               </Media>
 
               <Media lessThan="md">
-                <Spacer mt={4} />
+                <Spacer y={4} />
 
                 <Button
                   loading={isSubmitting}
@@ -260,7 +283,7 @@ const SavedSearchAlertEditForm: React.FC<SavedSearchAlertEditFormProps> = ({
                   Save Alert
                 </Button>
 
-                <Spacer mt={1} />
+                <Spacer y={1} />
 
                 <Button
                   variant="secondaryBlack"
@@ -374,6 +397,7 @@ export const SavedSearchAlertEditFormFragmentContainer = createFragmentContainer
             name
             email
             push
+            frequency
           }
           labels @skip(if: $withAggregations) {
             field

@@ -29,6 +29,8 @@ import {
 } from "./types"
 import { SavedSearchAlertPills } from "./Components/SavedSearchAlertPills"
 import { Metric } from "Utils/metrics"
+import { DEFAULT_FREQUENCY } from "./constants"
+import { FrequenceRadioButtons } from "./Components/FrequencyRadioButtons"
 
 interface SavedSearchAlertFormProps {
   entity: SavedSearchEntity
@@ -73,6 +75,7 @@ export const SavedSearchAlertModal: React.FC<SavedSearchAlertFormProps> = ({
       name: values.name || entity.placeholder,
       email: values.email,
       push: values.push,
+      frequency: values.push ? values.frequency : DEFAULT_FREQUENCY,
     }
 
     try {
@@ -123,7 +126,7 @@ export const SavedSearchAlertModal: React.FC<SavedSearchAlertFormProps> = ({
               </Button>
             }
           >
-            <Join separator={<Spacer mt={4} />}>
+            <Join separator={<Spacer y={4} />}>
               <Input
                 title="Alert Name"
                 name="name"
@@ -137,7 +140,7 @@ export const SavedSearchAlertModal: React.FC<SavedSearchAlertFormProps> = ({
 
               <Box>
                 <Text variant="xs">Filters</Text>
-                <Spacer mt={2} />
+                <Spacer y={2} />
                 <Flex flexWrap="wrap" mx={-0.5}>
                   <SavedSearchAlertPills
                     items={pills}
@@ -154,14 +157,32 @@ export const SavedSearchAlertModal: React.FC<SavedSearchAlertFormProps> = ({
                     selected={values.email}
                   />
                 </Box>
-                <Spacer mt={4} />
+                <Spacer y={4} />
                 <Box display="flex" justifyContent="space-between">
                   <Text variant="sm-display">Mobile Alerts</Text>
                   <Checkbox
-                    onSelect={selected => setFieldValue("push", selected)}
+                    onSelect={selected => {
+                      setFieldValue("push", selected)
+
+                      // Restore default frequency when "Mobile Alerts" is unselected
+                      if (!selected) {
+                        setFieldValue("frequency", DEFAULT_FREQUENCY)
+                      }
+                    }}
                     selected={values.push}
                   />
                 </Box>
+
+                <Spacer y={4} />
+
+                {values.push && (
+                  <FrequenceRadioButtons
+                    defaultFrequence={values.frequency}
+                    onSelect={selectedOption =>
+                      setFieldValue("frequency", selectedOption)
+                    }
+                  />
+                )}
               </Box>
             </Join>
           </ModalDialog>

@@ -1,12 +1,14 @@
+import { LabeledInput, Text } from "@artsy/palette"
+import { ArtworkSidebarClassificationsModalQueryRenderer } from "Apps/Artwork/Components/ArtworkSidebarClassificationsModal"
+import { ProvenanceModal } from "Apps/MyCollection/Routes/EditArtwork/Components/ProvenanceModal"
 import { mount, ReactWrapper } from "enzyme"
+import { Formik } from "formik"
 import {
   ArtworkDetailsForm,
   ArtworkDetailsFormModel,
   getArtworkDetailsFormInitialValues,
+  SubmissionType,
 } from "../Components/ArtworkDetailsForm"
-import { Formik } from "formik"
-import { LabeledInput, Modal, Text } from "@artsy/palette"
-import { ArtworkSidebarClassificationsModalQueryRenderer } from "Apps/Artwork/Components/ArtworkSidebarClassificationsModal"
 
 const renderArtworkForm = (values: ArtworkDetailsFormModel) =>
   mount(
@@ -18,7 +20,9 @@ const renderArtworkForm = (values: ArtworkDetailsFormModel) =>
 describe("ArtworkDetailsForm", () => {
   let wrapper: ReactWrapper
   beforeAll(() => {
-    wrapper = renderArtworkForm(getArtworkDetailsFormInitialValues())
+    wrapper = renderArtworkForm(
+      getArtworkDetailsFormInitialValues({ type: SubmissionType.default })
+    )
   })
 
   it("renders correctly initial fields", () => {
@@ -95,14 +99,14 @@ describe("ArtworkDetailsForm", () => {
   })
 
   it("provenance modal", () => {
-    expect(wrapper.find(Modal).prop("show")).toBe(false)
+    expect(wrapper.find(ProvenanceModal).prop("show")).toBe(false)
 
     wrapper
       .find("[data-test-id='open-provenance-modal']")
       .find(Text)
       .simulate("click")
 
-    expect(wrapper.find(Modal).prop("show")).toBe(true)
+    expect(wrapper.find(ProvenanceModal).prop("show")).toBe(true)
   })
 
   it("if units are 'in' renders size fields correctly", () => {

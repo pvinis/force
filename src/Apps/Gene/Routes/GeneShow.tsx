@@ -2,14 +2,14 @@ import { Column, GridColumns, HTML, Spacer, Text } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink } from "System/Router/RouterLink"
-import { FollowGeneButtonFragmentContainer } from "Components/FollowButton/FollowGeneButton"
-import { GeneShow_gene } from "__generated__/GeneShow_gene.graphql"
-import { GeneArtworkFilterRefetchContainer } from "../Components/GeneArtworkFilter"
-import { GeneMetaFragmentContainer } from "../Components/GeneMeta"
+import { FollowGeneButtonQueryRenderer } from "Components/FollowButton/FollowGeneButton"
+import { GeneShow_gene$data } from "__generated__/GeneShow_gene.graphql"
+import { GeneArtworkFilterRefetchContainer } from "Apps/Gene/Components/GeneArtworkFilter"
+import { GeneMetaFragmentContainer } from "Apps/Gene/Components/GeneMeta"
 import { extractNodes } from "Utils/extractNodes"
 
 interface GeneShowProps {
-  gene: GeneShow_gene
+  gene: GeneShow_gene$data
 }
 
 export const GeneShow: React.FC<GeneShowProps> = ({ gene }) => {
@@ -26,7 +26,7 @@ export const GeneShow: React.FC<GeneShowProps> = ({ gene }) => {
             {gene.displayName || gene.name}
           </Text>
 
-          <FollowGeneButtonFragmentContainer gene={gene} />
+          <FollowGeneButtonQueryRenderer id={gene.internalID} />
         </Column>
 
         <Column span={6}>
@@ -78,7 +78,7 @@ export const GeneShow: React.FC<GeneShowProps> = ({ gene }) => {
         </Column>
       </GridColumns>
 
-      <Spacer mt={12} />
+      <Spacer y={12} />
 
       <GeneArtworkFilterRefetchContainer gene={gene} />
     </>
@@ -99,7 +99,7 @@ export const GeneShowFragmentContainer = createFragmentContainer(GeneShow, {
           aggregations: $aggregations
           shouldFetchCounts: $shouldFetchCounts
         )
-      ...FollowGeneButton_gene
+      internalID
       name
       displayName
       formattedDescription: description(format: HTML)

@@ -1,4 +1,4 @@
-import { Environment, RelayRefetchProp } from "react-relay"
+import { RelayRefetchProp } from "react-relay"
 import { useRef, useState } from "react"
 import * as React from "react"
 import {
@@ -19,9 +19,10 @@ import { themeGet } from "@styled-system/theme-get"
 
 import { useTracking } from "react-tracking"
 import { ConversationCTAFragmentContainer } from "./ConversationCTA"
-import { SendConversationMessage } from "../Mutation/SendConversationMessage"
+import { SendConversationMessage } from "Apps/Conversation/Mutation/SendConversationMessage"
 
-import { Conversation_conversation } from "__generated__/Conversation_conversation.graphql"
+import { Conversation_conversation$data } from "__generated__/Conversation_conversation.graphql"
+import RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironment"
 
 const StyledFlex = styled(Flex)<FlexProps & RightProps>`
   border-top: 1px solid ${themeGet("colors.black10")};
@@ -54,10 +55,11 @@ const StyledTextArea = styled.textarea<{ height?: string }>`
 `
 
 interface ReplyProps {
-  conversation: Conversation_conversation
-  environment: Environment
+  conversation: Conversation_conversation$data
+  environment: RelayModernEnvironment
   onScroll: () => void
   refetch: RelayRefetchProp["refetch"]
+
   openInquiryModal: ({ createsOfferOrder: boolean }) => void
   openOrderModal: () => void
 }

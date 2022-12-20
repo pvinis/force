@@ -5,13 +5,13 @@ import { FC, Fragment } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { RouterLink } from "System/Router/RouterLink"
 import { extractNodes } from "Utils/extractNodes"
-import { EntityHeaderPartner_partner } from "__generated__/EntityHeaderPartner_partner.graphql"
-import { FollowProfileButtonFragmentContainer } from "../FollowButton/FollowProfileButton"
+import { EntityHeaderPartner_partner$data } from "__generated__/EntityHeaderPartner_partner.graphql"
+import { FollowProfileButtonQueryRenderer } from "Components/FollowButton/FollowProfileButton"
 
 const DISPLAYABLE_BADGES = ["black-owned", "women-owned"]
 
 export interface EntityHeaderPartnerProps extends BoxProps {
-  partner: EntityHeaderPartner_partner
+  partner: EntityHeaderPartner_partner$data
   displayAvatar?: boolean
   displayLink?: boolean
   FollowButton?: JSX.Element
@@ -72,7 +72,7 @@ const EntityHeaderPartner: FC<EntityHeaderPartnerProps> = ({
           <Text variant="sm-display">
             {badges.map(badge => (
               <Fragment key={badge.slug}>
-                <Label>{badge.name}</Label>{" "}
+                <Label>{badge.name?.replace(" ", "-")}</Label>{" "}
               </Fragment>
             ))}
           </Text>
@@ -87,8 +87,8 @@ const EntityHeaderPartner: FC<EntityHeaderPartnerProps> = ({
 
       {isFollowable &&
         (FollowButton || (
-          <FollowProfileButtonFragmentContainer
-            profile={partner.profile!}
+          <FollowProfileButtonQueryRenderer
+            id={partner.profile.internalID}
             contextModule={ContextModule.partnerHeader}
             size="small"
             onFollow={onFollow}
@@ -121,7 +121,7 @@ export const EntityHeaderPartnerFragmentContainer = createFragmentContainer(
           slug
         }
         profile {
-          ...FollowProfileButton_profile
+          internalID
           avatar: image {
             cropped(width: 45, height: 45) {
               src

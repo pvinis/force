@@ -1,49 +1,31 @@
+/**
+ * @generated SignedSource<<7f27b31eb8bc0152362ae7ad2b506d23>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type SettingsEditProfileArtistsYouCollectAutocompleteQueryVariables = {
-    term: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type SettingsEditProfileArtistsYouCollectAutocompleteQuery$variables = {
+  term: string;
 };
-export type SettingsEditProfileArtistsYouCollectAutocompleteQueryResponse = {
-    readonly searchConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly text: string | null;
-                readonly value?: string | undefined;
-            } | null;
-        } | null> | null;
-    } | null;
+export type SettingsEditProfileArtistsYouCollectAutocompleteQuery$data = {
+  readonly searchConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly text: string | null;
+        readonly value?: string;
+      } | null;
+    } | null> | null;
+  } | null;
 };
 export type SettingsEditProfileArtistsYouCollectAutocompleteQuery = {
-    readonly response: SettingsEditProfileArtistsYouCollectAutocompleteQueryResponse;
-    readonly variables: SettingsEditProfileArtistsYouCollectAutocompleteQueryVariables;
+  response: SettingsEditProfileArtistsYouCollectAutocompleteQuery$data;
+  variables: SettingsEditProfileArtistsYouCollectAutocompleteQuery$variables;
 };
-
-
-
-/*
-query SettingsEditProfileArtistsYouCollectAutocompleteQuery(
-  $term: String!
-) {
-  searchConnection(query: $term, entities: ARTIST, first: 5) {
-    edges {
-      node {
-        __typename
-        text: displayLabel
-        ... on Artist {
-          value: internalID
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -211,5 +193,7 @@ return {
   }
 };
 })();
-(node as any).hash = '860659990c56f6374e2c3ac9f54f1bd2';
+
+(node as any).hash = "860659990c56f6374e2c3ac9f54f1bd2";
+
 export default node;

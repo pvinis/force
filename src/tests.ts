@@ -12,7 +12,7 @@ const useTracking = _useTracking as jest.Mock
 track.mockImplementation(() => x => x as any)
 useTracking.mockImplementation(() => ({ trackEvent: jest.fn() }))
 
-jest.mock("react-sizeme", () => jest.fn(() => d => d))
+jest.mock("lodash/debounce", () => jest.fn(e => e))
 jest.mock("Utils/logger")
 
 /**
@@ -125,6 +125,10 @@ if (process.env.ALLOW_CONSOLE_LOGS !== "true") {
               ) &&
               !args[0].includes(
                 "Warning: unstable_flushDiscreteUpdates: Cannot flush updates when React is already rendering"
+              ) &&
+              // Relay 13 warning
+              !args[0].includes(
+                "has missing data and would suspend. When using features such as @defer or @module, use `useFragment` instead of a Relay Container"
               ) &&
               !args[0].includes(
                 // Styled-components 5 warning

@@ -1,24 +1,27 @@
+/**
+ * @generated SignedSource<<deb7db1e455cfe1e8bebbc87c2abe85c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkSidebarClassificationsModal_viewer = {
-    readonly artworkAttributionClasses: ReadonlyArray<{
-        readonly id: string;
-        readonly name: string | null;
-        readonly longDescription: string | null;
-    } | null> | null;
-    readonly " $refType": "ArtworkSidebarClassificationsModal_viewer";
+export type ArtworkSidebarClassificationsModal_viewer$data = {
+  readonly artworkAttributionClasses: ReadonlyArray<{
+    readonly id: string;
+    readonly longDescription: string | null;
+    readonly name: string | null;
+  } | null> | null;
+  readonly " $fragmentType": "ArtworkSidebarClassificationsModal_viewer";
 };
-export type ArtworkSidebarClassificationsModal_viewer$data = ArtworkSidebarClassificationsModal_viewer;
 export type ArtworkSidebarClassificationsModal_viewer$key = {
-    readonly " $data"?: ArtworkSidebarClassificationsModal_viewer$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkSidebarClassificationsModal_viewer">;
+  readonly " $data"?: ArtworkSidebarClassificationsModal_viewer$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkSidebarClassificationsModal_viewer">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -62,5 +65,7 @@ const node: ReaderFragment = {
   "type": "Viewer",
   "abstractKey": null
 };
-(node as any).hash = '0c6d5da0f8afc199e5112214cda6ef0f';
+
+(node as any).hash = "0c6d5da0f8afc199e5112214cda6ef0f";
+
 export default node;

@@ -8,16 +8,16 @@ import {
 } from "@artsy/palette"
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ShowsIndex_featuredShows } from "__generated__/ShowsIndex_featuredShows.graphql"
-import { ShowsIndex_viewer } from "__generated__/ShowsIndex_viewer.graphql"
-import { ShowsFeaturedShowFragmentContainer } from "../Components/ShowsFeaturedShow"
-import { ShowsHeaderFragmentContainer } from "../Components/ShowsHeader"
-import { ShowsMeta } from "../Components/ShowsMeta"
-import { ShowsCurrentShowsQueryRenderer } from "../Components/ShowsCurrentShows"
+import { ShowsIndex_featuredShows$data } from "__generated__/ShowsIndex_featuredShows.graphql"
+import { ShowsIndex_viewer$data } from "__generated__/ShowsIndex_viewer.graphql"
+import { ShowsFeaturedShowFragmentContainer } from "Apps/Shows/Components/ShowsFeaturedShow"
+import { ShowsHeaderFragmentContainer } from "Apps/Shows/Components/ShowsHeader"
+import { ShowsMeta } from "Apps/Shows/Components/ShowsMeta"
+import { ShowsCurrentShowsQueryRenderer } from "Apps/Shows/Components/ShowsCurrentShows"
 
 interface ShowsIndexProps {
-  featuredShows: ShowsIndex_featuredShows
-  viewer: ShowsIndex_viewer
+  featuredShows: ShowsIndex_featuredShows$data
+  viewer: ShowsIndex_viewer$data
 }
 
 export const ShowsIndex: React.FC<ShowsIndexProps> = ({
@@ -28,9 +28,9 @@ export const ShowsIndex: React.FC<ShowsIndexProps> = ({
     <>
       <ShowsMeta />
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
-      <Join separator={<Spacer mt={6} />}>
+      <Join separator={<Spacer y={6} />}>
         <ShowsHeaderFragmentContainer viewer={viewer} />
 
         <Text as="h1" variant="xl">

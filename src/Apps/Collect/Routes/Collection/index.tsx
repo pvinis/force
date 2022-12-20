@@ -1,5 +1,5 @@
 import { Spacer } from "@artsy/palette"
-import { Collection_collection } from "__generated__/Collection_collection.graphql"
+import { Collection_collection$data } from "__generated__/Collection_collection.graphql"
 import { SeoProductsForArtworks } from "Apps/Collect/Components/SeoProductsForArtworks"
 import { SeoProductsForCollections } from "Apps/Collect/Components/SeoProductsForCollections"
 import { CollectionFilterFragmentContainer as CollectionHeader } from "Apps/Collect/Routes/Collection/Components/Header"
@@ -28,7 +28,7 @@ import { MetaTags } from "Components/MetaTags"
 import { getENV } from "Utils/getENV"
 
 interface CollectionAppProps extends SystemContextProps, AnalyticsContextProps {
-  collection: Collection_collection
+  collection: Collection_collection$data
   relay: RelayRefetchProp
   tracking: TrackingProp
 }
@@ -104,7 +104,7 @@ export const CollectionApp: React.FC<CollectionAppProps> = props => {
       <FrameWithRecentlyViewed>
         {showCollectionHubs && (
           <>
-            <Spacer mt={6} />
+            <Spacer y={6} />
 
             <CollectionsHubRails
               linkedCollections={collection.linkedCollections}
@@ -112,7 +112,7 @@ export const CollectionApp: React.FC<CollectionAppProps> = props => {
           </>
         )}
 
-        <Spacer mt={6} />
+        <Spacer y={6} />
 
         <CollectionArtworksFilterRefetchContainer
           collection={collection}
@@ -131,7 +131,7 @@ export const CollectionApp: React.FC<CollectionAppProps> = props => {
         {collection.linkedCollections.length === 0 &&
           typeof window !== "undefined" && (
             <LazyLoadComponent threshold={1000}>
-              <Spacer mt={6} />
+              <Spacer y={6} />
 
               <RelatedCollectionsRail
                 collections={collection.relatedCollections}

@@ -1,9 +1,9 @@
 import { createFragmentContainer, graphql } from "react-relay"
 import { useAnalyticsContext } from "System"
-import { WorksByArtistsYouFollowRail_viewer } from "__generated__/WorksByArtistsYouFollowRail_viewer.graphql"
+import { WorksByArtistsYouFollowRail_viewer$data } from "__generated__/WorksByArtistsYouFollowRail_viewer.graphql"
 import { useTracking } from "react-tracking"
 import { AuthContextModule } from "@artsy/cohesion"
-import { tabTypeToContextModuleMap } from "../Utils/tabTypeToContextModuleMap"
+import { tabTypeToContextModuleMap } from "Apps/Auctions/Utils/tabTypeToContextModuleMap"
 import { ShelfArtworkFragmentContainer } from "Components/Artwork/ShelfArtwork"
 import { extractNodes } from "Utils/extractNodes"
 import { trackHelpers } from "Utils/cohesionHelpers"
@@ -11,7 +11,7 @@ import { CuratorialRailsZeroState } from "./CuritorialRailsTabBar"
 import { Rail } from "Components/Rail"
 
 export interface WorksByArtistsYouFollowRailProps {
-  viewer: WorksByArtistsYouFollowRail_viewer
+  viewer: WorksByArtistsYouFollowRail_viewer$data
 }
 
 const WorksByArtistsYouFollowRail: React.FC<WorksByArtistsYouFollowRailProps> = ({
@@ -73,7 +73,7 @@ export const WorksByArtistsYouFollowRailFragmentContainer = createFragmentContai
             node {
               internalID
               slug
-              ...ShelfArtwork_artwork @arguments(width: 325)
+              ...ShelfArtwork_artwork
             }
           }
         }

@@ -1,12 +1,12 @@
 import * as React from "react"
 import compact from "lodash/compact"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ViewingRooms_partner } from "__generated__/ViewingRooms_partner.graphql"
-import { ViewingRoomsFragmentContainer } from "../../Components/PartnerViewingRooms/ViewingRooms"
-import { ViewingRoomsPaginatedRenderer } from "../../Components/PartnerViewingRooms/ViewingRoomsPaginated"
+import { ViewingRooms_partner$data } from "__generated__/ViewingRooms_partner.graphql"
+import { ViewingRoomsFragmentContainer } from "Apps/Partner/Components/PartnerViewingRooms/ViewingRooms"
+import { ViewingRoomsPaginatedRenderer } from "Apps/Partner/Components/PartnerViewingRooms/ViewingRoomsPaginated"
 
 interface PartnerShowsProps {
-  partner: ViewingRooms_partner
+  partner: ViewingRooms_partner$data
 }
 
 export const ViewingRooms: React.FC<PartnerShowsProps> = ({ partner }) => {
@@ -35,7 +35,7 @@ export const ViewingRooms: React.FC<PartnerShowsProps> = ({ partner }) => {
       <ViewingRoomsPaginatedRenderer
         eventTitle="Past Viewing Rooms"
         partnerId={slug}
-        scrollTo="#jumpto--pastShowsGrid"
+        scrollTo="pastShowsGrid"
         offset={200}
       />
     </>

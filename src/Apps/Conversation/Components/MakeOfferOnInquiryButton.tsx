@@ -2,14 +2,14 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { useTracking } from "react-tracking"
 import { TappedMakeOffer, ActionType, OwnerType } from "@artsy/cohesion"
-import { MakeOfferOnInquiryButton_conversation } from "__generated__/MakeOfferOnInquiryButton_conversation.graphql"
+import { MakeOfferOnInquiryButton_conversation$data } from "__generated__/MakeOfferOnInquiryButton_conversation.graphql"
 import { Button, Spacer } from "@artsy/palette"
 import { ConfirmArtworkButtonFragmentContainer } from "./ConfirmArtworkButton"
 import { useFeatureFlag } from "System/useFeatureFlag"
 
 export interface MakeOfferOnInquiryButtonProps {
   openInquiryModal: () => void
-  conversation: MakeOfferOnInquiryButton_conversation
+  conversation: MakeOfferOnInquiryButton_conversation$data
 }
 
 export const MakeOfferOnInquiryButton: React.FC<MakeOfferOnInquiryButtonProps> = ({
@@ -37,7 +37,7 @@ export const MakeOfferOnInquiryButton: React.FC<MakeOfferOnInquiryButtonProps> =
 
   return (
     <>
-      <Spacer ml={isPurchaseButtonPresent ? 1 : 0} />
+      <Spacer x={isPurchaseButtonPresent ? 1 : 0} />
       {!isUniqueArtwork ? (
         // Opens a modal window to select an edition set on non-unique artworks
         <Button

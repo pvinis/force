@@ -1,55 +1,58 @@
+/**
+ * @generated SignedSource<<7f27cd435e55f4ac6aabe23289e7e72d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type CommerceOrderModeEnum = "BUY" | "OFFER" | "%future added value";
-export type ArtworkSummaryItem_order = {
-    readonly sellerDetails: {
-        readonly name?: string | null | undefined;
-    } | null;
-    readonly currencyCode: string;
-    readonly mode: CommerceOrderModeEnum | null;
-    readonly lineItems: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly artworkOrEditionSet: ({
-                    readonly __typename: "Artwork";
-                    readonly price: string | null;
-                } | {
-                    readonly __typename: "EditionSet";
-                    readonly price: string | null;
-                } | {
-                    /*This will never be '%other', but we need some
-                    value in case none of the concrete values match.*/
-                    readonly __typename: "%other";
-                }) | null;
-                readonly artwork: {
-                    readonly date: string | null;
-                    readonly shippingOrigin: string | null;
-                } | null;
-                readonly artworkVersion: {
-                    readonly artistNames: string | null;
-                    readonly title: string | null;
-                    readonly image: {
-                        readonly resized_ArtworkSummaryItem: {
-                            readonly url: string;
-                        } | null;
-                    } | null;
-                } | null;
+import { FragmentRefs } from "relay-runtime";
+export type ArtworkSummaryItem_order$data = {
+  readonly currencyCode: string;
+  readonly lineItems: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly artwork: {
+          readonly date: string | null;
+          readonly shippingOrigin: string | null;
+        } | null;
+        readonly artworkOrEditionSet: {
+          readonly __typename: "Artwork";
+          readonly price: string | null;
+        } | {
+          readonly __typename: "EditionSet";
+          readonly price: string | null;
+        } | {
+          // This will never be '%other', but we need some
+          // value in case none of the concrete values match.
+          readonly __typename: "%other";
+        } | null;
+        readonly artworkVersion: {
+          readonly artistNames: string | null;
+          readonly image: {
+            readonly resized_ArtworkSummaryItem: {
+              readonly url: string;
             } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "ArtworkSummaryItem_order";
+          } | null;
+          readonly title: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly mode: CommerceOrderModeEnum | null;
+  readonly sellerDetails: {
+    readonly name?: string | null;
+  } | null;
+  readonly " $fragmentType": "ArtworkSummaryItem_order";
 };
-export type ArtworkSummaryItem_order$data = ArtworkSummaryItem_order;
 export type ArtworkSummaryItem_order$key = {
-    readonly " $data"?: ArtworkSummaryItem_order$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkSummaryItem_order">;
+  readonly " $data"?: ArtworkSummaryItem_order$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkSummaryItem_order">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -259,5 +262,7 @@ return {
   "abstractKey": "__isCommerceOrder"
 };
 })();
-(node as any).hash = '1344acb52e619945e9d689ffe204f265';
+
+(node as any).hash = "1344acb52e619945e9d689ffe204f265";
+
 export default node;

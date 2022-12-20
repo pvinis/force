@@ -1,68 +1,42 @@
+/**
+ * @generated SignedSource<<edea735cee6f1d24f346dbca38db616d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type CommerceOrderParticipantEnum = "BUYER" | "SELLER" | "%future added value";
 export type CommerceBuyerAcceptOfferInput = {
-    clientMutationId?: string | null | undefined;
-    offerId: string;
+  clientMutationId?: string | null;
+  offerId: string;
 };
-export type AcceptOfferMutationVariables = {
-    input: CommerceBuyerAcceptOfferInput;
+export type AcceptOfferMutation$variables = {
+  input: CommerceBuyerAcceptOfferInput;
 };
-export type AcceptOfferMutationResponse = {
-    readonly commerceBuyerAcceptOffer: {
-        readonly orderOrError: {
-            readonly __typename: "CommerceOrderWithMutationSuccess";
-            readonly order?: {
-                readonly internalID: string;
-                readonly awaitingResponseFrom?: CommerceOrderParticipantEnum | null | undefined;
-            } | undefined;
-            readonly error?: {
-                readonly type: string;
-                readonly code: string;
-                readonly data: string | null;
-            } | undefined;
-        };
-    } | null;
+export type AcceptOfferMutation$data = {
+  readonly commerceBuyerAcceptOffer: {
+    readonly orderOrError: {
+      readonly __typename: "CommerceOrderWithMutationSuccess";
+      readonly error?: {
+        readonly code: string;
+        readonly data: string | null;
+        readonly type: string;
+      };
+      readonly order?: {
+        readonly awaitingResponseFrom?: CommerceOrderParticipantEnum | null;
+        readonly internalID: string;
+      };
+    };
+  } | null;
 };
 export type AcceptOfferMutation = {
-    readonly response: AcceptOfferMutationResponse;
-    readonly variables: AcceptOfferMutationVariables;
+  response: AcceptOfferMutation$data;
+  variables: AcceptOfferMutation$variables;
 };
-
-
-
-/*
-mutation AcceptOfferMutation(
-  $input: CommerceBuyerAcceptOfferInput!
-) {
-  commerceBuyerAcceptOffer(input: $input) {
-    orderOrError {
-      __typename
-      ... on CommerceOrderWithMutationSuccess {
-        __typename
-        order {
-          __typename
-          internalID
-          ... on CommerceOfferOrder {
-            awaitingResponseFrom
-          }
-          id
-        }
-      }
-      ... on CommerceOrderWithMutationFailure {
-        error {
-          type
-          code
-          data
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -237,14 +211,14 @@ return {
                     "selections": [
                       (v2/*: any*/),
                       (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
                         "name": "id",
                         "storageKey": null
-                      },
-                      (v4/*: any*/)
+                      }
                     ],
                     "storageKey": null
                   }
@@ -271,5 +245,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a72db42fb4cf493527dad1d4d6aa1cdc';
+
+(node as any).hash = "a72db42fb4cf493527dad1d4d6aa1cdc";
+
 export default node;

@@ -1,12 +1,12 @@
 import { Flex, Text, RadioProps } from "@artsy/palette"
 import * as React from "react"
 import styled from "styled-components"
-import { SavedAddresses_me } from "__generated__/SavedAddresses_me.graphql"
+import { SavedAddresses_me$data } from "__generated__/SavedAddresses_me.graphql"
 
 type AddressNode = NonNullable<
   NonNullable<
     NonNullable<
-      NonNullable<SavedAddresses_me["addressConnection"]>["edges"]
+      NonNullable<SavedAddresses_me$data["addressConnection"]>["edges"]
     >[number]
   >["node"]
 >
@@ -52,9 +52,9 @@ export const SavedAddressItem: React.FC<SavedAddressItemProps> = (
                   height={24}
                 >
                   <Text
+                    variant="sm-display"
                     textTransform="capitalize"
                     textColor={index === 0 ? "black100" : "black60"}
-                    variant="sm"
                   >
                     {line}
                   </Text>
@@ -69,17 +69,24 @@ export const SavedAddressItem: React.FC<SavedAddressItemProps> = (
         </Text>
       </Flex>
       <EditButton
+        textColor="blue100"
+        variant="sm"
         position="absolute"
         top={2}
         right={2}
+        tabIndex={0}
         onClick={event => {
           event.preventDefault()
           event.stopPropagation()
 
           handleClickEdit(index)
         }}
-        textColor="blue100"
-        variant="sm"
+        onKeyPress={event => {
+          event.preventDefault()
+          event.stopPropagation()
+
+          event.key === "Enter" && handleClickEdit(index)
+        }}
         data-test="editAddressInShipping"
       >
         Edit

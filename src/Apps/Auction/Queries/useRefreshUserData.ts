@@ -20,7 +20,7 @@ export const useRefreshUserData = () => {
         }
       `,
       {}
-    )
+    ).toPromise()
   }
 
   return { refreshUserData }

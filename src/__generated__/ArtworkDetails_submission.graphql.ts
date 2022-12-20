@@ -1,41 +1,46 @@
+/**
+ * @generated SignedSource<<309c21922be068c20a008597bb2dd66d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ConsignmentAttributionClass = "LIMITED_EDITION" | "OPEN_EDITION" | "UNIQUE" | "UNKNOWN_EDITION" | "%future added value";
-export type ArtworkDetails_submission = {
-    readonly externalId: string;
-    readonly artist: {
-        readonly internalID: string;
-        readonly name: string | null;
-    } | null;
-    readonly locationCity: string | null;
-    readonly locationCountry: string | null;
-    readonly locationState: string | null;
-    readonly locationPostalCode: string | null;
-    readonly locationCountryCode: string | null;
-    readonly year: string | null;
-    readonly title: string | null;
-    readonly medium: string | null;
-    readonly attributionClass: ConsignmentAttributionClass | null;
-    readonly editionNumber: string | null;
-    readonly editionSize: string | null;
-    readonly height: string | null;
-    readonly width: string | null;
-    readonly depth: string | null;
-    readonly dimensionsMetric: string | null;
-    readonly provenance: string | null;
-    readonly " $refType": "ArtworkDetails_submission";
+import { FragmentRefs } from "relay-runtime";
+export type ArtworkDetails_submission$data = {
+  readonly artist: {
+    readonly internalID: string;
+    readonly name: string | null;
+  } | null;
+  readonly attributionClass: ConsignmentAttributionClass | null;
+  readonly depth: string | null;
+  readonly dimensionsMetric: string | null;
+  readonly editionNumber: string | null;
+  readonly editionSize: string | null;
+  readonly externalId: string;
+  readonly height: string | null;
+  readonly locationCity: string | null;
+  readonly locationCountry: string | null;
+  readonly locationCountryCode: string | null;
+  readonly locationPostalCode: string | null;
+  readonly locationState: string | null;
+  readonly medium: string | null;
+  readonly provenance: string | null;
+  readonly title: string | null;
+  readonly userEmail: string | null;
+  readonly userId: string;
+  readonly width: string | null;
+  readonly year: string | null;
+  readonly " $fragmentType": "ArtworkDetails_submission";
 };
-export type ArtworkDetails_submission$data = ArtworkDetails_submission;
 export type ArtworkDetails_submission$key = {
-    readonly " $data"?: ArtworkDetails_submission$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkDetails_submission">;
+  readonly " $data"?: ArtworkDetails_submission$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkDetails_submission">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -186,10 +191,26 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "provenance",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "userId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "userEmail",
+      "storageKey": null
     }
   ],
   "type": "ConsignmentSubmission",
   "abstractKey": null
 };
-(node as any).hash = 'b9518757b5006da2539920b75926ded6';
+
+(node as any).hash = "4b63226c9311e6c2b9a0c00ee41cbe7c";
+
 export default node;

@@ -1,47 +1,25 @@
+/**
+ * @generated SignedSource<<36a7c5de6fbf15edb8ba197356eaa69b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ViewInRoom_Test_QueryVariables = {};
-export type ViewInRoom_Test_QueryResponse = {
-    readonly artwork: {
-        readonly " $fragmentRefs": FragmentRefs<"ViewInRoom_artwork">;
-    } | null;
+export type ViewInRoom_Test_Query$variables = {};
+export type ViewInRoom_Test_Query$data = {
+  readonly artwork: {
+    readonly " $fragmentSpreads": FragmentRefs<"ViewInRoom_artwork">;
+  } | null;
 };
 export type ViewInRoom_Test_Query = {
-    readonly response: ViewInRoom_Test_QueryResponse;
-    readonly variables: ViewInRoom_Test_QueryVariables;
+  response: ViewInRoom_Test_Query$data;
+  variables: ViewInRoom_Test_Query$variables;
 };
-
-
-
-/*
-query ViewInRoom_Test_Query {
-  artwork(id: "example") {
-    ...ViewInRoom_artwork
-    id
-  }
-}
-
-fragment ViewInRoomArtwork_artwork on Artwork {
-  widthCm
-  heightCm
-  image {
-    resized(width: 800, height: 800, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-      width
-      height
-    }
-  }
-}
-
-fragment ViewInRoom_artwork on Artwork {
-  ...ViewInRoomArtwork_artwork
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -249,5 +227,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4df0178774fae302a9b8e5ed34e6d298';
+
+(node as any).hash = "4df0178774fae302a9b8e5ed34e6d298";
+
 export default node;

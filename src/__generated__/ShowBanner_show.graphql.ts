@@ -1,35 +1,38 @@
+/**
+ * @generated SignedSource<<00ed1dd5f87560869ea2b0f960841f61>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowBanner_show = {
-    readonly slug: string;
-    readonly name: string | null;
-    readonly href: string | null;
-    readonly isFairBooth: boolean | null;
-    readonly exhibitionPeriod: string | null;
-    readonly status: string | null;
-    readonly description: string | null;
-    readonly location: {
-        readonly city: string | null;
+export type ShowBanner_show$data = {
+  readonly coverImage: {
+    readonly medium: {
+      readonly src: string;
+      readonly srcSet: string;
     } | null;
-    readonly coverImage: {
-        readonly medium: {
-            readonly src: string;
-            readonly srcSet: string;
-        } | null;
-    } | null;
-    readonly " $refType": "ShowBanner_show";
+  } | null;
+  readonly description: string | null;
+  readonly exhibitionPeriod: string | null;
+  readonly href: string | null;
+  readonly isFairBooth: boolean | null;
+  readonly location: {
+    readonly city: string | null;
+  } | null;
+  readonly name: string | null;
+  readonly slug: string;
+  readonly status: string | null;
+  readonly " $fragmentType": "ShowBanner_show";
 };
-export type ShowBanner_show$data = ShowBanner_show;
 export type ShowBanner_show$key = {
-    readonly " $data"?: ShowBanner_show$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ShowBanner_show">;
+  readonly " $data"?: ShowBanner_show$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ShowBanner_show">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -132,7 +135,7 @@ const node: ReaderFragment = {
             {
               "kind": "Literal",
               "name": "width",
-              "value": 600
+              "value": 910
             }
           ],
           "concreteType": "CroppedImageUrl",
@@ -155,7 +158,7 @@ const node: ReaderFragment = {
               "storageKey": null
             }
           ],
-          "storageKey": "cropped(height:480,version:[\"normalized\",\"larger\",\"large\"],width:600)"
+          "storageKey": "cropped(height:480,version:[\"normalized\",\"larger\",\"large\"],width:910)"
         }
       ],
       "storageKey": null
@@ -164,5 +167,7 @@ const node: ReaderFragment = {
   "type": "Show",
   "abstractKey": null
 };
-(node as any).hash = '828b00d539d4b868d577519d06109017';
+
+(node as any).hash = "ac022f733cffbdb660946cc43d9f22c0";
+
 export default node;

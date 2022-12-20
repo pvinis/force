@@ -10,11 +10,11 @@ import {
   Text,
 } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtistSeriesHeader_artistSeries } from "__generated__/ArtistSeriesHeader_artistSeries.graphql"
+import { ArtistSeriesHeader_artistSeries$data } from "__generated__/ArtistSeriesHeader_artistSeries.graphql"
 import { TopContextBar } from "Components/TopContextBar"
 
 interface ArtistSeriesHeaderProps {
-  artistSeries: ArtistSeriesHeader_artistSeries
+  artistSeries: ArtistSeriesHeader_artistSeries$data
 }
 
 const ArtistSeriesHeader: React.FC<ArtistSeriesHeaderProps> = ({
@@ -42,7 +42,7 @@ const ArtistSeriesHeader: React.FC<ArtistSeriesHeaderProps> = ({
         {artist.name}
       </TopContextBar>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <GridColumns gridRowGap={[2, 0]}>
         <Column span={6}>
@@ -117,7 +117,6 @@ export const ArtistSeriesHeaderFragmentContainer = createFragmentContainer(
           href
           slug
           internalID
-          ...FollowArtistButton_artist
         }
       }
     `,

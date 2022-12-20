@@ -1,28 +1,31 @@
+/**
+ * @generated SignedSource<<5a144a93685ed0824c349dbe5c4b2fc8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworksRail_partner = {
-    readonly slug: string;
-    readonly filterArtworksConnection: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"FillwidthItem_artwork">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "ArtworksRail_partner";
+export type ArtworksRail_partner$data = {
+  readonly filterArtworksConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ShelfArtwork_artwork">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "ArtworksRail_partner";
 };
-export type ArtworksRail_partner$data = ArtworksRail_partner;
 export type ArtworksRail_partner$key = {
-    readonly " $data"?: ArtworksRail_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworksRail_partner">;
+  readonly " $data"?: ArtworksRail_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworksRail_partner">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -78,16 +81,16 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ShelfArtwork_artwork"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "id",
+                  "name": "internalID",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "FillwidthItem_artwork"
                 }
               ],
               "storageKey": null
@@ -102,5 +105,7 @@ const node: ReaderFragment = {
   "type": "Partner",
   "abstractKey": null
 };
-(node as any).hash = '5efdca573596231f79106b38f3a770fa';
+
+(node as any).hash = "d1dcef257c4f281a89c578b7d535d64c";
+
 export default node;

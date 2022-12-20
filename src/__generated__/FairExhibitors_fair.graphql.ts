@@ -1,27 +1,30 @@
+/**
+ * @generated SignedSource<<40d47abfe861e5186daa445e7f3e0cbd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairExhibitors_fair = {
-    readonly exhibitorsGroupedByName: ReadonlyArray<{
-        readonly letter: string | null;
-        readonly exhibitors: ReadonlyArray<{
-            readonly partnerID: string | null;
-        } | null> | null;
-        readonly " $fragmentRefs": FragmentRefs<"FairExhibitorsGroup_exhibitorsGroup">;
+export type FairExhibitors_fair$data = {
+  readonly exhibitorsGroupedByName: ReadonlyArray<{
+    readonly exhibitors: ReadonlyArray<{
+      readonly partnerID: string | null;
     } | null> | null;
-    readonly " $fragmentRefs": FragmentRefs<"FairExhibitorsGroup_fair">;
-    readonly " $refType": "FairExhibitors_fair";
+    readonly letter: string | null;
+    readonly " $fragmentSpreads": FragmentRefs<"FairExhibitorsGroup_exhibitorsGroup">;
+  } | null> | null;
+  readonly " $fragmentSpreads": FragmentRefs<"FairExhibitorsGroup_fair">;
+  readonly " $fragmentType": "FairExhibitors_fair";
 };
-export type FairExhibitors_fair$data = FairExhibitors_fair;
 export type FairExhibitors_fair$key = {
-    readonly " $data"?: FairExhibitors_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairExhibitors_fair">;
+  readonly " $data"?: FairExhibitors_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairExhibitors_fair">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -30,6 +33,11 @@ const node: ReaderFragment = {
   "name": "FairExhibitors_fair",
   "selections": [
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "FairExhibitorsGroup_fair"
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "FairExhibitorsGroup",
@@ -37,6 +45,11 @@ const node: ReaderFragment = {
       "name": "exhibitorsGroupedByName",
       "plural": true,
       "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FairExhibitorsGroup_exhibitorsGroup"
+        },
         {
           "alias": null,
           "args": null,
@@ -61,23 +74,15 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FairExhibitorsGroup_exhibitorsGroup"
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "FairExhibitorsGroup_fair"
     }
   ],
   "type": "Fair",
   "abstractKey": null
 };
-(node as any).hash = '00d47bea3a122986accc34e930ea2698';
+
+(node as any).hash = "235c1381aa13a8c7187aae90fca97fbe";
+
 export default node;

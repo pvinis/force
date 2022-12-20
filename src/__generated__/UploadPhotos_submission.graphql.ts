@@ -1,27 +1,32 @@
+/**
+ * @generated SignedSource<<b66534ad534095a89d79198dc6033524>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UploadPhotos_submission = {
-    readonly externalId: string;
-    readonly assets: ReadonlyArray<{
-        readonly id: string;
-        readonly imageUrls: unknown | null;
-        readonly geminiToken: string | null;
-        readonly size: string | null;
-        readonly filename: string | null;
-    } | null> | null;
-    readonly " $refType": "UploadPhotos_submission";
+export type UploadPhotos_submission$data = {
+  readonly assets: ReadonlyArray<{
+    readonly filename: string | null;
+    readonly geminiToken: string | null;
+    readonly id: string;
+    readonly imageUrls: any | null;
+    readonly size: string | null;
+  } | null> | null;
+  readonly externalId: string;
+  readonly userEmail: string | null;
+  readonly userId: string;
+  readonly " $fragmentType": "UploadPhotos_submission";
 };
-export type UploadPhotos_submission$data = UploadPhotos_submission;
 export type UploadPhotos_submission$key = {
-    readonly " $data"?: UploadPhotos_submission$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UploadPhotos_submission">;
+  readonly " $data"?: UploadPhotos_submission$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UploadPhotos_submission">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -34,6 +39,20 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "externalId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "userId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "userEmail",
       "storageKey": null
     },
     {
@@ -86,5 +105,7 @@ const node: ReaderFragment = {
   "type": "ConsignmentSubmission",
   "abstractKey": null
 };
-(node as any).hash = '8c71b40126392ffdfdd810306a7f861d';
+
+(node as any).hash = "6cbff21ab8e0943f456bc0b251b4e505";
+
 export default node;

@@ -14,11 +14,11 @@ import { useSystemContext } from "System"
 import { useTracking } from "react-tracking"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { HomeFeaturedShowsRailQuery } from "__generated__/HomeFeaturedShowsRailQuery.graphql"
-import { HomeFeaturedShowsRail_orderedSet } from "__generated__/HomeFeaturedShowsRail_orderedSet.graphql"
+import { HomeFeaturedShowsRail_orderedSet$data } from "__generated__/HomeFeaturedShowsRail_orderedSet.graphql"
 import { HomeFeaturedShowFragmentContainer } from "./HomeFeaturedShow"
 
 interface HomeFeaturedShowsRailProps {
-  orderedSet: HomeFeaturedShowsRail_orderedSet
+  orderedSet: HomeFeaturedShowsRail_orderedSet$data
 }
 
 const HomeFeaturedShowsRail: React.FC<HomeFeaturedShowsRailProps> = ({

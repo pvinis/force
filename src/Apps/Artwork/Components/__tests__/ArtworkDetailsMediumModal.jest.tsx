@@ -1,4 +1,4 @@
-import { ArtworkDetailsMediumModalFragmentContainer } from "../ArtworkDetailsMediumModal"
+import { ArtworkDetailsMediumModalFragmentContainer } from "Apps/Artwork/Components/ArtworkDetailsMediumModal"
 import { setupTestWrapper } from "DevTools/setupTestWrapper"
 import { graphql } from "react-relay"
 import { ArtworkDetailsMediumModal_Test_Query } from "__generated__/ArtworkDetailsMediumModal_Test_Query.graphql"

@@ -44,7 +44,8 @@ import { ScrollRefContext } from "./ArtworkFilters/useScrollContext"
 import { ArtworkSortFilter } from "./ArtworkFilters/ArtworkSortFilter"
 import type RelayModernEnvironment from "relay-runtime/lib/store/RelayModernEnvironment"
 import { getTotalSelectedFiltersCount } from "./Utils/getTotalSelectedFiltersCount"
-import { useArtworkGridContext } from "../ArtworkGrid/ArtworkGridContext"
+import { useArtworkGridContext } from "Components/ArtworkGrid/ArtworkGridContext"
+import { Jump } from "Utils/Hooks/useJump"
 
 interface ArtworkFilterProps extends SharedArtworkFilterContextProps, BoxProps {
   Filters?: JSX.Element
@@ -216,7 +217,7 @@ export const BaseArtworkFilter: React.FC<
 
   return (
     <Box {...rest}>
-      <Box id="jump--artworkFilter" />
+      <Jump id="artworkFilter" />
 
       {/* Mobile Artwork Filter */}
       <Media at="xs">
@@ -256,7 +257,7 @@ export const BaseArtworkFilter: React.FC<
                     >
                       <Flex justifyContent="space-between" alignItems="center">
                         <FilterIcon fill="white100" />
-                        <Spacer mr={0.5} />
+                        <Spacer x={0.5} />
                         Filter
                         {appliedFiltersTotalCount > 0
                           ? ` • ${appliedFiltersTotalCount}`
@@ -271,7 +272,7 @@ export const BaseArtworkFilter: React.FC<
             }}
           </Sticky>
 
-          <Spacer mb={2} />
+          <Spacer y={2} />
 
           {FilterPillsSection}
 
@@ -279,7 +280,7 @@ export const BaseArtworkFilter: React.FC<
             {totalCountLabel}
           </Text>
 
-          <Spacer mb={2} />
+          <Spacer y={2} />
 
           <ArtworkFilterArtworkGrid
             filtered_artworks={viewer.filtered_artworks!}

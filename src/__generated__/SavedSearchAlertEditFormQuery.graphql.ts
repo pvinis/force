@@ -1,120 +1,38 @@
+/**
+ * @generated SignedSource<<27dd1b785f46826e2a5c846d4b947208>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SavedSearchAlertEditFormQueryVariables = {
-    id: string;
-    artistIds?: Array<string> | null | undefined;
-    withAggregations: boolean;
+export type SavedSearchAlertEditFormQuery$variables = {
+  artistIds?: ReadonlyArray<string> | null;
+  id: string;
+  withAggregations: boolean;
 };
-export type SavedSearchAlertEditFormQueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"SavedSearchAlertEditForm_viewer">;
-    } | null;
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"SavedSearchAlertEditForm_me">;
-    } | null;
-    readonly artistsConnection: {
-        readonly " $fragmentRefs": FragmentRefs<"SavedSearchAlertEditForm_artistsConnection">;
-    } | null;
-    readonly artworksConnection?: {
-        readonly " $fragmentRefs": FragmentRefs<"SavedSearchAlertEditForm_artworksConnection">;
-    } | null | undefined;
+export type SavedSearchAlertEditFormQuery$data = {
+  readonly artistsConnection: {
+    readonly " $fragmentSpreads": FragmentRefs<"SavedSearchAlertEditForm_artistsConnection">;
+  } | null;
+  readonly artworksConnection?: {
+    readonly " $fragmentSpreads": FragmentRefs<"SavedSearchAlertEditForm_artworksConnection">;
+  } | null;
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"SavedSearchAlertEditForm_me">;
+  } | null;
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"SavedSearchAlertEditForm_viewer">;
+  } | null;
 };
 export type SavedSearchAlertEditFormQuery = {
-    readonly response: SavedSearchAlertEditFormQueryResponse;
-    readonly variables: SavedSearchAlertEditFormQueryVariables;
+  response: SavedSearchAlertEditFormQuery$data;
+  variables: SavedSearchAlertEditFormQuery$variables;
 };
-
-
-
-/*
-query SavedSearchAlertEditFormQuery(
-  $id: ID!
-  $artistIds: [String!]
-  $withAggregations: Boolean!
-) {
-  viewer {
-    ...SavedSearchAlertEditForm_viewer
-  }
-  me {
-    ...SavedSearchAlertEditForm_me_2FI717
-    id
-  }
-  artistsConnection(slugs: $artistIds) {
-    ...SavedSearchAlertEditForm_artistsConnection
-  }
-  artworksConnection(first: 0, artistIDs: $artistIds, aggregations: [LOCATION_CITY, MATERIALS_TERMS, MEDIUM, PARTNER, COLOR]) @include(if: $withAggregations) {
-    ...SavedSearchAlertEditForm_artworksConnection
-    id
-  }
-}
-
-fragment SavedSearchAlertEditForm_artistsConnection on ArtistConnection {
-  edges {
-    node {
-      internalID
-      name
-      slug
-      id
-    }
-  }
-}
-
-fragment SavedSearchAlertEditForm_artworksConnection on FilterArtworksConnection {
-  aggregations {
-    slice
-    counts {
-      count
-      name
-      value
-    }
-  }
-}
-
-fragment SavedSearchAlertEditForm_me_2FI717 on Me {
-  savedSearch(id: $id) {
-    internalID
-    acquireable
-    additionalGeneIDs
-    artistIDs
-    atAuction
-    attributionClass
-    colors
-    dimensionRange
-    sizes
-    width
-    height
-    inquireableOnly
-    locationCities
-    majorPeriods
-    materialsTerms
-    offerable
-    partnerIDs
-    priceRange
-    userAlertSettings {
-      name
-      email
-      push
-    }
-    labels @skip(if: $withAggregations) {
-      field
-      value
-      displayValue
-    }
-  }
-}
-
-fragment SavedSearchAlertEditForm_viewer on Viewer {
-  notificationPreferences {
-    status
-    name
-    channel
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -498,6 +416,13 @@ return {
                     "kind": "ScalarField",
                     "name": "push",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "frequency",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -645,14 +570,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6c58f85d4f6756066f5ae03f44bebb0f",
+    "cacheID": "f35dc4124b85106580eaf805f3012928",
     "id": null,
     "metadata": {},
     "name": "SavedSearchAlertEditFormQuery",
     "operationKind": "query",
-    "text": "query SavedSearchAlertEditFormQuery(\n  $id: ID!\n  $artistIds: [String!]\n  $withAggregations: Boolean!\n) {\n  viewer {\n    ...SavedSearchAlertEditForm_viewer\n  }\n  me {\n    ...SavedSearchAlertEditForm_me_2FI717\n    id\n  }\n  artistsConnection(slugs: $artistIds) {\n    ...SavedSearchAlertEditForm_artistsConnection\n  }\n  artworksConnection(first: 0, artistIDs: $artistIds, aggregations: [LOCATION_CITY, MATERIALS_TERMS, MEDIUM, PARTNER, COLOR]) @include(if: $withAggregations) {\n    ...SavedSearchAlertEditForm_artworksConnection\n    id\n  }\n}\n\nfragment SavedSearchAlertEditForm_artistsConnection on ArtistConnection {\n  edges {\n    node {\n      internalID\n      name\n      slug\n      id\n    }\n  }\n}\n\nfragment SavedSearchAlertEditForm_artworksConnection on FilterArtworksConnection {\n  aggregations {\n    slice\n    counts {\n      count\n      name\n      value\n    }\n  }\n}\n\nfragment SavedSearchAlertEditForm_me_2FI717 on Me {\n  savedSearch(id: $id) {\n    internalID\n    acquireable\n    additionalGeneIDs\n    artistIDs\n    atAuction\n    attributionClass\n    colors\n    dimensionRange\n    sizes\n    width\n    height\n    inquireableOnly\n    locationCities\n    majorPeriods\n    materialsTerms\n    offerable\n    partnerIDs\n    priceRange\n    userAlertSettings {\n      name\n      email\n      push\n    }\n    labels @skip(if: $withAggregations) {\n      field\n      value\n      displayValue\n    }\n  }\n}\n\nfragment SavedSearchAlertEditForm_viewer on Viewer {\n  notificationPreferences {\n    status\n    name\n    channel\n  }\n}\n"
+    "text": "query SavedSearchAlertEditFormQuery(\n  $id: ID!\n  $artistIds: [String!]\n  $withAggregations: Boolean!\n) {\n  viewer {\n    ...SavedSearchAlertEditForm_viewer\n  }\n  me {\n    ...SavedSearchAlertEditForm_me_2FI717\n    id\n  }\n  artistsConnection(slugs: $artistIds) {\n    ...SavedSearchAlertEditForm_artistsConnection\n  }\n  artworksConnection(first: 0, artistIDs: $artistIds, aggregations: [LOCATION_CITY, MATERIALS_TERMS, MEDIUM, PARTNER, COLOR]) @include(if: $withAggregations) {\n    ...SavedSearchAlertEditForm_artworksConnection\n    id\n  }\n}\n\nfragment SavedSearchAlertEditForm_artistsConnection on ArtistConnection {\n  edges {\n    node {\n      internalID\n      name\n      slug\n      id\n    }\n  }\n}\n\nfragment SavedSearchAlertEditForm_artworksConnection on FilterArtworksConnection {\n  aggregations {\n    slice\n    counts {\n      count\n      name\n      value\n    }\n  }\n}\n\nfragment SavedSearchAlertEditForm_me_2FI717 on Me {\n  savedSearch(id: $id) {\n    internalID\n    acquireable\n    additionalGeneIDs\n    artistIDs\n    atAuction\n    attributionClass\n    colors\n    dimensionRange\n    sizes\n    width\n    height\n    inquireableOnly\n    locationCities\n    majorPeriods\n    materialsTerms\n    offerable\n    partnerIDs\n    priceRange\n    userAlertSettings {\n      name\n      email\n      push\n      frequency\n    }\n    labels @skip(if: $withAggregations) {\n      field\n      value\n      displayValue\n    }\n  }\n}\n\nfragment SavedSearchAlertEditForm_viewer on Viewer {\n  notificationPreferences {\n    status\n    name\n    channel\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '832ca3f53f31802f63eb2c78468de9c3';
+
+(node as any).hash = "832ca3f53f31802f63eb2c78468de9c3";
+
 export default node;

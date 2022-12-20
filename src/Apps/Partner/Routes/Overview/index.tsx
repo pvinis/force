@@ -1,16 +1,16 @@
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArticlesRailFragmentContainer } from "../../Components/Overview/ArticlesRail"
-import { Overview_partner } from "__generated__/Overview_partner.graphql"
-import { ArtistsRailFragmentContainer } from "../../Components/Overview/ArtistsRail"
-import { ShowsRailFragmentContainer } from "../../Components/Overview/ShowsRail"
-import { AboutPartnerFragmentContainer } from "../../Components/Overview/AboutPartner"
-import { SubscriberBannerFragmentContainer } from "../../Components/Overview/SubscriberBanner"
-import { ArtworksRailRenderer } from "../../Components/Overview/ArtworksRail"
-import { ShowBannersRailRenderer } from "../../Components/Overview/ShowBannersRail"
-import { NearbyGalleriesRailRenderer } from "../../Components/Overview/NearbyGalleriesRail"
+import { ArticlesRailFragmentContainer } from "Apps/Partner/Components/Overview/ArticlesRail"
+import { Overview_partner$data } from "__generated__/Overview_partner.graphql"
+import { ArtistsRailFragmentContainer } from "Apps/Partner/Components/Overview/ArtistsRail"
+import { ShowsRailFragmentContainer } from "Apps/Partner/Components/Overview/ShowsRail"
+import { AboutPartnerFragmentContainer } from "Apps/Partner/Components/Overview/AboutPartner"
+import { SubscriberBannerFragmentContainer } from "Apps/Partner/Components/Overview/SubscriberBanner"
+import { ArtworksRailRenderer } from "Apps/Partner/Components/Overview/ArtworksRail"
+import { ShowBannersRailRenderer } from "Apps/Partner/Components/Overview/ShowBannersRail"
+import { NearbyGalleriesRailRenderer } from "Apps/Partner/Components/Overview/NearbyGalleriesRail"
 
 interface OverviewProps {
-  partner: Overview_partner
+  partner: Overview_partner$data
 }
 
 const Overview: React.FC<OverviewProps> = ({ partner }) => {

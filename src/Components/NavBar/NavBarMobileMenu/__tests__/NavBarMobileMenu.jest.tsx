@@ -1,13 +1,14 @@
 import { SystemContextProvider } from "System"
 import { useTracking } from "react-tracking"
 import { mount } from "enzyme"
-import { NavBarMobileMenu } from "../NavBarMobileMenu"
-import { mediator } from "lib/mediator"
-import { NavBarMobileMenuTransition } from "../NavBarMobileMenuTransition"
-import { NavBarMobileSubMenuBack } from "../NavBarMobileSubMenu"
+import { NavBarMobileMenu } from "Components/NavBar/NavBarMobileMenu/NavBarMobileMenu"
+import { mediator } from "Server/mediator"
+import { NavBarMobileMenuTransition } from "Components/NavBar/NavBarMobileMenu/NavBarMobileMenuTransition"
+import { NavBarMobileSubMenuBack } from "Components/NavBar/NavBarMobileMenu/NavBarMobileSubMenu"
+import { FeatureFlags } from "System/useFeatureFlag"
 
 jest.mock("react-tracking")
-jest.mock("lib/isServer", () => ({
+jest.mock("Server/isServer", () => ({
   isServer: true,
 }))
 
@@ -17,7 +18,10 @@ describe("NavBarMobileMenu", () => {
   const noop = () => {}
   const getWrapper = props => {
     return mount(
-      <SystemContextProvider user={props.user}>
+      <SystemContextProvider
+        user={props.user}
+        featureFlags={props.featureFlags}
+      >
         <NavBarMobileMenu isOpen onClose={noop} />
       </SystemContextProvider>
     )
@@ -25,9 +29,13 @@ describe("NavBarMobileMenu", () => {
 
   const getMobileMenuLinkContainer = (
     userType: string | null = null,
-    lab_features: string[] = []
+    lab_features: string[] = [],
+    featureFlags?: FeatureFlags
   ) =>
-    getWrapper({ user: userType ? { userType, lab_features } : null })
+    getWrapper({
+      user: userType ? { userType, lab_features } : null,
+      featureFlags,
+    })
       .find(NavBarMobileMenuTransition)
       .findWhere(element => element.props().isOpen)
 
@@ -45,7 +53,7 @@ describe("NavBarMobileMenu", () => {
 
     wrapper
       .find("a")
-      .at(length - 2)
+      .at(length - 3)
       .simulate("click")
 
     expect(mediator.trigger).toBeCalledWith("auth:logout")
@@ -61,7 +69,6 @@ describe("NavBarMobileMenu", () => {
         ["/art-fairs", "Fairs"],
         ["/shows", "Shows"],
         ["/institutions", "Museums"],
-        ["/nft", "NFTs"],
         ["/sell", "Sell"],
         ["/price-database", "Price Database"],
         ["/articles", "Editorial"],
@@ -109,6 +116,24 @@ describe("NavBarMobileMenu", () => {
 
       expect(linkContainer.html()).toContain("Inbox")
     })
+
+    describe("Activity menu item", () => {
+      it("should NOT render activity menu option when logged out", () => {
+        const wrapper = getMobileMenuLinkContainer(null)
+        const menuLinks = wrapper.find("a").map(node => node.text())
+        const hasActivityMenuItem = menuLinks.includes("Activity")
+
+        expect(hasActivityMenuItem).toBe(false)
+      })
+
+      it("should render activity menu option", () => {
+        const wrapper = getMobileMenuLinkContainer("NotAdmin")
+        const menuLinks = wrapper.find("a").map(node => node.text())
+        const hasActivityMenuItem = menuLinks.includes("Activity")
+
+        expect(hasActivityMenuItem).toBe(true)
+      })
+    })
   })
 
   describe("Analytics tracking", () => {
@@ -128,7 +153,11 @@ describe("NavBarMobileMenu", () => {
 
     it("tracks link clicks", () => {
       const linkContainer = getMobileMenuLinkContainer("notAdmin")
-      linkContainer.find("a").first().simulate("click")
+
+      // at(0) - Activity link
+      // at(1) - Inbox link
+      // at(2) - Buy link
+      linkContainer.find("a").at(2).simulate("click")
 
       expect(trackEvent).toHaveBeenCalledWith({
         action_type: "Click",

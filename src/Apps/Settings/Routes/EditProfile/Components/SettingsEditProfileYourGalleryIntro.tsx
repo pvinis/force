@@ -1,10 +1,10 @@
 import { Text } from "@artsy/palette"
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { SettingsEditProfileYourGalleryIntro_me } from "__generated__/SettingsEditProfileYourGalleryIntro_me.graphql"
+import { SettingsEditProfileYourGalleryIntro_me$data } from "__generated__/SettingsEditProfileYourGalleryIntro_me.graphql"
 
 interface SettingsEditProfileYourGalleryIntroProps {
-  me: SettingsEditProfileYourGalleryIntro_me
+  me: SettingsEditProfileYourGalleryIntro_me$data
 }
 
 // TODO: remove this when introducing the new collector profile
@@ -13,7 +13,7 @@ const SettingsEditProfileYourGalleryIntro: FC<SettingsEditProfileYourGalleryIntr
 }) => {
   return (
     <>
-      <Text variant="lg-display" mb={4}>
+      <Text variant={["md", "lg"]} mb={4}>
         Your Gallery Intro
       </Text>
 
@@ -21,7 +21,7 @@ const SettingsEditProfileYourGalleryIntro: FC<SettingsEditProfileYourGalleryIntr
         Preview
       </Text>
 
-      <Text variant="lg-display" color="black60">
+      <Text variant={["md", "lg"]} color="black60">
         {me.inquiryIntroduction}
       </Text>
     </>

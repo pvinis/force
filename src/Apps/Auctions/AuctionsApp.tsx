@@ -1,5 +1,5 @@
 import * as React from "react"
-import { AuctionsApp_viewer } from "__generated__/AuctionsApp_viewer.graphql"
+import { AuctionsApp_viewer$data } from "__generated__/AuctionsApp_viewer.graphql"
 import { AuctionsMeta } from "./Components/AuctionsMeta"
 import { Column, GridColumns, Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
@@ -11,7 +11,7 @@ import { getENV } from "Utils/getENV"
 import { CuritorialRailsTabBarFragmentContainer } from "./Components/CuritorialRailsTabBar"
 
 export interface AuctionsAppProps {
-  viewer: AuctionsApp_viewer
+  viewer: AuctionsApp_viewer$data
 }
 
 const AuctionsApp: React.FC<AuctionsAppProps> = props => {
@@ -49,11 +49,11 @@ const AuctionsApp: React.FC<AuctionsAppProps> = props => {
         </Column>
       </GridColumns>
 
-      <Spacer mt={4} />
+      <Spacer y={4} />
 
       <CuritorialRailsTabBarFragmentContainer viewer={viewer} />
 
-      <Spacer my={12} />
+      <Spacer y={12} />
 
       <RouteTabs fill>
         <RouteTab exact to="/auctions">

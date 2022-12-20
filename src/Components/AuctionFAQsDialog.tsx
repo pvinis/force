@@ -14,12 +14,12 @@ import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { AuctionFAQsDialog_viewer } from "__generated__/AuctionFAQsDialog_viewer.graphql"
+import { AuctionFAQsDialog_viewer$data } from "__generated__/AuctionFAQsDialog_viewer.graphql"
 import { AuctionFAQsDialogQuery } from "__generated__/AuctionFAQsDialogQuery.graphql"
 
 interface AuctionFAQsDialogProps {
   onClose(): void
-  viewer: AuctionFAQsDialog_viewer
+  viewer: AuctionFAQsDialog_viewer$data
 }
 
 const AuctionFAQsDialog: React.FC<AuctionFAQsDialogProps> = ({
@@ -62,7 +62,7 @@ const AuctionFAQsDialog: React.FC<AuctionFAQsDialogProps> = ({
       <Tabs>
         {Object.keys(viewer).map(
           (key: keyof Omit<typeof viewer, " $refType">) => {
-            const page = viewer[key]
+            const page = viewer[key] as any
 
             if (!page.content) return null
 

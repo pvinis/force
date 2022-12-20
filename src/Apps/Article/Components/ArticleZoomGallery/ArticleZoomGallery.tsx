@@ -12,7 +12,7 @@ import {
 import { FC, useMemo, useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { ArticleZoomGallery_article } from "__generated__/ArticleZoomGallery_article.graphql"
+import { ArticleZoomGallery_article$data } from "__generated__/ArticleZoomGallery_article.graphql"
 import { ArticleZoomGalleryQuery } from "__generated__/ArticleZoomGalleryQuery.graphql"
 import { useCursor } from "use-cursor"
 import { compact } from "lodash"
@@ -21,11 +21,11 @@ import { themeGet } from "@styled-system/theme-get"
 import { ArticleZoomGalleryFigureFragmentContainer } from "./ArticleZoomGalleryFigure"
 import { ArticleZoomGalleryCaptionFragmentContainer } from "./ArticleZoomGalleryCaption"
 import { useNextPrevious } from "Utils/Hooks/useNextPrevious"
-import { useArticleContext } from "../ArticleContext"
+import { useArticleContext } from "Apps/Article/Components/ArticleContext"
 import { mapCursorToMax } from "map-cursor-to-max"
 
 interface ArticleZoomGalleryProps {
-  article: ArticleZoomGallery_article
+  article: ArticleZoomGallery_article$data
   figureId?: string
   onClose: () => void
 }
@@ -53,7 +53,8 @@ const ArticleZoomGallery: FC<ArticleZoomGalleryProps> = ({
   const initialCursor = figures.findIndex(figure => {
     if (
       figure.__typename === "Artwork" ||
-      figure.__typename === "ArticleImageSection"
+      figure.__typename === "ArticleImageSection" ||
+      figure.__typename === "ArticleUnpublishedArtwork"
     ) {
       return figure.id === figureId
     }
@@ -177,6 +178,9 @@ export const ArticleZoomGalleryFragmentContainer = createFragmentContainer(
                 id
               }
               ... on ArticleImageSection {
+                id
+              }
+              ... on ArticleUnpublishedArtwork {
                 id
               }
             }

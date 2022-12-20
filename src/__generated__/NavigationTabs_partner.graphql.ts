@@ -1,42 +1,45 @@
+/**
+ * @generated SignedSource<<dd19fc1d9e6cbd3d91abd35f84f22b6f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type NavigationTabs_partner = {
-    readonly slug: string;
-    readonly partnerType: string | null;
-    readonly displayArtistsSection: boolean | null;
-    readonly displayWorksSection: boolean | null;
-    readonly counts: {
-        readonly eligibleArtworks: number | null;
-        readonly displayableShows: number | null;
-    } | null;
-    readonly locations: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly articles: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly representedArtists: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly notRepresentedArtists: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly viewingRooms: {
-        readonly totalCount: number | null;
-    } | null;
-    readonly " $refType": "NavigationTabs_partner";
+export type NavigationTabs_partner$data = {
+  readonly articles: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly counts: {
+    readonly displayableShows: any | null;
+    readonly eligibleArtworks: any | null;
+  } | null;
+  readonly displayArtistsSection: boolean | null;
+  readonly displayWorksSection: boolean | null;
+  readonly locations: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly notRepresentedArtists: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly partnerType: string | null;
+  readonly representedArtists: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly slug: string;
+  readonly viewingRooms: {
+    readonly totalCount: number | null;
+  } | null;
+  readonly " $fragmentType": "NavigationTabs_partner";
 };
-export type NavigationTabs_partner$data = NavigationTabs_partner;
 export type NavigationTabs_partner$key = {
-    readonly " $data"?: NavigationTabs_partner$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"NavigationTabs_partner">;
+  readonly " $data"?: NavigationTabs_partner$data;
+  readonly " $fragmentSpreads": FragmentRefs<"NavigationTabs_partner">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -202,5 +205,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e037daa355e3338cdce93f1238b3c646';
+
+(node as any).hash = "e037daa355e3338cdce93f1238b3c646";
+
 export default node;

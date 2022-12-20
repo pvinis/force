@@ -8,17 +8,17 @@ import {
   Text,
   useToasts,
 } from "@artsy/palette"
+import { ConfirmPasswordModal } from "Components/ConfirmPasswordModal"
 import { FC, useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ConfirmPasswordModal } from "Components/ConfirmPasswordModal"
 import { useMode } from "Utils/Hooks/useMode"
-import { SettingsEditSettingsTwoFactorBackupCodes_me } from "__generated__/SettingsEditSettingsTwoFactorBackupCodes_me.graphql"
+import { SettingsEditSettingsTwoFactorBackupCodes_me$data } from "__generated__/SettingsEditSettingsTwoFactorBackupCodes_me.graphql"
 import { CreateBackupSecondFactorsInput } from "__generated__/useCreateSettingsBackupSecondFactorsMutation.graphql"
 import { SettingsEditSettingsTwoFactorBackupCodesDialogQueryRenderer } from "./SettingsEditSettingsTwoFactorBackupCodesDialog"
 import { useCreateSettingsBackupSecondFactors } from "./useCreateSettingsBackupSecondFactorsMutation"
 
 interface SettingsEditSettingsTwoFactorBackupCodesProps {
-  me: SettingsEditSettingsTwoFactorBackupCodes_me
+  me: SettingsEditSettingsTwoFactorBackupCodes_me$data
 }
 
 type Mode = "Pending" | "Show" | "Creating"
@@ -72,7 +72,7 @@ export const SettingsEditSettingsTwoFactorBackupCodes: FC<SettingsEditSettingsTw
         flexDirection={["column", "row"]}
       >
         <Box flexBasis="50%">
-          <Text variant="lg-display" mb={2}>
+          <Text variant={["md", "lg"]} mb={2}>
             Backup Codes
             {me.backupSecondFactors && me.backupSecondFactors.length > 0 && (
               <>
@@ -88,7 +88,7 @@ export const SettingsEditSettingsTwoFactorBackupCodes: FC<SettingsEditSettingsTw
           </Text>
         </Box>
 
-        <Spacer ml={[0, 2]} mt={[2, 0]} />
+        <Spacer x={[0, 2]} y={[2, 0]} />
 
         <Flex flexBasis="50%" alignItems="center" justifyContent="flex-end">
           {me.backupSecondFactors?.length ? (
@@ -101,7 +101,7 @@ export const SettingsEditSettingsTwoFactorBackupCodes: FC<SettingsEditSettingsTw
                 Show
               </Button>
 
-              <Spacer ml={1} />
+              <Spacer x={1} />
 
               <Button
                 onClick={() => setShowConfirmPassword(true)}

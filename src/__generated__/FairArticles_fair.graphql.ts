@@ -1,107 +1,48 @@
+/**
+ * @generated SignedSource<<237e204f1a2615ba73104fad87f31ed8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FairArticles_fair = {
-    readonly slug: string;
-    readonly articlesConnection: {
-        readonly totalCount: number | null;
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly internalID: string;
-                readonly title: string | null;
-                readonly href: string | null;
-                readonly author: {
-                    readonly name: string | null;
-                } | null;
-                readonly publishedAt: string | null;
-                readonly thumbnailTitle: string | null;
-                readonly thumbnailImage: {
-                    readonly large: {
-                        readonly width: number;
-                        readonly height: number;
-                        readonly src: string;
-                        readonly srcSet: string;
-                    } | null;
-                    readonly medium: {
-                        readonly width: number;
-                        readonly height: number;
-                        readonly src: string;
-                        readonly srcSet: string;
-                    } | null;
-                } | null;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly " $refType": "FairArticles_fair";
+export type FairArticles_fair$data = {
+  readonly articlesConnection: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly internalID: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CellArticle_article">;
+      } | null;
+    } | null> | null;
+    readonly pageCursors: {
+      readonly " $fragmentSpreads": FragmentRefs<"Pagination_pageCursors">;
+    };
+    readonly pageInfo: {
+      readonly hasNextPage: boolean;
+    };
+  } | null;
+  readonly slug: string;
+  readonly " $fragmentType": "FairArticles_fair";
 };
-export type FairArticles_fair$data = FairArticles_fair;
 export type FairArticles_fair$key = {
-    readonly " $data"?: FairArticles_fair$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FairArticles_fair">;
+  readonly " $data"?: FairArticles_fair$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FairArticles_fair">;
 };
 
-
-
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "width",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "height",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "src",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "srcSet",
-    "storageKey": null
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
     {
-      "defaultValue": null,
+      "defaultValue": 1,
       "kind": "LocalArgument",
-      "name": "after"
-    },
-    {
-      "defaultValue": 7,
-      "kind": "LocalArgument",
-      "name": "first"
+      "name": "page"
     }
   ],
   "kind": "Fragment",
-  "metadata": {
-    "connection": [
-      {
-        "count": "first",
-        "cursor": "after",
-        "direction": "forward",
-        "path": [
-          "articlesConnection"
-        ]
-      }
-    ]
-  },
+  "metadata": null,
   "name": "FairArticles_fair",
   "selections": [
     {
@@ -112,18 +53,56 @@ return {
       "storageKey": null
     },
     {
-      "alias": "articlesConnection",
-      "args": null,
+      "alias": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "page",
+          "variableName": "page"
+        },
+        {
+          "kind": "Literal",
+          "name": "size",
+          "value": 12
+        }
+      ],
       "concreteType": "ArticleConnection",
       "kind": "LinkedField",
-      "name": "__FairArticlesQuery_articlesConnection_connection",
+      "name": "articlesConnection",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "totalCount",
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageCursors",
+          "kind": "LinkedField",
+          "name": "pageCursors",
+          "plural": false,
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "Pagination_pageCursors"
+            }
+          ],
           "storageKey": null
         },
         {
@@ -143,157 +122,18 @@ return {
               "plural": false,
               "selections": [
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "CellArticle_article"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
                   "name": "internalID",
                   "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "href",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "Author",
-                  "kind": "LinkedField",
-                  "name": "author",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "name",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": [
-                    {
-                      "kind": "Literal",
-                      "name": "format",
-                      "value": "MMM Do, YYYY"
-                    }
-                  ],
-                  "kind": "ScalarField",
-                  "name": "publishedAt",
-                  "storageKey": "publishedAt(format:\"MMM Do, YYYY\")"
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "thumbnailTitle",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "Image",
-                  "kind": "LinkedField",
-                  "name": "thumbnailImage",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": "large",
-                      "args": [
-                        {
-                          "kind": "Literal",
-                          "name": "height",
-                          "value": 550
-                        },
-                        {
-                          "kind": "Literal",
-                          "name": "width",
-                          "value": 733
-                        }
-                      ],
-                      "concreteType": "CroppedImageUrl",
-                      "kind": "LinkedField",
-                      "name": "cropped",
-                      "plural": false,
-                      "selections": (v0/*: any*/),
-                      "storageKey": "cropped(height:550,width:733)"
-                    },
-                    {
-                      "alias": "medium",
-                      "args": [
-                        {
-                          "kind": "Literal",
-                          "name": "height",
-                          "value": 150
-                        },
-                        {
-                          "kind": "Literal",
-                          "name": "width",
-                          "value": 267
-                        }
-                      ],
-                      "concreteType": "CroppedImageUrl",
-                      "kind": "LinkedField",
-                      "name": "cropped",
-                      "plural": false,
-                      "selections": (v0/*: any*/),
-                      "storageKey": "cropped(height:150,width:267)"
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "__typename",
-                  "storageKey": null
                 }
               ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "cursor",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "endCursor",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "hasNextPage",
               "storageKey": null
             }
           ],
@@ -306,6 +146,7 @@ return {
   "type": "Fair",
   "abstractKey": null
 };
-})();
-(node as any).hash = '56e400dcf32450d2dfdd524b1a3c6394';
+
+(node as any).hash = "d71b8800705bb0b0ea82fe1aac4758c5";
+
 export default node;

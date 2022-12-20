@@ -4,14 +4,14 @@ import { createFragmentContainer, graphql } from "react-relay"
 import { ContextModule } from "@artsy/cohesion"
 import { ArtistSeriesArtworkRailFragmentContainer as ArtistSeriesArtworkRail } from "Apps/Artwork/Components/ArtworkArtistSeries/ArtistSeriesArtworkRail"
 import { ArtistSeriesRailFragmentContainer as ArtistSeriesRail } from "Components/ArtistSeriesRail/ArtistSeriesRail"
-import { ArtworkArtistSeries_artwork } from "__generated__/ArtworkArtistSeries_artwork.graphql"
+import { ArtworkArtistSeries_artwork$data } from "__generated__/ArtworkArtistSeries_artwork.graphql"
 import { Skeleton, SkeletonBox, SkeletonText, Spacer } from "@artsy/palette"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { ArtworkArtistSeriesQuery } from "__generated__/ArtworkArtistSeriesQuery.graphql"
 import { useSystemContext } from "System"
 import { Rail } from "Components/Rail"
 interface ArtworkArtistSeriesProps {
-  artwork: ArtworkArtistSeries_artwork
+  artwork: ArtworkArtistSeries_artwork$data
 }
 
 const ArtworkArtistSeries: React.FC<ArtworkArtistSeriesProps> = ({
@@ -36,7 +36,7 @@ const ArtworkArtistSeries: React.FC<ArtworkArtistSeriesProps> = ({
         </>
       )}
 
-      {hasArtistSeriesArtworks && !!artistArtistSeries && <Spacer mt={6} />}
+      {hasArtistSeriesArtworks && !!artistArtistSeries && <Spacer y={6} />}
 
       {!!artistArtistSeries && (
         <>
@@ -54,38 +54,39 @@ const ArtworkArtistSeries: React.FC<ArtworkArtistSeriesProps> = ({
   )
 }
 
-export const ArtworkArtistSeriesFragmentContainer = createFragmentContainer<{
-  artwork: ArtworkArtistSeries_artwork
-}>(withSystemContext(ArtworkArtistSeries), {
-  artwork: graphql`
-    fragment ArtworkArtistSeries_artwork on Artwork {
-      ...ArtistSeriesArtworkRail_artwork
-      internalID
-      slug
-      seriesArtist: artist(shallow: true) {
-        # The below fragment is used for an exist-y check.
-        # Since it repeats the 'artistSeriesConnection' selection
-        # from the component that actually renders it, keep the arguments
-        # the same (first: 50).
-        artistSeriesConnection(first: 50) {
+export const ArtworkArtistSeriesFragmentContainer = createFragmentContainer(
+  withSystemContext(ArtworkArtistSeries),
+  {
+    artwork: graphql`
+      fragment ArtworkArtistSeries_artwork on Artwork {
+        ...ArtistSeriesArtworkRail_artwork
+        internalID
+        slug
+        seriesArtist: artist(shallow: true) {
+          # The below fragment is used for an exist-y check.
+          # Since it repeats the 'artistSeriesConnection' selection
+          # from the component that actually renders it, keep the arguments
+          # the same (first: 50).
+          artistSeriesConnection(first: 50) {
+            edges {
+              node {
+                internalID
+              }
+            }
+          }
+          ...ArtistSeriesRail_artist
+        }
+        seriesForCounts: artistSeriesConnection(first: 1) {
           edges {
             node {
-              internalID
+              artworksCount
             }
           }
         }
-        ...ArtistSeriesRail_artist
       }
-      seriesForCounts: artistSeriesConnection(first: 1) {
-        edges {
-          node {
-            artworksCount
-          }
-        }
-      }
-    }
-  `,
-})
+    `,
+  }
+)
 
 const PLACEHOLDER = (
   <Skeleton>

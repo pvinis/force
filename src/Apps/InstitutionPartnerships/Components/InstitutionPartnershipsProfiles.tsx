@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { InstitutionPartnershipsProfiles_orderedSet } from "__generated__/InstitutionPartnershipsProfiles_orderedSet.graphql"
+import { InstitutionPartnershipsProfiles_orderedSet$data } from "__generated__/InstitutionPartnershipsProfiles_orderedSet.graphql"
 import { InstitutionPartnershipsProfilesQuery } from "__generated__/InstitutionPartnershipsProfilesQuery.graphql"
 import { Column, GridColumns } from "@artsy/palette"
 import {
@@ -10,7 +10,7 @@ import {
 } from "Components/Cells/CellPartner"
 
 interface InstitutionPartnershipsProfilesProps {
-  orderedSet: InstitutionPartnershipsProfiles_orderedSet
+  orderedSet: InstitutionPartnershipsProfiles_orderedSet$data
 }
 
 const InstitutionPartnershipsProfiles: FC<InstitutionPartnershipsProfilesProps> = ({

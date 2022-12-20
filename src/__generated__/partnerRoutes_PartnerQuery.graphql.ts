@@ -1,149 +1,29 @@
+/**
+ * @generated SignedSource<<6724bc37979660027913a9138e512389>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type partnerRoutes_PartnerQueryVariables = {
-    partnerId: string;
+export type partnerRoutes_PartnerQuery$variables = {
+  partnerId: string;
 };
-export type partnerRoutes_PartnerQueryResponse = {
-    readonly partner: {
-        readonly partnerType: string | null;
-        readonly displayFullPartnerPage: boolean | null;
-        readonly " $fragmentRefs": FragmentRefs<"PartnerApp_partner">;
-    } | null;
+export type partnerRoutes_PartnerQuery$data = {
+  readonly partner: {
+    readonly displayFullPartnerPage: boolean | null;
+    readonly partnerType: string | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PartnerApp_partner">;
+  } | null;
 };
 export type partnerRoutes_PartnerQuery = {
-    readonly response: partnerRoutes_PartnerQueryResponse;
-    readonly variables: partnerRoutes_PartnerQueryVariables;
+  response: partnerRoutes_PartnerQuery$data;
+  variables: partnerRoutes_PartnerQuery$variables;
 };
-
-
-
-/*
-query partnerRoutes_PartnerQuery(
-  $partnerId: String!
-) {
-  partner(id: $partnerId) @principalField {
-    partnerType
-    displayFullPartnerPage
-    ...PartnerApp_partner
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment NavigationTabs_partner on Partner {
-  slug
-  partnerType
-  displayArtistsSection
-  displayWorksSection
-  counts {
-    eligibleArtworks
-    displayableShows
-  }
-  locations: locationsConnection(first: 20) {
-    totalCount
-  }
-  articles: articlesConnection {
-    totalCount
-  }
-  representedArtists: artistsConnection(representedBy: true, displayOnPartnerProfile: true) {
-    totalCount
-  }
-  notRepresentedArtists: artistsConnection(representedBy: false, hasPublishedArtworks: true, displayOnPartnerProfile: true) {
-    totalCount
-  }
-  viewingRooms: viewingRoomsConnection(statuses: [live, closed, scheduled]) {
-    totalCount
-  }
-}
-
-fragment PartnerApp_partner on Partner {
-  partnerType
-  displayFullPartnerPage
-  partnerPageEligible
-  isDefaultProfilePublic
-  categories {
-    id
-    name
-  }
-  profile {
-    ...PartnerHeaderImage_profile
-    id
-  }
-  ...PartnerMeta_partner
-  ...PartnerHeader_partner
-  ...NavigationTabs_partner
-}
-
-fragment PartnerHeaderImage_profile on Profile {
-  image {
-    url(version: "wide")
-  }
-}
-
-fragment PartnerHeader_partner on Partner {
-  name
-  type
-  slug
-  profile {
-    icon {
-      resized(width: 80, height: 80, version: "square140") {
-        src
-        srcSet
-      }
-    }
-    ...FollowProfileButton_profile
-    id
-  }
-  locations: locationsConnection(first: 20) {
-    totalCount
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-}
-
-fragment PartnerMeta_partner on Partner {
-  locationsConnection(first: 1) {
-    edges {
-      node {
-        address
-        address2
-        city
-        coordinates {
-          lat
-          lng
-        }
-        country
-        phone
-        postalCode
-        state
-        id
-      }
-    }
-  }
-  meta {
-    image
-    title
-    description
-  }
-  name
-  slug
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -192,27 +72,20 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "city",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "city",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v9 = [
-  (v8/*: any*/)
+v8 = [
+  (v7/*: any*/)
 ],
-v10 = {
+v9 = {
   "kind": "Literal",
   "name": "displayOnPartnerProfile",
   "value": true
@@ -325,6 +198,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "internalID",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "Image",
                 "kind": "LinkedField",
                 "name": "icon",
@@ -372,22 +252,6 @@ return {
                     "storageKey": "resized(height:80,version:\"square140\",width:80)"
                   }
                 ],
-                "storageKey": null
-              },
-              (v6/*: any*/),
-              (v5/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "internalID",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "isFollowed",
                 "storageKey": null
               }
             ],
@@ -437,7 +301,7 @@ return {
                         "name": "address2",
                         "storageKey": null
                       },
-                      (v7/*: any*/),
+                      (v6/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -534,7 +398,13 @@ return {
             "storageKey": null
           },
           (v5/*: any*/),
-          (v6/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slug",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -556,7 +426,7 @@ return {
             "name": "locationsConnection",
             "plural": false,
             "selections": [
-              (v8/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -573,7 +443,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v7/*: any*/),
+                      (v6/*: any*/),
                       (v4/*: any*/)
                     ],
                     "storageKey": null
@@ -630,13 +500,13 @@ return {
             "kind": "LinkedField",
             "name": "articlesConnection",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           },
           {
             "alias": "representedArtists",
             "args": [
-              (v10/*: any*/),
+              (v9/*: any*/),
               {
                 "kind": "Literal",
                 "name": "representedBy",
@@ -647,13 +517,13 @@ return {
             "kind": "LinkedField",
             "name": "artistsConnection",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": "artistsConnection(displayOnPartnerProfile:true,representedBy:true)"
           },
           {
             "alias": "notRepresentedArtists",
             "args": [
-              (v10/*: any*/),
+              (v9/*: any*/),
               {
                 "kind": "Literal",
                 "name": "hasPublishedArtworks",
@@ -669,7 +539,7 @@ return {
             "kind": "LinkedField",
             "name": "artistsConnection",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": "artistsConnection(displayOnPartnerProfile:true,hasPublishedArtworks:true,representedBy:false)"
           },
           {
@@ -689,7 +559,7 @@ return {
             "kind": "LinkedField",
             "name": "viewingRoomsConnection",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": "viewingRoomsConnection(statuses:[\"live\",\"closed\",\"scheduled\"])"
           },
           (v4/*: any*/)
@@ -699,14 +569,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f4a9482a872da48345c91b11b2b47475",
+    "cacheID": "13cb661c53d084d6e396b6619d17f93d",
     "id": null,
     "metadata": {},
     "name": "partnerRoutes_PartnerQuery",
     "operationKind": "query",
-    "text": "query partnerRoutes_PartnerQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    partnerType\n    displayFullPartnerPage\n    ...PartnerApp_partner\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment NavigationTabs_partner on Partner {\n  slug\n  partnerType\n  displayArtistsSection\n  displayWorksSection\n  counts {\n    eligibleArtworks\n    displayableShows\n  }\n  locations: locationsConnection(first: 20) {\n    totalCount\n  }\n  articles: articlesConnection {\n    totalCount\n  }\n  representedArtists: artistsConnection(representedBy: true, displayOnPartnerProfile: true) {\n    totalCount\n  }\n  notRepresentedArtists: artistsConnection(representedBy: false, hasPublishedArtworks: true, displayOnPartnerProfile: true) {\n    totalCount\n  }\n  viewingRooms: viewingRoomsConnection(statuses: [live, closed, scheduled]) {\n    totalCount\n  }\n}\n\nfragment PartnerApp_partner on Partner {\n  partnerType\n  displayFullPartnerPage\n  partnerPageEligible\n  isDefaultProfilePublic\n  categories {\n    id\n    name\n  }\n  profile {\n    ...PartnerHeaderImage_profile\n    id\n  }\n  ...PartnerMeta_partner\n  ...PartnerHeader_partner\n  ...NavigationTabs_partner\n}\n\nfragment PartnerHeaderImage_profile on Profile {\n  image {\n    url(version: \"wide\")\n  }\n}\n\nfragment PartnerHeader_partner on Partner {\n  name\n  type\n  slug\n  profile {\n    icon {\n      resized(width: 80, height: 80, version: \"square140\") {\n        src\n        srcSet\n      }\n    }\n    ...FollowProfileButton_profile\n    id\n  }\n  locations: locationsConnection(first: 20) {\n    totalCount\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n}\n\nfragment PartnerMeta_partner on Partner {\n  locationsConnection(first: 1) {\n    edges {\n      node {\n        address\n        address2\n        city\n        coordinates {\n          lat\n          lng\n        }\n        country\n        phone\n        postalCode\n        state\n        id\n      }\n    }\n  }\n  meta {\n    image\n    title\n    description\n  }\n  name\n  slug\n}\n"
+    "text": "query partnerRoutes_PartnerQuery(\n  $partnerId: String!\n) {\n  partner(id: $partnerId) @principalField {\n    partnerType\n    displayFullPartnerPage\n    ...PartnerApp_partner\n    id\n  }\n}\n\nfragment NavigationTabs_partner on Partner {\n  slug\n  partnerType\n  displayArtistsSection\n  displayWorksSection\n  counts {\n    eligibleArtworks\n    displayableShows\n  }\n  locations: locationsConnection(first: 20) {\n    totalCount\n  }\n  articles: articlesConnection {\n    totalCount\n  }\n  representedArtists: artistsConnection(representedBy: true, displayOnPartnerProfile: true) {\n    totalCount\n  }\n  notRepresentedArtists: artistsConnection(representedBy: false, hasPublishedArtworks: true, displayOnPartnerProfile: true) {\n    totalCount\n  }\n  viewingRooms: viewingRoomsConnection(statuses: [live, closed, scheduled]) {\n    totalCount\n  }\n}\n\nfragment PartnerApp_partner on Partner {\n  partnerType\n  displayFullPartnerPage\n  partnerPageEligible\n  isDefaultProfilePublic\n  categories {\n    id\n    name\n  }\n  profile {\n    ...PartnerHeaderImage_profile\n    id\n  }\n  ...PartnerMeta_partner\n  ...PartnerHeader_partner\n  ...NavigationTabs_partner\n}\n\nfragment PartnerHeaderImage_profile on Profile {\n  image {\n    url(version: \"wide\")\n  }\n}\n\nfragment PartnerHeader_partner on Partner {\n  name\n  type\n  slug\n  profile {\n    internalID\n    icon {\n      resized(width: 80, height: 80, version: \"square140\") {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n  locations: locationsConnection(first: 20) {\n    totalCount\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n}\n\nfragment PartnerMeta_partner on Partner {\n  locationsConnection(first: 1) {\n    edges {\n      node {\n        address\n        address2\n        city\n        coordinates {\n          lat\n          lng\n        }\n        country\n        phone\n        postalCode\n        state\n        id\n      }\n    }\n  }\n  meta {\n    image\n    title\n    description\n  }\n  name\n  slug\n}\n"
   }
 };
 })();
-(node as any).hash = '5e532f359ab19802c093222a9ee4f204';
+
+(node as any).hash = "5e532f359ab19802c093222a9ee4f204";
+
 export default node;

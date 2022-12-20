@@ -3,15 +3,14 @@ import { Separator, FullBleed, Marquee } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
 import { NavigationTabsFragmentContainer as NavigationTabs } from "Apps/Partner/Components/NavigationTabs"
 import { PartnerHeaderFragmentContainer as PartnerHeader } from "./Components/PartnerHeader"
-import { PartnerApp_partner } from "__generated__/PartnerApp_partner.graphql"
+import { PartnerApp_partner$data } from "__generated__/PartnerApp_partner.graphql"
 import { PartnerHeaderImageFragmentContainer as PartnerHeaderImage } from "./Components/PartnerHeader/PartnerHeaderImage"
 import { PartnerMetaFragmentContainer } from "./Components/PartnerMeta"
-import { StickyProvider } from "Components/Sticky"
 import { PartnerArtistsLoadingContextProvider } from "./Utils/PartnerArtistsLoadingContext"
 import { HttpError } from "found"
 
 export interface PartnerAppProps {
-  partner: PartnerApp_partner
+  partner: PartnerApp_partner$data
 }
 
 export const PartnerApp: React.FC<PartnerAppProps> = ({
@@ -43,29 +42,30 @@ export const PartnerApp: React.FC<PartnerAppProps> = ({
 
   return (
     <PartnerArtistsLoadingContextProvider>
-      <StickyProvider>
-        {profile && displayFullPartnerPage && (
-          <PartnerHeaderImage profile={profile} />
+      {profile && displayFullPartnerPage && (
+        <PartnerHeaderImage profile={profile} />
+      )}
+
+      <PartnerMetaFragmentContainer partner={partner} />
+
+      <PartnerHeader partner={partner} />
+
+      <FullBleed mb={[2, 4]}>
+        {firstEligibleBadgeName ? (
+          <Marquee
+            speed="static"
+            marqueeText={firstEligibleBadgeName.replace(" ", "-")} // hypenate gallery badges
+          />
+        ) : (
+          <Separator />
         )}
+      </FullBleed>
 
-        <PartnerMetaFragmentContainer partner={partner} />
+      {(displayFullPartnerPage || partnerType === "Brand") && (
+        <NavigationTabs partner={partner} />
+      )}
 
-        <PartnerHeader partner={partner} />
-
-        <FullBleed mb={[2, 4]}>
-          {firstEligibleBadgeName ? (
-            <Marquee speed="static" marqueeText={firstEligibleBadgeName} />
-          ) : (
-            <Separator />
-          )}
-        </FullBleed>
-
-        {(displayFullPartnerPage || partnerType === "Brand") && (
-          <NavigationTabs partner={partner} />
-        )}
-
-        {children}
-      </StickyProvider>
+      {children}
     </PartnerArtistsLoadingContextProvider>
   )
 }

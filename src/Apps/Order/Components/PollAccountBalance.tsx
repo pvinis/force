@@ -1,23 +1,23 @@
 import { FC, useState } from "react"
 import { graphql, createRefetchContainer, RelayRefetchProp } from "react-relay"
-import { Spinner } from "@artsy/palette"
-import styled from "styled-components"
 
 import { useSystemContext } from "System"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
-import { renderWithLoadProgress } from "System/Relay/renderWithLoadProgress" // todo
 import { usePoll } from "Utils/Hooks/usePoll"
-import {
-  PollAccountBalanceQuery,
-  PollAccountBalanceQueryResponse,
-} from "__generated__/PollAccountBalanceQuery.graphql"
-import { PollAccountBalance_commerceBankAccountBalance } from "__generated__/PollAccountBalance_commerceBankAccountBalance.graphql"
+import { PollAccountBalanceQuery } from "__generated__/PollAccountBalanceQuery.graphql"
+import { PollAccountBalance_commerceBankAccountBalance$data } from "__generated__/PollAccountBalance_commerceBankAccountBalance.graphql"
+import { BalanceCheckResult } from "Apps/Order/Routes/Payment/index"
+import { SavingPaymentSpinner } from "Apps/Order/Components/SavingPaymentSpinner"
 
 interface PollAccountBalanceProps {
   relay: RelayRefetchProp
   setupIntentId: string
-  commerceBankAccountBalance: PollAccountBalance_commerceBankAccountBalance | null
-  onBalanceCheckComplete: (displayInsufficientFundsError: boolean) => void
+  bankAccountId: string
+  commerceBankAccountBalance: PollAccountBalance_commerceBankAccountBalance$data | null
+  onBalanceCheckComplete: (
+    displayInsufficientFundsError: boolean,
+    checkResult: BalanceCheckResult
+  ) => void
   buyerTotalCents: number
   orderCurrencyCode: string
 }
@@ -25,6 +25,7 @@ interface PollAccountBalanceProps {
 const PollAccountBalance: FC<PollAccountBalanceProps> = ({
   relay,
   setupIntentId,
+  bankAccountId,
   commerceBankAccountBalance,
   onBalanceCheckComplete,
   buyerTotalCents,
@@ -35,10 +36,10 @@ const PollAccountBalance: FC<PollAccountBalanceProps> = ({
 
   usePoll({
     callback: () => {
-      relay.refetch({ setupIntentId }, null, {}, { force: true })
+      relay.refetch({ setupIntentId, bankAccountId }, null, {}, { force: true })
     },
-    intervalTime: 1300,
-    key: setupIntentId,
+    intervalTime: 1600,
+    key: setupIntentId || bankAccountId,
     clearWhen: shouldStopPolling,
   })
 
@@ -48,7 +49,7 @@ const PollAccountBalance: FC<PollAccountBalanceProps> = ({
   */
   if (shouldStopPolling) {
     clearTimeout(timeoutID)
-    onBalanceCheckComplete(false)
+    onBalanceCheckComplete(false, BalanceCheckResult.check_not_possible)
   }
 
   /*
@@ -67,16 +68,22 @@ const PollAccountBalance: FC<PollAccountBalanceProps> = ({
       balanceCents >= buyerTotalCents && currencyCode === orderCurrencyCode
     )
 
-    onBalanceCheckComplete(!enoughBalance)
+    onBalanceCheckComplete(
+      !enoughBalance,
+      enoughBalance ? BalanceCheckResult.success : BalanceCheckResult.failed
+    )
     clearTimeout(timeoutID)
   }
 
-  return <PollAccountBalancePlaceholder />
+  return <SavingPaymentSpinner />
 }
 
 export const BALANCE_QUERY = graphql`
-  query PollAccountBalanceQuery($setupIntentId: ID!) {
-    commerceBankAccountBalance(setupIntentId: $setupIntentId) {
+  query PollAccountBalanceQuery($setupIntentId: ID, $bankAccountId: ID) {
+    commerceBankAccountBalance(
+      setupIntentId: $setupIntentId
+      bankAccountId: $bankAccountId
+    ) {
       ...PollAccountBalance_commerceBankAccountBalance
     }
   }
@@ -97,46 +104,51 @@ export const PollAccountBalanceRefetchContainer = createRefetchContainer(
 
 interface PollAccountBalanceQueryRendererProps {
   setupIntentId: string
-  onBalanceCheckComplete: (displayInsufficientFundsError: boolean) => void
+  bankAccountId: string
+  onError: (error: Error) => void
+  onBalanceCheckComplete: (
+    displayInsufficientFundsError: boolean,
+    checkResult: BalanceCheckResult
+  ) => void
   buyerTotalCents: number
   orderCurrencyCode: string
 }
 
 export const PollAccountBalanceQueryRenderer: FC<PollAccountBalanceQueryRendererProps> = ({
   setupIntentId,
+  bankAccountId,
+  onError,
   ...rest
 }) => {
   const { relayEnvironment } = useSystemContext()
-  if (!setupIntentId) return null
+  if (!setupIntentId && !bankAccountId) return null
 
   return (
     <SystemQueryRenderer<PollAccountBalanceQuery>
       environment={relayEnvironment}
-      placeholder={<PollAccountBalancePlaceholder />}
-      variables={{ setupIntentId }}
+      placeholder={<SavingPaymentSpinner />}
+      variables={
+        bankAccountId ? { bankAccountId } : { setupIntentId, bankAccountId: "" }
+      }
       query={BALANCE_QUERY}
-      render={renderWithLoadProgress<PollAccountBalanceQueryResponse>(
-        ({ commerceBankAccountBalance }) => (
+      render={({ props, error }) => {
+        if (!props?.commerceBankAccountBalance) {
+          return <SavingPaymentSpinner />
+        }
+
+        if (error) {
+          onError(error)
+        }
+
+        return (
           <PollAccountBalanceRefetchContainer
-            commerceBankAccountBalance={commerceBankAccountBalance}
+            commerceBankAccountBalance={props.commerceBankAccountBalance}
             setupIntentId={setupIntentId}
+            bankAccountId={bankAccountId}
             {...rest}
           />
         )
-      )}
+      }}
     />
-  )
-}
-
-const PollAccountBalancePlaceholder: FC = () => {
-  const SpinnerContainer = styled.div`
-    width: 100%;
-    height: 300px;
-    position: relative;
-  `
-  return (
-    <SpinnerContainer data-testid="account-balance-placeholder">
-      <Spinner position="relative" color="brand" />
-    </SpinnerContainer>
   )
 }

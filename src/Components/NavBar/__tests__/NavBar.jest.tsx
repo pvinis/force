@@ -2,10 +2,9 @@ import { BellIcon, EnvelopeIcon, SoloIcon } from "@artsy/palette"
 import { SystemContextProvider } from "System"
 import { useTracking } from "react-tracking"
 import { mount } from "enzyme"
-import { NavBar } from "../NavBar"
-import { NavBarMobileMenuInboxNotificationCount } from "../NavBarMobileMenu/NavBarMobileMenuInboxNotificationCount"
-import { mediator } from "lib/mediator"
-import "System/i18n/i18n"
+import { NavBar } from "Components/NavBar/NavBar"
+import { NavBarMobileMenuNotificationsIndicatorQueryRenderer as NavBarMobileMenuNotificationsIndicator } from "Components/NavBar/NavBarMobileMenu/NavBarMobileMenuNotificationsIndicator"
+import { mediator } from "Server/mediator"
 
 jest.mock("Components/Search/SearchBar", () => {
   return {
@@ -18,7 +17,7 @@ jest.mock("Utils/Hooks/useMatchMedia", () => ({
   __internal__useMatchMedia: () => ({}),
 }))
 
-jest.mock("lib/isServer", () => ({
+jest.mock("Server/isServer", () => ({
   isServer: true,
 }))
 
@@ -106,6 +105,7 @@ describe("NavBar", () => {
       wrapper.find("button").at(0).simulate("click")
       expect(mediator.trigger).toBeCalledWith("open:auth", {
         contextModule: "header",
+        copy: "Log in to collect art by the world’s leading artists",
         intent: "login",
         mode: "login",
       })
@@ -116,6 +116,7 @@ describe("NavBar", () => {
       wrapper.find("button").at(1).simulate("click")
       expect(mediator.trigger).toBeCalledWith("open:auth", {
         contextModule: "header",
+        copy: "Sign up to collect art by the world’s leading artists",
         intent: "signup",
         mode: "signup",
         redirectTo: "http://localhost/",
@@ -145,12 +146,12 @@ describe("NavBar", () => {
       expect(wrapper.find("NavBarMobileMenu").length).toEqual(0)
     })
 
-    it("shows the inbox notifications count  when there are conversations", () => {
+    it("shows the unread notifications indicator", () => {
       const wrapper = getWrapper({
         // @ts-expect-error PLEASE_FIX_ME_STRICT_NULL_CHECK_MIGRATION
-        user: { type: "NotAdmin", lab_features: ["User Conversations View"] },
+        user: { type: "NotAdmin" },
       })
-      expect(wrapper.find(NavBarMobileMenuInboxNotificationCount).length).toBe(
+      expect(wrapper.find(NavBarMobileMenuNotificationsIndicator).length).toBe(
         1
       )
     })

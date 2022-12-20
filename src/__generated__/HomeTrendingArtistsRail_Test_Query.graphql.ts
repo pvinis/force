@@ -1,76 +1,25 @@
+/**
+ * @generated SignedSource<<0293b8b0dbb133d20ca6852afc8a2bf8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HomeTrendingArtistsRail_Test_QueryVariables = {};
-export type HomeTrendingArtistsRail_Test_QueryResponse = {
-    readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"HomeTrendingArtistsRail_viewer">;
-    } | null;
+export type HomeTrendingArtistsRail_Test_Query$variables = {};
+export type HomeTrendingArtistsRail_Test_Query$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"HomeTrendingArtistsRail_viewer">;
+  } | null;
 };
 export type HomeTrendingArtistsRail_Test_Query = {
-    readonly response: HomeTrendingArtistsRail_Test_QueryResponse;
-    readonly variables: HomeTrendingArtistsRail_Test_QueryVariables;
+  response: HomeTrendingArtistsRail_Test_Query$data;
+  variables: HomeTrendingArtistsRail_Test_Query$variables;
 };
-
-
-
-/*
-query HomeTrendingArtistsRail_Test_Query {
-  viewer {
-    ...HomeTrendingArtistsRail_viewer
-  }
-}
-
-fragment CellArtist_artist on Artist {
-  ...EntityHeaderArtist_artist
-  internalID
-  slug
-  name
-  href
-  initials
-  image {
-    cropped(width: 445, height: 334, version: ["normalized", "larger", "large"]) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment EntityHeaderArtist_artist on Artist {
-  internalID
-  href
-  slug
-  name
-  initials
-  formattedNationalityAndBirthday
-  counts {
-    artworks
-    forSaleArtworks
-  }
-  avatar: image {
-    cropped(width: 45, height: 45) {
-      src
-      srcSet
-    }
-  }
-}
-
-fragment HomeTrendingArtistsRail_viewer on Viewer {
-  artistsConnection(sort: TRENDING_DESC, first: 99) {
-    edges {
-      node {
-        ...CellArtist_artist
-        internalID
-        slug
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -172,17 +121,12 @@ return {
               {
                 "kind": "Literal",
                 "name": "first",
-                "value": 99
-              },
-              {
-                "kind": "Literal",
-                "name": "sort",
-                "value": "TRENDING_DESC"
+                "value": 20
               }
             ],
             "concreteType": "ArtistConnection",
             "kind": "LinkedField",
-            "name": "artistsConnection",
+            "name": "curatedTrendingArtists",
             "plural": false,
             "selections": [
               {
@@ -320,7 +264,6 @@ return {
                                 "kind": "Literal",
                                 "name": "version",
                                 "value": [
-                                  "normalized",
                                   "larger",
                                   "large"
                                 ]
@@ -336,7 +279,7 @@ return {
                             "name": "cropped",
                             "plural": false,
                             "selections": (v0/*: any*/),
-                            "storageKey": "cropped(height:334,version:[\"normalized\",\"larger\",\"large\"],width:445)"
+                            "storageKey": "cropped(height:334,version:[\"larger\",\"large\"],width:445)"
                           }
                         ],
                         "storageKey": null
@@ -355,7 +298,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "artistsConnection(first:99,sort:\"TRENDING_DESC\")"
+            "storageKey": "curatedTrendingArtists(first:20)"
           }
         ],
         "storageKey": null
@@ -363,7 +306,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4472d98d5bad863ac5281c93bc155e99",
+    "cacheID": "18e9c6c1ddacd98382f6ad4ded704a94",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -373,54 +316,56 @@ return {
           "plural": false,
           "type": "Viewer"
         },
-        "viewer.artistsConnection": {
+        "viewer.curatedTrendingArtists": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "ArtistConnection"
         },
-        "viewer.artistsConnection.edges": {
+        "viewer.curatedTrendingArtists.edges": {
           "enumValues": null,
           "nullable": true,
           "plural": true,
           "type": "ArtistEdge"
         },
-        "viewer.artistsConnection.edges.node": {
+        "viewer.curatedTrendingArtists.edges.node": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "Artist"
         },
-        "viewer.artistsConnection.edges.node.avatar": (v1/*: any*/),
-        "viewer.artistsConnection.edges.node.avatar.cropped": (v2/*: any*/),
-        "viewer.artistsConnection.edges.node.avatar.cropped.src": (v3/*: any*/),
-        "viewer.artistsConnection.edges.node.avatar.cropped.srcSet": (v3/*: any*/),
-        "viewer.artistsConnection.edges.node.counts": {
+        "viewer.curatedTrendingArtists.edges.node.avatar": (v1/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.avatar.cropped": (v2/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.avatar.cropped.src": (v3/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.avatar.cropped.srcSet": (v3/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.counts": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "ArtistCounts"
         },
-        "viewer.artistsConnection.edges.node.counts.artworks": (v4/*: any*/),
-        "viewer.artistsConnection.edges.node.counts.forSaleArtworks": (v4/*: any*/),
-        "viewer.artistsConnection.edges.node.formattedNationalityAndBirthday": (v5/*: any*/),
-        "viewer.artistsConnection.edges.node.href": (v5/*: any*/),
-        "viewer.artistsConnection.edges.node.id": (v6/*: any*/),
-        "viewer.artistsConnection.edges.node.image": (v1/*: any*/),
-        "viewer.artistsConnection.edges.node.image.cropped": (v2/*: any*/),
-        "viewer.artistsConnection.edges.node.image.cropped.src": (v3/*: any*/),
-        "viewer.artistsConnection.edges.node.image.cropped.srcSet": (v3/*: any*/),
-        "viewer.artistsConnection.edges.node.initials": (v5/*: any*/),
-        "viewer.artistsConnection.edges.node.internalID": (v6/*: any*/),
-        "viewer.artistsConnection.edges.node.name": (v5/*: any*/),
-        "viewer.artistsConnection.edges.node.slug": (v6/*: any*/)
+        "viewer.curatedTrendingArtists.edges.node.counts.artworks": (v4/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.counts.forSaleArtworks": (v4/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.formattedNationalityAndBirthday": (v5/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.href": (v5/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.id": (v6/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.image": (v1/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.image.cropped": (v2/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.image.cropped.src": (v3/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.image.cropped.srcSet": (v3/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.initials": (v5/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.internalID": (v6/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.name": (v5/*: any*/),
+        "viewer.curatedTrendingArtists.edges.node.slug": (v6/*: any*/)
       }
     },
     "name": "HomeTrendingArtistsRail_Test_Query",
     "operationKind": "query",
-    "text": "query HomeTrendingArtistsRail_Test_Query {\n  viewer {\n    ...HomeTrendingArtistsRail_viewer\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"normalized\", \"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment HomeTrendingArtistsRail_viewer on Viewer {\n  artistsConnection(sort: TRENDING_DESC, first: 99) {\n    edges {\n      node {\n        ...CellArtist_artist\n        internalID\n        slug\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query HomeTrendingArtistsRail_Test_Query {\n  viewer {\n    ...HomeTrendingArtistsRail_viewer\n  }\n}\n\nfragment CellArtist_artist on Artist {\n  ...EntityHeaderArtist_artist\n  internalID\n  slug\n  name\n  href\n  initials\n  image {\n    cropped(width: 445, height: 334, version: [\"larger\", \"large\"]) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment EntityHeaderArtist_artist on Artist {\n  internalID\n  href\n  slug\n  name\n  initials\n  formattedNationalityAndBirthday\n  counts {\n    artworks\n    forSaleArtworks\n  }\n  avatar: image {\n    cropped(width: 45, height: 45) {\n      src\n      srcSet\n    }\n  }\n}\n\nfragment HomeTrendingArtistsRail_viewer on Viewer {\n  curatedTrendingArtists(first: 20) {\n    edges {\n      node {\n        ...CellArtist_artist\n        internalID\n        slug\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '576106e6e2155f43eb26a3c6386095aa';
+
+(node as any).hash = "576106e6e2155f43eb26a3c6386095aa";
+
 export default node;

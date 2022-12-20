@@ -1,44 +1,47 @@
+/**
+ * @generated SignedSource<<7ba957d200a711e2c154f6aee28a051d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FlatGridItem_artwork = {
-    readonly sale: {
-        readonly extendedBiddingPeriodMinutes: number | null;
-        readonly extendedBiddingIntervalMinutes: number | null;
-        readonly startAt: string | null;
+export type FlatGridItem_artwork$data = {
+  readonly artistNames: string | null;
+  readonly href: string | null;
+  readonly image: {
+    readonly resized: {
+      readonly height: number | null;
+      readonly src: string;
+      readonly srcSet: string;
+      readonly width: number | null;
     } | null;
-    readonly saleArtwork: {
-        readonly endAt: string | null;
-        readonly extendedBiddingEndAt: string | null;
-        readonly lotID: string | null;
-    } | null;
-    readonly internalID: string;
-    readonly title: string | null;
-    readonly image_title: string | null;
-    readonly image: {
-        readonly resized: {
-            readonly src: string;
-            readonly srcSet: string;
-            readonly width: number | null;
-            readonly height: number | null;
-        } | null;
-    } | null;
-    readonly artistNames: string | null;
-    readonly href: string | null;
-    readonly is_saved: boolean | null;
-    readonly " $fragmentRefs": FragmentRefs<"Metadata_artwork" | "SaveButton_artwork">;
-    readonly " $refType": "FlatGridItem_artwork";
+  } | null;
+  readonly image_title: string | null;
+  readonly internalID: string;
+  readonly is_saved: boolean | null;
+  readonly sale: {
+    readonly extendedBiddingIntervalMinutes: number | null;
+    readonly extendedBiddingPeriodMinutes: number | null;
+    readonly startAt: string | null;
+  } | null;
+  readonly saleArtwork: {
+    readonly endAt: string | null;
+    readonly extendedBiddingEndAt: string | null;
+    readonly lotID: string | null;
+  } | null;
+  readonly title: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"Metadata_artwork" | "SaveButton_artwork">;
+  readonly " $fragmentType": "FlatGridItem_artwork";
 };
-export type FlatGridItem_artwork$data = FlatGridItem_artwork;
 export type FlatGridItem_artwork$key = {
-    readonly " $data"?: FlatGridItem_artwork$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FlatGridItem_artwork">;
+  readonly " $data"?: FlatGridItem_artwork$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FlatGridItem_artwork">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -46,6 +49,16 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "FlatGridItem_artwork",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "Metadata_artwork"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SaveButton_artwork"
+    },
     {
       "alias": null,
       "args": null,
@@ -146,7 +159,6 @@ const node: ReaderFragment = {
               "kind": "Literal",
               "name": "version",
               "value": [
-                "normalized",
                 "larger",
                 "large"
               ]
@@ -191,7 +203,7 @@ const node: ReaderFragment = {
               "storageKey": null
             }
           ],
-          "storageKey": "resized(version:[\"normalized\",\"larger\",\"large\"],width:445)"
+          "storageKey": "resized(version:[\"larger\",\"large\"],width:445)"
         }
       ],
       "storageKey": null
@@ -216,20 +228,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "isSaved",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "Metadata_artwork"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "SaveButton_artwork"
     }
   ],
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = '5f91a71b7095b4cfdbb6715e2896579b';
+
+(node as any).hash = "20b1dff98c2e86853f761ef2f1592e04";
+
 export default node;

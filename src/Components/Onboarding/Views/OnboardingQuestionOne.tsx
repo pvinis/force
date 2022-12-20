@@ -4,7 +4,6 @@ import { graphql } from "react-relay"
 import { useMutation } from "Utils/Hooks/useMutation"
 import { OnboardingFigure } from "../Components/OnboardingFigure"
 import { OnboardingQuestionPanel } from "../Components/OnboardingQuestionPanel"
-import { OnboardingSplitLayout } from "../Components/OnboardingSplitLayout"
 import {
   OPTION_NO_IM_JUST_STARTING_OUT,
   OPTION_YES_I_LOVE_COLLECTING_ART,
@@ -12,6 +11,8 @@ import {
 import { useOnboardingFadeTransition } from "../Hooks/useOnboardingFadeTransition"
 import { useOnboardingContext } from "../Hooks/useOnboardingContext"
 import { OnboardingQuestionOneMutation } from "__generated__/OnboardingQuestionOneMutation.graphql"
+import { useOnboardingTracking } from "../Hooks/useOnboardingTracking"
+import { SplitLayout } from "Components/SplitLayout"
 
 export const OnboardingQuestionOne: FC = () => {
   const { next, dispatch, state } = useOnboardingContext()
@@ -33,6 +34,8 @@ export const OnboardingQuestionOne: FC = () => {
     `,
   })
 
+  const tracking = useOnboardingTracking()
+
   const handleNext = () => {
     const level = COLLECTOR_LEVELS[state.questionOne!]
 
@@ -44,11 +47,12 @@ export const OnboardingQuestionOne: FC = () => {
       // Ignore error
     }
 
+    tracking.trackQuestionOne(state.questionOne)
     __handleNext__()
   }
 
   return (
-    <OnboardingSplitLayout
+    <SplitLayout
       left={
         <OnboardingFigure
           ref={register(0)}
@@ -68,10 +72,10 @@ export const OnboardingQuestionOne: FC = () => {
             Have you purchased art before?
           </Text>
 
-          <Spacer mt={4} />
+          <Spacer y={4} />
 
           <Box ref={register(2)}>
-            <Join separator={<Spacer mt={2} />}>
+            <Join separator={<Spacer y={2} />}>
               {QUESTION_1.map(option => {
                 return (
                   <Pill

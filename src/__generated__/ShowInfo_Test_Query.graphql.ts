@@ -1,154 +1,25 @@
+/**
+ * @generated SignedSource<<a9b20fe5ccf29b52b0636c3dbb93a32a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ShowInfo_Test_QueryVariables = {};
-export type ShowInfo_Test_QueryResponse = {
-    readonly show: {
-        readonly " $fragmentRefs": FragmentRefs<"ShowInfo_show">;
-    } | null;
+export type ShowInfo_Test_Query$variables = {};
+export type ShowInfo_Test_Query$data = {
+  readonly show: {
+    readonly " $fragmentSpreads": FragmentRefs<"ShowInfo_show">;
+  } | null;
 };
 export type ShowInfo_Test_Query = {
-    readonly response: ShowInfo_Test_QueryResponse;
-    readonly variables: ShowInfo_Test_QueryVariables;
+  response: ShowInfo_Test_Query$data;
+  variables: ShowInfo_Test_Query$variables;
 };
-
-
-
-/*
-query ShowInfo_Test_Query {
-  show(id: "xxx") {
-    ...ShowInfo_show
-    id
-  }
-}
-
-fragment EntityHeaderPartner_partner on Partner {
-  internalID
-  type
-  slug
-  href
-  name
-  initials
-  locationsConnection(first: 15) {
-    edges {
-      node {
-        city
-        id
-      }
-    }
-  }
-  categories {
-    name
-    slug
-    id
-  }
-  profile {
-    ...FollowProfileButton_profile
-    avatar: image {
-      cropped(width: 45, height: 45) {
-        src
-        srcSet
-      }
-    }
-    icon {
-      cropped(width: 45, height: 45, version: ["untouched-png", "large", "square"]) {
-        src
-        srcSet
-      }
-    }
-    id
-  }
-}
-
-fragment FollowProfileButton_profile on Profile {
-  id
-  slug
-  name
-  internalID
-  isFollowed
-}
-
-fragment ShowHours_show on Show {
-  location {
-    ...ShowLocationHours_location
-    id
-  }
-  fair {
-    location {
-      ...ShowLocationHours_location
-      id
-    }
-    id
-  }
-}
-
-fragment ShowInfoLocation_show on Show {
-  fair {
-    location {
-      display
-      address
-      address2
-      city
-      state
-      country
-      summary
-      id
-    }
-    id
-  }
-  location {
-    display
-    address
-    address2
-    city
-    state
-    country
-    summary
-    id
-  }
-}
-
-fragment ShowInfo_show on Show {
-  ...ShowInfoLocation_show
-  ...ShowHours_show
-  name
-  about: description
-  pressRelease(format: HTML)
-  hasLocation
-  partner {
-    __typename
-    ... on Partner {
-      ...EntityHeaderPartner_partner
-      type
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-    ... on ExternalPartner {
-      id
-    }
-  }
-}
-
-fragment ShowLocationHours_location on Location {
-  openingHours {
-    __typename
-    ... on OpeningHoursArray {
-      schedules {
-        days
-        hours
-      }
-    }
-    ... on OpeningHoursText {
-      text
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -428,6 +299,45 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "ShowEventType",
+            "kind": "LinkedField",
+            "name": "events",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "dateTimeRange",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "description",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "eventType",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "title",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": null,
             "kind": "LinkedField",
             "name": "partner",
@@ -524,17 +434,7 @@ return {
                     "name": "profile",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
-                      (v7/*: any*/),
-                      (v5/*: any*/),
                       (v6/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "isFollowed",
-                        "storageKey": null
-                      },
                       {
                         "alias": "avatar",
                         "args": null,
@@ -591,7 +491,8 @@ return {
                           }
                         ],
                         "storageKey": null
-                      }
+                      },
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -621,14 +522,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2e595a9aeb431bde804131d69cf20160",
+    "cacheID": "d86b477f3b126a6338c2ab174db672db",
     "id": null,
     "metadata": {},
     "name": "ShowInfo_Test_Query",
     "operationKind": "query",
-    "text": "query ShowInfo_Test_Query {\n  show(id: \"xxx\") {\n    ...ShowInfo_show\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    ...FollowProfileButton_profile\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment FollowProfileButton_profile on Profile {\n  id\n  slug\n  name\n  internalID\n  isFollowed\n}\n\nfragment ShowHours_show on Show {\n  location {\n    ...ShowLocationHours_location\n    id\n  }\n  fair {\n    location {\n      ...ShowLocationHours_location\n      id\n    }\n    id\n  }\n}\n\nfragment ShowInfoLocation_show on Show {\n  fair {\n    location {\n      display\n      address\n      address2\n      city\n      state\n      country\n      summary\n      id\n    }\n    id\n  }\n  location {\n    display\n    address\n    address2\n    city\n    state\n    country\n    summary\n    id\n  }\n}\n\nfragment ShowInfo_show on Show {\n  ...ShowInfoLocation_show\n  ...ShowHours_show\n  name\n  about: description\n  pressRelease(format: HTML)\n  hasLocation\n  partner {\n    __typename\n    ... on Partner {\n      ...EntityHeaderPartner_partner\n      type\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n}\n\nfragment ShowLocationHours_location on Location {\n  openingHours {\n    __typename\n    ... on OpeningHoursArray {\n      schedules {\n        days\n        hours\n      }\n    }\n    ... on OpeningHoursText {\n      text\n    }\n  }\n}\n"
+    "text": "query ShowInfo_Test_Query {\n  show(id: \"xxx\") {\n    ...ShowInfo_show\n    id\n  }\n}\n\nfragment EntityHeaderPartner_partner on Partner {\n  internalID\n  type\n  slug\n  href\n  name\n  initials\n  locationsConnection(first: 15) {\n    edges {\n      node {\n        city\n        id\n      }\n    }\n  }\n  categories {\n    name\n    slug\n    id\n  }\n  profile {\n    internalID\n    avatar: image {\n      cropped(width: 45, height: 45) {\n        src\n        srcSet\n      }\n    }\n    icon {\n      cropped(width: 45, height: 45, version: [\"untouched-png\", \"large\", \"square\"]) {\n        src\n        srcSet\n      }\n    }\n    id\n  }\n}\n\nfragment ShowHours_show on Show {\n  location {\n    ...ShowLocationHours_location\n    id\n  }\n  fair {\n    location {\n      ...ShowLocationHours_location\n      id\n    }\n    id\n  }\n}\n\nfragment ShowInfoLocation_show on Show {\n  fair {\n    location {\n      display\n      address\n      address2\n      city\n      state\n      country\n      summary\n      id\n    }\n    id\n  }\n  location {\n    display\n    address\n    address2\n    city\n    state\n    country\n    summary\n    id\n  }\n}\n\nfragment ShowInfo_show on Show {\n  ...ShowInfoLocation_show\n  ...ShowHours_show\n  name\n  about: description\n  pressRelease(format: HTML)\n  hasLocation\n  events {\n    dateTimeRange\n    description\n    eventType\n    title\n  }\n  partner {\n    __typename\n    ... on Partner {\n      ...EntityHeaderPartner_partner\n      type\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n    ... on ExternalPartner {\n      id\n    }\n  }\n}\n\nfragment ShowLocationHours_location on Location {\n  openingHours {\n    __typename\n    ... on OpeningHoursArray {\n      schedules {\n        days\n        hours\n      }\n    }\n    ... on OpeningHoursText {\n      text\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd861fc33ae486645f434452cd5a48e50';
+
+(node as any).hash = "d861fc33ae486645f434452cd5a48e50";
+
 export default node;

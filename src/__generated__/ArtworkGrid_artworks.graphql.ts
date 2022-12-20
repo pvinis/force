@@ -1,31 +1,34 @@
+/**
+ * @generated SignedSource<<fbe392f36b0c2314ae785e60011183eb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArtworkGrid_artworks = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly slug: string;
-            readonly href: string | null;
-            readonly internalID: string;
-            readonly image: {
-                readonly aspect_ratio: number;
-            } | null;
-            readonly " $fragmentRefs": FragmentRefs<"GridItem_artwork" | "FlatGridItem_artwork">;
-        } | null;
-    } | null> | null;
-    readonly " $refType": "ArtworkGrid_artworks";
+export type ArtworkGrid_artworks$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly href: string | null;
+      readonly id: string;
+      readonly image: {
+        readonly aspectRatio: number;
+      } | null;
+      readonly internalID: string;
+      readonly slug: string;
+      readonly " $fragmentSpreads": FragmentRefs<"FlatGridItem_artwork" | "GridItem_artwork">;
+    } | null;
+  } | null> | null;
+  readonly " $fragmentType": "ArtworkGrid_artworks";
 };
-export type ArtworkGrid_artworks$data = ArtworkGrid_artworks;
 export type ArtworkGrid_artworks$key = {
-    readonly " $data"?: ArtworkGrid_artworks$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkGrid_artworks">;
+  readonly " $data"?: ArtworkGrid_artworks$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkGrid_artworks">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -86,7 +89,7 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
-                  "alias": "aspect_ratio",
+                  "alias": null,
                   "args": null,
                   "kind": "ScalarField",
                   "name": "aspectRatio",
@@ -115,5 +118,7 @@ const node: ReaderFragment = {
   "type": "ArtworkConnectionInterface",
   "abstractKey": "__isArtworkConnectionInterface"
 };
-(node as any).hash = '8b933fbb60b8a2a04f5dea3d4dff8494';
+
+(node as any).hash = "19b468e1292c87f591e4e48e3e351518";
+
 export default node;

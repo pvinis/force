@@ -1,99 +1,30 @@
+/**
+ * @generated SignedSource<<65bac2ba446bdf78e3b143bd95a91697>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ConversationListQueryVariables = {
-    first: number;
-    last?: number | null | undefined;
-    after?: string | null | undefined;
-    before?: string | null | undefined;
+export type ConversationListQuery$variables = {
+  after?: string | null;
+  before?: string | null;
+  first: number;
+  last?: number | null;
 };
-export type ConversationListQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"ConversationList_me">;
-    } | null;
+export type ConversationListQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"ConversationList_me">;
+  } | null;
 };
 export type ConversationListQuery = {
-    readonly response: ConversationListQueryResponse;
-    readonly variables: ConversationListQueryVariables;
+  response: ConversationListQuery$data;
+  variables: ConversationListQuery$variables;
 };
-
-
-
-/*
-query ConversationListQuery(
-  $first: Int!
-  $last: Int
-  $after: String
-  $before: String
-) {
-  me {
-    ...ConversationList_me_pbnwq
-    id
-  }
-}
-
-fragment ConversationList_me_pbnwq on Me {
-  conversationsConnection(first: $first, last: $last, before: $before, after: $after) {
-    edges {
-      cursor
-      node {
-        id
-        internalID
-        lastMessage
-        ...ConversationSnippet_conversation
-        __typename
-      }
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-    }
-  }
-}
-
-fragment ConversationSnippet_conversation on Conversation {
-  internalID
-  to {
-    name
-    id
-  }
-  lastMessage
-  lastMessageAt
-  unread
-  items {
-    item {
-      __typename
-      ... on Artwork {
-        date
-        title
-        artistNames
-        image {
-          url
-        }
-      }
-      ... on Show {
-        fair {
-          name
-          id
-        }
-        name
-        coverImage {
-          url
-        }
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -464,5 +395,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b0401378c83d1d0d4e560d978309a2c6';
+
+(node as any).hash = "b0401378c83d1d0d4e560d978309a2c6";
+
 export default node;

@@ -1,47 +1,52 @@
+/**
+ * @generated SignedSource<<1aab52504343c62a3b6592f8d1f16886>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type CommerceOrderModeEnum = "BUY" | "OFFER" | "%future added value";
-export type CommerceOrderSourceEnum = "artwork_page" | "inquiry" | "%future added value";
-export type Review_order = {
+export type CommerceOrderSourceEnum = "artwork_page" | "inquiry" | "private_sale" | "%future added value";
+export type CommercePaymentMethodEnum = "CREDIT_CARD" | "SEPA_DEBIT" | "US_BANK_ACCOUNT" | "WIRE_TRANSFER" | "%future added value";
+import { FragmentRefs } from "relay-runtime";
+export type Review_order$data = {
+  readonly code: string;
+  readonly impulseConversationId: string | null;
+  readonly internalID: string;
+  readonly itemsTotal: string | null;
+  readonly lineItems: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly artwork: {
+          readonly artists: ReadonlyArray<{
+            readonly slug: string;
+          } | null> | null;
+          readonly internalID: string;
+          readonly slug: string;
+        } | null;
+        readonly " $fragmentSpreads": FragmentRefs<"ItemReview_lineItem">;
+      } | null;
+    } | null> | null;
+  } | null;
+  readonly mode: CommerceOrderModeEnum | null;
+  readonly myLastOffer?: {
+    readonly hasDefiniteTotal: boolean;
     readonly internalID: string;
-    readonly mode: CommerceOrderModeEnum | null;
-    readonly code: string;
-    readonly source: CommerceOrderSourceEnum;
-    readonly itemsTotal: string | null;
-    readonly impulseConversationId: string | null;
-    readonly stateExpiresAt: string | null;
-    readonly lineItems: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly artwork: {
-                    readonly slug: string;
-                    readonly internalID: string;
-                    readonly artists: ReadonlyArray<{
-                        readonly slug: string;
-                    } | null> | null;
-                } | null;
-                readonly " $fragmentRefs": FragmentRefs<"ItemReview_lineItem">;
-            } | null;
-        } | null> | null;
-    } | null;
-    readonly myLastOffer?: {
-        readonly hasDefiniteTotal: boolean;
-        readonly internalID: string;
-    } | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArtworkSummaryItem_order" | "TransactionDetailsSummaryItem_order" | "ShippingSummaryItem_order" | "PaymentMethodSummaryItem_order" | "ShippingArtaSummaryItem_order" | "OfferSummaryItem_order">;
-    readonly " $refType": "Review_order";
+  } | null;
+  readonly paymentMethod: CommercePaymentMethodEnum | null;
+  readonly source: CommerceOrderSourceEnum;
+  readonly stateExpiresAt: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ArtworkSummaryItem_order" | "OfferSummaryItem_order" | "PaymentMethodSummaryItem_order" | "ShippingArtaSummaryItem_order" | "ShippingSummaryItem_order" | "TransactionDetailsSummaryItem_order">;
+  readonly " $fragmentType": "Review_order";
 };
-export type Review_order$data = Review_order;
 export type Review_order$key = {
-    readonly " $data"?: Review_order$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Review_order">;
+  readonly " $data"?: Review_order$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Review_order">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -65,6 +70,13 @@ return {
   "name": "Review_order",
   "selections": [
     (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "paymentMethod",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -144,6 +156,11 @@ return {
               "plural": false,
               "selections": [
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ItemReview_lineItem"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "concreteType": "Artwork",
@@ -167,11 +184,6 @@ return {
                     }
                   ],
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "ItemReview_lineItem"
                 }
               ],
               "storageKey": null
@@ -243,5 +255,7 @@ return {
   "abstractKey": "__isCommerceOrder"
 };
 })();
-(node as any).hash = '17c52de285dfc72367eb8046571bf136';
+
+(node as any).hash = "ac3ec77035ad1fb6be9298d8d1cfe8a8";
+
 export default node;

@@ -1,31 +1,31 @@
-import { Separator, Spacer, Text } from "@artsy/palette"
 import { createFragmentContainer, graphql } from "react-relay"
-import { ArtworkSidebarCreateAlertButtonFragmentContainer } from "./ArtworkSidebarCreateAlertButton"
-import { ArtworkSidebarBiddingClosedMessage_artwork } from "__generated__/ArtworkSidebarBiddingClosedMessage_artwork.graphql"
+import { Spacer, Text } from "@artsy/palette"
+import { ArtworkSidebarCreateAlertButtonFragmentContainer } from "Apps/Artwork/Components/ArtworkSidebar/ArtworkSidebarCreateAlertButton"
+import { useTranslation } from "react-i18next"
+import { ArtworkSidebarBiddingClosedMessage_artwork$data } from "__generated__/ArtworkSidebarBiddingClosedMessage_artwork.graphql"
 
 interface BiddingClosedMessageProps {
-  artwork: ArtworkSidebarBiddingClosedMessage_artwork
+  artwork: ArtworkSidebarBiddingClosedMessage_artwork$data
 }
 
 const BiddingClosedMessage: React.FC<BiddingClosedMessageProps> = ({
   artwork,
 }) => {
+  const { t } = useTranslation()
   const hasArtists = (artwork.artists?.length ?? 0) > 0
 
   return (
     <>
-      <Separator my={2} />
-
-      <Text variant="lg" color="black100">
-        Bidding closed
+      <Text variant="lg-display" color="black100">
+        {t(`artworkPage.sidebar.auction.biddingClosed`)}
       </Text>
 
       {hasArtists && (
         <>
           <Text variant="sm" color="black60" pt={0.5}>
-            Be notified when a similar work is available
+            {t(`artworkPage.sidebar.createAlert.description`)}
           </Text>
-          <Spacer my={2} />
+          <Spacer y={2} />
           <ArtworkSidebarCreateAlertButtonFragmentContainer artwork={artwork} />
         </>
       )}

@@ -11,7 +11,7 @@ import {
 } from "@artsy/palette"
 import { Link } from "react-head"
 import { createFragmentContainer, graphql } from "react-relay"
-import { HomeHeroUnit_heroUnit } from "__generated__/HomeHeroUnit_heroUnit.graphql"
+import { HomeHeroUnit_heroUnit$data } from "__generated__/HomeHeroUnit_heroUnit.graphql"
 import { cropped } from "Utils/resized"
 import { RouterLink } from "System/Router/RouterLink"
 import { Media } from "Utils/Responsive"
@@ -36,7 +36,7 @@ export interface StaticHeroUnit {
 }
 
 export interface HomeHeroUnitProps {
-  heroUnit: HomeHeroUnit_heroUnit | StaticHeroUnit
+  heroUnit: HomeHeroUnit_heroUnit$data | StaticHeroUnit
   layout: "a" | "b"
   index: number
 }
@@ -168,7 +168,7 @@ export const HomeHeroUnit: React.FC<HomeHeroUnitProps> = ({
                       {heroUnit.heading}
                     </Text>
 
-                    <Spacer mt={2} />
+                    <Spacer y={2} />
                   </>
                 )}
               </Media>
@@ -184,7 +184,7 @@ export const HomeHeroUnit: React.FC<HomeHeroUnitProps> = ({
 
               {heroUnit.subtitle && (
                 <>
-                  <Spacer mt={[1, 2]} />
+                  <Spacer y={[1, 2]} />
 
                   <Text
                     variant={["xs", "sm-display", "lg-display"]}
@@ -202,7 +202,7 @@ export const HomeHeroUnit: React.FC<HomeHeroUnitProps> = ({
                 <Media greaterThan="xs">
                   <Spacer
                     // Unconventional value here to keep visual rhythm
-                    mt="30px"
+                    y="30px"
                   />
 
                   <GridColumns>
@@ -221,7 +221,7 @@ export const HomeHeroUnit: React.FC<HomeHeroUnitProps> = ({
                 </Media>
 
                 <Media at="xs">
-                  <Spacer mt={1} />
+                  <Spacer y={1} />
 
                   <RouterLink
                     to={heroUnit.href}

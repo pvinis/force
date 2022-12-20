@@ -5,23 +5,32 @@ import { EntityHeaderArtistFragmentContainer } from "Components/EntityHeaders/En
 import { EntityHeaderPartnerFragmentContainer } from "Components/EntityHeaders/EntityHeaderPartner"
 import { SystemQueryRenderer } from "System/Relay/SystemQueryRenderer"
 import { extractNodes } from "Utils/extractNodes"
-import { useOnboardingContext } from "../Hooks/useOnboardingContext"
-import { OnboardingSearchResults_viewer } from "__generated__/OnboardingSearchResults_viewer.graphql"
+import { useOnboardingContext } from "Components/Onboarding/Hooks/useOnboardingContext"
+import { OnboardingSearchResults_viewer$data } from "__generated__/OnboardingSearchResults_viewer.graphql"
 import { OnboardingSearchResultsQuery } from "__generated__/OnboardingSearchResultsQuery.graphql"
 import { EntityHeaderPlaceholder } from "Components/EntityHeaders/EntityHeaderPlaceholder"
+import { ContextModule } from "@artsy/cohesion"
+import { FollowProfileButtonQueryRenderer } from "Components/FollowButton/FollowProfileButton"
+import { FollowArtistButtonQueryRenderer } from "Components/FollowButton/FollowArtistButton"
 
 interface OnboardingSearchResultsProps {
-  viewer: OnboardingSearchResults_viewer
+  viewer: OnboardingSearchResults_viewer$data
+  term: string
 }
 
 const OnboardingSearchResults: FC<OnboardingSearchResultsProps> = ({
+  term,
   viewer,
 }) => {
   const { dispatch } = useOnboardingContext()
   const nodes = extractNodes(viewer.matchConnection)
 
   if (nodes.length === 0) {
-    return <Message title="No results found" />
+    return (
+      <Message
+        title={`Sorry, we couldn’t find anything for "${term}". Please try searching again with a different spelling.`}
+      />
+    )
   }
 
   return (
@@ -33,24 +42,38 @@ const OnboardingSearchResults: FC<OnboardingSearchResultsProps> = ({
               <EntityHeaderArtistFragmentContainer
                 key={node.internalID}
                 artist={node}
-                onFollow={() => {
-                  dispatch({ type: "FOLLOW", payload: node.internalID! })
-                }}
+                FollowButton={
+                  <FollowArtistButtonQueryRenderer
+                    id={node.internalID}
+                    contextModule={ContextModule.onboardingFlow}
+                    size="small"
+                    onFollow={() => {
+                      dispatch({ type: "FOLLOW", payload: node.internalID })
+                    }}
+                  />
+                }
               />
             )
 
           case "Profile": {
             const partner = node.owner
 
-            if (!partner || partner.__typename !== "Partner") return null
+            if (partner?.__typename !== "Partner") return null
 
             return (
               <EntityHeaderPartnerFragmentContainer
                 key={node.internalID}
                 partner={partner}
-                onFollow={() => {
-                  dispatch({ type: "FOLLOW", payload: node.internalID! })
-                }}
+                FollowButton={
+                  <FollowProfileButtonQueryRenderer
+                    id={node.internalID}
+                    contextModule={ContextModule.onboardingFlow}
+                    size="small"
+                    onFollow={() => {
+                      dispatch({ type: "FOLLOW", payload: node.internalID })
+                    }}
+                  />
+                }
               />
             )
           }
@@ -141,7 +164,10 @@ export const OnboardingSearchResultsQueryRenderer: FC<OnboardingOrderedSetQueryR
           return PLACEHOLDER
         }
         return (
-          <OnboardingSearchResultsFragmentContainer viewer={props.viewer} />
+          <OnboardingSearchResultsFragmentContainer
+            term={term}
+            viewer={props.viewer}
+          />
         )
       }}
     />

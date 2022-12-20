@@ -1,62 +1,39 @@
+/**
+ * @generated SignedSource<<c45122405f929a2c95c8f3523245c9a6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type RedirectsProfileQueryVariables = {
-    id: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type RedirectsProfileQuery$variables = {
+  id: string;
 };
-export type RedirectsProfileQueryResponse = {
-    readonly profile: {
-        readonly owner: {
-            readonly __typename: "Partner";
-            readonly slug: string;
-        } | {
-            readonly __typename: "Fair";
-            readonly slug: string;
-        } | {
-            readonly __typename: "FairOrganizer";
-            readonly slug: string;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        };
-    } | null;
+export type RedirectsProfileQuery$data = {
+  readonly profile: {
+    readonly owner: {
+      readonly __typename: "Fair";
+      readonly slug: string;
+    } | {
+      readonly __typename: "FairOrganizer";
+      readonly slug: string;
+    } | {
+      readonly __typename: "Partner";
+      readonly slug: string;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    };
+  } | null;
 };
 export type RedirectsProfileQuery = {
-    readonly response: RedirectsProfileQueryResponse;
-    readonly variables: RedirectsProfileQueryVariables;
+  response: RedirectsProfileQuery$data;
+  variables: RedirectsProfileQuery$variables;
 };
-
-
-
-/*
-query RedirectsProfileQuery(
-  $id: String!
-) {
-  profile(id: $id) {
-    owner {
-      __typename
-      ... on Partner {
-        slug
-      }
-      ... on Fair {
-        slug
-      }
-      ... on FairOrganizer {
-        slug
-        id
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -212,5 +189,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'd9588f3f60221adc9925bf194973caac';
+
+(node as any).hash = "d9588f3f60221adc9925bf194973caac";
+
 export default node;

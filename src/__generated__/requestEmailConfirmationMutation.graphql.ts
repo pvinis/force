@@ -1,45 +1,30 @@
+/**
+ * @generated SignedSource<<adbcb9c52fa6ae54c1359549b87b63f8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-export type requestEmailConfirmationMutationVariables = {};
-export type requestEmailConfirmationMutationResponse = {
-    readonly sendConfirmationEmail: {
-        readonly confirmationOrError: {
-            readonly unconfirmedEmail?: string | null | undefined;
-            readonly mutationError?: {
-                readonly error: string | null;
-                readonly message: string;
-            } | null | undefined;
-        } | null;
+import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type requestEmailConfirmationMutation$variables = {};
+export type requestEmailConfirmationMutation$data = {
+  readonly sendConfirmationEmail: {
+    readonly confirmationOrError: {
+      readonly mutationError?: {
+        readonly error: string | null;
+        readonly message: string;
+      } | null;
+      readonly unconfirmedEmail?: string | null;
     } | null;
+  } | null;
 };
 export type requestEmailConfirmationMutation = {
-    readonly response: requestEmailConfirmationMutationResponse;
-    readonly variables: requestEmailConfirmationMutationVariables;
+  response: requestEmailConfirmationMutation$data;
+  variables: requestEmailConfirmationMutation$variables;
 };
-
-
-
-/*
-mutation requestEmailConfirmationMutation {
-  sendConfirmationEmail(input: {}) {
-    confirmationOrError {
-      __typename
-      ... on SendConfirmationEmailMutationSuccess {
-        unconfirmedEmail
-      }
-      ... on SendConfirmationEmailMutationFailure {
-        mutationError {
-          error
-          message
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -179,5 +164,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4b0a1029678628b4e7d8f1af73795e3e';
+
+(node as any).hash = "4b0a1029678628b4e7d8f1af73795e3e";
+
 export default node;

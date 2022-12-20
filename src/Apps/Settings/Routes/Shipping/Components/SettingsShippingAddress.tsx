@@ -11,15 +11,15 @@ import { FC } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { compactObject } from "Utils/compactObject"
 import { useMode } from "Utils/Hooks/useMode"
-import { SettingsShippingAddress_address } from "__generated__/SettingsShippingAddress_address.graphql"
-import { useDeleteAddress } from "../useDeleteAddress"
+import { SettingsShippingAddress_address$data } from "__generated__/SettingsShippingAddress_address.graphql"
+import { useDeleteAddress } from "Apps/Settings/Routes/Shipping/useDeleteAddress"
 import {
   INITIAL_ADDRESS,
   SettingsShippingAddressForm,
 } from "./SettingsShippingAddressForm"
 
 interface SettingsShippingAddressProps {
-  address: SettingsShippingAddress_address
+  address: SettingsShippingAddress_address$data
 }
 
 type Mode = "Pending" | "Editing" | "Deleting"
@@ -152,6 +152,7 @@ export const SettingsShippingAddressFragmentContainer = createFragmentContainer(
         isDefault
         name
         phoneNumber
+        phoneNumberCountryCode
         postalCode
         region
       }

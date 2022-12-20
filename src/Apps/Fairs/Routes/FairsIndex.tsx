@@ -18,22 +18,22 @@ import { RouterLink } from "System/Router/RouterLink"
 import { ModalType } from "Components/Authentication/Types"
 import { openAuthModal } from "Utils/openAuthModal"
 import { Media } from "Utils/Responsive"
-import { FairsIndex_featuredFairs } from "__generated__/FairsIndex_featuredFairs.graphql"
-import { FairsIndex_viewer } from "__generated__/FairsIndex_viewer.graphql"
-import { FairsFairBannerFragmentContainer } from "../Components/FairsFairBanner"
-import { FairsFairRowFragmentContainer } from "../Components/FairsFairRow"
-import { FairsPhonePromo } from "../Components/FairsPhonePromo"
-import { FairsPromoCarousel } from "../Components/FairsPromoCarousel"
-import { FairsMeta } from "../Components/FairsMeta"
-import { FairsPastFairsPaginationContainer } from "../Components/FairsPastFairs"
-import { mediator } from "lib/mediator"
+import { FairsIndex_featuredFairs$data } from "__generated__/FairsIndex_featuredFairs.graphql"
+import { FairsIndex_viewer$data } from "__generated__/FairsIndex_viewer.graphql"
+import { FairsFairBannerFragmentContainer } from "Apps/Fairs/Components/FairsFairBanner"
+import { FairsFairRowFragmentContainer } from "Apps/Fairs/Components/FairsFairRow"
+import { FairsPhonePromo } from "Apps/Fairs/Components/FairsPhonePromo"
+import { FairsPromoCarousel } from "Apps/Fairs/Components/FairsPromoCarousel"
+import { FairsMeta } from "Apps/Fairs/Components/FairsMeta"
+import { FairsPastFairsPaginationContainer } from "Apps/Fairs/Components/FairsPastFairs"
+import { mediator } from "Server/mediator"
 import { useSystemContext } from "System"
 import { compact } from "lodash"
 import { cropped } from "Utils/resized"
 
 interface FairsIndexProps {
-  featuredFairs: FairsIndex_featuredFairs
-  viewer: FairsIndex_viewer
+  featuredFairs: FairsIndex_featuredFairs$data
+  viewer: FairsIndex_viewer$data
 }
 
 export const FairsIndex: React.FC<FairsIndexProps> = ({
@@ -64,6 +64,11 @@ export const FairsIndex: React.FC<FairsIndexProps> = ({
         fair.bannerSize !== "x-large"
     ),
   ]
+
+  const mobileHeaderBg = cropped(
+    "https://files.artsy.net/images/fairs-header-img.jpg",
+    { width: 767, height: 431 }
+  )
 
   return (
     <>
@@ -164,7 +169,7 @@ export const FairsIndex: React.FC<FairsIndexProps> = ({
       </Media>
 
       <Media greaterThanOrEqual="sm">
-        <Spacer mt={4} />
+        <Spacer y={4} />
 
         <Box my={2}>
           {currentFairs.length === 0 && (
@@ -388,8 +393,3 @@ export const FairsIndexFragmentContainer = createFragmentContainer(FairsIndex, {
     }
   `,
 })
-
-const mobileHeaderBg = cropped(
-  "https://files.artsy.net/images/fairs-header-img.jpg",
-  { width: 767, height: 431 }
-)

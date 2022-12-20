@@ -14,9 +14,9 @@ import {
 
 import { TimeSince } from "./TimeSince"
 
-import { OrderUpdate_event } from "../../../__generated__/OrderUpdate_event.graphql"
+import { OrderUpdate_event$data } from "../../../__generated__/OrderUpdate_event.graphql"
 export interface OrderUpdateProps {
-  event: OrderUpdate_event
+  event: OrderUpdate_event$data
   setShowDetails: (showDetails: boolean) => void
 }
 
@@ -64,7 +64,7 @@ export const OrderUpdate: React.FC<OrderUpdateProps> = ({
       Icon = AlertCircleFillIcon
       color = THEME_V3.colors.yellow100 as Color
       textColor = "black100"
-      message = "Offer accepted. Payment pending"
+      message = "Offer accepted. Payment processing"
     } else if (state === "APPROVED") {
       color = "green100"
       message = `${
@@ -117,7 +117,7 @@ export const OrderUpdate: React.FC<OrderUpdateProps> = ({
           </Flex>
         </Flex>
       </Flex>
-      <Spacer mb={5} />
+      <Spacer y={5} />
     </Flex>
   )
 }
