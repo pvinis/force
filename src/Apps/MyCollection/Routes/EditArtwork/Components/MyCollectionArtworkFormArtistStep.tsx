@@ -10,9 +10,11 @@ import { AppContainer } from "Apps/Components/AppContainer"
 import { ArtistAutoComplete } from "Apps/Consign/Routes/SubmissionFlow/ArtworkDetails/Components/ArtistAutocomplete"
 import { useMyCollectionArtworkFormContext } from "Apps/MyCollection/Routes/EditArtwork/Components/MyCollectionArtworkFormContext"
 import { MyCollectionArtworkFormHeader } from "Apps/MyCollection/Routes/EditArtwork/Components/MyCollectionArtworkFormHeader"
+import { getMyCollectionArtworkFormInitialValues } from "Apps/MyCollection/Routes/EditArtwork/Utils/artworkFormHelpers"
 import { ArtworkModel } from "Apps/MyCollection/Routes/EditArtwork/Utils/artworkModel"
 import { EntityHeaderArtistFragmentContainer } from "Components/EntityHeaders/EntityHeaderArtist"
 import { useFormikContext } from "formik"
+import { sortBy } from "lodash"
 import { useState } from "react"
 import { graphql, useFragment } from "react-relay"
 import { extractNodes } from "Utils/extractNodes"
@@ -28,10 +30,11 @@ export const MyCollectionArtworkFormArtistStep: React.FC<MyCollectionArtworkForm
   const me = useFragment(MyCollectionArtworkFormArtistStepFragment, meProp)
 
   const { onBack, onNext, onSkip } = useMyCollectionArtworkFormContext()
-  const { setFieldValue } = useFormikContext<ArtworkModel>()
+  const { setFieldValue, setValues } = useFormikContext<ArtworkModel>()
 
-  const collectedArtists = extractNodes(
-    me?.myCollectionInfo?.collectedArtistsConnection
+  const collectedArtists = sortBy(
+    extractNodes(me?.myCollectionInfo?.collectedArtistsConnection),
+    ["displayLabel"]
   )
 
   const [query, setQuery] = useState("")
@@ -59,7 +62,8 @@ export const MyCollectionArtworkFormArtistStep: React.FC<MyCollectionArtworkForm
   }
 
   const handleSkip = () => {
-    setFieldValue("artistId", undefined)
+    // Reset form values to initial values and set artist name
+    setValues(getMyCollectionArtworkFormInitialValues(), false)
     setFieldValue("artistName", trimmedQuery)
 
     onSkip?.()
@@ -135,7 +139,7 @@ export const MyCollectionArtworkFormArtistStep: React.FC<MyCollectionArtworkForm
 const MyCollectionArtworkFormArtistStepFragment = graphql`
   fragment MyCollectionArtworkFormArtistStep_me on Me {
     myCollectionInfo {
-      collectedArtistsConnection(first: 100) {
+      collectedArtistsConnection(first: 100, includePersonalArtists: true) {
         edges {
           node {
             ...EntityHeaderArtist_artist
