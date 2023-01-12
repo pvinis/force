@@ -32,9 +32,9 @@ describe("NavBarSubMenu", () => {
     const wrapper = getWrapper()
     const linkMenuItems = wrapper.find("a")
 
-    expect(linkMenuItems.at(0).text()).toContain("Trove: Editors' Picks")
+    expect(linkMenuItems.at(0).text()).toContain("Curators’ Picks: Emerging")
     expect(linkMenuItems.at(0).prop("href")).toEqual(
-      "/collection/trove-editors-picks"
+      "/collection/curators-picks-emerging"
     )
 
     expect(linkMenuItems.at(1).text()).toContain("Top Auction Lots")
@@ -42,7 +42,7 @@ describe("NavBarSubMenu", () => {
       "/collection/top-auction-lots"
     )
 
-    expect(linkMenuItems.at(2).text()).toContain("Iconic Prints")
+    expect(linkMenuItems.at(2).text()).toContain("Top Prints & Editions")
     expect(linkMenuItems.at(2).prop("href")).toEqual(
       "/collection/iconic-prints"
     )

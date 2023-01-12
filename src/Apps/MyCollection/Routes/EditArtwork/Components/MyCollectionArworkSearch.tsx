@@ -28,7 +28,7 @@ export const MyCollectionArworkSearch: React.FC<MyCollectionArworkSearchProps> =
         $input: FilterArtworksInput
       ) {
         artist(id: $artistID) {
-          filterArtworksConnection(first: 30, input: $input) {
+          filterArtworksConnection(first: 40, input: $input) {
             edges {
               node {
                 medium
@@ -39,6 +39,7 @@ export const MyCollectionArworkSearch: React.FC<MyCollectionArworkSearchProps> =
                 height
                 images {
                   height
+                  internalID
                   isDefault
                   imageURL
                   width
@@ -67,11 +68,11 @@ export const MyCollectionArworkSearch: React.FC<MyCollectionArworkSearchProps> =
   }
 
   return (
-    <>
+    <Box mb={4}>
       <Text variant={["xs", "sm-display"]}>
         Or skip ahead to{" "}
         <Clickable onClick={onSkip} textDecoration="underline">
-          <Text>add artwork details</Text>
+          <Text variant={["xs", "sm-display"]}>add artwork details</Text>
         </Clickable>
         .
       </Text>
@@ -88,6 +89,7 @@ export const MyCollectionArworkSearch: React.FC<MyCollectionArworkSearchProps> =
                 showSaveButton={false}
                 showHoverDetails={false}
                 onClick={() => onClick(artwork)}
+                to={null}
                 data-testid={`artwork-${artwork.internalID}`}
               />
 
@@ -96,7 +98,7 @@ export const MyCollectionArworkSearch: React.FC<MyCollectionArworkSearchProps> =
           )
         })}
       </Masonry>
-    </>
+    </Box>
   )
 }
 
@@ -108,7 +110,11 @@ const NoResults: React.FC<{
     <Box my={4}>
       <Text variant={["xs", "sm-display"]} flexWrap="wrap">
         We couldn’t find a work named “
-        <Text display="inline-block" color="blue100">
+        <Text
+          variant={["xs", "sm-display"]}
+          display="inline-block"
+          color="blue100"
+        >
           {query}
         </Text>
         “

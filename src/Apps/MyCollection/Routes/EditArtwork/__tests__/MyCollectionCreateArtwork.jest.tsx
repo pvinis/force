@@ -35,6 +35,9 @@ describe("MyCollectionCreateArtwork", () => {
       breakpoint = "lg",
       featureFlags = {
         "cx-my-collection-uploading-flow-steps": { flagEnabled: false },
+        "cx-my-collection-personal-artists-for-web": {
+          flagEnabled: true,
+        },
       },
     } = props
 
@@ -183,6 +186,9 @@ describe("MyCollectionCreateArtwork", () => {
             "cx-my-collection-uploading-flow-steps": {
               flagEnabled: true,
             },
+            "cx-my-collection-personal-artists-for-web": {
+              flagEnabled: true,
+            },
           },
         })
 
@@ -203,6 +209,9 @@ describe("MyCollectionCreateArtwork", () => {
         getWrapper({
           featureFlags: {
             "cx-my-collection-uploading-flow-steps": {
+              flagEnabled: true,
+            },
+            "cx-my-collection-personal-artists-for-web": {
               flagEnabled: true,
             },
           },
@@ -228,6 +237,29 @@ describe("MyCollectionCreateArtwork", () => {
     })
 
     describe("when selecting an artist", () => {
+      describe("with an artist without artworks", () => {
+        it("skips the Artwork step", async () => {
+          getWrapper({
+            featureFlags: {
+              "cx-my-collection-uploading-flow-steps": {
+                flagEnabled: true,
+              },
+              "cx-my-collection-personal-artists-for-web": {
+                flagEnabled: true,
+              },
+            },
+          })
+
+          // Selecting an artist without artworks
+          fireEvent.click(screen.getByTestId("artist-4d8b927f4eb68a1b2c00017c"))
+
+          expect(screen.getByText("Add Artwork Details")).toBeInTheDocument()
+          expect(screen.getByText("Upload Artwork")).toBeInTheDocument()
+
+          expect(screen.getByText("Joan Miró")).toBeInTheDocument()
+          expect(screen.getByText("Spanish, 1893–1983")).toBeInTheDocument()
+        })
+      })
       describe("when skipping the artwork select step", () => {
         it("populates artist and artwork title in the form", async () => {
           getWrapper({
@@ -392,6 +424,9 @@ const mockMe = {
             isPersonalArtist: false,
             name: "Banksy",
             slug: "banksy",
+            counts: {
+              artworks: 100,
+            },
           },
         },
         {
@@ -412,6 +447,9 @@ const mockMe = {
             isPersonalArtist: false,
             name: "Joan Miró",
             slug: "joan-miro",
+            counts: {
+              artworks: 0,
+            },
           },
         },
         {

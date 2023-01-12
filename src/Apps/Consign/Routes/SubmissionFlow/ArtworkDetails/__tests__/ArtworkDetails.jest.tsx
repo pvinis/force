@@ -204,7 +204,10 @@ describe("ArtworkDetails", () => {
 
       expect(
         screen.getAllByRole("link").find(c => c.textContent?.includes("Back"))
-      ).toHaveAttribute("href", "/sell")
+      ).toHaveAttribute(
+        "href",
+        "/sell/submission/<ConsignmentSubmission-mock-id-1>/contact-information"
+      )
     })
 
     it("renders learn more link with correct href", () => {
@@ -307,31 +310,6 @@ describe("ArtworkDetails", () => {
       })
 
       expect(screen.getByTestId("save-button")).toBeDisabled()
-    })
-
-    describe("postal code", () => {
-      it("is disabled if postal code empty and US address selected", async () => {
-        getWrapper().renderWithRelay({
-          ConsignmentSubmission: () => ({
-            ...validForm,
-            locationPostalCode: null,
-          }),
-        })
-
-        expect(screen.getByTestId("save-button")).toBeDisabled()
-      })
-
-      it("is disabled if postal code empty and selected counry that don't require postal code", async () => {
-        getWrapper().renderWithRelay({
-          ConsignmentSubmission: () => ({
-            ...validForm,
-            locationCountryCode: "BY",
-            locationPostalCode: null,
-          }),
-        })
-
-        expect(screen.getByTestId("save-button")).toBeEnabled()
-      })
     })
 
     it("is enabled if form is valid", async () => {

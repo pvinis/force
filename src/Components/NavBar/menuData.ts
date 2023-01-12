@@ -32,7 +32,7 @@ export const ARTISTS_SUBMENU_DATA: MenuLinkData = {
     title: "Artists",
     links: [
       {
-        text: "Trending This Week",
+        text: "Trending Now",
         href: "/collection/trending-this-week",
       },
       {
@@ -58,7 +58,7 @@ export const ARTISTS_SUBMENU_DATA: MenuLinkData = {
               href: "/collection/contemporary-now",
             },
             {
-              text: "Women Artists to Watch",
+              text: "Women Artists Now",
               href: "/collection/women-artists-to-watch",
             },
           ],
@@ -151,15 +151,15 @@ export const ARTWORKS_SUBMENU_DATA: MenuLinkData = {
     title: "Artworks",
     links: [
       {
-        text: "Trove: Editors' Picks",
-        href: "/collection/trove-editors-picks",
+        text: "Curators’ Picks: Emerging",
+        href: "/collection/curators-picks-emerging",
       },
       {
         text: "Top Auction Lots",
         href: "/collection/top-auction-lots",
       },
       {
-        text: "Iconic Prints",
+        text: "Top Prints & Editions",
         href: "/collection/iconic-prints",
       },
       {

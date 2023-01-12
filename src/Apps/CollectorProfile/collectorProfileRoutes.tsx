@@ -20,7 +20,7 @@ const MyCollectionRoute = loadable(
     ),
   {
     resolveComponent: component =>
-      component.CollectorProfileMyCollectionRouteRefetchContainer,
+      component.CollectorProfileMyCollectionRoutePaginationContainer,
   }
 )
 
@@ -43,6 +43,17 @@ const SavesAndFollowsRoute = loadable(
   {
     resolveComponent: component =>
       component.CollectorProfileSavesAndFollowsRouteFragmentContainer,
+  }
+)
+
+const FollowsRoute = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "collectorProfileBundle" */ "./Routes/Follows/CollectorProfileFollowsRoute"
+    ),
+  {
+    resolveComponent: component =>
+      component.CollectorProfileFollowsRouteFragmentContainer,
   }
 )
 
@@ -161,6 +172,21 @@ export const collectorProfileRoutes: AppRouteConfig[] = [
           query collectorProfileRoutes_SavesAndFollowsRouteQuery {
             me {
               ...CollectorProfileSavesAndFollowsRoute_me
+            }
+          }
+        `,
+      },
+      {
+        path: "follows",
+        getComponent: () => FollowsRoute,
+        onClientSideRender: () => {
+          FollowsRoute.preload()
+        },
+        onServerSideRender: handleServerSideRender,
+        query: graphql`
+          query collectorProfileRoutes_FollowsRouteQuery {
+            me {
+              ...CollectorProfileFollowsRoute_me
             }
           }
         `,
