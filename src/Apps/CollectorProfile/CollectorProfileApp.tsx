@@ -21,12 +21,13 @@ const CollectorProfileApp: React.FC<CollectorProfileAppProps> = ({
   const isSeparateSavesAndFollowsEnabled = useFeatureFlag(
     "collector-profile-separating-saves-and-follows"
   )
-  if (!isCollectorProfileEnabled) {
-    return null
-  }
 
   if (!isLoggedIn) {
     return <EmptyMyCollectionPage />
+  }
+
+  if (!isCollectorProfileEnabled) {
+    return null
   }
 
   const tabs = compact([
