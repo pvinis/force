@@ -2,6 +2,7 @@ import { BorderedRadio, Checkbox, Collapse } from "@artsy/palette"
 import { PaymentTestQuery$rawResponse } from "__generated__/PaymentTestQuery.graphql"
 import {
   BuyOrderWithShippingDetails,
+  PrivateSaleOrderWithShippingDetails,
   BuyOrderWithBankDebitDetails,
   OfferOrderWithShippingDetails,
 } from "Apps/__tests__/Fixtures/Order"
@@ -97,6 +98,7 @@ const testOrder: PaymentTestQuery$rawResponse["order"] = {
   ] as CommercePaymentMethodEnum[],
   internalID: "1234",
 }
+
 const testOrderWithACH: PaymentTestQuery$rawResponse["order"] = {
   ...BuyOrderWithBankDebitDetails,
   internalID: "1234",
@@ -565,6 +567,49 @@ describe("Payment", () => {
 
       expect(mockSetIsSavingPayment).toHaveBeenCalledWith(false)
       expect(pushMock).toHaveBeenCalledWith("/orders/1234/review")
+    })
+  })
+
+  describe("Private sale orders", () => {
+    let page: PaymentTestPage
+
+    const privateSaleOrderWithWire = {
+      ...PrivateSaleOrderWithShippingDetails,
+      availablePaymentMethods: [
+        "CREDIT_CARD",
+        "WIRE_TRANSFER",
+      ] as CommercePaymentMethodEnum[],
+    }
+
+    beforeEach(() => {
+      jest.clearAllMocks()
+      ;(useOrderPaymentContext as jest.Mock).mockImplementation(() => {
+        return {
+          selectedPaymentMethod: "WIRE_TRANSFER",
+        }
+      })
+
+      const wrapper = getWrapper({
+        CommerceOrder: () => privateSaleOrderWithWire,
+      })
+      page = new PaymentTestPage(wrapper)
+    })
+
+    it("renders correct content for wire transfer", () => {
+      expect(page.text()).toContain(
+        "• To pay by wire transfer, complete checkout to view banking"
+      )
+
+      expect(page.text()).toContain(
+        "• Please inform your bank that you will be responsible for all wire transfer fees."
+      )
+    })
+
+    it("shows private sale stepper if the order source is private sale", () => {
+      expect(page.orderStepper.text()).toMatchInlineSnapshot(
+        `"PaymentNavigate rightReviewNavigate right"`
+      )
+      expect(page.orderStepperCurrentStep).toBe("Payment")
     })
   })
 })
