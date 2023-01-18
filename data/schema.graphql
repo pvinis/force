@@ -2108,9 +2108,17 @@ type Artwork implements Node & Searchable & Sellable {
 
   # A globally unique ID.
   id: ID!
-  image: Image
+  image(
+    # Show all images, even if they are not ready or processing failed.
+    includeAll: Boolean
+    size: Int
+  ): Image
   imageRights: String
-  images(size: Int): [Image]
+  images(
+    # Show all images, even if they are not ready or processing failed.
+    includeAll: Boolean
+    size: Int
+  ): [Image]
   imageTitle: String
   imageUrl: String
 
@@ -2543,7 +2551,7 @@ type ArtworkVersion implements Node {
   artists: [Artist]
 
   # The Artwork Version attribution class
-  attributionClass: String
+  attributionClass: AttributionClass
 
   # The Image id
   defaultImageID: String
@@ -2676,6 +2684,7 @@ type AuctionResult implements Node {
   internalID: ID!
   isUpcoming: Boolean
   location: String
+  lotNumber: String
   mediumText: String
   organization: String
   performance: AuctionLotPerformance
@@ -2748,6 +2757,7 @@ type AuctionResultsByArtists {
   highEstimateCentsUsd: BigInt
   id: ID!
   location: String
+  lotNumber: String
   lowEstimateCents: BigInt
   lowEstimateCentsUsd: BigInt
   mediumText: String
@@ -3806,6 +3816,7 @@ type CommerceBuyOrder implements CommerceOrder {
   ): String
   commissionFeeCents: Int
   commissionRate: Float
+  conditionsOfSale: String
   conversation: Conversation
   createdAt(
     format: String
@@ -3966,6 +3977,9 @@ enum CommerceCancelReasonTypeEnum {
 
   # cancelation reason is: buyer_rejected
   BUYER_REJECTED
+
+  # cancelation reason is: funds_not_received
+  FUNDS_NOT_RECEIVED
 
   # cancelation reason is: seller_lapsed
   SELLER_LAPSED
@@ -4535,6 +4549,7 @@ type CommerceOfferOrder implements CommerceOrder {
   ): String
   commissionFeeCents: Int
   commissionRate: Float
+  conditionsOfSale: String
   conversation: Conversation
   createdAt(
     format: String
@@ -4767,6 +4782,7 @@ interface CommerceOrder {
   ): String
   commissionFeeCents: Int
   commissionRate: Float
+  conditionsOfSale: String
   createdAt(
     format: String
 
@@ -10482,6 +10498,28 @@ type MarketPriceInsightsEdge {
   node: MarketPriceInsights
 }
 
+type MarkNotificationAsReadFailure {
+  mutationError: GravityMutationError
+}
+
+input MarkNotificationAsReadInput {
+  clientMutationId: String
+  id: String!
+}
+
+type MarkNotificationAsReadPayload {
+  clientMutationId: String
+  responseOrError: MarkNotificationAsReadResponseOrError
+}
+
+union MarkNotificationAsReadResponseOrError =
+    MarkNotificationAsReadFailure
+  | MarkNotificationAsReadSuccess
+
+type MarkNotificationAsReadSuccess {
+  success: Boolean
+}
+
 union Match =
     Article
   | Artist
@@ -11469,6 +11507,11 @@ type Mutation {
     input: MarkAllNotificationsAsReadInput!
   ): MarkAllNotificationsAsReadPayload
 
+  # Mark an unread notifications as read
+  markNotificationAsRead(
+    input: MarkNotificationAsReadInput!
+  ): MarkNotificationAsReadPayload
+
   # Merge multiple artist records in order to deduplicate artists
   mergeArtists(input: MergeArtistsMutationInput!): MergeArtistsMutationPayload
 
@@ -11953,6 +11996,7 @@ input NotificationPreferenceInput {
 }
 
 enum NotificationTypesEnum {
+  ARTICLE_FEATURED_ARTIST
   ARTWORK_ALERT
   ARTWORK_PUBLISHED
   PARTNER_SHOW_OPENED
