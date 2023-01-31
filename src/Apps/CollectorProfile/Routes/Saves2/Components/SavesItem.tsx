@@ -22,7 +22,7 @@ const SavesItem: FC<SavesItemProps> = ({
   onClick,
 }) => {
   const artworkNodes = extractNodes(item.artworksConnection)
-  const imageURLs = artworkNodes.map(node => node.image?.url ?? null)
+  const imageEntities = artworkNodes.map(node => node.image?.cropped ?? null)
 
   return (
     <Flex
@@ -38,9 +38,9 @@ const SavesItem: FC<SavesItemProps> = ({
       onClick={onClick}
     >
       {imagesLayout === "stacked" ? (
-        <StackedImageLayout imageURLs={imageURLs} />
+        <StackedImageLayout imageEntities={imageEntities} />
       ) : (
-        <FourUpImageLayout imageURLs={imageURLs} />
+        <FourUpImageLayout imageEntities={imageEntities} />
       )}
 
       <Box>
@@ -64,7 +64,10 @@ export const SavesItemFragmentContainer = createFragmentContainer(SavesItem, {
         edges {
           node {
             image {
-              url(version: "square")
+              cropped(version: "square", width: 190, height: 190) {
+                src
+                srcSet
+              }
             }
           }
         }

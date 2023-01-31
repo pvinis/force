@@ -1,14 +1,17 @@
 import { Box, Flex, Image, Spacer } from "@artsy/palette"
-import { prepareImageURLs } from "Apps/CollectorProfile/Routes/Saves2/Utils/prepareImageURLs"
+import {
+  ImageEntities,
+  ImageEntity,
+  prepareImageEntities,
+} from "Apps/CollectorProfile/Routes/Saves2/Utils/prepareImageEntities"
 import { FC } from "react"
-import { cropped } from "Utils/resized"
 
 interface FourUpImageLayoutProps {
-  imageURLs: (string | null)[]
+  imageEntities: ImageEntities
 }
 
 interface RowImageProps {
-  url: string | null
+  imageEntity: ImageEntity | null
 }
 
 const LARGE_IMAGE_SIZE = 100
@@ -16,33 +19,33 @@ const SMALL_IMAGE_SIZE = 58
 const IMAGE_OFFSET = "2px"
 
 export const FourUpImageLayout: FC<FourUpImageLayoutProps> = ({
-  imageURLs,
+  imageEntities,
 }) => {
-  const preparedImageURLs = prepareImageURLs(imageURLs)
+  const preparedImageEntities = prepareImageEntities(imageEntities)
 
   return (
     <Box>
       <Flex flexDirection="row">
-        <RowImage url={preparedImageURLs[0]} />
+        <RowImage imageEntity={preparedImageEntities[0]} />
         <Spacer x={IMAGE_OFFSET} />
-        <RowImage url={preparedImageURLs[1]} />
+        <RowImage imageEntity={preparedImageEntities[1]} />
       </Flex>
 
       <Spacer y={IMAGE_OFFSET} />
 
       <Flex flexDirection="row">
-        <RowImage url={preparedImageURLs[2]} />
+        <RowImage imageEntity={preparedImageEntities[2]} />
         <Spacer x={IMAGE_OFFSET} />
-        <RowImage url={preparedImageURLs[3]} />
+        <RowImage imageEntity={preparedImageEntities[3]} />
       </Flex>
     </Box>
   )
 }
 
-const RowImage: FC<RowImageProps> = ({ url }) => {
+const RowImage: FC<RowImageProps> = ({ imageEntity }) => {
   const SIZE = [SMALL_IMAGE_SIZE, LARGE_IMAGE_SIZE]
 
-  if (url === null) {
+  if (imageEntity === null) {
     return (
       <Box
         width={SIZE}
@@ -55,18 +58,13 @@ const RowImage: FC<RowImageProps> = ({ url }) => {
     )
   }
 
-  const image = cropped(url, {
-    width: LARGE_IMAGE_SIZE,
-    height: LARGE_IMAGE_SIZE,
-  })
-
   return (
     <Image
       width={SIZE}
       height={SIZE}
       preventRightClick
-      src={image.src}
-      srcSet={image.srcSet}
+      src={imageEntity.src}
+      srcSet={imageEntity.srcSet}
       aria-label="Image"
     />
   )

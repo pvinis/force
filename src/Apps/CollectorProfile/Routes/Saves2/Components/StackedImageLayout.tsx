@@ -1,14 +1,17 @@
 import { Box, Image } from "@artsy/palette"
-import { prepareImageURLs } from "Apps/CollectorProfile/Routes/Saves2/Utils/prepareImageURLs"
+import {
+  ImageEntities,
+  ImageEntity,
+  prepareImageEntities,
+} from "Apps/CollectorProfile/Routes/Saves2/Utils/prepareImageEntities"
 import { FC } from "react"
-import { cropped } from "Utils/resized"
 
 interface StackedImageLayoutProps {
-  imageURLs: (string | null)[]
+  imageEntities: ImageEntities
 }
 
 interface StackImageProps {
-  url: string | null
+  imageEntity: ImageEntity | null
   index: number
 }
 
@@ -18,28 +21,28 @@ const LARGE_IMAGE_OFFSET = 4
 const SMALL_IMAGE_OFFSET = 2
 
 export const StackedImageLayout: FC<StackedImageLayoutProps> = ({
-  imageURLs,
+  imageEntities,
 }) => {
-  const preparedImageURLs = prepareImageURLs(imageURLs)
-  const reversedImageURLs = preparedImageURLs.reverse()
+  const preparedImageEntities = prepareImageEntities(imageEntities)
+  const reversedImageEntities = preparedImageEntities.reverse()
 
   return (
     <Box position="relative">
-      {reversedImageURLs.map((imageURL, index) => (
-        <StackImage url={imageURL} index={index} />
+      {reversedImageEntities.map((imageEntity, index) => (
+        <StackImage imageEntity={imageEntity} index={index} />
       ))}
     </Box>
   )
 }
 
-const StackImage: FC<StackImageProps> = ({ url, index }) => {
+const StackImage: FC<StackImageProps> = ({ imageEntity, index }) => {
   const SIZE = [SMALL_IMAGE_SIZE, LARGE_IMAGE_SIZE]
   const OFFSET_BY_INDEX = [
     `${SMALL_IMAGE_OFFSET * index}px`,
     `${LARGE_IMAGE_OFFSET * index}px`,
   ]
 
-  if (url === null) {
+  if (imageEntity === null) {
     return (
       <Box
         width={SIZE}
@@ -55,18 +58,13 @@ const StackImage: FC<StackImageProps> = ({ url, index }) => {
     )
   }
 
-  const image = cropped(url, {
-    width: LARGE_IMAGE_SIZE,
-    height: LARGE_IMAGE_SIZE,
-  })
-
   return (
     <Box position="absolute" top={OFFSET_BY_INDEX} left={OFFSET_BY_INDEX}>
       <Image
         width={SIZE}
         height={SIZE}
-        src={image.src}
-        srcSet={image.srcSet}
+        src={imageEntity.src}
+        srcSet={imageEntity.srcSet}
         aria-label="Image"
         preventRightClick
       />

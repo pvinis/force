@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4650bcb8978384addebc5a6cd8c99a5f>>
+ * @generated SignedSource<<49956f555eb658166b7066c170f7f7ab>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -47,6 +47,12 @@ v2 = {
   "nullable": false,
   "plural": false,
   "type": "ID"
+},
+v3 = {
+  "enumValues": null,
+  "nullable": false,
+  "plural": false,
+  "type": "String"
 };
 return {
   "fragment": {
@@ -203,13 +209,41 @@ return {
                                         "args": [
                                           {
                                             "kind": "Literal",
+                                            "name": "height",
+                                            "value": 190
+                                          },
+                                          {
+                                            "kind": "Literal",
                                             "name": "version",
                                             "value": "square"
+                                          },
+                                          {
+                                            "kind": "Literal",
+                                            "name": "width",
+                                            "value": 190
                                           }
                                         ],
-                                        "kind": "ScalarField",
-                                        "name": "url",
-                                        "storageKey": "url(version:\"square\")"
+                                        "concreteType": "CroppedImageUrl",
+                                        "kind": "LinkedField",
+                                        "name": "cropped",
+                                        "plural": false,
+                                        "selections": [
+                                          {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "src",
+                                            "storageKey": null
+                                          },
+                                          {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "srcSet",
+                                            "storageKey": null
+                                          }
+                                        ],
+                                        "storageKey": "cropped(height:190,version:\"square\",width:190)"
                                       }
                                     ],
                                     "storageKey": null
@@ -241,7 +275,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e1924cab8e1d93e7228a48348e01d0e1",
+    "cacheID": "613e3914cfeb1b249fe8e1787d0dec19",
     "id": null,
     "metadata": {
       "relayTestingSelectionTypeInfo": {
@@ -294,12 +328,14 @@ return {
           "plural": false,
           "type": "Image"
         },
-        "me.collectionsConnection.edges.node.artworksConnection.edges.node.image.url": {
+        "me.collectionsConnection.edges.node.artworksConnection.edges.node.image.cropped": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
-          "type": "String"
+          "type": "CroppedImageUrl"
         },
+        "me.collectionsConnection.edges.node.artworksConnection.edges.node.image.cropped.src": (v3/*: any*/),
+        "me.collectionsConnection.edges.node.artworksConnection.edges.node.image.cropped.srcSet": (v3/*: any*/),
         "me.collectionsConnection.edges.node.artworksCount": {
           "enumValues": null,
           "nullable": false,
@@ -307,18 +343,13 @@ return {
           "type": "Int"
         },
         "me.collectionsConnection.edges.node.id": (v2/*: any*/),
-        "me.collectionsConnection.edges.node.name": {
-          "enumValues": null,
-          "nullable": false,
-          "plural": false,
-          "type": "String"
-        },
+        "me.collectionsConnection.edges.node.name": (v3/*: any*/),
         "me.id": (v2/*: any*/)
       }
     },
     "name": "SavesItem_test_Query",
     "operationKind": "query",
-    "text": "query SavesItem_test_Query {\n  me {\n    collectionsConnection(first: 1) {\n      edges {\n        node {\n          ...SavesItem_item\n          id\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment SavesItem_item on Collection {\n  name\n  artworksCount\n  artworksConnection(first: 4) {\n    edges {\n      node {\n        image {\n          url(version: \"square\")\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query SavesItem_test_Query {\n  me {\n    collectionsConnection(first: 1) {\n      edges {\n        node {\n          ...SavesItem_item\n          id\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment SavesItem_item on Collection {\n  name\n  artworksCount\n  artworksConnection(first: 4) {\n    edges {\n      node {\n        image {\n          cropped(version: \"square\", width: 190, height: 190) {\n            src\n            srcSet\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

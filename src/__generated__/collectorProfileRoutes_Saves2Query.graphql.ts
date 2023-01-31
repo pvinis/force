@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f558874bec1d8d551e37f4ade9b028cd>>
+ * @generated SignedSource<<e7ecd2b2cca6f33cff98222519770cdc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -171,13 +171,41 @@ return {
                                         "args": [
                                           {
                                             "kind": "Literal",
+                                            "name": "height",
+                                            "value": 190
+                                          },
+                                          {
+                                            "kind": "Literal",
                                             "name": "version",
                                             "value": "square"
+                                          },
+                                          {
+                                            "kind": "Literal",
+                                            "name": "width",
+                                            "value": 190
                                           }
                                         ],
-                                        "kind": "ScalarField",
-                                        "name": "url",
-                                        "storageKey": "url(version:\"square\")"
+                                        "concreteType": "CroppedImageUrl",
+                                        "kind": "LinkedField",
+                                        "name": "cropped",
+                                        "plural": false,
+                                        "selections": [
+                                          {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "src",
+                                            "storageKey": null
+                                          },
+                                          {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "srcSet",
+                                            "storageKey": null
+                                          }
+                                        ],
+                                        "storageKey": "cropped(height:190,version:\"square\",width:190)"
                                       }
                                     ],
                                     "storageKey": null
@@ -209,12 +237,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "890e0e56a1c9451d69544a5bdcb30c53",
+    "cacheID": "3e6ed33d3fffa41ce385afa38bc14f7e",
     "id": null,
     "metadata": {},
     "name": "collectorProfileRoutes_Saves2Query",
     "operationKind": "query",
-    "text": "query collectorProfileRoutes_Saves2Query {\n  me {\n    ...CollectorProfileSaves2Route_me\n    id\n  }\n}\n\nfragment CollectorProfileSaves2Route_me on Me {\n  collectionsConnection(first: 10) {\n    edges {\n      node {\n        internalID\n        default\n        ...SavesItem_item\n        id\n      }\n    }\n  }\n}\n\nfragment SavesItem_item on Collection {\n  name\n  artworksCount\n  artworksConnection(first: 4) {\n    edges {\n      node {\n        image {\n          url(version: \"square\")\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query collectorProfileRoutes_Saves2Query {\n  me {\n    ...CollectorProfileSaves2Route_me\n    id\n  }\n}\n\nfragment CollectorProfileSaves2Route_me on Me {\n  collectionsConnection(first: 10) {\n    edges {\n      node {\n        internalID\n        default\n        ...SavesItem_item\n        id\n      }\n    }\n  }\n}\n\nfragment SavesItem_item on Collection {\n  name\n  artworksCount\n  artworksConnection(first: 4) {\n    edges {\n      node {\n        image {\n          cropped(version: \"square\", width: 190, height: 190) {\n            src\n            srcSet\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

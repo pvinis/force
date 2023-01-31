@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<337c0d59273f1b26bd414b8a5696fdf0>>
+ * @generated SignedSource<<0068f5fc86c932ffd68bfddc7c572b64>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,10 @@ export type SavesItem_item$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly image: {
-          readonly url: string | null;
+          readonly cropped: {
+            readonly src: string;
+            readonly srcSet: string;
+          } | null;
         } | null;
       } | null;
     } | null> | null;
@@ -92,13 +95,41 @@ const node: ReaderFragment = {
                       "args": [
                         {
                           "kind": "Literal",
+                          "name": "height",
+                          "value": 190
+                        },
+                        {
+                          "kind": "Literal",
                           "name": "version",
                           "value": "square"
+                        },
+                        {
+                          "kind": "Literal",
+                          "name": "width",
+                          "value": 190
                         }
                       ],
-                      "kind": "ScalarField",
-                      "name": "url",
-                      "storageKey": "url(version:\"square\")"
+                      "concreteType": "CroppedImageUrl",
+                      "kind": "LinkedField",
+                      "name": "cropped",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "src",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "srcSet",
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": "cropped(height:190,version:\"square\",width:190)"
                     }
                   ],
                   "storageKey": null
@@ -117,6 +148,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "7f59232bbe137b64748098de8e908b73";
+(node as any).hash = "362e5cd34c5831917fc50119f1e79082";
 
 export default node;
