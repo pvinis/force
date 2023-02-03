@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aff2bf34ec73d1798386c4ed213dcc48>>
+ * @generated SignedSource<<623d6760a2b7e42478c6c1aef8cfd667>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,9 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CollectorProfileSaves2ByIdRoute_me$data = {
   readonly collection: {
-    readonly internalID: string;
+    readonly default: boolean;
+    readonly name: string;
+    readonly " $fragmentSpreads": FragmentRefs<"SavesArtworks_collection">;
   } | null;
   readonly " $fragmentType": "CollectorProfileSaves2ByIdRoute_me";
 };
@@ -51,8 +53,20 @@ const node: ReaderFragment = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "internalID",
+          "name": "name",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "default",
+          "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "SavesArtworks_collection"
         }
       ],
       "storageKey": null
@@ -62,6 +76,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "3197bff3c51a981f5ad70f4b3e5fecf5";
+(node as any).hash = "313562e5060905ba0686ea5d35af9d54";
 
 export default node;
