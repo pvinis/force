@@ -2,9 +2,8 @@ import { Shelf, Spacer } from "@artsy/palette"
 import { SavesArtworksQueryRenderer } from "./Components/SavesArtworks"
 import { SavesItemFragmentContainer } from "./Components/SavesItem"
 import { orderBy } from "lodash"
-import { FC, useRef } from "react"
+import { FC, useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { useRouter } from "System/Router/useRouter"
 import { extractNodes } from "Utils/extractNodes"
 import { CollectorProfileSaves2Route_me$data } from "__generated__/CollectorProfileSaves2Route_me.graphql"
 
@@ -15,40 +14,23 @@ interface CollectorProfileSaves2RouteProps {
 const CollectorProfileSaves2Route: FC<CollectorProfileSaves2RouteProps> = ({
   me,
 }) => {
-  const { match } = useRouter()
-  const initialCollectionId = useRef(match.params.id)
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const nodes = extractNodes(me.collectionsConnection)
   // Placing the default collection at the top of the list
   let collections = orderBy(nodes, ["default"], ["desc"])
-  const savedCollections = collections[0]
-  const selectedCollectionId = match.params.id ?? savedCollections.internalID
-
-  if (initialCollectionId.current !== undefined) {
-    const index = collections.findIndex(
-      collection => collection.internalID === initialCollectionId.current
-    )
-
-    // "Locking" the initial collection in the 2nd slot
-    if (index !== -1) {
-      // Remove the initial collection from collections array
-      const initialCollection = collections.splice(index, 1)
-
-      // Ignore the first collection (the default saved collection)
-      const otherCollections = collections.slice(1)
-
-      collections = [collections[0], ...initialCollection, ...otherCollections]
-    }
-  }
+  const savedCollections = collections[selectedIndex]
+  const selectedCollectionId = savedCollections.internalID
 
   return (
     <>
       <Shelf showProgress={false}>
-        {collections.map(collection => (
+        {collections.map((collection, index) => (
           <SavesItemFragmentContainer
             key={collection.internalID}
             item={collection}
             isSelected={collection.internalID === selectedCollectionId}
             imagesLayout={collection.default ? "grid" : "stacked"}
+            onClick={() => setSelectedIndex(index)}
           />
         ))}
       </Shelf>
