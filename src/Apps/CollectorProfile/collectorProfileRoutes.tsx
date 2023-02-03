@@ -57,6 +57,17 @@ const Saves2 = loadable(
   }
 )
 
+const Saves2ById = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "collectorProfileBundle" */ "./Routes/Saves2/CollectorProfileSaves2ByIdRoute"
+    ),
+  {
+    resolveComponent: component =>
+      component.CollectorProfileSaves2ByIdRouteFragmentContainer,
+  }
+)
+
 const FollowsRoute = loadable(
   () =>
     import(
@@ -197,6 +208,20 @@ export const collectorProfileRoutes: AppRouteConfig[] = [
           query collectorProfileRoutes_Saves2Query {
             me {
               ...CollectorProfileSaves2Route_me
+            }
+          }
+        `,
+      },
+      {
+        path: "saves2/:id",
+        getComponent: () => Saves2ById,
+        onClientSideRender: () => {
+          Saves2ById.preload()
+        },
+        query: graphql`
+          query collectorProfileRoutes_Saves2ByIdQuery($id: String!) {
+            me {
+              ...CollectorProfileSaves2ByIdRoute_me @arguments(id: $id)
             }
           }
         `,
