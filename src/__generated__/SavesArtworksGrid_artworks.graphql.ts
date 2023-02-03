@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e241cf5eedf7655452f718ecf01261f>>
+ * @generated SignedSource<<de08d9b104b67e2aeb2bc2fd981123e3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,7 +23,7 @@ export type SavesArtworksGrid_artworks$data = {
     readonly endCursor: string | null;
     readonly hasNextPage: boolean;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"ArtworkGrid_artworks">;
+  readonly " $fragmentSpreads": FragmentRefs<"SavesArtworkGrid_artworks">;
   readonly " $fragmentType": "SavesArtworksGrid_artworks";
 };
 export type SavesArtworksGrid_artworks$key = {
@@ -110,13 +110,13 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ArtworkGrid_artworks"
+      "name": "SavesArtworkGrid_artworks"
     }
   ],
   "type": "ArtworkConnection",
   "abstractKey": null
 };
 
-(node as any).hash = "0a60d49cb2eae3590b750a371aa88e40";
+(node as any).hash = "b4aa4376aa8252bd09bd918d5467a114";
 
 export default node;

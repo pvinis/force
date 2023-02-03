@@ -2,11 +2,9 @@ import { createFragmentContainer, graphql, RelayRefetchProp } from "react-relay"
 import { SavesArtworksGrid_artworks$data } from "__generated__/SavesArtworksGrid_artworks.graphql"
 import { SavesArtworksGrid_collection$data } from "__generated__/SavesArtworksGrid_collection.graphql"
 import { useTracking } from "react-tracking"
-import ArtworkGrid from "Components/ArtworkGrid"
 import { PaginationFragmentContainer as Pagination } from "Components/Pagination"
 import {
   ContextModule,
-  clickedMainArtworkGrid,
   ClickedChangePage,
   ActionType,
   commercialFilterParamsChanged,
@@ -23,6 +21,7 @@ import { isEqual } from "lodash"
 import { Jump } from "Utils/Hooks/useJump"
 import { allowedFilters } from "Components/ArtworkFilter/Utils/allowedFilters"
 import { SavesEmptyStateFragmentContainer } from "./SavesEmptyState"
+import { SavesArtworkGridFragmentContainer } from "Apps/CollectorProfile/Routes/Saves2/Components/SavesArtworkGrid"
 
 interface SavesArtworksGridProps {
   artworks: SavesArtworksGrid_artworks$data
@@ -158,27 +157,7 @@ const SavesArtworksGrid: FC<SavesArtworksGridProps> = ({
       <Spacer y={2} />
 
       <LoadingArea isLoading={fetching}>
-        <ArtworkGrid
-          artworks={artworks}
-          columnCount={[2, 2, 2, 3]}
-          contextModule={ContextModule.artworkGrid}
-          itemMargin={40}
-          emptyStateComponent={null}
-          onBrickClick={(artwork, artworkIndex) => {
-            // TODO: Clarify moments about analytics
-            trackEvent(
-              clickedMainArtworkGrid({
-                contextPageOwnerType: contextPageOwnerType!,
-                contextPageOwnerSlug,
-                contextPageOwnerId,
-                destinationPageOwnerId: artwork.internalID,
-                destinationPageOwnerSlug: artwork.slug,
-                position: artworkIndex,
-                sort: context?.filters?.sort,
-              })
-            )
-          }}
-        />
+        <SavesArtworkGridFragmentContainer artworks={artworks} />
 
         <Pagination
           hasNextPage={hasNextPage}
@@ -209,7 +188,7 @@ export const SavesArtworksGridFragmentContainer = createFragmentContainer(
             id
           }
         }
-        ...ArtworkGrid_artworks
+        ...SavesArtworkGrid_artworks
       }
     `,
     collection: graphql`
