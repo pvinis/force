@@ -6,6 +6,7 @@ import { FC, useState } from "react"
 import { createFragmentContainer, graphql } from "react-relay"
 import { extractNodes } from "Utils/extractNodes"
 import { CollectorProfileSaves2Route_me$data } from "__generated__/CollectorProfileSaves2Route_me.graphql"
+import { SavesSeeAll } from "Apps/CollectorProfile/Routes/Saves2/Components/SavesSeeAll"
 
 interface CollectorProfileSaves2RouteProps {
   me: CollectorProfileSaves2Route_me$data
@@ -23,7 +24,8 @@ const CollectorProfileSaves2Route: FC<CollectorProfileSaves2RouteProps> = ({
 
   return (
     <>
-      <Shelf showProgress={false}>
+      {/* @ts-ignore */}
+      <Shelf showProgress={false} alignItems="center">
         {collections.map((collection, index) => (
           <SavesItemFragmentContainer
             key={collection.internalID}
@@ -33,6 +35,8 @@ const CollectorProfileSaves2Route: FC<CollectorProfileSaves2RouteProps> = ({
             onClick={() => setSelectedIndex(index)}
           />
         ))}
+
+        <SavesSeeAll key="see-all" />
       </Shelf>
 
       <Spacer y={2} />
