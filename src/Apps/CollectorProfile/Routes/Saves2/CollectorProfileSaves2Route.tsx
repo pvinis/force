@@ -1,5 +1,4 @@
 import { Shelf, Spacer } from "@artsy/palette"
-import { SavesArtworksQueryRenderer } from "./Components/SavesArtworks"
 import { SavesItemFragmentContainer } from "./Components/SavesItem"
 import { orderBy } from "lodash"
 import { FC, useState } from "react"
@@ -7,6 +6,7 @@ import { createFragmentContainer, graphql } from "react-relay"
 import { extractNodes } from "Utils/extractNodes"
 import { CollectorProfileSaves2Route_me$data } from "__generated__/CollectorProfileSaves2Route_me.graphql"
 import { SavesSeeAll } from "Apps/CollectorProfile/Routes/Saves2/Components/SavesSeeAll"
+import { SavesPreviewArtworksRenderer } from "Apps/CollectorProfile/Routes/Saves2/Components/SavesPreviewArtworks"
 
 interface CollectorProfileSaves2RouteProps {
   me: CollectorProfileSaves2Route_me$data
@@ -41,7 +41,7 @@ const CollectorProfileSaves2Route: FC<CollectorProfileSaves2RouteProps> = ({
 
       <Spacer y={2} />
 
-      <SavesArtworksQueryRenderer collectionID={selectedCollectionId} />
+      <SavesPreviewArtworksRenderer collectionID={selectedCollectionId} />
     </>
   )
 }
