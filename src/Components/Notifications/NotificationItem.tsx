@@ -10,6 +10,11 @@ import { useTracking } from "react-tracking"
 import { useSystemContext } from "System"
 import createLogger from "Utils/logger"
 import { markNotificationAsRead } from "Components/Notifications/Mutations/markNotificationAsRead"
+import {
+  isArtworksBasedNotification,
+  shouldDisplayNotificationTypeLabel,
+} from "./util"
+import { NotificationTypeLabel } from "./NotificationTypeLabel"
 
 const logger = createLogger("NotificationItem")
 
@@ -24,18 +29,9 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ item }) => {
   const { relayEnvironment } = useSystemContext()
   const artworks = extractNodes(item.artworksConnection)
   const remainingArtworksCount = item.objectsCount - 4
-
-  const getNotificationType = () => {
-    if (item.notificationType === "ARTWORK_ALERT") {
-      return "Alert"
-    }
-    if (item.notificationType === "ARTICLE_FEATURED_ARTIST") {
-      return "Artsy Editorial"
-    }
-
-    return null
-  }
-  const notificationTypeLabel = getNotificationType()
+  const shouldDisplayCounts =
+    isArtworksBasedNotification(item.notificationType) &&
+    remainingArtworksCount > 0
 
   const markAsRead = async () => {
     if (!relayEnvironment) {
@@ -72,12 +68,8 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ item }) => {
     <NotificationItemLink to={item.targetHref} onClick={handlePress}>
       <Flex flex={1} flexDirection="column">
         <Text variant="xs" color="black60">
-          {notificationTypeLabel && (
-            <NotificationTypeLabel
-              aria-label={`Notification type: ${notificationTypeLabel}`}
-            >
-              {notificationTypeLabel} •{" "}
-            </NotificationTypeLabel>
+          {shouldDisplayNotificationTypeLabel(item.notificationType) && (
+            <NotificationTypeLabel notificationType={item.notificationType} />
           )}
           {item.publishedAt}
         </Text>
@@ -109,7 +101,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ item }) => {
             })}
           </Join>
 
-          {remainingArtworksCount > 0 && (
+          {shouldDisplayCounts && (
             <Text
               variant="xs"
               color="black60"
@@ -168,10 +160,6 @@ export const NotificationItemFragmentContainer = createFragmentContainer(
     `,
   }
 )
-
-const NotificationTypeLabel = styled.span`
-  color: ${themeGet("colors.blue100")};
-`
 
 const NotificationItemLink = styled(RouterLink)`
   display: flex;
