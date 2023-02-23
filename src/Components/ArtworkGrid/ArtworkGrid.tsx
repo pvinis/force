@@ -53,6 +53,7 @@ export interface ArtworkGridProps extends React.HTMLProps<HTMLDivElement> {
   user?: User
   emptyStateComponent?: ReactNode | boolean
   to?: (artwork: Artwork) => string | null
+  collectionId?: string
   renderSaveButton?: (artworkId: string) => React.ReactNode
 }
 
@@ -184,6 +185,7 @@ export class ArtworkGridContainer extends React.Component<
               showSaveButton === undefined ? true : showSaveButton
             }
             to={to?.(artwork)}
+            collectionId={this.props.collectionId}
             renderSaveButton={this.props.renderSaveButton}
           />
         )
