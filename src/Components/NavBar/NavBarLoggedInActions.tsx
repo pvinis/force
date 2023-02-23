@@ -16,6 +16,7 @@ import { NavBarNewNotifications } from "./Menus/NavBarNewNotifications"
 import { NavBarNotificationIndicator } from "./NavBarNotificationIndicator"
 import { useTracking } from "react-tracking"
 import { ActionType } from "@artsy/cohesion"
+import { ProgressiveOnboardingFindFollows } from "Components/ProgressiveOnboarding/ProgressiveOnboardingFindFollows"
 
 /** Displays action icons for logged in users such as inbox, profile, and notifications */
 export const NavBarLoggedInActions: React.FC<Partial<
@@ -101,15 +102,17 @@ export const NavBarLoggedInActions: React.FC<Partial<
         openDropdownByClick
       >
         {({ anchorRef, anchorProps, visible }) => (
-          <NavBarItemButton
-            ref={anchorRef as any}
-            px={0}
-            pl={1}
-            active={visible}
-            {...anchorProps}
-          >
-            <SoloIcon title="Your account" fill="currentColor" />
-          </NavBarItemButton>
+          <ProgressiveOnboardingFindFollows>
+            <NavBarItemButton
+              ref={anchorRef as any}
+              px={0}
+              pl={1}
+              active={visible}
+              {...anchorProps}
+            >
+              <SoloIcon title="Your account" fill="currentColor" />
+            </NavBarItemButton>
+          </ProgressiveOnboardingFindFollows>
         )}
       </Dropdown>
     </>
