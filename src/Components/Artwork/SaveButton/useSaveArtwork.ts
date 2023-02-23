@@ -8,7 +8,6 @@ type Artwork = {
   internalID: string
   id: string | null
   slug: string | null
-  title: string | null
 }
 
 interface UseSaveArtwork {
